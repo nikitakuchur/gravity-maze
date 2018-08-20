@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 public class LevelRenderer {
+
     private Level level;
     private OrthographicCamera camera;
 
@@ -33,7 +34,11 @@ public class LevelRenderer {
 
     public void draw() {
         shapeRenderer.setProjectionMatrix(camera.combined);
+        drawMap();
+    }
 
+    private void drawMap()
+    {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLACK);
         for(int i = 0; i < level.getWidth(); i++)
