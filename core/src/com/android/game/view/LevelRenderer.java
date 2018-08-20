@@ -56,7 +56,7 @@ public class LevelRenderer {
         for (Ball ball: level.getBalls()) {
             shapeRenderer.setColor(ball.getColor());
             shapeRenderer.circle((ball.getPosition().x + 0.5f) * cellWidth ,
-                                 (level.getHeight() - ball.getPosition().y - 0.5f) * cellWidth,
+                                 (ball.getPosition().y + 0.5f) * cellWidth,
                                  cellWidth/2);
         }
         shapeRenderer.end();

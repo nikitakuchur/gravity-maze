@@ -9,6 +9,8 @@ public class Ball {
     private Color color;
 
     public Ball() {
+        position = new Vector2();
+        color = new Color();
     }
 
     public Ball(Vector2 position, Color color) {
@@ -17,11 +19,11 @@ public class Ball {
     }
 
     public Vector2 getPosition() {
-        return position;
+        return position.cpy();
     }
 
     public Color getColor() {
-        return color;
+        return color.cpy();
     }
 
     public void setPosition(Vector2 position) {
