@@ -41,10 +41,8 @@ public class LevelRenderer {
     {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLACK);
-        for(int i = 0; i < level.getWidth(); i++)
-        {
-            for(int j = 0; j < level.getHeight(); j++)
-            {
+        for(int i = 0; i < level.getWidth(); i++) {
+            for(int j = 0; j < level.getHeight(); j++) {
                 if(level.getCellId(j, i) == 1)
                     shapeRenderer.rect(i * cellWidth, j * cellWidth, cellWidth, cellWidth);
             }
