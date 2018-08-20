@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 
 public class LevelRenderer {
     private Level level;
@@ -22,11 +23,11 @@ public class LevelRenderer {
 
         cellWidth = Gdx.graphics.getWidth()/level.getWidth();
 
-        setCamera( Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/2);
+        setCamera(new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/2));
     }
 
-    public void setCamera(float x, float y) {
-        this.camera.position.set(x, y, 0);
+    public void setCamera(Vector2 position) {
+        this.camera.position.set(position, 0);
         this.camera.update();
     }
 
