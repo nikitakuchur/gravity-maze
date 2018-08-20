@@ -1,5 +1,6 @@
 package com.android.game.view;
 
+import com.android.game.model.Ball;
 import com.android.game.model.Level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -35,10 +36,10 @@ public class LevelRenderer {
     public void draw() {
         shapeRenderer.setProjectionMatrix(camera.combined);
         drawMap();
+        drawBalls();
     }
 
-    private void drawMap()
-    {
+    private void drawMap() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLACK);
         for(int i = 0; i < level.getWidth(); i++) {
@@ -46,6 +47,17 @@ public class LevelRenderer {
                 if(level.getCellId(j, i) == 1)
                     shapeRenderer.rect(i * cellWidth, j * cellWidth, cellWidth, cellWidth);
             }
+        }
+        shapeRenderer.end();
+    }
+
+    private void drawBalls() {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        for (Ball ball: level.getBalls()) {
+            shapeRenderer.setColor(ball.getColor());
+            shapeRenderer.circle((ball.getPosition().x + 0.5f) * cellWidth ,
+                                 (level.getHeight() - ball.getPosition().y - 0.5f) * cellWidth,
+                                 cellWidth/2);
         }
         shapeRenderer.end();
     }
