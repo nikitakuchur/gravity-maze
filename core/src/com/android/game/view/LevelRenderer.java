@@ -35,13 +35,25 @@ public class LevelRenderer {
 
     public void draw() {
         shapeRenderer.setProjectionMatrix(camera.combined);
+        drawBackground();
         drawMap();
         drawBalls();
     }
 
+    private void drawBackground() {
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.rect(0, Gdx.graphics.getWidth()/2 - Gdx.graphics.getHeight()/2,
+                            Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),
+                            new Color(0.81f, 0.45f, 0.5f, 1),
+                            new Color(0.89f, 0.59f, 0.46f, 1),
+                            new Color(0.99f, 0.73f, 0.4f, 1),
+                            new Color(0.89f, 0.59f, 0.46f, 1));
+        shapeRenderer.end();
+    }
+
     private void drawMap() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.setColor(new Color(0.19f, 0.29f, 0.37f, 1));
         for(int i = 0; i < level.getWidth(); i++) {
             for(int j = 0; j < level.getHeight(); j++) {
                 if(level.getCellId(j, i) == 1)
