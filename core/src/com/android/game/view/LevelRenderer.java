@@ -15,7 +15,7 @@ public class LevelRenderer {
 
     private ShapeRenderer shapeRenderer;
 
-    private int cellWidth;
+    private float cellWidth;
 
     public LevelRenderer(Level level) {
         this.level = level;
@@ -23,7 +23,7 @@ public class LevelRenderer {
 
         shapeRenderer = new ShapeRenderer();
 
-        cellWidth = Gdx.graphics.getWidth()/level.getWidth();
+        cellWidth = (float)Gdx.graphics.getWidth()/level.getWidth();
 
         setCamera(new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/2));
     }
