@@ -4,20 +4,24 @@ import com.android.game.controller.LevelController;
 import com.android.game.model.Level;
 import com.android.game.view.LevelRenderer;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
 
-public class GameScreen extends ScreenAdapter {
+public class GameScreen implements Screen, InputProcessor{
 
-    private Level level;
-    private LevelRenderer levelRenderer;
-    private LevelController levelController;
+    private Level level; // Model
+    private LevelRenderer levelRenderer; // View
+    private LevelController levelController; // Controller
 
     @Override
     public void show() {
         level = new Level();
         levelRenderer = new LevelRenderer(level);
         levelController = new LevelController(level);
+
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
@@ -43,9 +47,54 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override
     public void dispose() {
+        Gdx.input.setInputProcessor(null);
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        levelController.setLastTouchPosition(new Vector2(screenX, screenY));
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        levelController.setLastMapAngle(level.getRotation());
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        levelController.handle(new Vector2(screenX, screenY));
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }
