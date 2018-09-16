@@ -25,19 +25,30 @@ public class LevelRenderer {
 
         cellWidth = (float)Gdx.graphics.getWidth()/level.getWidth();
 
-        setCamera(new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/2));
+        setCameraPosition(new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/2));
     }
 
-    public void setCamera(Vector2 position) {
+    public void setCameraPosition(Vector2 position) {
         this.camera.position.set(position, 0);
         this.camera.update();
     }
 
     public void draw() {
         shapeRenderer.setProjectionMatrix(camera.combined);
+
+        // Draw background
         drawBackground();
+
+        // Rotate the map
+        shapeRenderer.translate(Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/2, 0);
+        shapeRenderer.rotate(0, 0, 1, level.getRotation());
+        shapeRenderer.translate(-Gdx.graphics.getWidth()/2, -Gdx.graphics.getWidth()/2, 0);
+
+        // Draw the map and other things
         drawMap();
         drawBalls();
+
+        shapeRenderer.identity();
     }
 
     private void drawBackground() {
