@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Level {
 
-    private int[][] map =   {{0, 1, 1, 1, 1, 1, 0, 0},
+    private int[][] map =  {{0, 1, 1, 1, 1, 1, 0, 0},
                             {0, 0, 0, 0, 0, 0, 0, 1},
                             {0, 0, 0, 0, 0, 0, 0, 1},
                             {1, 0, 0, 1, 1, 0, 1, 1},
@@ -17,6 +17,8 @@ public class Level {
                             {1, 1, 0, 0, 0, 0, 1, 1}};
 
     private ArrayList<Ball> balls;
+
+    private float rotation;
 
     public Level() {
         balls = new ArrayList<Ball>();
@@ -38,5 +40,13 @@ public class Level {
 
     public ArrayList<Ball> getBalls() {
         return balls;
+    }
+
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
+    public float getRotation() {
+        return rotation;
     }
 }
