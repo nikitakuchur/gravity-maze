@@ -25,11 +25,11 @@ public class GameScreen implements Screen, InputProcessor{
     }
 
     @Override
-    public void render(float delta) {
+    public void render(float deltaTime) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        levelController.update();
+        levelController.update(deltaTime);
         levelRenderer.draw();
     }
 
@@ -72,19 +72,19 @@ public class GameScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        levelController.setLastTouchPosition(new Vector2(screenX, screenY));
+        levelController.touchDown(new Vector2(screenX, screenY));
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        levelController.setLastMapAngle(level.getRotation());
+        levelController.touchUp(new Vector2(screenX, screenY));
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        levelController.handle(new Vector2(screenX, screenY));
+        levelController.touchDragged(new Vector2(screenX, screenY));
         return false;
     }
 
