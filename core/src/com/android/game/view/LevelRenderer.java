@@ -39,8 +39,9 @@ public class LevelRenderer {
         // Draw background
         drawBackground();
 
-        // Rotate the map
+        // Rotate and scale the map
         shapeRenderer.translate(Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/2, 0);
+        shapeRenderer.scale(level.getScale(), level.getScale(), level.getScale());
         shapeRenderer.rotate(0, 0, 1, level.getRotation());
         shapeRenderer.translate(-Gdx.graphics.getWidth()/2, -Gdx.graphics.getWidth()/2, 0);
 
