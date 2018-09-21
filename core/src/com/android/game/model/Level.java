@@ -19,11 +19,14 @@ public class Level {
     private ArrayList<Ball> balls;
 
     private float rotation;
+    private float scale;
 
     public Level() {
         balls = new ArrayList<Ball>();
         balls.add(new Ball(new Vector2(1,1), Color.BLUE));
         balls.add(new Ball(new Vector2(6,6), Color.RED));
+
+        scale = 1;
     }
 
     public int getWidth() {
@@ -48,5 +51,13 @@ public class Level {
 
     public float getRotation() {
         return rotation;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
+    public float getScale() {
+        return scale;
     }
 }
