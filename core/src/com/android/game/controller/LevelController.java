@@ -33,10 +33,15 @@ public class LevelController {
         if(zoom && t < 1) {
             t += 4*deltaTime;
             level.setScale(scaleAnimation(t));
+        } else if(zoom) {
+            level.setScale(scaleAnimation(1));
         }
+
         if(!zoom && t > 0) {
             t -= 4*deltaTime;
             level.setScale(scaleAnimation(t));
+        } else if(!zoom) {
+            level.setScale(scaleAnimation(0));
         }
 
         if(!mapRotating) {
