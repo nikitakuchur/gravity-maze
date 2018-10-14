@@ -66,9 +66,9 @@ public class LevelRenderer {
     private void drawMap() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0.19f, 0.29f, 0.37f, 1));
-        for(int i = 0; i < level.getWidth(); i++) {
-            for(int j = 0; j < level.getHeight(); j++) {
-                if(level.getCellId(j, i) == 1)
+        for (int i = 0; i < level.getWidth(); i++) {
+            for (int j = 0; j < level.getHeight(); j++) {
+                if (level.getCellId(j, i) == 1)
                     shapeRenderer.rect(i * cellWidth, j * cellWidth, cellWidth, cellWidth);
             }
         }
