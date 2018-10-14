@@ -30,21 +30,21 @@ public class LevelController {
     }
 
     public void mapAnimation(float deltaTime) {
-        if(zoom && t < 1) {
+        if (zoom && t < 1) {
             t += 4*deltaTime;
             level.setScale(scaleAnimation(t));
-        } else if(zoom) {
+        } else if (zoom) {
             level.setScale(scaleAnimation(1));
         }
 
-        if(!zoom && t > 0) {
+        if (!zoom && t > 0) {
             t -= 4*deltaTime;
             level.setScale(scaleAnimation(t));
-        } else if(!zoom) {
+        } else if (!zoom) {
             level.setScale(scaleAnimation(0));
         }
 
-        if(!mapRotating) {
+        if (!mapRotating) {
             float angle = level.getRotation();
             float angleRad = (float)Math.toRadians(angle);
             float speed = 800;
@@ -72,7 +72,6 @@ public class LevelController {
 
     public void touchDown(Vector2 touchPosition) {
         zoom = true;
-        t = 0;
         lastTouchPosition.set(touchPosition);
         mapRotating = true;
     }
