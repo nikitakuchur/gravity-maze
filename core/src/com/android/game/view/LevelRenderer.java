@@ -45,28 +45,6 @@ public class LevelRenderer {
         shapeRenderer.rotate(0, 0, 1, level.getRotation());
         shapeRenderer.translate(-Gdx.graphics.getWidth()/2, -Gdx.graphics.getWidth()/2, 0);
 
-
-        // Draw walls
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0.19f, 0.29f, 0.37f, 1));
-
-        // Left
-        shapeRenderer.rect(0, 0, -cellWidth * level.getHeight(), cellWidth * level.getHeight());
-
-        // Right
-        shapeRenderer.rect(cellWidth * level.getHeight(), 0,
-                cellWidth * level.getHeight(), cellWidth * level.getHeight());
-
-        // Top
-        shapeRenderer.rect(-cellWidth * level.getHeight(), cellWidth * level.getHeight(),
-                cellWidth * level.getHeight() * 3, cellWidth * level.getHeight());
-
-        // Bottom
-        shapeRenderer.rect(-cellWidth * level.getHeight(), 0,
-                cellWidth * level.getHeight() * 3, -cellWidth * level.getHeight());
-
-        shapeRenderer.end();
-
         // Draw the map and other things
         drawMap();
         drawBalls();
@@ -88,6 +66,22 @@ public class LevelRenderer {
     private void drawMap() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(new Color(0.19f, 0.29f, 0.37f, 1));
+
+        // Left
+        shapeRenderer.rect(0, 0, -cellWidth * level.getHeight(), cellWidth * level.getHeight());
+
+        // Right
+        shapeRenderer.rect(cellWidth * level.getHeight(), 0,
+                cellWidth * level.getHeight(), cellWidth * level.getHeight());
+
+        // Top
+        shapeRenderer.rect(-cellWidth * level.getHeight(), cellWidth * level.getHeight(),
+                cellWidth * level.getHeight() * 3, cellWidth * level.getHeight());
+
+        // Bottom
+        shapeRenderer.rect(-cellWidth * level.getHeight(), 0,
+                cellWidth * level.getHeight() * 3, -cellWidth * level.getHeight());
+
         for (int i = 0; i < level.getWidth(); i++) {
             for (int j = 0; j < level.getHeight(); j++) {
                 if (level.getCellId(j, i) == 1)
