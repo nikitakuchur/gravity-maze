@@ -48,7 +48,6 @@ public class LevelRenderer {
         // Draw the map and other things
         drawMap();
         drawBalls();
-
         shapeRenderer.identity();
     }
 
@@ -82,13 +81,74 @@ public class LevelRenderer {
         shapeRenderer.rect(-cellWidth * level.getHeight(), 0,
                 cellWidth * level.getHeight() * 3, -cellWidth * level.getHeight());
 
+        // Draw cells
         for (int i = 0; i < level.getWidth(); i++) {
             for (int j = 0; j < level.getHeight(); j++) {
-                if (level.getCellId(j, i) == 1)
-                    shapeRenderer.rect(i * cellWidth, j * cellWidth, cellWidth, cellWidth);
+                if (level.getCellId(i, j) == 1) {
+
+                    boolean bl = level.getCellId(i - 1, j) == 0 &&
+                                 level.getCellId(i, j - 1) == 0 &&
+                                 level.getCellId(i - 1, j - 1) == 0;
+
+                    boolean br = level.getCellId(i + 1, j) == 0 &&
+                                 level.getCellId(i, j - 1) == 0 &&
+                                 level.getCellId(i - 1, j - 1) == 0;
+
+                    boolean tr = level.getCellId(i + 1, j) == 0 &&
+                                 level.getCellId(i, j + 1) == 0 &&
+                                 level.getCellId(i + 1, j + 1) == 0;
+
+                    boolean tl = level.getCellId(i - 1, j) == 0 &&
+                                 level.getCellId(i, j + 1) == 0 &&
+                                 level.getCellId(i - 1, j + 1) == 0;
+
+                    roundedRect(i * cellWidth, j * cellWidth, cellWidth, cellWidth, 8, 18,
+                            bl, br, tr, tl);
+                }
             }
         }
         shapeRenderer.end();
+    }
+
+    private void roundedRect(float x, float y, float width, float height, float radius, int segments,
+                             boolean bl, boolean br, boolean tr, boolean tl) {
+
+        if (bl || br || tr || tl) {
+
+            if (width >= height && radius > height / 2)
+                radius = height / 2;
+            else if (width < height && radius > width / 2)
+                radius = width / 2;
+
+            shapeRenderer.rect(x + radius, y + radius, width - 2 * radius, height - 2 * radius);
+
+            shapeRenderer.rect(x, y + radius, radius, height - 2 * radius);
+            shapeRenderer.rect(x + radius, y + height - radius, width - 2 * radius, radius);
+            shapeRenderer.rect(x + width - radius, y + radius, radius, height - 2 * radius);
+            shapeRenderer.rect(x + radius, y, width - 2 * radius, radius);
+
+            if (bl)
+                shapeRenderer.arc(x + radius, y + radius, radius, -180, 90);
+            else
+                shapeRenderer.rect(x, y, radius, radius);
+
+            if (br)
+                shapeRenderer.arc(x + width - radius, y + radius, radius, -90, 90);
+            else
+                shapeRenderer.rect(x + width - radius, y, radius, radius);
+
+            if (tr)
+                shapeRenderer.arc(x + width - radius, y + height - radius, radius, 0, 90);
+            else
+                shapeRenderer.rect(x + width - radius, y + height - radius, radius, radius);
+
+            if (tl)
+                shapeRenderer.arc(x + radius, y + height - radius, radius, 90, 90);
+            else
+                shapeRenderer.rect(x, y + height - radius, radius, radius);
+        }
+        else
+            shapeRenderer.rect(x, y, width, height);
     }
 
     private void drawBalls() {
