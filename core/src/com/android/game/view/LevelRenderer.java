@@ -102,15 +102,14 @@ public class LevelRenderer {
                                  level.getCellId(i, j + 1) == 0 &&
                                  level.getCellId(i - 1, j + 1) == 0;
 
-                    roundedRect(i * cellWidth, j * cellWidth, cellWidth, cellWidth, 8, 18,
-                            bl, br, tr, tl);
+                    roundedRect(i * cellWidth, j * cellWidth, cellWidth, cellWidth, 8, bl, br, tr, tl);
                 }
             }
         }
         shapeRenderer.end();
     }
 
-    private void roundedRect(float x, float y, float width, float height, float radius, int segments,
+    private void roundedRect(float x, float y, float width, float height, float radius,
                              boolean bl, boolean br, boolean tr, boolean tl) {
 
         if (bl || br || tr || tl) {
