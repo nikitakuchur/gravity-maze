@@ -38,7 +38,9 @@ public class Level {
     }
 
     public int getCellId(int x, int y) {
-        return map[map.length - 1 - x][y];
+        if ( x >= map.length || x < 0 || y >= map.length || y < 0)
+            return 1;
+        return map[map.length - 1 - y][x];
     }
 
     public ArrayList<Ball> getBalls() {
