@@ -41,6 +41,7 @@ public class LevelController {
      * @param deltaTime the deltaTime
      */
     private void updateMap(float deltaTime) {
+        // Zoom out
         if (zoom && t < 1) {
             t += 4*deltaTime;
             level.setScale(scaleAnimation(t));
@@ -48,6 +49,7 @@ public class LevelController {
             level.setScale(scaleAnimation(1));
         }
 
+        // Zoom in
         if (!zoom && t > 0) {
             t -= 4*deltaTime;
             level.setScale(scaleAnimation(t));
@@ -55,6 +57,7 @@ public class LevelController {
             level.setScale(scaleAnimation(0));
         }
 
+        // Rotate to closest edge
         if (!mapRotating) {
             float angle = level.getRotation();
             float angleRad = (float) Math.toRadians(angle);
