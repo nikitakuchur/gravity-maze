@@ -57,8 +57,8 @@ public class Level {
     /**
      * Returns the id of the cell
      *
-     * @param x the x-component
-     * @param y the y-component
+     * @param x the x-component of the position
+     * @param y the y-component of the position
      * @return the id
      */
     public int getCellId(int x, int y) {

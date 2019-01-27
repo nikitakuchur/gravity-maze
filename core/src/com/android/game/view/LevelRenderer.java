@@ -151,8 +151,8 @@ public class LevelRenderer {
      * 2 - top right
      * 3 - top left
      *
-     * @param x the x-component of position
-     * @param y the y-component of position
+     * @param x the x-component of the position
+     * @param y the y-component of the position
      * @param inside is it an inside corner?
      * @return the array of booleans
      */
@@ -185,8 +185,8 @@ public class LevelRenderer {
     /**
      * Draws a rounded rectangle
      *
-     * @param x the x-component of position
-     * @param y the y-component of position
+     * @param x the x-component of the position
+     * @param y the y-component of the position
      * @param width the width
      * @param height the height
      * @param radius the radius of the corner
@@ -244,8 +244,8 @@ public class LevelRenderer {
      * 2 - top right
      * 3 - top left
      *
-     * @param x the x-component of position
-     * @param y the y-component of position
+     * @param x the x-component of the position
+     * @param y the y-component of the position
      * @param radius the radius of the corner
      * @param cornerNumber the number of the corner
      */
