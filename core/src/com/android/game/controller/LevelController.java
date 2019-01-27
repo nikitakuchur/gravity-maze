@@ -25,11 +25,22 @@ public class LevelController {
         zoom = false;
     }
 
+    /**
+     * Updates everything
+     *
+     * @param deltaTime the deltaTime
+     */
     public void update(float deltaTime) {
-        mapAnimation(deltaTime);
+        updateMap(deltaTime);
     }
 
-    public void mapAnimation(float deltaTime) {
+    /**
+     * Updates the map.
+     * It's for map animations (rotation, scaling).
+     *
+     * @param deltaTime the deltaTime
+     */
+    private void updateMap(float deltaTime) {
         if (zoom && t < 1) {
             t += 4*deltaTime;
             level.setScale(scaleAnimation(t));
@@ -46,7 +57,7 @@ public class LevelController {
 
         if (!mapRotating) {
             float angle = level.getRotation();
-            float angleRad = (float)Math.toRadians(angle);
+            float angleRad = (float) Math.toRadians(angle);
             float speed = 800;
 
             // Bottom
@@ -70,23 +81,36 @@ public class LevelController {
         }
     }
 
-    public void touchDown(Vector2 touchPosition) {
+    /**
+     * Start map rotation
+     *
+     * @param touchPosition the touch position
+     */
+    public void startMapRotation(Vector2 touchPosition) {
         zoom = true;
         lastTouchPosition.set(touchPosition);
         mapRotating = true;
     }
 
-    public void touchUp(Vector2 touchPosition) {
+    /**
+     * Updates map rotation
+     *
+     * @param touchPosition the touch position
+     */
+    public void updateMapRotation(Vector2 touchPosition) {
+        Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+        level.setRotation(lastMapAngle + touchPosition.cpy().sub(center).angle(lastTouchPosition.cpy().sub(center)));
+    }
+
+    /**
+     * Stops map rotation
+     */
+    public void stopMapRotation() {
         zoom = false;
         mapRotating = false;
     }
 
-    public void touchDragged(Vector2 touchPosition) {
-        Vector2 center = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-        level.setRotation(lastMapAngle + touchPosition.cpy().sub(center).angle(lastTouchPosition.cpy().sub(center)));
-    }
-
-    public float scaleAnimation(float t) {
-        return 0.294f * ((float)Math.cos((float)Math.PI*t) - 1)/2 + 1;
+    private float scaleAnimation(float t) {
+        return 0.294f * ((float) Math.cos((float) Math.PI * t) - 1) / 2 + 1;
     }
 }

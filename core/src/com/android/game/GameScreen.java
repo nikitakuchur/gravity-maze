@@ -72,19 +72,19 @@ public class GameScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        levelController.touchDown(new Vector2(screenX, screenY));
+        levelController.startMapRotation(new Vector2(screenX, screenY));
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        levelController.touchUp(new Vector2(screenX, screenY));
+        levelController.stopMapRotation();
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        levelController.touchDragged(new Vector2(screenX, screenY));
+        levelController.updateMapRotation(new Vector2(screenX, screenY));
         return false;
     }
 
