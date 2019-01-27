@@ -44,24 +44,31 @@ public class LevelRenderer {
         this.camera.update();
     }
 
+    /**
+     * Draws everything
+     */
     public void draw() {
         shapeRenderer.setProjectionMatrix(camera.combined);
 
         // Draw background
         drawBackground();
 
-        // Rotate and scale the map
+        // Rotate and scale the level
         shapeRenderer.translate((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getWidth() / 2, 0);
         shapeRenderer.scale(level.getScale(), level.getScale(), level.getScale());
         shapeRenderer.rotate(0, 0, 1, level.getRotation());
         shapeRenderer.translate(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getWidth() / 2, 0);
 
-        // Draw the map and other things
-        drawMap();
+        // Draw the map
+        drawCells();
         drawBalls();
+
         shapeRenderer.identity();
     }
 
+    /**
+     * Draws the background
+     */
     private void drawBackground() {
         Color[] backgroundColor = level.getBackgroundColor();
 
@@ -75,7 +82,10 @@ public class LevelRenderer {
         shapeRenderer.end();
     }
 
-    private void drawMap() {
+    /**
+     * Draws the cells of the map
+     */
+    private void drawCells() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(level.getColor());
 
@@ -133,6 +143,19 @@ public class LevelRenderer {
         shapeRenderer.end();
     }
 
+    /**
+     * Return the info about the corners.
+     * It's for rounded corners algorithm.
+     * 0 - bottom left
+     * 1 - bottom right
+     * 2 - top right
+     * 3 - top left
+     *
+     * @param x the x-component of position
+     * @param y the y-component of position
+     * @param inside is it an inside corner?
+     * @return the array of booleans
+     */
     private boolean[] getCornersInfo(int x, int y, boolean inside) {
         boolean[] cornersInfo = new boolean[4];
 
@@ -159,6 +182,19 @@ public class LevelRenderer {
         return cornersInfo;
     }
 
+    /**
+     * Draws a rounded rectangle
+     *
+     * @param x the x-component of position
+     * @param y the y-component of position
+     * @param width the width
+     * @param height the height
+     * @param radius the radius of the corner
+     * @param bl bottom left rounded
+     * @param br bottom right rounded
+     * @param tr top right rounded
+     * @param tl top left rounded
+     */
     private void roundedRect(float x, float y, float width, float height, float radius,
                              boolean bl, boolean br, boolean tr, boolean tl) {
         int segments = 32;
@@ -200,6 +236,19 @@ public class LevelRenderer {
             shapeRenderer.rect(x, y, width, height);
     }
 
+    /**
+     * Draws a rounded inside corner.
+     * cornerNumber:
+     * 0 - bottom left
+     * 1 - bottom right
+     * 2 - top right
+     * 3 - top left
+     *
+     * @param x the x-component of position
+     * @param y the y-component of position
+     * @param radius the radius of the corner
+     * @param cornerNumber the number of the corner
+     */
     private void roundedInsideCorner(float x, float y, float radius, int cornerNumber) {
         int segments = 32;
 
@@ -230,6 +279,9 @@ public class LevelRenderer {
         }
     }
 
+    /**
+     * Draws the balls
+     */
     private void drawBalls() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         for (Ball ball: level.getBalls()) {
