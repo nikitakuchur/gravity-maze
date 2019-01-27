@@ -7,19 +7,29 @@ import java.util.ArrayList;
 
 public class Level {
 
-    private int[][] map =  {{0, 1, 1, 1, 1, 1, 0, 0},
-                            {0, 0, 0, 0, 0, 0, 0, 1},
-                            {0, 0, 0, 0, 0, 0, 0, 1},
-                            {1, 0, 0, 1, 1, 0, 1, 1},
-                            {1, 0, 0, 1, 1, 0, 1, 1},
-                            {1, 0, 0, 0, 0, 0, 0, 0},
-                            {1, 0, 0, 0, 0, 0, 0, 1},
-                            {1, 1, 0, 0, 0, 0, 1, 1}};
+    private int[][] cells =  {{0, 1, 1, 1, 1, 1, 0, 0},
+                              {0, 0, 0, 0, 0, 0, 0, 1},
+                              {0, 0, 0, 0, 0, 0, 0, 1},
+                              {1, 0, 0, 1, 1, 0, 1, 1},
+                              {1, 0, 0, 1, 1, 0, 1, 1},
+                              {1, 0, 0, 0, 0, 0, 0, 0},
+                              {1, 0, 0, 0, 0, 0, 0, 1},
+                              {1, 1, 0, 0, 0, 0, 1, 1},
+                              {1, 1, 0, 0, 0, 0, 1, 1},
+                              {1, 1, 0, 0, 0, 0, 1, 1},
+                              {1, 1, 0, 0, 0, 0, 1, 1},
+                              {1, 1, 0, 0, 0, 0, 1, 1}};
 
     private ArrayList<Ball> balls;
 
     private float rotation;
     private float scale;
+
+    private Color[] backgroundColor = { new Color(0.81f, 0.45f, 0.5f, 1),
+                                        new Color(0.89f, 0.59f, 0.46f, 1),
+                                        new Color(0.99f, 0.73f, 0.4f, 1),
+                                        new Color(0.89f, 0.59f, 0.46f, 1)};
+    private Color color = new Color(0.19f, 0.29f, 0.37f, 1);
 
     public Level() {
         balls = new ArrayList<Ball>();
@@ -30,17 +40,17 @@ public class Level {
     }
 
     public int getWidth() {
-        return map[0].length;
+        return cells.length;
     }
 
     public int getHeight() {
-        return map.length;
+        return cells[0].length;
     }
 
     public int getCellId(int x, int y) {
-        if ( x >= map.length || x < 0 || y >= map.length || y < 0)
+        if ( x >= cells.length || x < 0 || y >= cells[0].length || y < 0)
             return 1;
-        return map[map.length - 1 - y][x];
+        return cells[x][y];
     }
 
     public ArrayList<Ball> getBalls() {
@@ -61,5 +71,16 @@ public class Level {
 
     public float getScale() {
         return scale;
+    }
+
+    public Color[] getBackgroundColor() {
+        return new Color[]{backgroundColor[0].cpy(),
+                           backgroundColor[1].cpy(),
+                           backgroundColor[2].cpy(),
+                           backgroundColor[3].cpy()};
+    }
+
+    public Color getColor() {
+        return color.cpy();
     }
 }
