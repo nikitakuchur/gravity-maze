@@ -79,7 +79,7 @@ public class Level {
      * @param angle the angle
      */
     public void setRotation(float angle) {
-        this.rotation = rotation;
+        rotation = angle;
     }
 
     /**
