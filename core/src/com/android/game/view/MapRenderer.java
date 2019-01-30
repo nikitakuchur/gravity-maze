@@ -25,7 +25,8 @@ public class MapRenderer {
         cellSize = (float)Gdx.graphics.getWidth() /
                 (map.getHeight() > map.getWidth() ? map.getHeight() : map.getWidth());
 
-        mapPosition = new Vector2(0, 0);
+        //mapPosition = new Vector2(0, 0);
+        mapPosition = new Vector2(0, (float) (Gdx.graphics.getHeight() - Gdx.graphics.getWidth()) / 2);
 
         // Calculate the map position
         if (map.getWidth() > map.getHeight()) {
@@ -42,10 +43,10 @@ public class MapRenderer {
         drawBackground();
 
         // Rotate and scale the level
-        shapeRenderer.translate((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getWidth() / 2, 0);
+        shapeRenderer.translate((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0);
         shapeRenderer.scale(map.getScale(), map.getScale(), map.getScale());
         shapeRenderer.rotate(0, 0, 1, map.getRotation());
-        shapeRenderer.translate(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getWidth() / 2, 0);
+        shapeRenderer.translate(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getHeight() / 2, 0);
 
         // Draw the map
         drawCells();
@@ -61,7 +62,7 @@ public class MapRenderer {
         Color[] backgroundColor = map.getBackgroundColor();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(0, (float) Gdx.graphics.getWidth()/2 - (float) Gdx.graphics.getHeight()/2,
+        shapeRenderer.rect(0, 0,
                 Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),
                 backgroundColor[0],
                 backgroundColor[1],
