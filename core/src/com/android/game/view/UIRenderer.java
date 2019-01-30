@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Matrix4;
 
 public class UIRenderer {
 
-    BitmapFont font;
-    SpriteBatch spriteBatch;
+    private BitmapFont font;
+    private SpriteBatch spriteBatch;
 
     public UIRenderer() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Roboto.ttf"));
@@ -37,7 +37,8 @@ public class UIRenderer {
         font.getData().setScale(1f);
         glyphLayout.setText(font, "Hello World");
         font.draw(spriteBatch, glyphLayout,
-                (Gdx.graphics.getWidth() - glyphLayout.width) / 2, Gdx.graphics.getHeight() - 32);
+                (Gdx.graphics.getWidth() - glyphLayout.width) / 2,
+                 Gdx.graphics.getHeight() - (float) Gdx.graphics.getHeight() / 30);
 
         spriteBatch.end();
     }
