@@ -16,7 +16,7 @@ public class UIRenderer {
     public UIRenderer() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Roboto.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-        parameter.size = 32;
+        parameter.size = Gdx.graphics.getWidth() / 16;
         font = generator.generateFont(parameter);
         generator.dispose();
 
