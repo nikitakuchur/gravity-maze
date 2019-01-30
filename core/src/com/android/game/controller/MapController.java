@@ -1,12 +1,12 @@
 package com.android.game.controller;
 
-import com.android.game.model.Level;
+import com.android.game.model.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
-public class LevelController {
+public class MapController {
 
-    private Level level;
+    private Map map;
 
     private float lastMapAngle;
     private Vector2 lastTouchPosition;
@@ -16,8 +16,8 @@ public class LevelController {
 
     private float t;
 
-    public LevelController(Level level) {
-        this.level = level;
+    public MapController(Map map) {
+        this.map = map;
 
         lastTouchPosition = new Vector2();
 
@@ -26,91 +26,69 @@ public class LevelController {
     }
 
     /**
-     * Updates everything
-     *
-     * @param deltaTime the deltaTime
-     */
-    public void update(float deltaTime) {
-        updateMap(deltaTime);
-    }
-
-    /**
      * Updates the map.
      * It's for map animations (rotation, scaling).
      *
      * @param deltaTime the deltaTime
      */
-    private void updateMap(float deltaTime) {
+    public void update(float deltaTime) {
         // Zoom out
         if (zoom && t < 1) {
             t += 4*deltaTime;
-            level.setScale(scaleAnimation(t));
+            map.setScale(scaleAnimation(t));
         } else if (zoom) {
-            level.setScale(scaleAnimation(1));
+            map.setScale(scaleAnimation(1));
         }
 
         // Zoom in
         if (!zoom && t > 0) {
             t -= 4*deltaTime;
-            level.setScale(scaleAnimation(t));
+            map.setScale(scaleAnimation(t));
         } else if (!zoom) {
-            level.setScale(scaleAnimation(0));
+            map.setScale(scaleAnimation(0));
         }
 
         // Rotate to closest edge
         if (!mapRotating) {
-            float angle = level.getRotation();
+            float angle = map.getRotation();
             float angleRad = (float) Math.toRadians(angle);
             float speed = 800;
 
             // Bottom
             if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) > 0) {
-                level.setRotation(angle - (float) Math.sin(angleRad) * speed * deltaTime);
+                map.setRotation(angle - (float) Math.sin(angleRad) * speed * deltaTime);
             }
             // Left
             if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) > 0) {
-                level.setRotation(angle + (float) Math.cos(angleRad) * speed * deltaTime);
+                map.setRotation(angle + (float) Math.cos(angleRad) * speed * deltaTime);
             }
             // Top
             if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) < 0) {
-                level.setRotation(angle + (float) Math.sin(angleRad) * speed * deltaTime);
+                map.setRotation(angle + (float) Math.sin(angleRad) * speed * deltaTime);
             }
             // Right
             if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) < 0) {
-                level.setRotation(angle - (float) Math.cos(angleRad) * speed * deltaTime);
+                map.setRotation(angle - (float) Math.cos(angleRad) * speed * deltaTime);
             }
 
-            lastMapAngle = level.getRotation();
+            lastMapAngle = map.getRotation();
         }
     }
 
-    /**
-     * Start map rotation
-     *
-     * @param touchPosition the touch position
-     */
-    public void startMapRotation(Vector2 touchPosition) {
+    public void startMapRotation(Vector2 position) {
         zoom = true;
-        lastTouchPosition.set(touchPosition);
+        lastTouchPosition.set(position);
         mapRotating = true;
     }
 
-    /**
-     * Updates map rotation
-     *
-     * @param touchPosition the touch position
-     */
-    public void updateMapRotation(Vector2 touchPosition) {
-        Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-        level.setRotation(lastMapAngle + touchPosition.cpy().sub(center).angle(lastTouchPosition.cpy().sub(center)));
-    }
-
-    /**
-     * Stops map rotation
-     */
     public void stopMapRotation() {
         zoom = false;
         mapRotating = false;
+    }
+
+    public void updateMapRotation(Vector2 position) {
+        Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+        map.setRotation(lastMapAngle + position.cpy().sub(center).angle(lastTouchPosition.cpy().sub(center)));
     }
 
     private float scaleAnimation(float t) {

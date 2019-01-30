@@ -1,8 +1,8 @@
 package com.android.game;
 
-import com.android.game.controller.LevelController;
-import com.android.game.model.Level;
-import com.android.game.view.LevelRenderer;
+import com.android.game.controller.GameController;
+import com.android.game.model.Game;
+import com.android.game.view.GameRenderer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -11,15 +11,15 @@ import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen implements Screen, InputProcessor{
 
-    private Level level; // Model
-    private LevelRenderer levelRenderer; // View
-    private LevelController levelController; // Controller
+    private Game game; // Model
+    private GameRenderer gameRenderer; // View
+    private GameController gameController; // Controller
 
     @Override
     public void show() {
-        level = new Level();
-        levelRenderer = new LevelRenderer(level);
-        levelController = new LevelController(level);
+        game = new Game();
+        gameRenderer = new GameRenderer(game);
+        gameController = new GameController(game);
 
         Gdx.input.setInputProcessor(this);
     }
@@ -29,8 +29,8 @@ public class GameScreen implements Screen, InputProcessor{
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        levelController.update(deltaTime);
-        levelRenderer.draw();
+        gameController.update(deltaTime);
+        gameRenderer.draw();
     }
 
     @Override
@@ -72,19 +72,19 @@ public class GameScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        levelController.startMapRotation(new Vector2(screenX, screenY));
+        gameController.touchDown(new Vector2(screenX, screenY));
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        levelController.stopMapRotation();
+        gameController.touchUp(new Vector2(screenX, screenY));
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        levelController.updateMapRotation(new Vector2(screenX, screenY));
+        gameController.touchDragged(new Vector2(screenX, screenY));
         return false;
     }
 
