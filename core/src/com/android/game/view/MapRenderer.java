@@ -111,20 +111,20 @@ public class MapRenderer {
                     boolean[] cornersInfo = getCornersInfo(i, j, true);
 
                     if (cornersInfo[0])
-                        roundedInsideCorner(mapPosition.x + i * cellSize,
-                                mapPosition.y + j * cellSize,
+                        roundedInsideCorner(new Vector2(mapPosition.x + i * cellSize,
+                                mapPosition.y + j * cellSize),
                                 radius, 0);
                     if (cornersInfo[1])
-                        roundedInsideCorner(mapPosition.x + (i + 1) * cellSize,
-                                mapPosition.y + j * cellSize,
+                        roundedInsideCorner(new Vector2(mapPosition.x + (i + 1) * cellSize,
+                                mapPosition.y + j * cellSize),
                                 radius, 1);
                     if (cornersInfo[2])
-                        roundedInsideCorner(mapPosition.x + (i + 1) * cellSize,
-                                mapPosition.y + (j + 1) * cellSize,
+                        roundedInsideCorner(new Vector2(mapPosition.x + (i + 1) * cellSize,
+                                mapPosition.y + (j + 1) * cellSize),
                                 radius, 2);
                     if (cornersInfo[3])
-                        roundedInsideCorner(mapPosition.x + i * cellSize,
-                                mapPosition.y + (j + 1) * cellSize,
+                        roundedInsideCorner(new Vector2(mapPosition.x + i * cellSize,
+                                mapPosition.y + (j + 1) * cellSize),
                                 radius, 3);
                 }
             }
@@ -219,12 +219,11 @@ public class MapRenderer {
     /**
      * Draws a rounded inside corner
      *
-     * @param x the x-component of the position
-     * @param y the y-component of the position
+     * @param position the position
      * @param radius the radius of the corner
      * @param cornerNumber the number of the corner
      */
-    private void roundedInsideCorner(float x, float y, float radius, int cornerNumber) {
+    private void roundedInsideCorner(Vector2 position, float radius, int cornerNumber) {
         int segments = 32;
 
         float[] vertices = new float[(segments + 1) * 2];
@@ -232,8 +231,8 @@ public class MapRenderer {
         float t = cornerNumber * (float) Math.PI / 2;
 
         for(int i = 0; i <= segments * 2; i += 2, t += Math.PI / (2 * segments)) {
-            vertices[i] = x - radius * (float) Math.cos(t);
-            vertices[i + 1] = y - radius * (float) Math.sin(t);
+            vertices[i] = position.x - radius * (float) Math.cos(t);
+            vertices[i + 1] = position.y - radius * (float) Math.sin(t);
 
             if (cornerNumber == 0 || cornerNumber == 3)
                 vertices[i] += radius;
@@ -250,7 +249,7 @@ public class MapRenderer {
         for (int i = 0; i < vertices.length - 2; i += 2) {
             shapeRenderer.triangle(vertices[i], vertices[i + 1],
                     vertices[i + 2], vertices[i + 3],
-                    x, y);
+                    position.x, position.y);
         }
     }
 
