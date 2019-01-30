@@ -22,6 +22,7 @@ public class Map {
 
     private List<Ball> balls;
 
+    private Vector2 position;
     private float rotation;
     private float scale;
 
@@ -37,6 +38,7 @@ public class Map {
         balls.add(new Ball(new Vector2(1,1), Color.BLUE));
         balls.add(new Ball(new Vector2(6,6), Color.RED));
 
+        position = new Vector2(0, 0);
         rotation = 0;
         scale = 1;
     }
@@ -76,7 +78,24 @@ public class Map {
     }
 
     /**
+     * Sets the position of the map
+     *
+     * @param position the position
+     */
+    public void setPosition(Vector2 position) {
+        this.position = position.cpy();
+    }
+
+    /**
+     * @return the position of the map
+     */
+    public Vector2 getPosition() {
+        return position.cpy();
+    }
+
+    /**
      * Sets the rotation of the map
+     *
      * @param angle the angle
      */
     public void setRotation(float angle) {
@@ -92,6 +111,7 @@ public class Map {
 
     /**
      * Sets the scale of the map
+     *
      * @param scale the scale
      */
     public void setScale(float scale) {
