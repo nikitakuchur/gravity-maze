@@ -28,9 +28,17 @@ public class UIRenderer {
         spriteBatch.begin();
 
         GlyphLayout glyphLayout = new GlyphLayout();
+
+        // FPS counter
+        font.getData().setScale(0.5f);
+        glyphLayout.setText(font, "FPS: " + Gdx.graphics.getFramesPerSecond());
+        font.draw(spriteBatch, glyphLayout, 0, glyphLayout.height);
+
+        font.getData().setScale(1f);
         glyphLayout.setText(font, "Hello World");
         font.draw(spriteBatch, glyphLayout,
                 (Gdx.graphics.getWidth() - glyphLayout.width) / 2, Gdx.graphics.getHeight() - 32);
+
         spriteBatch.end();
     }
 
