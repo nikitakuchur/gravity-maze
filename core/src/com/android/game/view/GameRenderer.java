@@ -9,12 +9,14 @@ public class GameRenderer {
 
     private OrthographicCamera camera;
 
+    private UIRenderer uiRenderer;
     private MapRenderer mapRenderer;
 
     public GameRenderer(Game game) {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         setCameraPosition(new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2));
 
+        uiRenderer = new UIRenderer();
         mapRenderer = new MapRenderer(game.getMap());
     }
 
@@ -33,6 +35,7 @@ public class GameRenderer {
      */
     public void draw() {
         mapRenderer.draw(camera.combined);
+        uiRenderer.draw(camera.combined);
     }
 
     /**
