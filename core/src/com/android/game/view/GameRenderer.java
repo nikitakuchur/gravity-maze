@@ -1,7 +1,6 @@
 package com.android.game.view;
 
 import com.android.game.model.Game;
-import com.android.game.model.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
