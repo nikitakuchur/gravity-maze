@@ -13,7 +13,7 @@ public class GameRenderer {
 
     public GameRenderer(Game game) {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        setCameraPosition(new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getWidth() / 2));
+        setCameraPosition(new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2));
 
         mapRenderer = new MapRenderer(game.getMap());
     }
