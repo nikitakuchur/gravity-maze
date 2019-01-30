@@ -35,4 +35,11 @@ public class GameRenderer {
         mapRenderer.draw(camera.combined);
     }
 
+    /**
+     * Releases all resources of this object.
+     */
+    public void dispose() {
+        mapRenderer.dispose();
+    }
+
 }

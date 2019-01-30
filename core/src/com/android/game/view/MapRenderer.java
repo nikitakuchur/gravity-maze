@@ -270,4 +270,11 @@ public class MapRenderer {
         }
         shapeRenderer.end();
     }
+
+    /**
+     * Releases all resources of this object.
+     */
+    public void dispose() {
+        shapeRenderer.dispose();
+    }
 }
