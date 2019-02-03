@@ -73,19 +73,22 @@ public class GameScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        gameController.touchDown(new Vector2(screenX, screenY));
+        if (pointer == 0)
+            gameController.touchDown(new Vector2(screenX, screenY));
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        gameController.touchUp(new Vector2(screenX, screenY));
+        if (pointer ==0)
+            gameController.touchUp(new Vector2(screenX, screenY));
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        gameController.touchDragged(new Vector2(screenX, screenY));
+        if (pointer == 0)
+            gameController.touchDragged(new Vector2(screenX, screenY));
         return false;
     }
 
