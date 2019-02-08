@@ -4,7 +4,7 @@ import com.android.game.model.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
-public class MapController {
+public class MapController implements Controller {
 
     private Map map;
 
@@ -25,12 +25,7 @@ public class MapController {
         zoom = false;
     }
 
-    /**
-     * Updates the map.
-     * It's for map animations (rotation, scaling).
-     *
-     * @param deltaTime the deltaTime
-     */
+    @Override
     public void update(float deltaTime) {
         // Zoom out
         if (zoom && t < 1) {

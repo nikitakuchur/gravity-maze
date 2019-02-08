@@ -3,20 +3,15 @@ package com.android.game.controller;
 import com.android.game.model.Game;
 import com.badlogic.gdx.math.Vector2;
 
-public class GameController {
+public class GameController implements Controller {
 
     private MapController mapController;
 
     public GameController(Game game) {
         mapController = new MapController(game.getMap());
-
     }
 
-    /**
-     * Updates the game
-     *
-     * @param deltaTime the deltaTime
-     */
+    @Override
     public void update(float deltaTime) {
         mapController.update(deltaTime);
     }
