@@ -3,9 +3,10 @@ package com.android.game.view;
 import com.android.game.model.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
-public class GameRenderer {
+public class GameRenderer implements Renderer {
 
     private OrthographicCamera camera;
 
@@ -30,17 +31,13 @@ public class GameRenderer {
         this.camera.update();
     }
 
-    /**
-     * Draws the game
-     */
-    public void draw() {
+    @Override
+    public void draw(Matrix4 projectionMatrix) {
         mapRenderer.draw(camera.combined);
         uiRenderer.draw(camera.combined);
     }
 
-    /**
-     * Releases all resources of this object.
-     */
+    @Override
     public void dispose() {
         mapRenderer.dispose();
     }

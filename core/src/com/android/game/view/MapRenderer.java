@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
-public class MapRenderer {
+public class MapRenderer implements Renderer {
 
     private Map map;
 
@@ -36,6 +36,7 @@ public class MapRenderer {
         }
     }
 
+    @Override
     public void draw(Matrix4 projectionMatrix) {
         shapeRenderer.setProjectionMatrix(projectionMatrix);
 
@@ -271,9 +272,7 @@ public class MapRenderer {
         shapeRenderer.end();
     }
 
-    /**
-     * Releases all resources of this object.
-     */
+    @Override
     public void dispose() {
         shapeRenderer.dispose();
     }

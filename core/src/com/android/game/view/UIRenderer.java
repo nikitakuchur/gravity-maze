@@ -2,52 +2,39 @@ package com.android.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.Matrix4;
 
-public class UIRenderer {
+public class UIRenderer implements Renderer {
 
     private BitmapFont font;
-    private SpriteBatch spriteBatch;
+
+    private FPSRenderer fpsRenderer;
+    private ScoreRenderer scoreRenderer;
 
     public UIRenderer() {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Roboto.ttf"));
-        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = Gdx.graphics.getWidth() / 16;
         font = generator.generateFont(parameter);
+
+        fpsRenderer = new FPSRenderer(font, 0.5f);
+        scoreRenderer = new ScoreRenderer(font, 1);
+
         generator.dispose();
-
-        spriteBatch = new SpriteBatch();
     }
 
+    @Override
     public void draw(Matrix4 projectionMatrix) {
-        spriteBatch.setProjectionMatrix(projectionMatrix);
-        spriteBatch.begin();
-
-        GlyphLayout glyphLayout = new GlyphLayout();
-
-        // FPS counter
-        font.getData().setScale(0.5f);
-        glyphLayout.setText(font, "FPS: " + Gdx.graphics.getFramesPerSecond());
-        font.draw(spriteBatch, glyphLayout, 0, glyphLayout.height);
-
-        font.getData().setScale(1f);
-        glyphLayout.setText(font, "Hello World");
-        font.draw(spriteBatch, glyphLayout,
-                (Gdx.graphics.getWidth() - glyphLayout.width) / 2,
-                 Gdx.graphics.getHeight() - (float) Gdx.graphics.getHeight() / 30);
-
-        spriteBatch.end();
+        fpsRenderer.draw(projectionMatrix);
+        scoreRenderer.draw(projectionMatrix);
     }
 
-    /**
-     * Releases all resources of this object.
-     */
+    @Override
     public void dispose() {
         font.dispose();
-        spriteBatch.dispose();
+        font.dispose();
+        fpsRenderer.dispose();
+        scoreRenderer.dispose();
     }
 }
