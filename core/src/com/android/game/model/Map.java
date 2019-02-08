@@ -22,6 +22,8 @@ public class Map {
 
     private List<Ball> balls;
 
+    private int score;
+
     private float rotation;
     private float scale;
 
@@ -73,6 +75,22 @@ public class Map {
      */
     public List<Ball> getBalls() {
         return balls;
+    }
+
+    /**
+     * Sets the score
+     *
+     * @param score the score
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     * @return the score
+     */
+    public int getScore() {
+        return score;
     }
 
     /**
