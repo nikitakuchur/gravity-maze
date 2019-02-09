@@ -20,14 +20,17 @@ public class ButtonController implements Controller {
         return button;
     }
 
-    public void checkClick(Vector2 position) {
+    public boolean checkClick(Vector2 position) {
         if (button.getPosition().x <= position.x &&
             button.getPosition().x + button.getSize().x >= position.x &&
             button.getPosition().y <= Gdx.graphics.getHeight() - position.y &&
-            button.getPosition().y + button.getSize().y >= Gdx.graphics.getHeight() - position.y)
+            button.getPosition().y + button.getSize().y >= Gdx.graphics.getHeight() - position.y) {
             button.setPressed(!button.isPressed());
-        else
+            return true;
+        } else {
             button.setPressed(false);
+            return false;
+        }
     }
 
     @Override

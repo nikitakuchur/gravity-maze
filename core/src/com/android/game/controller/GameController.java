@@ -41,7 +41,8 @@ public class GameController implements Controller {
         for (Button button : buttons) {
             buttonController.setButton(button);
             if (!button.isPressed())
-                buttonController.checkClick(position);
+                if (buttonController.checkClick(position))
+                    return;
         }
 
         mapController.startMapRotation(position);
@@ -56,7 +57,8 @@ public class GameController implements Controller {
         for (Button button : buttons) {
             buttonController.setButton(button);
             if (button.isPressed())
-                buttonController.checkClick(position);
+                if (buttonController.checkClick(position))
+                    return;
         }
 
         mapController.stopMapRotation();
@@ -68,6 +70,11 @@ public class GameController implements Controller {
      * @param position the position
      */
     public void touchDragged(Vector2 position) {
+        for (Button button : buttons) {
+            if (button.isPressed())
+                return;
+        }
+
         mapController.updateMapRotation(position);
     }
 }
