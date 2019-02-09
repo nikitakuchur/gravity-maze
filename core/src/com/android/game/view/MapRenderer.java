@@ -25,7 +25,6 @@ public class MapRenderer implements Renderer {
         cellSize = (float)Gdx.graphics.getWidth() /
                 (map.getHeight() > map.getWidth() ? map.getHeight() : map.getWidth());
 
-        //mapPosition = new Vector2(0, 0);
         mapPosition = new Vector2(0, (float) (Gdx.graphics.getHeight() - Gdx.graphics.getWidth()) / 2);
 
         // Calculate the map position
