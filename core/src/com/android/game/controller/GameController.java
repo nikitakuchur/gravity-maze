@@ -40,9 +40,8 @@ public class GameController implements Controller {
     public void touchDown(Vector2 position) {
         for (Button button : buttons) {
             buttonController.setButton(button);
-            if (!button.isPressed())
-                if (buttonController.checkClick(position))
-                    return;
+            if (!button.isPressed() && buttonController.checkClick(position))
+                return;
         }
 
         mapController.startMapRotation(position);
@@ -56,9 +55,8 @@ public class GameController implements Controller {
     public void touchUp(Vector2 position) {
         for (Button button : buttons) {
             buttonController.setButton(button);
-            if (button.isPressed())
-                if (buttonController.checkClick(position))
-                    return;
+            if (button.isPressed() && buttonController.checkClick(position))
+                return;
         }
 
         mapController.stopMapRotation();
