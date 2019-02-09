@@ -16,10 +16,16 @@ public class Game {
         map = new Map();
     }
 
+    /**
+     * @return the camera
+     */
     public Camera getCamera() {
         return camera;
     }
 
+    /**
+     * @return the map
+     */
     public Map getMap() {
         return map;
     }
