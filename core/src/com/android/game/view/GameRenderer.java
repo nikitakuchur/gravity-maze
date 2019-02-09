@@ -9,7 +9,7 @@ public class GameRenderer implements Renderer {
     private MapRenderer mapRenderer;
 
     public GameRenderer(Game game) {
-        uiRenderer = new UIRenderer();
+        uiRenderer = new UIRenderer(game.getMap().getScore());
         mapRenderer = new MapRenderer(game.getMap());
     }
 
