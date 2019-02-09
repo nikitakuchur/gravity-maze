@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
+
+    public enum State { TOP, LEFT, BOTTOM, RIGHT}
+
     private int[][] cells =  {{0, 1, 1, 1, 1, 1, 0, 0},
                               {0, 0, 0, 0, 0, 0, 0, 1},
                               {0, 0, 0, 0, 0, 0, 0, 1},
@@ -22,7 +25,8 @@ public class Map {
 
     private List<Ball> balls;
 
-    private int score;
+    private State state;
+    private Score score;
 
     private float rotation;
     private float scale;
@@ -38,6 +42,9 @@ public class Map {
         balls = new ArrayList<Ball>();
         balls.add(new Ball(new Vector2(1,1), Color.BLUE));
         balls.add(new Ball(new Vector2(6,6), Color.RED));
+
+        state = State.TOP;
+        score = new Score();
 
         rotation = 0;
         scale = 1;
@@ -78,18 +85,34 @@ public class Map {
     }
 
     /**
+     * Sets the state
+     *
+     * @param state the state
+     */
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    /**
+     * @return the state
+     */
+    public State getState() {
+        return state;
+    }
+
+    /**
      * Sets the score
      *
      * @param score the score
      */
-    public void setScore(int score) {
+    public void setScore(Score score) {
         this.score = score;
     }
 
     /**
      * @return the score
      */
-    public int getScore() {
+    public Score getScore() {
         return score;
     }
 
