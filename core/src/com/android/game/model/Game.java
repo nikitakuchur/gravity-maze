@@ -2,7 +2,6 @@ package com.android.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 
@@ -29,14 +28,11 @@ public class Game {
                                        (float) Gdx.graphics.getHeight() / 10);
 
         Button backButton = new Button(position, size, "Back");
-        backButton.setColor(new Color(1, 0, 0, 1));
-
 
         position = new Vector2(2 * (float) Gdx.graphics.getWidth() / 3 - size.x / 2,
                 (float) Gdx.graphics.getHeight() / 10);
 
         Button resetButton = new Button(position, size, "Reset");
-        resetButton.setColor(new Color(0, 0, 1, 1));
 
         buttons.add(backButton);
         buttons.add(resetButton);
