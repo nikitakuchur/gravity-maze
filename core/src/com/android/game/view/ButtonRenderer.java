@@ -40,7 +40,12 @@ public class ButtonRenderer implements Renderer {
 
         // Draw a rectangle
         shapeRenderer.setProjectionMatrix(projectionMatrix);
-        shapeRenderer.setColor(button.getColor());
+
+        if (button.isPressed())
+            shapeRenderer.setColor(button.getPressedColor());
+        else
+            shapeRenderer.setColor(button.getNormalColor());
+
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.rect(position.x, position.y, size.x, size.y);
         shapeRenderer.end();
