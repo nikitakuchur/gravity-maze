@@ -24,14 +24,18 @@ public class Game {
         // Buttons
         buttons = new ArrayList<Button>();
 
-        Button backButton = new Button(
-                new Vector2((float) Gdx.graphics.getWidth() / 3 - 50, (float) Gdx.graphics.getHeight() / 10),
-                new Vector2((float) Gdx.graphics.getWidth() / 4, (float) Gdx.graphics.getWidth() / 8), "Back");
+        Vector2 size = new Vector2((float) Gdx.graphics.getWidth() / 4, (float) Gdx.graphics.getWidth() / 8);
+        Vector2 position = new Vector2((float) Gdx.graphics.getWidth() / 3 - size.x / 2,
+                                       (float) Gdx.graphics.getHeight() / 10);
+
+        Button backButton = new Button(position, size, "Back");
         backButton.setColor(new Color(1, 0, 0, 1));
 
-        Button resetButton = new Button(
-                new Vector2(2 * (float) Gdx.graphics.getWidth() / 3 - 50, (float) Gdx.graphics.getHeight() / 10),
-                new Vector2((float) Gdx.graphics.getWidth() / 4, (float) Gdx.graphics.getWidth() / 8), "Reset");
+
+        position = new Vector2(2 * (float) Gdx.graphics.getWidth() / 3 - size.x / 2,
+                (float) Gdx.graphics.getHeight() / 10);
+
+        Button resetButton = new Button(position, size, "Reset");
         resetButton.setColor(new Color(0, 0, 1, 1));
 
         buttons.add(backButton);
