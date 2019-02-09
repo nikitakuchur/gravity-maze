@@ -1,6 +1,7 @@
 package com.android.game.controller;
 
 import com.android.game.model.Map;
+import com.android.game.model.Map.State;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
@@ -16,6 +17,8 @@ public class MapController implements Controller {
 
     private float t;
 
+    private State lastState;
+
     public MapController(Map map) {
         this.map = map;
 
@@ -23,6 +26,8 @@ public class MapController implements Controller {
 
         mapRotating = false;
         zoom = false;
+
+        lastState = State.TOP;
     }
 
     @Override
@@ -49,21 +54,30 @@ public class MapController implements Controller {
             float angleRad = (float) Math.toRadians(angle);
             float speed = 800;
 
-            // Bottom
+            // Top
             if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) > 0) {
                 map.setRotation(angle - (float) Math.sin(angleRad) * speed * deltaTime);
+                map.setState(State.TOP);
             }
             // Left
             if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) > 0) {
                 map.setRotation(angle + (float) Math.cos(angleRad) * speed * deltaTime);
+                map.setState(State.LEFT);
             }
-            // Top
+            // Bottom
             if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) < 0) {
                 map.setRotation(angle + (float) Math.sin(angleRad) * speed * deltaTime);
+                map.setState(State.BOTTOM);
             }
             // Right
             if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) < 0) {
                 map.setRotation(angle - (float) Math.cos(angleRad) * speed * deltaTime);
+                map.setState(State.RIGHT);
+            }
+
+            if (lastState != map.getState()) {
+                lastState = map.getState();
+                map.getScore().add();
             }
 
             lastMapAngle = map.getRotation();
