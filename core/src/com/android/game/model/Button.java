@@ -11,7 +11,9 @@ public class Button {
     private Color color;
     private Color pressedColor;
 
-    private boolean pressed;
+    private boolean isPressed;
+
+    private Event event;
 
     public Button() {
         position = new Vector2(0, 0);
@@ -115,13 +117,21 @@ public class Button {
      * @param b whether or not the button should be pressed
      */
     public void setPressed(boolean b) {
-        pressed = b;
+        isPressed = b;
     }
 
     /**
      * @return true if the button is pressed
      */
     public boolean isPressed() {
-        return pressed;
+        return isPressed;
+    }
+
+    public void setOnAction(Event event) {
+        this.event = event;
+    }
+
+    public Event getOnAction() {
+        return event;
     }
 }
