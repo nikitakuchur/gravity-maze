@@ -11,6 +11,7 @@ public class DesktopLauncher {
 		config.width = 450;
 		config.resizable = false;
 		config.samples = 8;
+		config.forceExit = false;
 
 		new LwjglApplication(new PuzzleGame(), config);
 	}
