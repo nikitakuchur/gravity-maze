@@ -1,10 +1,12 @@
 package com.android.game.controller;
 
 import com.android.game.model.Button;
+import com.android.game.model.Event;
 import com.android.game.model.Game;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
+import java.util.Optional;
 
 public class GameController implements Controller {
 
@@ -56,7 +58,7 @@ public class GameController implements Controller {
         for (Button button : buttons) {
             buttonController.setButton(button);
             if (button.isPressed() && buttonController.checkClick(position))
-                return;
+                Optional.of(button).map(Button::getOnAction).ifPresent(Event::handle);
         }
 
         mapController.stopMapRotation();

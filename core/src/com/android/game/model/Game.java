@@ -28,11 +28,13 @@ public class Game {
                                        (float) Gdx.graphics.getHeight() / 10);
 
         Button backButton = new Button(position, size, "Back");
+        backButton.setOnAction(() -> Gdx.app.exit());
 
         position = new Vector2(2 * (float) Gdx.graphics.getWidth() / 3 - size.x / 2,
                 (float) Gdx.graphics.getHeight() / 10);
 
         Button resetButton = new Button(position, size, "Reset");
+        resetButton.setOnAction(() -> map.reset());
 
         buttons.add(backButton);
         buttons.add(resetButton);
