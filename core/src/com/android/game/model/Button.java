@@ -8,7 +8,7 @@ public class Button {
     private Vector2 size;
     private String text;
 
-    private Color normalColor;
+    private Color color;
     private Color pressedColor;
 
     private boolean pressed;
@@ -17,7 +17,7 @@ public class Button {
         position = new Vector2(0, 0);
         size = new Vector2(120, 40);
         text = "Button";
-        normalColor = Color.GRAY;
+        color = Color.GRAY;
         pressedColor = Color.DARK_GRAY;
     }
 
@@ -25,7 +25,7 @@ public class Button {
         this.position = position.cpy();
         this.size = size.cpy();
         this.text = text;
-        normalColor = Color.GRAY;
+        color = Color.GRAY;
         pressedColor = Color.DARK_GRAY;
     }
 
@@ -78,19 +78,19 @@ public class Button {
     }
 
     /**
-     * Sets the button normal color
+     * Sets the button color
      *
-     * @param color the normal color
+     * @param color the button color
      */
-    public void setNormalColor(Color color) {
-        this.normalColor = color.cpy();
+    public void setColor(Color color) {
+        this.color = color.cpy();
     }
 
     /**
-     * @return the normal color
+     * @return the button color
      */
-    public Color getNormalColor() {
-        return normalColor.cpy();
+    public Color getColor() {
+        return color.cpy();
     }
 
     /**

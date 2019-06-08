@@ -44,7 +44,7 @@ public class ButtonRenderer implements Renderer {
         if (button.isPressed())
             shapeRenderer.setColor(button.getPressedColor());
         else
-            shapeRenderer.setColor(button.getNormalColor());
+            shapeRenderer.setColor(button.getColor());
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.rect(position.x, position.y, size.x, size.y);
