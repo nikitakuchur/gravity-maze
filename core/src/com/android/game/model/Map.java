@@ -170,4 +170,13 @@ public class Map {
     public Color getColor() {
         return color.cpy();
     }
+
+    /**
+     * Resets the map
+     */
+    public void reset() {
+        score.setValue(state == State.TOP ? 0 : -1);
+        state = State.TOP;
+        rotation = 0;
+    }
 }
