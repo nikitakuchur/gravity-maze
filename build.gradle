@@ -11,8 +11,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        
-
+        classpath 'me.tatarka:gradle-retrolambda:3.2.4'
     }
 }
 
@@ -54,6 +53,7 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java"
+    apply plugin: "me.tatarka.retrolambda"
 
 
     dependencies {
@@ -65,6 +65,7 @@ project(":core") {
 
 project(":android") {
     apply plugin: "android"
+    apply plugin: 'me.tatarka.retrolambda'
 
     configurations { natives }
 
