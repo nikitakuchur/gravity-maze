@@ -57,8 +57,10 @@ public class GameController implements Controller {
     public void touchUp(Vector2 position) {
         for (Button button : buttons) {
             buttonController.setButton(button);
-            if (button.isPressed() && buttonController.checkClick(position))
+            if (button.isPressed() && buttonController.checkClick(position)) {
                 Optional.of(button).map(Button::getOnAction).ifPresent(Event::handle);
+                return;
+            }
         }
 
         mapController.stopMapRotation();
