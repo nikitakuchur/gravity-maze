@@ -1,6 +1,8 @@
 package com.android.game.view;
 
 import com.android.game.model.Button;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -67,6 +69,10 @@ public class ButtonRenderer implements Renderer {
         Vector2 position = button.getPosition();
         Vector2 size = button.getSize();
 
+        // Enable alpha channel
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
         // Draw a rectangle
         shapeRenderer.setProjectionMatrix(projectionMatrix);
 
@@ -90,6 +96,7 @@ public class ButtonRenderer implements Renderer {
 
         spriteBatch.end();
 
+        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     @Override
