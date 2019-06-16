@@ -8,6 +8,9 @@ public class Ball {
     private Vector2 position;
     private Color color;
 
+    /**
+     * Creates a new ball
+     */
     public Ball() {
         position = new Vector2();
         color = new Color();
@@ -25,9 +28,9 @@ public class Ball {
     }
 
     /**
-     * Sets the position
+     * Sets the position of the ball
      *
-     * @param position the position of the ball
+     * @param position the position
      */
     public void setPosition(Vector2 position) {
         this.position = position.cpy();
@@ -48,9 +51,9 @@ public class Ball {
     }
 
     /**
-     * Sets the color
+     * Sets the color of the ball
      *
-     * @param color the color of the ball
+     * @param color the color
      */
     public void setColor(Color color) {
         this.color = color.cpy();

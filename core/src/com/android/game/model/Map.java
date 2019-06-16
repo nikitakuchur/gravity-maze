@@ -31,13 +31,16 @@ public class Map {
     private float rotation;
     private float scale;
 
-    private Color[] backgroundColor = { new Color(0.81f, 0.45f, 0.5f, 1),
+    private Color[] backgroundColor = {new Color(0.81f, 0.45f, 0.5f, 1),
             new Color(0.89f, 0.59f, 0.46f, 1),
             new Color(0.99f, 0.73f, 0.4f, 1),
             new Color(0.89f, 0.59f, 0.46f, 1)};
 
     private Color color = new Color(0.19f, 0.29f, 0.37f, 1);
 
+    /**
+     * Creates a new map
+     */
     public Map() {
         balls = new ArrayList<Ball>();
         balls.add(new Ball(new Vector2(1,1), Color.BLUE));
@@ -72,8 +75,9 @@ public class Map {
      * @return the id
      */
     public int getCellId(int x, int y) {
-        if ( x >= cells.length || x < 0 || y >= cells[0].length || y < 0)
+        if (x >= cells.length || x < 0 || y >= cells[0].length || y < 0) {
             return 1;
+        }
         return cells[x][y];
     }
 
@@ -85,7 +89,7 @@ public class Map {
     }
 
     /**
-     * Sets the state
+     * Sets the state of the map
      *
      * @param state the state
      */
@@ -94,7 +98,7 @@ public class Map {
     }
 
     /**
-     * @return the state
+     * @return the state of the map
      */
     public State getState() {
         return state;

@@ -15,6 +15,11 @@ public class GameController implements Controller {
     private ButtonController buttonController;
     private List<Button> buttons;
 
+    /**
+     * Creates a new controller for the game
+     *
+     * @param game the game
+     */
     public GameController(Game game) {
         mapController = new MapController(game.getMap());
 
@@ -35,39 +40,37 @@ public class GameController implements Controller {
     }
 
     /**
-     * Called when the screen was touched or a mouse button was pressed.
+     * Called when the screen was touched or a mouse button was pressed
      *
      * @param position the position
      */
     public void touchDown(Vector2 position) {
         for (Button button : buttons) {
             buttonController.setButton(button);
-            if (!button.isPressed() && buttonController.checkClick(position))
+            if (!button.isPressed() && buttonController.click(position))
                 return;
         }
-
         mapController.startMapRotation(position);
     }
 
     /**
-     * Called when a finger was lifted or a mouse button was released.
+     * Called when a finger was lifted or a mouse button was released
      *
      * @param position the position
      */
     public void touchUp(Vector2 position) {
         for (Button button : buttons) {
             buttonController.setButton(button);
-            if (button.isPressed() && buttonController.checkClick(position)) {
+            if (button.isPressed() && buttonController.click(position)) {
                 Optional.of(button).map(Button::getOnAction).ifPresent(Event::handle);
                 return;
             }
         }
-
         mapController.stopMapRotation();
     }
 
     /**
-     * Called when a finger or the mouse was dragged.
+     * Called when a finger or the mouse was dragged
      *
      * @param position the position
      */
@@ -76,7 +79,6 @@ public class GameController implements Controller {
             if (button.isPressed())
                 return;
         }
-
         mapController.updateMapRotation(position);
     }
 }

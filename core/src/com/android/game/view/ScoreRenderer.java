@@ -15,6 +15,13 @@ public class ScoreRenderer implements Renderer {
 
     private Score score;
 
+    /**
+     * Creates a new renderer for the score
+     *
+     * @param score the score
+     * @param font the font
+     * @param scale the scale
+     */
     public ScoreRenderer(Score score, BitmapFont font, float scale) {
         this.score = score;
 

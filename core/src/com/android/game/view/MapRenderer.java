@@ -17,6 +17,11 @@ public class MapRenderer implements Renderer {
     private float cellSize;
     private Vector2 mapPosition;
 
+    /**
+     * Creates a new renderer for the map
+     *
+     * @param map the map
+     */
     public MapRenderer(Map map) {
         this.map = map;
 

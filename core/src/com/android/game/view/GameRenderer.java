@@ -8,6 +8,11 @@ public class GameRenderer implements Renderer {
     private UIRenderer uiRenderer;
     private MapRenderer mapRenderer;
 
+    /**
+     * Creates a new renderer for the game
+     *
+     * @param game the game
+     */
     public GameRenderer(Game game) {
         uiRenderer = new UIRenderer(game.getMap().getScore(), game.getButtons());
         mapRenderer = new MapRenderer(game.getMap());

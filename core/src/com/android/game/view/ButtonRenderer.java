@@ -16,7 +16,12 @@ public class ButtonRenderer implements Renderer {
     private Button button;
     private BitmapFont font;
 
-
+    /**
+     * Creates a renderer for the button
+     *
+     * @param button the button
+     * @param font the font
+     */
     public ButtonRenderer(Button button, BitmapFont font) {
         this.button = button;
         this.font = font;
@@ -25,12 +30,36 @@ public class ButtonRenderer implements Renderer {
         spriteBatch = new SpriteBatch();
     }
 
+    /**
+     * Sets the button
+     *
+     * @param button the button
+     */
     public void setButton(Button button) {
         this.button = button;
     }
 
+    /**
+     * @return the button
+     */
     public Button getButton() {
         return button;
+    }
+
+    /**
+     * Sets the font
+     *
+     * @param font the font
+     */
+    public void setFont(BitmapFont font) {
+        this.font = font;
+    }
+
+    /**
+     * @return the font
+     */
+    public BitmapFont getFont() {
+        return font;
     }
 
     @Override

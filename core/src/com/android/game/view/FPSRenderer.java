@@ -12,6 +12,12 @@ public class FPSRenderer implements Renderer {
     private float scale;
     private SpriteBatch spriteBatch;
 
+    /**
+     * Creates a new renderer for FPS counter
+     *
+     * @param font the font
+     * @param scale the scale
+     */
     public FPSRenderer(BitmapFont font, float scale) {
         this.font = font;
         this.scale = scale;

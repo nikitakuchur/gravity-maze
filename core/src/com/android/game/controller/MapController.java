@@ -19,6 +19,11 @@ public class MapController implements Controller {
 
     private State lastState;
 
+    /**
+     * Creates a new controller for the map
+     *
+     * @param map the map
+     */
     public MapController(Map map) {
         this.map = map;
 
@@ -34,7 +39,7 @@ public class MapController implements Controller {
     public void update(float deltaTime) {
         // Zoom out
         if (zoom && t < 1) {
-            t += 4*deltaTime;
+            t += 4 * deltaTime;
             map.setScale(scaleAnimation(t));
         } else if (zoom) {
             map.setScale(scaleAnimation(1));
@@ -42,7 +47,7 @@ public class MapController implements Controller {
 
         // Zoom in
         if (!zoom && t > 0) {
-            t -= 4*deltaTime;
+            t -= 4 * deltaTime;
             map.setScale(scaleAnimation(t));
         } else if (!zoom) {
             map.setScale(scaleAnimation(0));
@@ -84,17 +89,28 @@ public class MapController implements Controller {
         }
     }
 
+    /**
+     * Starts map rotation
+     *
+     * @param position the touch position
+     */
     public void startMapRotation(Vector2 position) {
         zoom = true;
         lastTouchPosition.set(position);
         mapRotating = true;
     }
 
+    /**
+     * Stops map rotation
+     */
     public void stopMapRotation() {
         zoom = false;
         mapRotating = false;
     }
 
+    /**
+     * Updates map rotation
+     */
     public void updateMapRotation(Vector2 position) {
         Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
         map.setRotation(lastMapAngle + position.cpy().sub(center).angle(lastTouchPosition.cpy().sub(center)));

@@ -16,6 +16,9 @@ public class Button {
 
     private Event event;
 
+    /**
+     * Creates a new button
+     */
     public Button() {
         position = new Vector2(0, 0);
         size = new Vector2(120, 40);
@@ -24,6 +27,13 @@ public class Button {
         pressedColor = Color.DARK_GRAY;
     }
 
+    /**
+     * Creates a new button
+     *
+     * @param position the position of the button
+     * @param size the size of the button
+     * @param text the text to show in the button
+     */
     public Button(Vector2 position, Vector2 size, String text) {
         this.position = position.cpy();
         this.size = size.cpy();
@@ -65,7 +75,7 @@ public class Button {
     }
 
     /**
-     * Sets the button text
+     * Sets the text to show in the button
      *
      * @param text the text
      */
@@ -83,7 +93,7 @@ public class Button {
     /**
      * Sets the button color
      *
-     * @param color the button color
+     * @param color the color
      */
     public void setColor(Color color) {
         this.color = color.cpy();
@@ -99,7 +109,7 @@ public class Button {
     /**
      * Sets the button pressed color
      *
-     * @param color the pressed color
+     * @param color the color
      */
     public void setPressedColor(Color color) {
         this.pressedColor = color.cpy();
@@ -113,7 +123,7 @@ public class Button {
     }
 
     /**
-     * Sets the button to pressed or unpressed.
+     * Sets the button to pressed or unpressed
      *
      * @param b whether or not the button should be pressed
      */
@@ -128,10 +138,18 @@ public class Button {
         return isPressed;
     }
 
+    /**
+     * Sets the event on the button
+     *
+     * @param event the event
+     */
     public void setOnAction(Event event) {
         this.event = event;
     }
 
+    /**
+     * @return the button event
+     */
     public Event getOnAction() {
         return event;
     }

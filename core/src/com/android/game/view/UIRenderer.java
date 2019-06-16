@@ -19,6 +19,12 @@ public class UIRenderer implements Renderer {
     private ButtonRenderer buttonRenderer;
     private List<Button> buttons;
 
+    /**
+     * Creates a new renderer for user interface
+     *
+     * @param score the score
+     * @param buttons the lst of the buttons
+     */
     public UIRenderer(Score score, List<Button> buttons) {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/Roboto.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();

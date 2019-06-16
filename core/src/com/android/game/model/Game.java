@@ -14,6 +14,9 @@ public class Game {
     private Map map;
     private List<Button> buttons;
 
+    /**
+     * Creates a new game
+     */
     public Game() {
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.camera.position.set((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0);
@@ -26,7 +29,7 @@ public class Game {
 
         Vector2 size = new Vector2((float) Gdx.graphics.getWidth() / 4, (float) Gdx.graphics.getWidth() / 8);
         Vector2 position = new Vector2((float) Gdx.graphics.getWidth() / 3 - size.x / 2,
-                                       (float) Gdx.graphics.getHeight() / 10);
+                (float) Gdx.graphics.getHeight() / 10);
 
         Button backButton = new Button(position, size, "Back");
         backButton.setOnAction(() -> Gdx.app.exit());
@@ -55,6 +58,9 @@ public class Game {
         return map;
     }
 
+    /**
+     * @return the list of the buttons
+     */
     public List<Button> getButtons() {
         return buttons;
     }
