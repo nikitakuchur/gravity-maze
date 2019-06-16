@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
+
     private Camera camera;
     private Map map;
     private List<Button> buttons;

@@ -1,6 +1,7 @@
 package com.android.game.model;
 
 public class Score {
+
     int value;
 
     public Score() {

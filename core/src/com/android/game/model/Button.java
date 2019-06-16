@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 public class Button {
+
     private Vector2 position;
     private Vector2 size;
     private String text;
