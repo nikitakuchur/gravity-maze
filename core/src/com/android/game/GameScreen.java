@@ -80,7 +80,7 @@ public class GameScreen implements Screen, InputProcessor{
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (pointer ==0)
+        if (pointer == 0)
             gameController.touchUp(new Vector2(screenX, screenY));
         return false;
     }

@@ -264,11 +264,12 @@ public class MapRenderer implements Renderer {
     private void drawBalls() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         for (Ball ball: map.getBalls()) {
-            shapeRenderer.setColor(ball.getColor());
+            Color background = map.getBackgroundColor()[0];
+            shapeRenderer.setColor(ball.getColor().add(background.mul(0.6f)).mul(0.9f));
             shapeRenderer.circle(mapPosition.x + (ball.getPosition().x + 0.5f) * cellSize,
                     mapPosition.y + (ball.getPosition().y + 0.5f) * cellSize,
                     cellSize/2, 32);
-            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.setColor(0.95f, 0.95f, 0.95f, 1);
             shapeRenderer.circle(mapPosition.x + (ball.getPosition().x + 0.5f) * cellSize,
                     mapPosition.y + (ball.getPosition().y + 0.5f) * cellSize,
                     cellSize/2.8f, 32);
