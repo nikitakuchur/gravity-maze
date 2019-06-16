@@ -36,7 +36,7 @@ public class Map {
             new Color(0.99f, 0.73f, 0.4f, 1),
             new Color(0.89f, 0.59f, 0.46f, 1)};
 
-    private Color color = new Color(0.19f, 0.29f, 0.37f, 1);
+    private Color color = new Color(0.17f, 0.28f, 0.37f, 1);
 
     /**
      * Creates a new map
