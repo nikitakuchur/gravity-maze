@@ -23,8 +23,8 @@ public class Button {
         position = new Vector2(0, 0);
         size = new Vector2(120, 40);
         text = "Button";
-        color = Color.GRAY;
-        pressedColor = Color.DARK_GRAY;
+        color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
+        pressedColor = new Color(0.3f, 0.3f, 0.3f, 0.8f);
     }
 
     /**
@@ -38,8 +38,8 @@ public class Button {
         this.position = position.cpy();
         this.size = size.cpy();
         this.text = text;
-        color = Color.GRAY;
-        pressedColor = Color.DARK_GRAY;
+        color = new Color(0.5f, 0.5f, 0.5f, 0.8f);
+        pressedColor = new Color(0.3f, 0.3f, 0.3f, 0.8f);
     }
 
     /**
