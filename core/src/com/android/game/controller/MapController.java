@@ -1,13 +1,19 @@
 package com.android.game.controller;
 
+import com.android.game.model.Ball;
 import com.android.game.model.Map;
 import com.android.game.model.Map.State;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MapController implements Controller {
 
     private Map map;
+
+    private List<BallController> ballControllers;
 
     private float lastMapAngle;
     private Vector2 lastTouchPosition;
@@ -26,6 +32,10 @@ public class MapController implements Controller {
      */
     public MapController(Map map) {
         this.map = map;
+
+        ballControllers = new ArrayList<>();
+        for (Ball ball : map.getBalls())
+            ballControllers.add(new BallController(ball, map));
 
         lastTouchPosition = new Vector2();
 
@@ -86,6 +96,16 @@ public class MapController implements Controller {
             }
 
             lastMapAngle = map.getRotation();
+        }
+
+        // Balls movement
+        if(!mapRotating)
+            updateBalls(deltaTime);
+    }
+
+    private void updateBalls(float deltaTime) {
+        for (BallController ballController : ballControllers) {
+            ballController.update(deltaTime);
         }
     }
 
