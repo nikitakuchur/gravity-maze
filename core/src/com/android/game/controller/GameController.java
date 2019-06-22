@@ -5,6 +5,7 @@ import com.android.game.model.Event;
 import com.android.game.model.Game;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,8 +13,7 @@ public class GameController implements Controller {
 
     private MapController mapController;
 
-    private ButtonController buttonController;
-    private List<Button> buttons;
+    private List<ButtonController> buttonControllers;
 
     /**
      * Creates a new controller for the game
@@ -23,18 +23,16 @@ public class GameController implements Controller {
     public GameController(Game game) {
         mapController = new MapController(game.getMap());
 
-        buttons = game.getButtons();
-
-        if (buttons.size() > 0)
-            buttonController = new ButtonController(buttons.get(0));
+        buttonControllers = new ArrayList<>();
+        for (Button button : game.getButtons())
+            buttonControllers.add(new ButtonController(button));
     }
 
     @Override
     public void update(float deltaTime) {
         mapController.update(deltaTime);
 
-        for (Button button : buttons) {
-            buttonController.setButton(button);
+        for (ButtonController buttonController : buttonControllers) {
             buttonController.update(deltaTime);
         }
     }
@@ -45,8 +43,8 @@ public class GameController implements Controller {
      * @param position the position
      */
     public void touchDown(Vector2 position) {
-        for (Button button : buttons) {
-            buttonController.setButton(button);
+        for (ButtonController buttonController : buttonControllers) {
+            Button button = buttonController.getButton();
             if (!button.isPressed() && buttonController.click(position))
                 return;
         }
@@ -59,8 +57,8 @@ public class GameController implements Controller {
      * @param position the position
      */
     public void touchUp(Vector2 position) {
-        for (Button button : buttons) {
-            buttonController.setButton(button);
+        for (ButtonController buttonController : buttonControllers) {
+            Button button = buttonController.getButton();
             if (button.isPressed() && buttonController.click(position)) {
                 Optional.of(button).map(Button::getOnAction).ifPresent(Event::handle);
                 return;
@@ -75,7 +73,8 @@ public class GameController implements Controller {
      * @param position the position
      */
     public void touchDragged(Vector2 position) {
-        for (Button button : buttons) {
+        for (ButtonController buttonController : buttonControllers) {
+            Button button = buttonController.getButton();
             if (button.isPressed())
                 return;
         }

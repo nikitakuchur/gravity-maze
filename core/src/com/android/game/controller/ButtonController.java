@@ -18,15 +18,6 @@ public class ButtonController implements Controller {
     }
 
     /**
-     * Sets the button
-     *
-     * @param button the button
-     */
-    public void setButton(Button button) {
-        this.button = button;
-    }
-
-    /**
      * @return the button
      */
     public Button getButton() {
