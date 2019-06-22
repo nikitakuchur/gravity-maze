@@ -44,18 +44,18 @@ public class Ball {
     }
 
     /**
-     * @return the color of the ball
-     */
-    public Color getColor() {
-        return color.cpy();
-    }
-
-    /**
      * Sets the color of the ball
      *
      * @param color the color
      */
     public void setColor(Color color) {
         this.color = color.cpy();
+    }
+
+    /**
+     * @return the color of the ball
+     */
+    public Color getColor() {
+        return color.cpy();
     }
 }
