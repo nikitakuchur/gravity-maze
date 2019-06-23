@@ -41,7 +41,7 @@ public class LevelController implements Controller {
 
         zoom = false;
 
-        lastGravityDirection = GravityDirection.TOP;
+        lastGravityDirection = GravityDirection.BOTTOM;
     }
 
     @Override
