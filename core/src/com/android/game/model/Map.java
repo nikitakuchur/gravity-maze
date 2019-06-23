@@ -93,14 +93,14 @@ public class Map {
      *
      * @param gravityDirection the state
      */
-    public void setState(GravityDirection gravityDirection) {
+    public void setGravityDirection(GravityDirection gravityDirection) {
         this.gravityDirection = gravityDirection;
     }
 
     /**
      * @return the gravity direction of the map
      */
-    public GravityDirection getState() {
+    public GravityDirection getGravityDirection() {
         return gravityDirection;
     }
 

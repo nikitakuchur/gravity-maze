@@ -60,7 +60,7 @@ public class BallController implements Controller{
      * Finds the target. The target is a final position of the ball movement.
      */
     private Vector2 findTarget() {
-        switch (map.getState()) {
+        switch (map.getGravityDirection()) {
             case BOTTOM:
                 for (int i = (int) ball.getPosition().y; i >= 0; i--) {
                     if (map.getCellId((int) ball.getPosition().x, i) != 0) {

@@ -19,10 +19,11 @@ public class MapController implements Controller {
     private Vector2 lastTouchPosition;
 
     private boolean zoom;
+    private boolean rotationLock;
 
     private float t;
 
-    private GravityDirection lastState;
+    private GravityDirection lastGravityDirection;
 
     /**
      * Creates a new controller for the map
@@ -40,7 +41,7 @@ public class MapController implements Controller {
 
         zoom = false;
 
-        lastState = GravityDirection.TOP;
+        lastGravityDirection = GravityDirection.TOP;
     }
 
     @Override
@@ -70,26 +71,26 @@ public class MapController implements Controller {
             // Top
             if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) < 0) {
                 map.setRotation(angle + (float) Math.sin(angleRad) * speed * deltaTime);
-                map.setState(GravityDirection.TOP);
+                map.setGravityDirection(GravityDirection.TOP);
             }
             // Left
             if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) < 0) {
                 map.setRotation(angle - (float) Math.cos(angleRad) * speed * deltaTime);
-                map.setState(GravityDirection.LEFT);
+                map.setGravityDirection(GravityDirection.LEFT);
             }
             // Bottom
             if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) > 0) {
                 map.setRotation(angle - (float) Math.sin(angleRad) * speed * deltaTime);
-                map.setState(GravityDirection.BOTTOM);
+                map.setGravityDirection(GravityDirection.BOTTOM);
             }
             // Right
             if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) > 0) {
                 map.setRotation(angle + (float) Math.cos(angleRad) * speed * deltaTime);
-                map.setState(GravityDirection.RIGHT);
+                map.setGravityDirection(GravityDirection.RIGHT);
             }
 
-            if (lastState != map.getState()) {
-                lastState = map.getState();
+            if (lastGravityDirection != map.getGravityDirection()) {
+                lastGravityDirection = map.getGravityDirection();
                 map.getScore().add();
             }
 
@@ -113,6 +114,11 @@ public class MapController implements Controller {
      * @param position the touch position
      */
     public void startMapRotation(Vector2 position) {
+        if (!areBallsGrounded()) {
+            rotationLock = true;
+            return;
+        }
+        rotationLock = false;
         zoom = true;
         lastTouchPosition.set(position);
     }
@@ -121,6 +127,7 @@ public class MapController implements Controller {
      * Stops map rotation
      */
     public void stopMapRotation() {
+        rotationLock = false;
         zoom = false;
     }
 
@@ -128,11 +135,21 @@ public class MapController implements Controller {
      * Updates map rotation
      */
     public void updateMapRotation(Vector2 position) {
+        if (rotationLock)
+            return;
         Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
         map.setRotation(lastMapAngle + position.cpy().sub(center).angle(lastTouchPosition.cpy().sub(center)));
     }
 
     private float scaleAnimation(float t) {
         return 0.294f * ((float) Math.cos((float) Math.PI * t) - 1) / 2 + 1;
+    }
+
+    private boolean areBallsGrounded() {
+        for (BallController ballController : ballControllers) {
+            if (!ballController.isGrounded())
+                return false;
+        }
+        return true;
     }
 }
