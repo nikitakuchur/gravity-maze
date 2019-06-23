@@ -10,7 +10,8 @@ public class BallController implements Controller{
     private Map map;
 
     private final float SPEED = 6;
-    private float acceleration = 0;
+    private final float ACCELERATION = 0.4f;
+    private float da = 0;
 
     /**
      * Creates a controller for the ball
@@ -42,12 +43,12 @@ public class BallController implements Controller{
         Vector2 target = findTarget();
         Vector2 direction = findTarget().cpy().sub(ball.getPosition()).nor();
 
-        if (ball.getPosition().sub(target).len() < (SPEED + acceleration) * deltaTime) {
+        if (ball.getPosition().sub(target).len() < (SPEED + da) * deltaTime) {
             ball.setPosition(target);
-            acceleration = 0;
+            da = 0;
         } else {
-            ball.setPosition(ball.getPosition().add(direction.scl((SPEED + acceleration) * deltaTime)));
-            acceleration += 0.4f;
+            ball.setPosition(ball.getPosition().add(direction.scl((SPEED + da) * deltaTime)));
+            da += ACCELERATION;
         }
     }
 
