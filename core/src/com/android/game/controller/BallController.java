@@ -13,6 +13,8 @@ public class BallController implements Controller{
     private final float ACCELERATION = 0.4f;
     private float da = 0;
 
+    private boolean isGrounded;
+
     /**
      * Creates a controller for the ball
      *
@@ -46,9 +48,11 @@ public class BallController implements Controller{
         if (ball.getPosition().sub(target).len() < (SPEED + da) * deltaTime) {
             ball.setPosition(target);
             da = 0;
+            isGrounded = true;
         } else {
             ball.setPosition(ball.getPosition().add(direction.scl((SPEED + da) * deltaTime)));
             da += ACCELERATION;
+            isGrounded = false;
         }
     }
 
@@ -57,28 +61,28 @@ public class BallController implements Controller{
      */
     private Vector2 findTarget() {
         switch (map.getState()) {
-            case TOP:
+            case BOTTOM:
                 for (int i = (int) ball.getPosition().y; i >= 0; i--) {
                     if (map.getCellId((int) ball.getPosition().x, i) != 0) {
                         return new Vector2((int) ball.getPosition().x, i + 1);
                     }
                 }
                 return new Vector2((int) ball.getPosition().x, 0);
-            case LEFT:
+            case RIGHT:
                 for (int i = (int) ball.getPosition().x; i >= 0; i--) {
                     if (map.getCellId(i, (int) ball.getPosition().y) != 0) {
                         return new Vector2(i + 1, (int) ball.getPosition().y);
                     }
                 }
                 return new Vector2(0, (int) ball.getPosition().y);
-            case BOTTOM:
+            case TOP:
                 for (int i = (int) ball.getPosition().y; i < map.getHeight(); i++) {
                     if (map.getCellId((int) ball.getPosition().x, i) != 0) {
                         return new Vector2((int) (int) ball.getPosition().x, i - 1);
                     }
                 }
                 return new Vector2((int) ball.getPosition().x, map.getHeight() - 1);
-            case RIGHT:
+            case LEFT:
                 for (int i = (int) ball.getPosition().x; i < map.getWidth(); i++) {
                     if (map.getCellId(i, (int) ball.getPosition().y) != 0) {
                         return new Vector2(i - 1, (int) ball.getPosition().y);
@@ -87,5 +91,9 @@ public class BallController implements Controller{
                 return new Vector2(map.getWidth() - 1, (int) ball.getPosition().y);
         }
         return ball.getPosition();
+    }
+
+    public boolean isGrounded() {
+        return isGrounded;
     }
 }

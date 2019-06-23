@@ -2,7 +2,7 @@ package com.android.game.controller;
 
 import com.android.game.model.Ball;
 import com.android.game.model.Map;
-import com.android.game.model.Map.State;
+import com.android.game.model.Map.GravityDirection;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
@@ -18,12 +18,12 @@ public class MapController implements Controller {
     private float lastMapAngle;
     private Vector2 lastTouchPosition;
 
-    private boolean mapRotating;
+    private boolean isMapRotating;
     private boolean zoom;
 
     private float t;
 
-    private State lastState;
+    private GravityDirection lastState;
 
     /**
      * Creates a new controller for the map
@@ -39,10 +39,10 @@ public class MapController implements Controller {
 
         lastTouchPosition = new Vector2();
 
-        mapRotating = false;
+        isMapRotating = false;
         zoom = false;
 
-        lastState = State.TOP;
+        lastState = GravityDirection.TOP;
     }
 
     @Override
@@ -64,30 +64,30 @@ public class MapController implements Controller {
         }
 
         // Rotate to closest edge
-        if (!mapRotating) {
+        if (!isMapRotating) {
             float angle = map.getRotation();
             float angleRad = (float) Math.toRadians(angle);
             float speed = 800;
 
             // Top
-            if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) > 0) {
-                map.setRotation(angle - (float) Math.sin(angleRad) * speed * deltaTime);
-                map.setState(State.TOP);
-            }
-            // Left
-            if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) > 0) {
-                map.setRotation(angle + (float) Math.cos(angleRad) * speed * deltaTime);
-                map.setState(State.LEFT);
-            }
-            // Bottom
             if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) < 0) {
                 map.setRotation(angle + (float) Math.sin(angleRad) * speed * deltaTime);
-                map.setState(State.BOTTOM);
+                map.setState(GravityDirection.TOP);
             }
-            // Right
+            // Left
             if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) < 0) {
                 map.setRotation(angle - (float) Math.cos(angleRad) * speed * deltaTime);
-                map.setState(State.RIGHT);
+                map.setState(GravityDirection.LEFT);
+            }
+            // Bottom
+            if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) > 0) {
+                map.setRotation(angle - (float) Math.sin(angleRad) * speed * deltaTime);
+                map.setState(GravityDirection.BOTTOM);
+            }
+            // Right
+            if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) > 0) {
+                map.setRotation(angle + (float) Math.cos(angleRad) * speed * deltaTime);
+                map.setState(GravityDirection.RIGHT);
             }
 
             if (lastState != map.getState()) {
@@ -99,7 +99,7 @@ public class MapController implements Controller {
         }
 
         // Balls movement
-        if(!mapRotating)
+        if(!isMapRotating)
             updateBalls(deltaTime);
     }
 
@@ -117,7 +117,7 @@ public class MapController implements Controller {
     public void startMapRotation(Vector2 position) {
         zoom = true;
         lastTouchPosition.set(position);
-        mapRotating = true;
+        isMapRotating = true;
     }
 
     /**
@@ -125,7 +125,7 @@ public class MapController implements Controller {
      */
     public void stopMapRotation() {
         zoom = false;
-        mapRotating = false;
+        isMapRotating = false;
     }
 
     /**

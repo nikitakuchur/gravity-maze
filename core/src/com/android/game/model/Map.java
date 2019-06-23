@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Map {
 
-    public enum State { TOP, LEFT, BOTTOM, RIGHT}
+    public enum GravityDirection { TOP, LEFT, BOTTOM, RIGHT}
 
     private int[][] cells =  {{0, 1, 1, 1, 1, 1, 0, 0},
                               {0, 0, 0, 0, 0, 0, 0, 1},
@@ -25,7 +25,7 @@ public class Map {
 
     private List<Ball> balls;
 
-    private State state;
+    private GravityDirection gravityDirection;
     private Score score;
 
     private float rotation;
@@ -46,7 +46,7 @@ public class Map {
         balls.add(new Ball(new Vector2(1,1), Color.BLUE));
         balls.add(new Ball(new Vector2(6,6), Color.RED));
 
-        state = State.TOP;
+        gravityDirection = GravityDirection.BOTTOM;
         score = new Score();
 
         rotation = 0;
@@ -89,19 +89,19 @@ public class Map {
     }
 
     /**
-     * Sets the state of the map
+     * Sets the gravity direction of the map
      *
-     * @param state the state
+     * @param gravityDirection the state
      */
-    public void setState(State state) {
-        this.state = state;
+    public void setState(GravityDirection gravityDirection) {
+        this.gravityDirection = gravityDirection;
     }
 
     /**
-     * @return the state of the map
+     * @return the gravity direction of the map
      */
-    public State getState() {
-        return state;
+    public GravityDirection getState() {
+        return gravityDirection;
     }
 
     /**
@@ -179,8 +179,8 @@ public class Map {
      * Resets the map
      */
     public void reset() {
-        score.setValue(state == State.TOP ? 0 : -1);
-        state = State.TOP;
+        score.setValue(gravityDirection == GravityDirection.BOTTOM ? 0 : -1);
+        gravityDirection = GravityDirection.BOTTOM;
         rotation = 0;
     }
 }
