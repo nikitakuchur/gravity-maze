@@ -93,6 +93,9 @@ public class BallController implements Controller{
         return ball.getPosition();
     }
 
+    /**
+     * @return true if the ball on the ground
+     */
     public boolean isGrounded() {
         return isGrounded;
     }
