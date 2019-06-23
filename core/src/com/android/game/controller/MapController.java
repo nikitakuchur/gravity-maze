@@ -18,7 +18,6 @@ public class MapController implements Controller {
     private float lastMapAngle;
     private Vector2 lastTouchPosition;
 
-    private boolean isMapRotating;
     private boolean zoom;
 
     private float t;
@@ -39,7 +38,6 @@ public class MapController implements Controller {
 
         lastTouchPosition = new Vector2();
 
-        isMapRotating = false;
         zoom = false;
 
         lastState = GravityDirection.TOP;
@@ -64,7 +62,7 @@ public class MapController implements Controller {
         }
 
         // Rotate to closest edge
-        if (!isMapRotating) {
+        if (!zoom) {
             float angle = map.getRotation();
             float angleRad = (float) Math.toRadians(angle);
             float speed = 800;
@@ -99,7 +97,7 @@ public class MapController implements Controller {
         }
 
         // Balls movement
-        if(!isMapRotating)
+        if(!zoom)
             updateBalls(deltaTime);
     }
 
@@ -117,7 +115,6 @@ public class MapController implements Controller {
     public void startMapRotation(Vector2 position) {
         zoom = true;
         lastTouchPosition.set(position);
-        isMapRotating = true;
     }
 
     /**
@@ -125,7 +122,6 @@ public class MapController implements Controller {
      */
     public void stopMapRotation() {
         zoom = false;
-        isMapRotating = false;
     }
 
     /**
