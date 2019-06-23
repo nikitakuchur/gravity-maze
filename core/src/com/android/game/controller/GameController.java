@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class GameController implements Controller {
 
-    private MapController mapController;
+    private LevelController levelController;
 
     private List<ButtonController> buttonControllers;
 
@@ -21,7 +21,7 @@ public class GameController implements Controller {
      * @param game the game
      */
     public GameController(Game game) {
-        mapController = new MapController(game.getMap());
+        levelController = new LevelController(game.getLevel());
 
         buttonControllers = new ArrayList<>();
         for (Button button : game.getButtons())
@@ -30,7 +30,7 @@ public class GameController implements Controller {
 
     @Override
     public void update(float deltaTime) {
-        mapController.update(deltaTime);
+        levelController.update(deltaTime);
 
         for (ButtonController buttonController : buttonControllers) {
             buttonController.update(deltaTime);
@@ -48,7 +48,7 @@ public class GameController implements Controller {
             if (!button.isPressed() && buttonController.click(position))
                 return;
         }
-        mapController.startMapRotation(position);
+        levelController.startLevelRotation(position);
     }
 
     /**
@@ -64,7 +64,7 @@ public class GameController implements Controller {
                 return;
             }
         }
-        mapController.stopMapRotation();
+        levelController.stopLevelRotation();
     }
 
     /**
@@ -78,6 +78,6 @@ public class GameController implements Controller {
             if (button.isPressed())
                 return;
         }
-        mapController.updateMapRotation(position);
+        levelController.updateLevelRotation(position);
     }
 }

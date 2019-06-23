@@ -1,21 +1,21 @@
 package com.android.game.controller;
 
 import com.android.game.model.Ball;
-import com.android.game.model.Map;
-import com.android.game.model.Map.GravityDirection;
+import com.android.game.model.Level;
+import com.android.game.model.Level.GravityDirection;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapController implements Controller {
+public class LevelController implements Controller {
 
-    private Map map;
+    private Level level;
 
     private List<BallController> ballControllers;
 
-    private float lastMapAngle;
+    private float lastAngle;
     private Vector2 lastTouchPosition;
 
     private boolean zoom;
@@ -26,16 +26,16 @@ public class MapController implements Controller {
     private GravityDirection lastGravityDirection;
 
     /**
-     * Creates a new controller for the map
+     * Creates a new controller for the level
      *
-     * @param map the map
+     * @param level the level
      */
-    public MapController(Map map) {
-        this.map = map;
+    public LevelController(Level level) {
+        this.level = level;
 
         ballControllers = new ArrayList<>();
-        for (Ball ball : map.getBalls())
-            ballControllers.add(new BallController(ball, map));
+        for (Ball ball : level.getBalls())
+            ballControllers.add(new BallController(ball, level));
 
         lastTouchPosition = new Vector2();
 
@@ -49,52 +49,52 @@ public class MapController implements Controller {
         // Zoom out
         if (zoom && t < 1) {
             t += 4 * deltaTime;
-            map.setScale(scaleAnimation(t));
+            level.setScale(scaleAnimation(t));
         } else if (zoom) {
-            map.setScale(scaleAnimation(1));
+            level.setScale(scaleAnimation(1));
         }
 
         // Zoom in
         if (!zoom && t > 0) {
             t -= 4 * deltaTime;
-            map.setScale(scaleAnimation(t));
+            level.setScale(scaleAnimation(t));
         } else if (!zoom) {
-            map.setScale(scaleAnimation(0));
+            level.setScale(scaleAnimation(0));
         }
 
         // Rotate to closest edge
         if (!zoom) {
-            float angle = map.getRotation();
+            float angle = level.getRotation();
             float angleRad = (float) Math.toRadians(angle);
             float speed = 800;
 
             // Top
             if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) < 0) {
-                map.setRotation(angle + (float) Math.sin(angleRad) * speed * deltaTime);
-                map.setGravityDirection(GravityDirection.TOP);
+                level.setRotation(angle + (float) Math.sin(angleRad) * speed * deltaTime);
+                level.setGravityDirection(GravityDirection.TOP);
             }
             // Left
             if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) < 0) {
-                map.setRotation(angle - (float) Math.cos(angleRad) * speed * deltaTime);
-                map.setGravityDirection(GravityDirection.LEFT);
+                level.setRotation(angle - (float) Math.cos(angleRad) * speed * deltaTime);
+                level.setGravityDirection(GravityDirection.LEFT);
             }
             // Bottom
             if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) > 0) {
-                map.setRotation(angle - (float) Math.sin(angleRad) * speed * deltaTime);
-                map.setGravityDirection(GravityDirection.BOTTOM);
+                level.setRotation(angle - (float) Math.sin(angleRad) * speed * deltaTime);
+                level.setGravityDirection(GravityDirection.BOTTOM);
             }
             // Right
             if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) > 0) {
-                map.setRotation(angle + (float) Math.cos(angleRad) * speed * deltaTime);
-                map.setGravityDirection(GravityDirection.RIGHT);
+                level.setRotation(angle + (float) Math.cos(angleRad) * speed * deltaTime);
+                level.setGravityDirection(GravityDirection.RIGHT);
             }
 
-            if (lastGravityDirection != map.getGravityDirection()) {
-                lastGravityDirection = map.getGravityDirection();
-                map.getScore().add();
+            if (lastGravityDirection != level.getGravityDirection()) {
+                lastGravityDirection = level.getGravityDirection();
+                level.getScore().add();
             }
 
-            lastMapAngle = map.getRotation();
+            lastAngle = level.getRotation();
         }
 
         // Balls movement
@@ -109,11 +109,11 @@ public class MapController implements Controller {
     }
 
     /**
-     * Starts map rotation
+     * Starts level rotation
      *
      * @param position the touch position
      */
-    public void startMapRotation(Vector2 position) {
+    public void startLevelRotation(Vector2 position) {
         if (!areBallsGrounded()) {
             rotationLock = true;
             return;
@@ -124,21 +124,21 @@ public class MapController implements Controller {
     }
 
     /**
-     * Stops map rotation
+     * Stops level rotation
      */
-    public void stopMapRotation() {
+    public void stopLevelRotation() {
         rotationLock = false;
         zoom = false;
     }
 
     /**
-     * Updates map rotation
+     * Updates level rotation
      */
-    public void updateMapRotation(Vector2 position) {
+    public void updateLevelRotation(Vector2 position) {
         if (rotationLock)
             return;
         Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-        map.setRotation(lastMapAngle + position.cpy().sub(center).angle(lastTouchPosition.cpy().sub(center)));
+        level.setRotation(lastAngle + position.cpy().sub(center).angle(lastTouchPosition.cpy().sub(center)));
     }
 
     private float scaleAnimation(float t) {

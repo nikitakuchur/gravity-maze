@@ -1,13 +1,13 @@
 package com.android.game.controller;
 
 import com.android.game.model.Ball;
-import com.android.game.model.Map;
+import com.android.game.model.Level;
 import com.badlogic.gdx.math.Vector2;
 
 public class BallController implements Controller{
 
     private Ball ball;
-    private Map map;
+    private Level level;
 
     private final float SPEED = 6;
     private final float ACCELERATION = 0.4f;
@@ -19,11 +19,11 @@ public class BallController implements Controller{
      * Creates a controller for the ball
      *
      * @param ball the button
-     * @param map the map
+     * @param level the level
      */
-    public BallController(Ball ball, Map map) {
+    public BallController(Ball ball, Level level) {
         this.ball = ball;
-        this.map = map;
+        this.level = level;
     }
 
     /**
@@ -34,10 +34,10 @@ public class BallController implements Controller{
     }
 
     /**
-     * @return the map
+     * @return the level
      */
-    public Map getMap() {
-        return map;
+    public Level getLevel() {
+        return level;
     }
 
     @Override
@@ -60,35 +60,35 @@ public class BallController implements Controller{
      * Finds the target. The target is a final position of the ball movement.
      */
     private Vector2 findTarget() {
-        switch (map.getGravityDirection()) {
+        switch (level.getGravityDirection()) {
             case BOTTOM:
                 for (int i = (int) ball.getPosition().y; i >= 0; i--) {
-                    if (map.getCellId((int) ball.getPosition().x, i) != 0) {
+                    if (level.getCellId((int) ball.getPosition().x, i) != 0) {
                         return new Vector2((int) ball.getPosition().x, i + 1);
                     }
                 }
                 return new Vector2((int) ball.getPosition().x, 0);
             case RIGHT:
                 for (int i = (int) ball.getPosition().x; i >= 0; i--) {
-                    if (map.getCellId(i, (int) ball.getPosition().y) != 0) {
+                    if (level.getCellId(i, (int) ball.getPosition().y) != 0) {
                         return new Vector2(i + 1, (int) ball.getPosition().y);
                     }
                 }
                 return new Vector2(0, (int) ball.getPosition().y);
             case TOP:
-                for (int i = (int) ball.getPosition().y; i < map.getHeight(); i++) {
-                    if (map.getCellId((int) ball.getPosition().x, i) != 0) {
+                for (int i = (int) ball.getPosition().y; i < level.getHeight(); i++) {
+                    if (level.getCellId((int) ball.getPosition().x, i) != 0) {
                         return new Vector2((int) (int) ball.getPosition().x, i - 1);
                     }
                 }
-                return new Vector2((int) ball.getPosition().x, map.getHeight() - 1);
+                return new Vector2((int) ball.getPosition().x, level.getHeight() - 1);
             case LEFT:
-                for (int i = (int) ball.getPosition().x; i < map.getWidth(); i++) {
-                    if (map.getCellId(i, (int) ball.getPosition().y) != 0) {
+                for (int i = (int) ball.getPosition().x; i < level.getWidth(); i++) {
+                    if (level.getCellId(i, (int) ball.getPosition().y) != 0) {
                         return new Vector2(i - 1, (int) ball.getPosition().y);
                     }
                 }
-                return new Vector2(map.getWidth() - 1, (int) ball.getPosition().y);
+                return new Vector2(level.getWidth() - 1, (int) ball.getPosition().y);
         }
         return ball.getPosition();
     }

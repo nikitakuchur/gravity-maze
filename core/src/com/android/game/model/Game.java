@@ -11,7 +11,7 @@ import java.util.List;
 public class Game {
 
     private Camera camera;
-    private Map map;
+    private Level level;
     private List<Button> buttons;
 
     /**
@@ -22,7 +22,7 @@ public class Game {
         this.camera.position.set((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0);
         this.camera.update();
 
-        map = new Map();
+        level = new Level();
 
         // Buttons
         buttons = new ArrayList<Button>();
@@ -38,7 +38,7 @@ public class Game {
                 (float) Gdx.graphics.getHeight() / 10);
 
         Button resetButton = new Button(position, size, "Reset");
-        resetButton.setOnAction(() -> map.reset());
+        resetButton.setOnAction(() -> level.reset());
 
         buttons.add(backButton);
         buttons.add(resetButton);
@@ -52,10 +52,10 @@ public class Game {
     }
 
     /**
-     * @return the map
+     * @return the level
      */
-    public Map getMap() {
-        return map;
+    public Level getLevel() {
+        return level;
     }
 
     /**

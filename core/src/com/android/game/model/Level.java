@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Map {
+public class Level {
 
     public enum GravityDirection { TOP, LEFT, BOTTOM, RIGHT}
 
@@ -39,12 +39,12 @@ public class Map {
     private Color color = new Color(0.17f, 0.28f, 0.37f, 1);
 
     /**
-     * Creates a new map
+     * Creates a new level
      */
-    public Map() {
+    public Level() {
         balls = new ArrayList<Ball>();
-        balls.add(new Ball(new Vector2(1,1), Color.BLUE));
-        balls.add(new Ball(new Vector2(6,6), Color.RED));
+        balls.add(new Ball(new Vector2(1,0), Color.BLUE));
+        balls.add(new Ball(new Vector2(6,1), Color.RED));
 
         gravityDirection = GravityDirection.BOTTOM;
         score = new Score();
@@ -54,14 +54,14 @@ public class Map {
     }
 
     /**
-     * @return the width of the map
+     * @return the width of the level
      */
     public int getWidth() {
         return cells.length;
     }
 
     /**
-     * @return the height of the map
+     * @return the height of the level
      */
     public int getHeight() {
         return cells[0].length;
@@ -89,7 +89,7 @@ public class Map {
     }
 
     /**
-     * Sets the gravity direction of the map
+     * Sets the gravity direction
      *
      * @param gravityDirection the state
      */
@@ -98,7 +98,7 @@ public class Map {
     }
 
     /**
-     * @return the gravity direction of the map
+     * @return the gravity direction
      */
     public GravityDirection getGravityDirection() {
         return gravityDirection;
@@ -121,7 +121,7 @@ public class Map {
     }
 
     /**
-     * Sets the rotation of the map
+     * Sets the rotation
      *
      * @param angle the angle
      */
@@ -130,14 +130,14 @@ public class Map {
     }
 
     /**
-     * @return the rotation of the map
+     * @return the rotation
      */
     public float getRotation() {
         return rotation;
     }
 
     /**
-     * Sets the scale of the map
+     * Sets the scale
      *
      * @param scale the scale
      */
@@ -146,7 +146,7 @@ public class Map {
     }
 
     /**
-     * @return the scale of the map
+     * @return the scale
      */
     public float getScale() {
         return scale;
@@ -169,14 +169,14 @@ public class Map {
     }
 
     /**
-     * @return the color of the map
+     * @return the color
      */
     public Color getColor() {
         return color.cpy();
     }
 
     /**
-     * Resets the map
+     * Resets the level
      */
     public void reset() {
         score.setValue(gravityDirection == GravityDirection.BOTTOM ? 0 : -1);

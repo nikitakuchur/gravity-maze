@@ -1,42 +1,42 @@
 package com.android.game.view;
 
 import com.android.game.model.Ball;
-import com.android.game.model.Map;
+import com.android.game.model.Level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
-public class MapRenderer implements Renderer {
+public class LevelRenderer implements Renderer {
 
-    private Map map;
+    private Level level;
 
     private ShapeRenderer shapeRenderer;
 
     private float cellSize;
-    private Vector2 mapPosition;
+    private Vector2 levelPosition;
 
     /**
-     * Creates a new renderer for the map
+     * Creates a new renderer for the level
      *
-     * @param map the map
+     * @param level the level
      */
-    public MapRenderer(Map map) {
-        this.map = map;
+    public LevelRenderer(Level level) {
+        this.level = level;
 
         shapeRenderer = new ShapeRenderer();
 
         cellSize = (float)Gdx.graphics.getWidth() /
-                (map.getHeight() > map.getWidth() ? map.getHeight() : map.getWidth());
+                (level.getHeight() > level.getWidth() ? level.getHeight() : level.getWidth());
 
-        mapPosition = new Vector2(0, (float) (Gdx.graphics.getHeight() - Gdx.graphics.getWidth()) / 2);
+        levelPosition = new Vector2(0, (float) (Gdx.graphics.getHeight() - Gdx.graphics.getWidth()) / 2);
 
-        // Calculate the map position
-        if (map.getWidth() > map.getHeight()) {
-            mapPosition.add(0, cellSize * ((float) map.getWidth() / 2 - (float) map.getHeight() / 2));
+        // Calculate the level position
+        if (level.getWidth() > level.getHeight()) {
+            levelPosition.add(0, cellSize * ((float) level.getWidth() / 2 - (float) level.getHeight() / 2));
         } else {
-            mapPosition.add(cellSize * ((float) map.getHeight() / 2 - (float) map.getWidth() / 2), 0);
+            levelPosition.add(cellSize * ((float) level.getHeight() / 2 - (float) level.getWidth() / 2), 0);
         }
     }
 
@@ -49,11 +49,11 @@ public class MapRenderer implements Renderer {
 
         // Rotate and scale the level
         shapeRenderer.translate((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2, 0);
-        shapeRenderer.scale(map.getScale(), map.getScale(), map.getScale());
-        shapeRenderer.rotate(0, 0, 1, map.getRotation());
+        shapeRenderer.scale(level.getScale(), level.getScale(), level.getScale());
+        shapeRenderer.rotate(0, 0, 1, level.getRotation());
         shapeRenderer.translate(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getHeight() / 2, 0);
 
-        // Draw the map
+        // Draw the level
         drawCells();
         drawBalls();
 
@@ -64,7 +64,7 @@ public class MapRenderer implements Renderer {
      * Draws the background
      */
     private void drawBackground() {
-        Color[] backgroundColor = map.getBackgroundColor();
+        Color[] backgroundColor = level.getBackgroundColor();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.rect(0, 0,
@@ -77,59 +77,59 @@ public class MapRenderer implements Renderer {
     }
 
     /**
-     * Draws the cells of the map
+     * Draws the cells of the level
      */
     private void drawCells() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(map.getColor());
+        shapeRenderer.setColor(level.getColor());
 
         float size = Gdx.graphics.getHeight() > Gdx.graphics.getWidth() ?
                 Gdx.graphics.getHeight() : Gdx.graphics.getWidth();
 
         // Left
-        shapeRenderer.rect(mapPosition.x, mapPosition.y, -size, cellSize * map.getHeight());
+        shapeRenderer.rect(levelPosition.x, levelPosition.y, -size, cellSize * level.getHeight());
 
         // Right
-        shapeRenderer.rect(mapPosition.x + cellSize * map.getWidth(), mapPosition.y,
-                size, cellSize * map.getHeight());
+        shapeRenderer.rect(levelPosition.x + cellSize * level.getWidth(), levelPosition.y,
+                size, cellSize * level.getHeight());
 
         // Top
-        shapeRenderer.rect(mapPosition.x - size, mapPosition.y + cellSize * map.getHeight(),
-                size * 2 + cellSize * map.getWidth(), size);
+        shapeRenderer.rect(levelPosition.x - size, levelPosition.y + cellSize * level.getHeight(),
+                size * 2 + cellSize * level.getWidth(), size);
 
         // Bottom
-        shapeRenderer.rect(mapPosition.x - size, mapPosition.y,
-                size * 2 + cellSize * map.getWidth(), -size);
+        shapeRenderer.rect(levelPosition.x - size, levelPosition.y,
+                size * 2 + cellSize * level.getWidth(), -size);
 
 
         float radius = 8;
 
         // Draw cells
-        for (int i = 0; i < map.getWidth(); i++) {
-            for (int j = 0; j < map.getHeight(); j++) {
-                if (map.getCellId(i, j) == 1) {
+        for (int i = 0; i < level.getWidth(); i++) {
+            for (int j = 0; j < level.getHeight(); j++) {
+                if (level.getCellId(i, j) == 1) {
                     boolean[] cornersInfo = getCornersInfo(i, j, false);
 
-                    roundedRect(new Vector2(mapPosition.x + i * cellSize, mapPosition.y + j * cellSize),
+                    roundedRect(new Vector2(levelPosition.x + i * cellSize, levelPosition.y + j * cellSize),
                                 new Vector2(cellSize, cellSize), radius, cornersInfo);
                 } else {
                     boolean[] cornersInfo = getCornersInfo(i, j, true);
 
                     if (cornersInfo[0])
-                        roundedInsideCorner(new Vector2(mapPosition.x + i * cellSize,
-                                mapPosition.y + j * cellSize),
+                        roundedInsideCorner(new Vector2(levelPosition.x + i * cellSize,
+                                levelPosition.y + j * cellSize),
                                 radius, 0);
                     if (cornersInfo[1])
-                        roundedInsideCorner(new Vector2(mapPosition.x + (i + 1) * cellSize,
-                                mapPosition.y + j * cellSize),
+                        roundedInsideCorner(new Vector2(levelPosition.x + (i + 1) * cellSize,
+                                levelPosition.y + j * cellSize),
                                 radius, 1);
                     if (cornersInfo[2])
-                        roundedInsideCorner(new Vector2(mapPosition.x + (i + 1) * cellSize,
-                                mapPosition.y + (j + 1) * cellSize),
+                        roundedInsideCorner(new Vector2(levelPosition.x + (i + 1) * cellSize,
+                                levelPosition.y + (j + 1) * cellSize),
                                 radius, 2);
                     if (cornersInfo[3])
-                        roundedInsideCorner(new Vector2(mapPosition.x + i * cellSize,
-                                mapPosition.y + (j + 1) * cellSize),
+                        roundedInsideCorner(new Vector2(levelPosition.x + i * cellSize,
+                                levelPosition.y + (j + 1) * cellSize),
                                 radius, 3);
                 }
             }
@@ -153,21 +153,21 @@ public class MapRenderer implements Renderer {
         if (inside)
             b = 1;
 
-        cornersInfo[0] = map.getCellId(x - 1, y) == b &&
-                map.getCellId(x, y - 1) == b &&
-                map.getCellId(x - 1, y - 1) == b;
+        cornersInfo[0] = level.getCellId(x - 1, y) == b &&
+                level.getCellId(x, y - 1) == b &&
+                level.getCellId(x - 1, y - 1) == b;
 
-        cornersInfo[1] = map.getCellId(x + 1, y) == b &&
-                map.getCellId(x, y - 1) == b &&
-                map.getCellId(x + 1, y - 1) == b;
+        cornersInfo[1] = level.getCellId(x + 1, y) == b &&
+                level.getCellId(x, y - 1) == b &&
+                level.getCellId(x + 1, y - 1) == b;
 
-        cornersInfo[2] = map.getCellId(x + 1, y) == b &&
-                map.getCellId(x, y + 1) == b &&
-                map.getCellId(x + 1, y + 1) == b;
+        cornersInfo[2] = level.getCellId(x + 1, y) == b &&
+                level.getCellId(x, y + 1) == b &&
+                level.getCellId(x + 1, y + 1) == b;
 
-        cornersInfo[3] = map.getCellId(x - 1, y) == b &&
-                map.getCellId(x, y + 1) == b &&
-                map.getCellId(x - 1, y + 1) == b;
+        cornersInfo[3] = level.getCellId(x - 1, y) == b &&
+                level.getCellId(x, y + 1) == b &&
+                level.getCellId(x - 1, y + 1) == b;
 
         return cornersInfo;
     }
@@ -263,15 +263,15 @@ public class MapRenderer implements Renderer {
      */
     private void drawBalls() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        for (Ball ball: map.getBalls()) {
-            Color background = map.getBackgroundColor()[0];
+        for (Ball ball: level.getBalls()) {
+            Color background = level.getBackgroundColor()[0];
             shapeRenderer.setColor(ball.getColor().add(background.mul(0.6f)).mul(0.9f));
-            shapeRenderer.circle(mapPosition.x + (ball.getPosition().x + 0.5f) * cellSize,
-                    mapPosition.y + (ball.getPosition().y + 0.5f) * cellSize,
+            shapeRenderer.circle(levelPosition.x + (ball.getPosition().x + 0.5f) * cellSize,
+                    levelPosition.y + (ball.getPosition().y + 0.5f) * cellSize,
                     cellSize/2, 32);
             shapeRenderer.setColor(0.95f, 0.95f, 0.95f, 1);
-            shapeRenderer.circle(mapPosition.x + (ball.getPosition().x + 0.5f) * cellSize,
-                    mapPosition.y + (ball.getPosition().y + 0.5f) * cellSize,
+            shapeRenderer.circle(levelPosition.x + (ball.getPosition().x + 0.5f) * cellSize,
+                    levelPosition.y + (ball.getPosition().y + 0.5f) * cellSize,
                     cellSize/2.8f, 32);
         }
         shapeRenderer.end();
