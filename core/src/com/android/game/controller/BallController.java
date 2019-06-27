@@ -4,7 +4,7 @@ import com.android.game.model.Ball;
 import com.android.game.model.Level;
 import com.badlogic.gdx.math.Vector2;
 
-public class BallController implements Controller{
+public class BallController implements Controller {
 
     private Ball ball;
     private Level level;
@@ -18,7 +18,7 @@ public class BallController implements Controller{
     /**
      * Creates a controller for the ball
      *
-     * @param ball the button
+     * @param ball the ball
      * @param level the level
      */
     public BallController(Ball ball, Level level) {

@@ -8,7 +8,9 @@ import java.util.List;
 
 public class Level {
 
-    public enum GravityDirection { TOP, LEFT, BOTTOM, RIGHT}
+    public enum GravityDirection {
+        TOP, LEFT, BOTTOM, RIGHT
+    }
 
     private int[][] cells =  {{0, 1, 1, 1, 1, 1, 0, 0},
                               {0, 0, 0, 0, 0, 0, 0, 1},
@@ -43,8 +45,8 @@ public class Level {
      */
     public Level() {
         balls = new ArrayList<Ball>();
-        balls.add(new Ball(new Vector2(1,0), Color.BLUE));
-        balls.add(new Ball(new Vector2(6,1), Color.RED));
+        balls.add(new Ball(new Vector2(1, 0), Color.BLUE));
+        balls.add(new Ball(new Vector2(6, 1), Color.RED));
 
         gravityDirection = GravityDirection.BOTTOM;
         score = new Score();
