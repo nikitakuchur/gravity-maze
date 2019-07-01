@@ -89,6 +89,7 @@ public class GameScreenUI extends Group {
                 int index = stage.getActors().indexOf(level, true);
                 stage.getActors().set(index, newlevel);
                 gameScreen.setLevel(newlevel);
+                level.dispose();
             }
         });
         this.addActor(resetButton);
