@@ -181,6 +181,7 @@ public class Level extends Group {
                 rotationLock = true;
                 return true;
             }
+            
             rotationLock = false;
             zoom = true;
             lastTouchPosition.set(Gdx.input.getX(), Gdx.input.getY());

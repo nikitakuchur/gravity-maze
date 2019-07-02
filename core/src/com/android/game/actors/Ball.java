@@ -101,7 +101,7 @@ public class Ball extends Actor {
     }
 
     @Override
-    public void draw (Batch batch, float parentAlpha) {
+    public void draw(Batch batch, float parentAlpha) {
         batch.end();
         shapeRenderer.setColor(getColor());
 
