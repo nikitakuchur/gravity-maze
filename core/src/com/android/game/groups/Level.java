@@ -174,6 +174,9 @@ public class Level extends Group {
     public class LevelInputListener extends InputListener {
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            if (pointer != 0)
+                return false;
+
             if (!areBallsGrounded()) {
                 rotationLock = true;
                 return true;
@@ -183,7 +186,6 @@ public class Level extends Group {
             lastTouchPosition.set(Gdx.input.getX(), Gdx.input.getY());
             return true;
         }
-
 
         private boolean areBallsGrounded() {
             for (Ball ball : balls) {
