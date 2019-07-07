@@ -13,13 +13,13 @@ public class Background extends Actor {
                                        new Color(0.99f, 0.73f, 0.4f, 1),
                                        new Color(0.89f, 0.59f, 0.46f, 1)};
 
-    private ShapeRenderer shapeRenderer;
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     /**
      * Creates a new background
      */
     public Background() {
-        shapeRenderer = new ShapeRenderer();
+
     }
 
     @Override

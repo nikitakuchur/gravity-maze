@@ -11,12 +11,12 @@ public class Ball extends Actor {
 
     private final Level level;
 
-    private ShapeRenderer shapeRenderer;
-
     private final float ACCELERATION = 1;
     private float speed = 1;
 
     private boolean isGrounded;
+
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     /**
      * Creates a new ball
@@ -27,7 +27,6 @@ public class Ball extends Actor {
         this.level = level;
         setWidth(100);
         setHeight(100);
-        shapeRenderer = new ShapeRenderer();
     }
 
     /**

@@ -16,28 +16,27 @@ public class Level extends Group {
         TOP, LEFT, BOTTOM, RIGHT
     }
 
-    private com.android.game.actors.Map map;
+    private Map map = new Map();
     private List<Ball> balls;
 
     private int score;
 
-    private GravityDirection gravityDirection;
+    private GravityDirection gravityDirection = GravityDirection.BOTTOM;
 
     private float lastAngle;
-    private Vector2 lastTouchPosition;
+    private Vector2 lastTouchPosition = new Vector2();
 
     private boolean zoom;
     private boolean rotationLock;
 
     private float t;
 
-    private GravityDirection lastGravityDirection;
+    private GravityDirection lastGravityDirection = GravityDirection.BOTTOM;
 
     /**
      * Creates a new level
      */
     public Level() {
-        map = new com.android.game.actors.Map();
         this.addActor(map);
 
         balls = new ArrayList<>();
@@ -55,13 +54,6 @@ public class Level extends Group {
             ball.setHeight(map.getHeight() / 8);
             this.addActor(ball);
         }
-
-        score = 0;
-
-        gravityDirection = GravityDirection.BOTTOM;
-
-        lastTouchPosition = new Vector2();
-        lastGravityDirection = GravityDirection.BOTTOM;
 
         addListener(new LevelInputListener());
     }

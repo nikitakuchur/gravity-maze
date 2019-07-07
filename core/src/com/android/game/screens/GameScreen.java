@@ -10,26 +10,20 @@ import com.badlogic.gdx.scenes.scene2d.*;
 
 public class GameScreen implements Screen {
 
-    private Stage stage;
+    private Stage stage = new Stage();
 
-    private Background background;
-    private Level level;
-    private GameScreenUI gameScreenUI;
+    private Background background = new Background();
+    private Level level = new Level();
+    private GameScreenUI gameScreenUI = new GameScreenUI(this);
 
     /**
      * Creates a new game screen
      */
     public GameScreen() {
-        stage = new Stage();
-
-        background = new Background();
-        stage.addActor(background);
-
-        level = new Level();
         level.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-        stage.addActor(level);
 
-        gameScreenUI = new GameScreenUI(this);
+        stage.addActor(background);
+        stage.addActor(level);
         stage.addActor(gameScreenUI);
     }
 

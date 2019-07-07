@@ -21,7 +21,7 @@ public class Map extends Actor {
                               {1, 1, 0, 0, 0, 0, 1, 1},
                               {1, 1, 0, 0, 0, 0, 1, 1}};
 
-    private ShapeRenderer shapeRenderer;
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     /**
      * Creates a new map
@@ -30,7 +30,6 @@ public class Map extends Actor {
         setColor(0.17f, 0.28f, 0.37f, 1);
         setWidth(Gdx.graphics.getWidth());
         setHeight(Gdx.graphics.getWidth() / cells.length * cells[0].length);
-        shapeRenderer = new ShapeRenderer();
     }
 
     @Override
