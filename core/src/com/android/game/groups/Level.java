@@ -1,5 +1,6 @@
 package com.android.game.groups;
 
+import com.android.game.actors.Background;
 import com.android.game.actors.Ball;
 import com.android.game.actors.Map;
 import com.badlogic.gdx.Gdx;
@@ -16,6 +17,7 @@ public class Level extends Group {
         TOP, LEFT, BOTTOM, RIGHT
     }
 
+    private Background background = new Background();
     private Map map = new Map();
     private List<Ball> balls;
 
@@ -37,6 +39,7 @@ public class Level extends Group {
      * Creates a new level
      */
     public Level() {
+        this.addActor(background);
         this.addActor(map);
 
         balls = new ArrayList<>();
@@ -158,6 +161,7 @@ public class Level extends Group {
      * Releases all resources of this object
      */
     public void dispose() {
+        background.dispose();
         map.dispose();
         for (Ball ball : balls)
             ball.dispose();

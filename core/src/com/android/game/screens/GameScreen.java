@@ -12,7 +12,6 @@ public class GameScreen implements Screen {
 
     private Stage stage = new Stage();
 
-    private Background background = new Background();
     private Level level = new Level();
     private GameScreenUI gameScreenUI = new GameScreenUI(this);
 
@@ -22,7 +21,6 @@ public class GameScreen implements Screen {
     public GameScreen() {
         level.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
 
-        stage.addActor(background);
         stage.addActor(level);
         stage.addActor(gameScreenUI);
     }
@@ -85,7 +83,6 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(null);
         stage.dispose();
         level.dispose();
-        background.dispose();
         gameScreenUI.dispose();
     }
 }
