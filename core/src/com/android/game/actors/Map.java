@@ -233,10 +233,17 @@ public class Map extends Actor {
     }
 
     /**
-     * @return the cells
+     * @return the cells width
      */
-    public int[][] getCells() {
-        return cells;
+    public int getCellsWidth() {
+        return cells.length;
+    }
+
+    /**
+     * @return the cells height
+     */
+    public int getCellsHeight() {
+        return cells[0].length;
     }
 
     /**

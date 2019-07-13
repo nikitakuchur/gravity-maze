@@ -63,8 +63,8 @@ public class Ball extends Actor {
      */
     private Vector2 findTarget() {
         Map map = level.getMap();
-        int w = map.getCells().length;
-        int h = map.getCells()[0].length;
+        int w = map.getCellsWidth();
+        int h = map.getCellsHeight();
 
         switch (level.getGravityDirection()) {
             case TOP:
