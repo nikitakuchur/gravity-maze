@@ -1,7 +1,6 @@
 package com.android.game.actors;
 
 import com.android.game.groups.Level;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -27,17 +26,6 @@ public class Ball extends Actor {
         this.level = level;
         setWidth(100);
         setHeight(100);
-    }
-
-    /**
-     * Creates a new ball
-     *
-     * @param level the level
-     * @param color the color of the ball
-     */
-    public Ball(Level level, Color color) {
-        this(level);
-        setColor(color);
     }
 
     @Override
@@ -70,7 +58,7 @@ public class Ball extends Actor {
             case TOP:
                 for (int i = (int) getY(); i < h; i++) {
                     if (map.getCellId((int) getX(), i) != 0) {
-                        return new Vector2((int) (int) getX(), i - 1);
+                        return new Vector2((int) getX(), i - 1);
                     }
                 }
                 return new Vector2((int) getX(), h - 1);
@@ -102,21 +90,14 @@ public class Ball extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.end();
-        shapeRenderer.setColor(getColor());
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
-        Map map = level.getMap();
+        shapeRenderer.translate(- level.getMap().getWidth() / 2, -level.getMap().getHeight() / 2, 0);
 
-        shapeRenderer.translate(getParent().getX() - map.getWidth() / 2, getParent().getY() - map.getHeight() / 2, 0);
-
-        // Rotate and scale the ball
-        shapeRenderer.translate(map.getWidth() / 2, map.getHeight() / 2, 0);
-        shapeRenderer.scale(getParent().getScaleX() * getScaleX(), getParent().getScaleY() * getScaleY(), 0);
-        shapeRenderer.rotate(0, 0, 1, getParent().getRotation() + getRotation());
-        shapeRenderer.translate(-map.getWidth() / 2, -map.getHeight() / 2, 0);
-
+        shapeRenderer.setColor(getColor());
         shapeRenderer.ellipse(getX() * getWidth(), getY() * getHeight(),
                 getWidth(), getHeight(), 32);
 

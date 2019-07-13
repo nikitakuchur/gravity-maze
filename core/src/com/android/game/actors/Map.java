@@ -37,13 +37,8 @@ public class Map extends Actor {
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
-        shapeRenderer.translate(getParent().getX() - getWidth() / 2, getParent().getY() - getHeight() / 2, 0);
-
-        // Rotate and scale the level
-        shapeRenderer.translate(getWidth() / 2, getHeight() / 2, 0);
-        shapeRenderer.scale(getParent().getScaleX() * getScaleX(), getParent().getScaleY() * getScaleY(), 0);
-        shapeRenderer.rotate(0, 0, 1, getParent().getRotation() + getRotation());
         shapeRenderer.translate(-getWidth() / 2, -getHeight() / 2, 0);
 
         // Draw the level

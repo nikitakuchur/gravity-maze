@@ -2,6 +2,7 @@ package com.android.game.groups;
 
 import com.android.game.actors.Background;
 import com.android.game.actors.Ball;
+import com.android.game.actors.Hole;
 import com.android.game.actors.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -19,7 +20,8 @@ public class Level extends Group {
 
     private Background background = new Background();
     private Map map = new Map();
-    private List<Ball> balls;
+    private List<Hole> holes = new ArrayList<>();
+    private List<Ball> balls = new ArrayList<>();
 
     private int score;
 
@@ -42,19 +44,30 @@ public class Level extends Group {
         this.addActor(background);
         this.addActor(map);
 
-        balls = new ArrayList<>();
+        Hole blueHole = new Hole(this);
+        blueHole.setColor(Color.BLUE);
+        blueHole.setPosition(11, 2);
+        holes.add(blueHole);
 
-        Ball blueBall = new Ball(this, Color.BLUE);
+        for (Hole hole : holes) {
+            hole.setWidth(map.getWidth() / map.getCellsWidth());
+            hole.setHeight(map.getHeight() / map.getCellsHeight());
+            this.addActor(hole);
+        }
+
+        Ball blueBall = new Ball(this);
+        blueBall.setColor(Color.BLUE);
         blueBall.setPosition(0, 0);
         balls.add(blueBall);
 
-        Ball redBall = new Ball(this, Color.RED);
+        Ball redBall = new Ball(this);
+        redBall.setColor(Color.RED);
         redBall.setPosition(4, 1);
         balls.add(redBall);
 
         for (Ball ball : balls) {
-            ball.setWidth(map.getWidth() / 12);
-            ball.setHeight(map.getHeight() / 8);
+            ball.setWidth(map.getWidth() / map.getCellsWidth());
+            ball.setHeight(map.getHeight() / map.getCellsHeight());
             this.addActor(ball);
         }
 
@@ -168,6 +181,7 @@ public class Level extends Group {
     }
 
     public class LevelInputListener extends InputListener {
+
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             if (pointer != 0)

@@ -1,6 +1,5 @@
 package com.android.game.screens;
 
-import com.android.game.actors.Background;
 import com.android.game.groups.GameScreenUI;
 import com.android.game.groups.Level;
 import com.badlogic.gdx.Gdx;
