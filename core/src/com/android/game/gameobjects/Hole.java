@@ -3,9 +3,14 @@ package com.android.game.gameobjects;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Hole extends GameObject {
 
     private final Level level;
+
+    private List<Ball> balls = new ArrayList<>();
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -47,6 +52,22 @@ public class Hole extends GameObject {
         shapeRenderer.identity();
         shapeRenderer.end();
         batch.begin();
+    }
+
+    /**
+     * Adds a ball that can interact with this hole
+     *
+     * @param ball the ball
+     */
+    public void addBall(Ball ball) {
+        balls.add(ball);
+    }
+
+    /**
+     * @return the list of the balls that can interact with the object
+     */
+    public List<Ball> getBalls() {
+        return balls;
     }
 
     @Override

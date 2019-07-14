@@ -40,22 +40,37 @@ public class Level extends Group {
         this.addActor(background);
         this.addActor(map);
 
-        Hole bluehole = new Hole(this);
-        bluehole.setColor(Color.BLUE);
-        bluehole.setPosition(9, 2);
-        gameObjects.add(bluehole);
+        // Holes
+        Hole blueHole = new Hole(this);
+        blueHole.setColor(Color.BLUE);
+        blueHole.setPosition(9, 2);
+        gameObjects.add(blueHole);
 
-        Hole redhole = new Hole(this);
-        redhole.setColor(Color.RED);
-        redhole.setPosition(11, 5);
-        gameObjects.add(redhole);
+        Hole redHole = new Hole(this);
+        redHole.setColor(Color.RED);
+        redHole.setPosition(11, 5);
+        gameObjects.add(redHole);
 
+        // Teleports
+        Teleport teleportOne = new Teleport(this);
+        teleportOne.setPosition(6, 6);
+        gameObjects.add(teleportOne);
+
+        Teleport teleportTwo = new Teleport(this);
+        teleportTwo.setPosition(11, 2);
+        gameObjects.add(teleportTwo);
+
+        teleportOne.to(teleportTwo);
+        teleportTwo.to(teleportOne);
+
+        // Add game objects to level group
         for (GameObject gameObject : gameObjects) {
             gameObject.setWidth(map.getWidth() / map.getCellsWidth());
             gameObject.setHeight(map.getHeight() / map.getCellsHeight());
             this.addActor(gameObject);
         }
 
+        // Balls
         Ball blueBall = new Ball(this);
         blueBall.setColor(Color.BLUE);
         blueBall.setPosition(0, 0);
@@ -72,8 +87,8 @@ public class Level extends Group {
             this.addActor(ball);
         }
 
-        bluehole.addBall(blueBall);
-        redhole.addBall(redBall);
+        blueHole.addBall(blueBall);
+        redHole.addBall(redBall);
 
         addListener(new LevelInputListener());
     }

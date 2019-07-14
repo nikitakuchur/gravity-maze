@@ -12,6 +12,7 @@ public class Ball extends Actor {
     private final float ACCELERATION = 1;
     private float speed = 1;
 
+    private boolean targetIsGround = true;
     private boolean isGrounded;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -35,8 +36,10 @@ public class Ball extends Actor {
 
         if (position.cpy().sub(target).len() <  speed * delta) {
             setPosition(target.x, target.y);
-            speed = 1;
-            isGrounded = true;
+            if (targetIsGround) {
+                speed = 1;
+                isGrounded = true;
+            }
         } else {
             position.add(direction.scl(speed * delta));
             setPosition(position.x, position.y);
@@ -57,9 +60,11 @@ public class Ball extends Actor {
             case TOP:
                 for (int i = (int) getY(); i < h; i++) {
                     if (isInteractiveObject((int) getX(), i)) {
+                        targetIsGround = false;
                         return new Vector2((int) getX(), i);
                     }
                     if (map.getCellId((int) getX(), i) != 0) {
+                        targetIsGround = true;
                         return new Vector2((int) getX(), i - 1);
                     }
                 }
@@ -67,9 +72,11 @@ public class Ball extends Actor {
             case LEFT:
                 for (int i = (int) getX(); i >= 0; i--) {
                     if (isInteractiveObject(i, (int) getY())) {
+                        targetIsGround = false;
                         return new Vector2(i, (int) getY());
                     }
                     if (map.getCellId(i, (int) getY()) != 0) {
+                        targetIsGround = true;
                         return new Vector2(i + 1, (int) getY());
                     }
                 }
@@ -77,9 +84,11 @@ public class Ball extends Actor {
             case BOTTOM:
                 for (int i = (int) getY(); i >= 0; i--) {
                     if (isInteractiveObject((int) getX(), i)) {
+                        targetIsGround = false;
                         return new Vector2((int) getX(), i);
                     }
                     if (map.getCellId((int) getX(), i) != 0) {
+                        targetIsGround = true;
                         return new Vector2((int) getX(), i + 1);
                     }
                 }
@@ -87,9 +96,11 @@ public class Ball extends Actor {
             case RIGHT:
                 for (int i = (int) getX(); i < w; i++) {
                     if (isInteractiveObject(i, (int) getY())) {
+                        targetIsGround = false;
                         return new Vector2(i, (int) getY());
                     }
                     if (map.getCellId(i, (int) getY()) != 0) {
+                        targetIsGround = true;
                         return new Vector2(i - 1, (int) getY());
                     }
                 }
@@ -109,7 +120,6 @@ public class Ball extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.end();
-
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
