@@ -12,7 +12,7 @@ public class Ball extends Actor {
     private final float ACCELERATION = 1;
     private float speed = 1;
 
-    private boolean targetIsGround = true;
+    private boolean targetIsGround;
     private boolean isGrounded;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -56,6 +56,8 @@ public class Ball extends Actor {
         int w = map.getCellsWidth();
         int h = map.getCellsHeight();
 
+        targetIsGround = true;
+
         switch (level.getGravityDirection()) {
             case TOP:
                 for (int i = (int) getY(); i < h; i++) {
@@ -64,7 +66,6 @@ public class Ball extends Actor {
                         return new Vector2((int) getX(), i);
                     }
                     if (map.getCellId((int) getX(), i) != 0) {
-                        targetIsGround = true;
                         return new Vector2((int) getX(), i - 1);
                     }
                 }
@@ -76,7 +77,6 @@ public class Ball extends Actor {
                         return new Vector2(i, (int) getY());
                     }
                     if (map.getCellId(i, (int) getY()) != 0) {
-                        targetIsGround = true;
                         return new Vector2(i + 1, (int) getY());
                     }
                 }
@@ -88,7 +88,6 @@ public class Ball extends Actor {
                         return new Vector2((int) getX(), i);
                     }
                     if (map.getCellId((int) getX(), i) != 0) {
-                        targetIsGround = true;
                         return new Vector2((int) getX(), i + 1);
                     }
                 }
@@ -100,7 +99,6 @@ public class Ball extends Actor {
                         return new Vector2(i, (int) getY());
                     }
                     if (map.getCellId(i, (int) getY()) != 0) {
-                        targetIsGround = true;
                         return new Vector2(i - 1, (int) getY());
                     }
                 }
