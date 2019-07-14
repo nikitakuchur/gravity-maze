@@ -1,11 +1,9 @@
-package com.android.game.actors;
+package com.android.game.gameobjects;
 
-import com.android.game.groups.Level;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Hole extends Actor {
+public class Hole extends GameObject {
 
     private final Level level;
 
@@ -20,6 +18,16 @@ public class Hole extends Actor {
         this.level = level;
         setWidth(100);
         setHeight(100);
+    }
+
+    @Override
+    public void act(float delta) {
+        for (Ball ball : getBalls()) {
+            if (getX() == ball.getX() && getY() == ball.getY()) {
+                level.removeActor(ball);
+                level.getBalls().remove(ball);
+            }
+        }
     }
 
     @Override
@@ -39,5 +47,12 @@ public class Hole extends Actor {
         shapeRenderer.identity();
         shapeRenderer.end();
         batch.begin();
+    }
+
+    @Override
+    public boolean isInteracting(Ball ball) {
+        if (getBalls().contains(ball))
+            return true;
+        return false;
     }
 }

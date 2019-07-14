@@ -1,6 +1,5 @@
-package com.android.game.actors;
+package com.android.game.gameobjects;
 
-import com.android.game.groups.Level;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -57,6 +56,9 @@ public class Ball extends Actor {
         switch (level.getGravityDirection()) {
             case TOP:
                 for (int i = (int) getY(); i < h; i++) {
+                    if (isInteractiveObject((int) getX(), i)) {
+                        return new Vector2((int) getX(), i);
+                    }
                     if (map.getCellId((int) getX(), i) != 0) {
                         return new Vector2((int) getX(), i - 1);
                     }
@@ -64,6 +66,9 @@ public class Ball extends Actor {
                 return new Vector2((int) getX(), h - 1);
             case LEFT:
                 for (int i = (int) getX(); i >= 0; i--) {
+                    if (isInteractiveObject(i, (int) getY())) {
+                        return new Vector2(i, (int) getY());
+                    }
                     if (map.getCellId(i, (int) getY()) != 0) {
                         return new Vector2(i + 1, (int) getY());
                     }
@@ -71,6 +76,9 @@ public class Ball extends Actor {
                 return new Vector2(0, (int) getY());
             case BOTTOM:
                 for (int i = (int) getY(); i >= 0; i--) {
+                    if (isInteractiveObject((int) getX(), i)) {
+                        return new Vector2((int) getX(), i);
+                    }
                     if (map.getCellId((int) getX(), i) != 0) {
                         return new Vector2((int) getX(), i + 1);
                     }
@@ -78,6 +86,9 @@ public class Ball extends Actor {
                 return new Vector2((int) getX(), 0);
             case RIGHT:
                 for (int i = (int) getX(); i < w; i++) {
+                    if (isInteractiveObject(i, (int) getY())) {
+                        return new Vector2(i, (int) getY());
+                    }
                     if (map.getCellId(i, (int) getY()) != 0) {
                         return new Vector2(i - 1, (int) getY());
                     }
@@ -85,6 +96,14 @@ public class Ball extends Actor {
                 return new Vector2(w - 1, (int) getY());
         }
         return new Vector2(getX(), getY());
+    }
+
+    private boolean isInteractiveObject(int x, int y) {
+        for (GameObject gameObject : level.getGameObjects()) {
+            if (gameObject.isInteracting(this) && gameObject.getX() == x && gameObject.getY() == y)
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -114,7 +133,7 @@ public class Ball extends Actor {
     }
 
     /**
-    * @return true if the ball on the ground
+    * @return true if the ball on the ground and false otherwise
     */
     public boolean isGrounded() {
         return isGrounded;

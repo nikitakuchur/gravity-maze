@@ -1,7 +1,7 @@
 package com.android.game.screens;
 
-import com.android.game.groups.GameScreenUI;
-import com.android.game.groups.Level;
+import com.android.game.ui.GameScreenUI;
+import com.android.game.gameobjects.Level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;

@@ -1,9 +1,5 @@
-package com.android.game.groups;
+package com.android.game.gameobjects;
 
-import com.android.game.actors.Background;
-import com.android.game.actors.Ball;
-import com.android.game.actors.Hole;
-import com.android.game.actors.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -20,7 +16,7 @@ public class Level extends Group {
 
     private Background background = new Background();
     private Map map = new Map();
-    private List<Hole> holes = new ArrayList<>();
+    private List<GameObject> gameObjects = new ArrayList<>();
     private List<Ball> balls = new ArrayList<>();
 
     private int score;
@@ -44,15 +40,20 @@ public class Level extends Group {
         this.addActor(background);
         this.addActor(map);
 
-        Hole blueHole = new Hole(this);
-        blueHole.setColor(Color.BLUE);
-        blueHole.setPosition(9, 2);
-        holes.add(blueHole);
+        Hole bluehole = new Hole(this);
+        bluehole.setColor(Color.BLUE);
+        bluehole.setPosition(9, 2);
+        gameObjects.add(bluehole);
 
-        for (Hole hole : holes) {
-            hole.setWidth(map.getWidth() / map.getCellsWidth());
-            hole.setHeight(map.getHeight() / map.getCellsHeight());
-            this.addActor(hole);
+        Hole redhole = new Hole(this);
+        redhole.setColor(Color.RED);
+        redhole.setPosition(11, 5);
+        gameObjects.add(redhole);
+
+        for (GameObject gameObject : gameObjects) {
+            gameObject.setWidth(map.getWidth() / map.getCellsWidth());
+            gameObject.setHeight(map.getHeight() / map.getCellsHeight());
+            this.addActor(gameObject);
         }
 
         Ball blueBall = new Ball(this);
@@ -70,6 +71,9 @@ public class Level extends Group {
             ball.setHeight(map.getHeight() / map.getCellsHeight());
             this.addActor(ball);
         }
+
+        bluehole.addBall(blueBall);
+        redhole.addBall(redBall);
 
         addListener(new LevelInputListener());
     }
@@ -147,6 +151,13 @@ public class Level extends Group {
      */
     public Map getMap() {
         return map;
+    }
+
+    /**
+     * @return the list of game objects
+     */
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
     }
 
     /**
