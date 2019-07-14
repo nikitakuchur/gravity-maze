@@ -46,7 +46,7 @@ public class Level extends Group {
 
         Hole blueHole = new Hole(this);
         blueHole.setColor(Color.BLUE);
-        blueHole.setPosition(11, 2);
+        blueHole.setPosition(9, 2);
         holes.add(blueHole);
 
         for (Hole hole : holes) {
@@ -187,7 +187,7 @@ public class Level extends Group {
             if (pointer != 0)
                 return false;
 
-            if (!areBallsGrounded()) {
+            if (!ballsAreGrounded()) {
                 rotationLock = true;
                 return true;
             }
@@ -198,7 +198,7 @@ public class Level extends Group {
             return true;
         }
 
-        private boolean areBallsGrounded() {
+        private boolean ballsAreGrounded() {
             for (Ball ball : balls) {
                 if (!ball.isGrounded())
                     return false;
