@@ -5,8 +5,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Map extends Actor {
+public class Map extends Actor implements Disposable {
 
     private int[][] cells =  {{0, 1, 1, 1, 1, 1, 0, 0},
                               {0, 0, 0, 0, 0, 0, 0, 1},
@@ -255,9 +256,7 @@ public class Map extends Actor {
         return cells[x][y];
     }
 
-    /**
-     * Releases all resources of this object
-     */
+    @Override
     public void dispose() {
         shapeRenderer.dispose();
     }

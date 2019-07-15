@@ -1,8 +1,9 @@
 package com.android.game.gameobjects;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Disposable;
 
-public class GameObject extends Actor {
+public abstract class GameObject extends Actor implements Disposable {
 
     /**
      * @param ball the ball

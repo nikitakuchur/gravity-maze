@@ -2,6 +2,7 @@ package com.android.game.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Disposable;
 
 public class Teleport extends GameObject {
 
@@ -76,5 +77,10 @@ public class Teleport extends GameObject {
     @Override
     public boolean isInteracting(Ball ball) {
         return !isTeleporting;
+    }
+
+    @Override
+    public void dispose() {
+        shapeRenderer.dispose();
     }
 }

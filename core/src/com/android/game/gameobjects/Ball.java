@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Ball extends Actor {
+public class Ball extends Actor implements Disposable {
 
     private final Level level;
 
@@ -147,9 +148,7 @@ public class Ball extends Actor {
         return isGrounded;
     }
 
-    /**
-     * Releases all resources of this object
-     */
+    @Override
     public void dispose() {
         shapeRenderer.dispose();
     }

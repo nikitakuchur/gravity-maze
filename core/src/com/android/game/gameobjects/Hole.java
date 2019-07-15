@@ -2,6 +2,7 @@ package com.android.game.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Disposable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +76,10 @@ public class Hole extends GameObject {
         if (getBalls().contains(ball))
             return true;
         return false;
+    }
+
+    @Override
+    public void dispose() {
+        shapeRenderer.dispose();
     }
 }

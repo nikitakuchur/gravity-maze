@@ -4,11 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.utils.Disposable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level extends Group {
+public class Level extends Group implements Disposable {
 
     public enum GravityDirection {
         TOP, LEFT, BOTTOM, RIGHT
@@ -196,14 +197,16 @@ public class Level extends Group {
         return gravityDirection;
     }
 
-    /**
-     * Releases all resources of this object
-     */
+    @Override
     public void dispose() {
         background.dispose();
         map.dispose();
+
         for (Ball ball : balls)
             ball.dispose();
+
+        for (GameObject gameObject : gameObjects)
+            gameObject.dispose();
     }
 
     public class LevelInputListener extends InputListener {

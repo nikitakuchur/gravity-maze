@@ -5,8 +5,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Background extends Actor {
+public class Background extends Actor implements Disposable {
 
     private Color[] backgroundColor = {new Color(0.81f, 0.45f, 0.5f, 1),
                                        new Color(0.89f, 0.59f, 0.46f, 1),
@@ -37,9 +38,7 @@ public class Background extends Actor {
         batch.begin();
     }
 
-    /**
-     * Releases all resources of this object
-     */
+    @Override
     public void dispose() {
         shapeRenderer.dispose();
     }
