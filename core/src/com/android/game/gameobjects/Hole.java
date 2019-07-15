@@ -2,7 +2,6 @@ package com.android.game.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Disposable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +29,9 @@ public class Hole extends GameObject {
     public void act(float delta) {
         for (Ball ball : getBalls()) {
             if (getX() == ball.getX() && getY() == ball.getY()) {
-                level.removeActor(ball);
-                level.getBalls().remove(ball);
+                level.removeBall(ball);
+                balls.remove(ball);
+                break;
             }
         }
     }

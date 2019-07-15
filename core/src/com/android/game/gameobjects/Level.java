@@ -82,6 +82,7 @@ public class Level extends Group implements Disposable {
         redBall.setPosition(4, 1);
         balls.add(redBall);
 
+        // Add balls to level group
         for (Ball ball : balls) {
             ball.setWidth(map.getWidth() / map.getCellsWidth());
             ball.setHeight(map.getHeight() / map.getCellsHeight());
@@ -177,10 +178,32 @@ public class Level extends Group implements Disposable {
     }
 
     /**
+     * Removes the game object from the level
+     *
+     * @param gameObject the game object
+     */
+    public void removeGameObject(GameObject gameObject) {
+        gameObjects.remove(gameObject);
+        removeActor(gameObject);
+        gameObject.dispose();
+    }
+
+    /**
      * @return the list of the balls
      */
     public List<Ball> getBalls() {
         return balls;
+    }
+
+    /**
+     * Removes the ball from the level
+     *
+     * @param ball the ball
+     */
+    public void removeBall(Ball ball) {
+        balls.remove(ball);
+        removeActor(ball);
+        ball.dispose();
     }
 
     /**

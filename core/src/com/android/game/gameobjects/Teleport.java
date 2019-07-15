@@ -2,7 +2,6 @@ package com.android.game.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Disposable;
 
 public class Teleport extends GameObject {
 
@@ -35,6 +34,7 @@ public class Teleport extends GameObject {
             for (Ball ball : level.getBalls()) {
                 if (getX() == ball.getX() && getY() == ball.getY()) {
                     ball.setPosition(teleport.getX(), teleport.getY());
+                    isTeleporting = true;
                     teleport.isTeleporting = true;
                     return;
                 }
