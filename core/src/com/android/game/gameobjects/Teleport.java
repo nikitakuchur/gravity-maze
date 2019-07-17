@@ -9,7 +9,7 @@ public class Teleport extends GameObject {
 
     private Teleport teleport;
 
-    private boolean isTeleporting;
+    private boolean isUsed;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -30,12 +30,12 @@ public class Teleport extends GameObject {
             return;
         }
 
-        if (!isTeleporting) {
+        if (!isUsed) {
             for (Ball ball : level.getBalls()) {
                 if (getX() == ball.getX() && getY() == ball.getY()) {
                     ball.setPosition(teleport.getX(), teleport.getY());
-                    isTeleporting = true;
-                    teleport.isTeleporting = true;
+                    isUsed = true;
+                    teleport.isUsed = true;
                     return;
                 }
             }
@@ -47,7 +47,7 @@ public class Teleport extends GameObject {
                 return;
             }
         }
-        isTeleporting = false;
+        isUsed = false;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class Teleport extends GameObject {
 
     @Override
     public boolean isInteracting(Ball ball) {
-        return !isTeleporting;
+        return !isUsed;
     }
 
     @Override
