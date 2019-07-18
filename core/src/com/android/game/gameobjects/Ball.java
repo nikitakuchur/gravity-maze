@@ -13,7 +13,6 @@ public class Ball extends Actor implements Disposable {
     private final float ACCELERATION = 1;
     private float speed = 1;
 
-    private boolean targetIsGround;
     private boolean isGrounded;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -37,9 +36,8 @@ public class Ball extends Actor implements Disposable {
 
         if (position.cpy().sub(target).len() <  speed * delta) {
             setPosition(target.x, target.y);
-            if (targetIsGround) {
+            if (isGrounded) {
                 speed = 1;
-                isGrounded = true;
             }
         } else {
             position.add(direction.scl(speed * delta));
@@ -54,66 +52,32 @@ public class Ball extends Actor implements Disposable {
      */
     private Vector2 findTarget() {
         Map map = level.getMap();
-        int w = map.getCellsWidth();
-        int h = map.getCellsHeight();
-
-        targetIsGround = true;
 
         switch (level.getGravityDirection()) {
             case TOP:
-                for (int i = (int) getY(); i < h; i++) {
-                    if (isInteractiveObject((int) getX(), i)) {
-                        targetIsGround = false;
-                        return new Vector2((int) getX(), i);
-                    }
-                    if (map.getCellId((int) getX(), i) != 0) {
-                        return new Vector2((int) getX(), i - 1);
-                    }
+                if (map.getCellId((int) getX(), (int) getY() + 1) != 1) {
+                    return new Vector2((int) getX(), (int) getY() + 1);
                 }
-                return new Vector2((int) getX(), h - 1);
+                break;
             case LEFT:
-                for (int i = (int) getX(); i >= 0; i--) {
-                    if (isInteractiveObject(i, (int) getY())) {
-                        targetIsGround = false;
-                        return new Vector2(i, (int) getY());
-                    }
-                    if (map.getCellId(i, (int) getY()) != 0) {
-                        return new Vector2(i + 1, (int) getY());
-                    }
+                if (map.getCellId((int) Math.ceil(getX()) - 1, (int) getY()) != 1) {
+                    return new Vector2((int) Math.ceil(getX()) - 1, (int) getY());
                 }
-                return new Vector2(0, (int) getY());
+                break;
             case BOTTOM:
-                for (int i = (int) getY(); i >= 0; i--) {
-                    if (isInteractiveObject((int) getX(), i)) {
-                        targetIsGround = false;
-                        return new Vector2((int) getX(), i);
-                    }
-                    if (map.getCellId((int) getX(), i) != 0) {
-                        return new Vector2((int) getX(), i + 1);
-                    }
+                if (map.getCellId((int) getX(), (int) Math.ceil(getY()) - 1) != 1) {
+                    return new Vector2((int) getX(), (int) Math.ceil(getY()) - 1);
                 }
-                return new Vector2((int) getX(), 0);
+                break;
             case RIGHT:
-                for (int i = (int) getX(); i < w; i++) {
-                    if (isInteractiveObject(i, (int) getY())) {
-                        targetIsGround = false;
-                        return new Vector2(i, (int) getY());
-                    }
-                    if (map.getCellId(i, (int) getY()) != 0) {
-                        return new Vector2(i - 1, (int) getY());
-                    }
+                if (map.getCellId((int) getX() + 1, (int) getY()) != 1) {
+                    return new Vector2((int) getX() + 1, (int) getY());
                 }
-                return new Vector2(w - 1, (int) getY());
+                break;
         }
-        return new Vector2(getX(), getY());
-    }
+        isGrounded = true;
 
-    private boolean isInteractiveObject(int x, int y) {
-        for (GameObject gameObject : level.getGameObjects()) {
-            if (gameObject.isInteracting(this) && gameObject.getX() == x && gameObject.getY() == y)
-                return true;
-        }
-        return false;
+        return new Vector2(getX(), getY());
     }
 
     @Override
