@@ -75,11 +75,6 @@ public class Teleport extends GameObject {
     }
 
     @Override
-    public boolean isInteracting(Ball ball) {
-        return !isUsed;
-    }
-
-    @Override
     public void dispose() {
         shapeRenderer.dispose();
     }

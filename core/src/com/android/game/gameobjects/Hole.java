@@ -27,7 +27,7 @@ public class Hole extends GameObject {
 
     @Override
     public void act(float delta) {
-        for (Ball ball : getBalls()) {
+        for (Ball ball : balls) {
             if (getX() == ball.getX() && getY() == ball.getY()) {
                 level.removeBall(ball);
                 balls.remove(ball);
@@ -62,20 +62,6 @@ public class Hole extends GameObject {
      */
     public void addBall(Ball ball) {
         balls.add(ball);
-    }
-
-    /**
-     * @return the list of the balls that can interact with the object
-     */
-    public List<Ball> getBalls() {
-        return balls;
-    }
-
-    @Override
-    public boolean isInteracting(Ball ball) {
-        if (getBalls().contains(ball))
-            return true;
-        return false;
     }
 
     @Override
