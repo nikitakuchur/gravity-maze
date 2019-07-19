@@ -28,7 +28,7 @@ public class Map extends Actor implements Disposable {
      * Creates a new map
      */
     public Map() {
-        setColor(0.17f, 0.28f, 0.37f, 1);
+        setColor(0.01f, 0.31f, 0.45f, 1);
         setWidth(Gdx.graphics.getWidth());
         setHeight(Gdx.graphics.getWidth() / cells.length * cells[0].length);
     }

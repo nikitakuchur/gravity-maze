@@ -1,5 +1,8 @@
 package com.puzzlegame.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -95,7 +98,7 @@ public class Ball extends Actor implements Disposable {
         shapeRenderer.ellipse(getX() * getWidth(), getY() * getHeight(),
                 getWidth(), getHeight(), 32);
 
-        shapeRenderer.setColor(0.95f, 0.95f, 0.95f, 1);
+        shapeRenderer.setColor(Color.WHITE);
 
         float dw = (getWidth() * 0.7f - getWidth()) / 2;
         float dh = (getHeight() * 0.7f - getHeight()) / 2;
