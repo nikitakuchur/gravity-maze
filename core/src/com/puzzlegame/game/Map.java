@@ -119,25 +119,26 @@ public class Map extends Actor implements Disposable {
     private boolean[] getCornersInfo(int x, int y, boolean inside) {
         boolean[] cornersInfo = new boolean[4];
 
-        int b = 0;
-        if (inside)
-            b = 1;
+        int b = inside ? 1 : 0;
 
         cornersInfo[0] = getCellId(x - 1, y) == b &&
-                getCellId(x, y - 1) == b &&
-                getCellId(x - 1, y - 1) == b;
+                getCellId(x, y - 1) == b;
 
         cornersInfo[1] = getCellId(x + 1, y) == b &&
-                getCellId(x, y - 1) == b &&
-                getCellId(x + 1, y - 1) == b;
+                getCellId(x, y - 1) == b;
 
         cornersInfo[2] = getCellId(x + 1, y) == b &&
-                getCellId(x, y + 1) == b &&
-                getCellId(x + 1, y + 1) == b;
+                getCellId(x, y + 1) == b;
 
         cornersInfo[3] = getCellId(x - 1, y) == b &&
-                getCellId(x, y + 1) == b &&
-                getCellId(x - 1, y + 1) == b;
+                getCellId(x, y + 1) == b;
+
+        if (!inside) {
+            cornersInfo[0] = cornersInfo[0] && getCellId(x - 1, y - 1) == b;
+            cornersInfo[1] = cornersInfo[1] &&  getCellId(x + 1, y - 1) == b;
+            cornersInfo[2] = cornersInfo[2] && getCellId(x + 1, y + 1) == b;
+            cornersInfo[3] = cornersInfo[3] && getCellId(x - 1, y + 1) == b;
+        }
 
         return cornersInfo;
     }
