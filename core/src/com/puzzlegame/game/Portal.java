@@ -61,7 +61,7 @@ public class Portal extends GameObject {
         // If the portal is free
         for (Ball ball : level.getBalls()) {
             if ((int) getX() == (int) ball.getX() && (int) getY() == (int) ball.getY()) {
-                break;
+                return;
             }
         }
         isUsed = false;
