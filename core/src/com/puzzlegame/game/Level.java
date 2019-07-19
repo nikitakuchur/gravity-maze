@@ -43,14 +43,14 @@ public class Level extends Group implements Disposable {
 
         // Holes
         Hole blueHole = new Hole(this);
-        blueHole.setColor(Color.BLUE);
+        blueHole.setColor(0.14f, 0.35f, 0.76f, 1);
         blueHole.setPosition(9, 2);
         gameObjects.add(blueHole);
 
-        Hole redHole = new Hole(this);
-        redHole.setColor(Color.RED);
-        redHole.setPosition(11, 5);
-        gameObjects.add(redHole);
+        Hole pinkHole = new Hole(this);
+        pinkHole.setColor(0.86f, 0.48f, 0.86f, 1);
+        pinkHole.setPosition(11, 5);
+        gameObjects.add(pinkHole);
 
         // Portals
         Portal portalOne = new Portal(this);
@@ -73,14 +73,14 @@ public class Level extends Group implements Disposable {
 
         // Balls
         Ball blueBall = new Ball(this);
-        blueBall.setColor(Color.BLUE);
+        blueBall.setColor(blueHole.getColor());
         blueBall.setPosition(0, 0);
         balls.add(blueBall);
 
-        Ball redBall = new Ball(this);
-        redBall.setColor(Color.RED);
-        redBall.setPosition(4, 1);
-        balls.add(redBall);
+        Ball pinkBall = new Ball(this);
+        pinkBall.setColor(pinkHole.getColor());
+        pinkBall.setPosition(4, 1);
+        balls.add(pinkBall);
 
         // Add balls to level group
         for (Ball ball : balls) {
@@ -90,7 +90,7 @@ public class Level extends Group implements Disposable {
         }
 
         blueHole.addBall(blueBall);
-        redHole.addBall(redBall);
+        pinkHole.addBall(pinkBall);
 
         addListener(new LevelInputListener());
     }
