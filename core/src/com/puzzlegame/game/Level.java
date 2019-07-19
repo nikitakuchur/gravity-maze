@@ -47,7 +47,7 @@ public class Level extends Group implements Disposable {
         gameObjects.add(blueHole);
 
         Hole pinkHole = new Hole(this);
-        pinkHole.setColor(0.86f, 0.48f, 0.86f, 1);
+        pinkHole.setColor(0.86f, 0.34f, 0.68f, 1);
         pinkHole.setPosition(11, 5);
         gameObjects.add(pinkHole);
 
