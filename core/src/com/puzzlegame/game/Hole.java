@@ -27,6 +27,8 @@ public class Hole extends GameObject {
 
     @Override
     public void act(float delta) {
+        super.act(delta);
+
         for (Ball ball : balls) {
             if (getX() == ball.getX() && getY() == ball.getY()) {
                 level.removeBall(ball);

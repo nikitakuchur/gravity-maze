@@ -30,6 +30,8 @@ public class Ball extends Actor implements Disposable {
 
     @Override
     public void act(float delta) {
+        super.act(delta);
+
         Vector2 target = findTarget();
         Vector2 position = new Vector2(getX(), getY());
         Vector2 direction = target.cpy().sub(position).nor();

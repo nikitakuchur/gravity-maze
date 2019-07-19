@@ -53,7 +53,7 @@ public class Level extends Group implements Disposable {
         gameObjects.add(redHole);
 
         // Portals
-       Portal portalOne = new Portal(this);
+        Portal portalOne = new Portal(this);
         portalOne.setPosition(6, 6);
         gameObjects.add(portalOne);
 
