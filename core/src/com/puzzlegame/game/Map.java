@@ -1,4 +1,4 @@
-package com.android.game.gameobjects;
+package com.puzzlegame.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -77,7 +77,7 @@ public class Map extends Actor implements Disposable {
         shapeRenderer.rect(getX() - max, getY(), max * 2 + getWidth(), -2 * max);
 
 
-        float radius = getWidth() / (4 * w);
+        float radius = getWidth() / (8 * w);
 
         // Draw cells
         for (int i = 0; i < w ; i++) {

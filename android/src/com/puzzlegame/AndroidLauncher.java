@@ -1,4 +1,4 @@
-package com.android.game;
+package com.puzzlegame;
 
 import android.os.Bundle;
 

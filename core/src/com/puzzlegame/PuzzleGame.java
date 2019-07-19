@@ -1,6 +1,6 @@
-package com.android.game;
+package com.puzzlegame;
 
-import com.android.game.screens.GameScreen;
+import com.puzzlegame.screens.GameScreen;
 import com.badlogic.gdx.Game;
 
 public class PuzzleGame extends Game {

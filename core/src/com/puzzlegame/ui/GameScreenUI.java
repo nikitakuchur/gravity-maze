@@ -1,7 +1,7 @@
-package com.android.game.ui;
+package com.puzzlegame.ui;
 
-import com.android.game.gameobjects.Level;
-import com.android.game.screens.GameScreen;
+import com.puzzlegame.game.Level;
+import com.puzzlegame.screens.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

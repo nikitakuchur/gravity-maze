@@ -1,4 +1,4 @@
-package com.android.game.gameobjects;
+package com.puzzlegame.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -52,20 +52,20 @@ public class Level extends Group implements Disposable {
         redHole.setPosition(11, 5);
         gameObjects.add(redHole);
 
-        // Teleports
-        Teleport teleportOne = new Teleport(this);
-        teleportOne.setPosition(6, 6);
-        gameObjects.add(teleportOne);
+        // Portals
+       Portal portalOne = new Portal(this);
+        portalOne.setPosition(6, 6);
+        gameObjects.add(portalOne);
 
-        Teleport teleportTwo = new Teleport(this);
-        teleportTwo.setPosition(11, 2);
-        gameObjects.add(teleportTwo);
+        Portal portalTwo = new Portal(this);
+        portalTwo.setPosition(11, 2);
+        gameObjects.add(portalTwo);
 
-        teleportOne.to(teleportTwo);
-        teleportTwo.to(teleportOne);
+        portalOne.to(portalTwo);
+        portalTwo.to(portalOne);
 
         // Add game objects to level group
-        for (GameObject gameObject : gameObjects) {
+        for (Actor gameObject : gameObjects) {
             gameObject.setWidth(map.getWidth() / map.getCellsWidth());
             gameObject.setHeight(map.getHeight() / map.getCellsHeight());
             this.addActor(gameObject);
