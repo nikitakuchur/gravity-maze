@@ -1,5 +1,6 @@
 package com.puzzlegame.game;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -69,6 +70,7 @@ public class Portal extends GameObject {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        batch.setColor(getColor());
         batch.draw(textureRegion, getX() * getWidth() - level.getMap().getWidth() / 2,
                 getY() * getHeight() - level.getMap().getHeight() / 2,
                 getOriginX() + getWidth() / 2, getOriginY() + getHeight() / 2,

@@ -1,7 +1,9 @@
 package com.puzzlegame.game;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,8 @@ public class Hole extends GameObject {
 
     private List<Ball> balls = new ArrayList<>();
 
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private Texture texture = new Texture("game/hole.png");
+    private TextureRegion textureRegion = new TextureRegion(texture);
 
     /**
      * Creates a new hole
@@ -40,21 +43,11 @@ public class Hole extends GameObject {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.end();
-        shapeRenderer.setColor(getColor());
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-
-        shapeRenderer.translate(-level.getMap().getWidth() / 2, -level.getMap().getHeight() / 2, 0);
-
-        shapeRenderer.ellipse(getX() * getWidth(), getY() * getHeight(),
-                getWidth(), getHeight(), 32);
-
-        shapeRenderer.identity();
-        shapeRenderer.end();
-        batch.begin();
+        batch.setColor(getColor());
+        batch.draw(textureRegion, getX() * getWidth() - level.getMap().getWidth() / 2,
+                getY() * getHeight() - level.getMap().getHeight() / 2,
+                getOriginX() + getWidth() / 2, getOriginY() + getHeight() / 2,
+                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }
 
     /**
@@ -68,6 +61,6 @@ public class Hole extends GameObject {
 
     @Override
     public void dispose() {
-        shapeRenderer.dispose();
+        texture.dispose();
     }
 }
