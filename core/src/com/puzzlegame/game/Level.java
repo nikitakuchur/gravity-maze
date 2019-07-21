@@ -269,7 +269,25 @@ public class Level extends Group implements Disposable {
                 return;
             Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
             Vector2 touchPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-            setRotation(lastAngle + touchPosition.sub(center).angle(lastTouchPosition.cpy().sub(center)));
+
+            float angle = lastAngle + touchPosition.sub(center).angle(lastTouchPosition.cpy().sub(center));
+
+            float max = 600 * Gdx.graphics.getDeltaTime();
+            float delta = angleDifference(getRotation(), angle);
+
+            if (Math.abs(delta) > max) {
+                setRotation(getRotation() + Math.signum(delta) * max);
+                lastAngle = getRotation();
+                lastTouchPosition.set(Gdx.input.getX(), Gdx.input.getY());
+                return;
+            }
+
+            setRotation(angle);
+        }
+
+        private float angleDifference(float alpha, float beta) {
+            float diff = ( beta - alpha + 180 ) % 360 - 180;
+            return diff < -180 ? diff + 360 : diff;
         }
     }
 
