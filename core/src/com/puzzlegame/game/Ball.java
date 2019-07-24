@@ -11,7 +11,7 @@ public class Ball extends Actor implements Disposable {
 
     private final Level level;
 
-    private final float ACCELERATION = 1;
+    private final float ACCELERATION = 100;
     private float speed = 1;
 
     private boolean isGrounded;
@@ -45,7 +45,7 @@ public class Ball extends Actor implements Disposable {
         } else {
             position.add(direction.scl(speed * delta));
             setPosition(position.x, position.y);
-            speed += ACCELERATION;
+            speed += ACCELERATION * delta;
             isGrounded = false;
         }
     }

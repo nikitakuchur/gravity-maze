@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/level-editor/level-editor.iml" filepath="$PROJECT_DIR$/level-editor/level-editor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/editor/editor.iml" filepath="$PROJECT_DIR$/editor/editor.iml" />
     </modules>
   </component>
 </project>

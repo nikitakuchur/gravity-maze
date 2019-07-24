@@ -6,12 +6,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class LevelEditor extends Application {
+public class Editor extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Window.fxml"));
-        primaryStage.setTitle("Level Editor");
+        primaryStage.setTitle("Editor");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
