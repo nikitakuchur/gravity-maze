@@ -9,8 +9,6 @@ import java.util.List;
 
 public class Hole extends GameObject {
 
-    private final Level level;
-
     private List<Ball> balls = new ArrayList<>();
 
     private Texture texture = new Texture("game/hole.png");
@@ -22,9 +20,7 @@ public class Hole extends GameObject {
      * @param level the level
      */
     public Hole(Level level) {
-        this.level = level;
-        setWidth(100);
-        setHeight(100);
+        super(level);
     }
 
     @Override
@@ -33,7 +29,7 @@ public class Hole extends GameObject {
 
         for (Ball ball : balls) {
             if (getX() == ball.getX() && getY() == ball.getY()) {
-                level.removeBall(ball);
+                getLevel().removeBall(ball);
                 balls.remove(ball);
                 break;
             }
@@ -42,9 +38,11 @@ public class Hole extends GameObject {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        Map map = getLevel().getMap();
         batch.setColor(getColor());
-        batch.draw(textureRegion, getX() * getWidth() - level.getMap().getWidth() / 2,
-                getY() * getHeight() - level.getMap().getHeight() / 2,
+        batch.draw(textureRegion, getX() * getWidth() - map.getWidth() / 2,
+                getY() * getHeight() - map.getHeight() / 2,
                 getOriginX() + getWidth() / 2, getOriginY() + getHeight() / 2,
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }

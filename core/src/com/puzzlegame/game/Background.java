@@ -28,7 +28,7 @@ public class Background extends Actor implements Disposable {
         batch.end();
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(0, 0,
+        shapeRenderer.rect(-Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight() / 2,
                 Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),
                 backgroundColor[0],
                 backgroundColor[1],

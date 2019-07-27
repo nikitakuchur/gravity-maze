@@ -9,8 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 
 public class Portal extends GameObject {
 
-    private final Level level;
-
     private Portal portal;
 
     private boolean isUsed;
@@ -24,10 +22,7 @@ public class Portal extends GameObject {
      * @param level the level
      */
     public Portal(Level level) {
-        this.level = level;
-        setWidth(100);
-        setHeight(100);
-
+        super(level);
         addAction(Actions.repeat(
                 RepeatAction.FOREVER, Actions.sequence(
                         Actions.parallel(
@@ -48,7 +43,7 @@ public class Portal extends GameObject {
         }
 
         if (!isUsed) {
-            for (Ball ball : level.getBalls()) {
+            for (Ball ball : getLevel().getBalls()) {
                 if (getX() == ball.getX() && getY() == ball.getY()) {
                     ball.setPosition(portal.getX(), portal.getY());
                     isUsed = true;
@@ -59,7 +54,7 @@ public class Portal extends GameObject {
         }
 
         // If the portal is free
-        for (Ball ball : level.getBalls()) {
+        for (Ball ball : getLevel().getBalls()) {
             if ((int) getX() == (int) ball.getX() && (int) getY() == (int) ball.getY()) {
                 return;
             }
@@ -69,9 +64,11 @@ public class Portal extends GameObject {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        Map map = getLevel().getMap();
         batch.setColor(getColor());
-        batch.draw(textureRegion, getX() * getWidth() - level.getMap().getWidth() / 2,
-                getY() * getHeight() - level.getMap().getHeight() / 2,
+        batch.draw(textureRegion, getX() * getWidth() - map.getWidth() / 2,
+                getY() * getHeight() - map.getHeight() / 2,
                 getOriginX() + getWidth() / 2, getOriginY() + getHeight() / 2,
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }

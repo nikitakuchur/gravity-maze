@@ -1,6 +1,8 @@
 package com.puzzlegame.screens;
 
-import com.puzzlegame.ui.GameScreenUI;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.puzzlegame.ui.GameUI;
 import com.puzzlegame.game.Level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,26 +11,19 @@ import com.badlogic.gdx.scenes.scene2d.*;
 
 public class GameScreen implements Screen {
 
-    private Stage stage = new Stage();
+    private Stage stage = new Stage(new ScreenViewport());
 
     private Level level = new Level();
-    private GameScreenUI gameScreenUI = new GameScreenUI(this);
+    private GameUI gameUI = new GameUI(this);
 
     /**
      * Creates a new game screen
      */
     public GameScreen() {
-        level.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
+        stage.getCamera().position.set(Vector3.Zero);
 
         stage.addActor(level);
-        stage.addActor(gameScreenUI);
-    }
-
-    /**
-     * @return the stage
-     */
-    public Stage getStage() {
-        return stage;
+        stage.addActor(gameUI);
     }
 
     /**
@@ -37,6 +32,11 @@ public class GameScreen implements Screen {
      * @param level the level
      */
     public void setLevel(Level level) {
+        int index = stage.getActors().indexOf(this.level, true);
+        stage.getActors().set(index, level);
+        level.getMap().setWidth(this.level.getMap().getWidth());
+        level.getMap().setHeight(this.level.getMap().getHeight());
+        this.level.dispose();
         this.level = level;
     }
 
@@ -62,6 +62,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
+        stage.getViewport().update(width, height);
     }
 
     @Override
@@ -82,6 +83,6 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(null);
         stage.dispose();
         level.dispose();
-        gameScreenUI.dispose();
+        gameUI.dispose();
     }
 }

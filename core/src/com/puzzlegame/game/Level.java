@@ -38,6 +38,9 @@ public class Level extends Group implements Disposable {
      */
     public Level() {
         this.addActor(background);
+
+        map.setWidth(Gdx.graphics.getWidth());
+        map.setHeight(Gdx.graphics.getWidth() / map.getCellsWidth() * map.getCellsHeight());
         this.addActor(map);
 
         // Holes
@@ -65,8 +68,6 @@ public class Level extends Group implements Disposable {
 
         // Add game objects to level group
         for (Actor gameObject : gameObjects) {
-            gameObject.setWidth(map.getWidth() / map.getCellsWidth());
-            gameObject.setHeight(map.getHeight() / map.getCellsHeight());
             this.addActor(gameObject);
         }
 
@@ -83,8 +84,6 @@ public class Level extends Group implements Disposable {
 
         // Add balls to level group
         for (Ball ball : balls) {
-            ball.setWidth(map.getWidth() / map.getCellsWidth());
-            ball.setHeight(map.getHeight() / map.getCellsHeight());
             this.addActor(ball);
         }
 

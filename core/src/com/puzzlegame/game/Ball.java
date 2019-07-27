@@ -4,13 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Disposable;
 
-public class Ball extends Actor implements Disposable {
-
-    private final Level level;
-
+public class Ball extends GameObject {
     private final float ACCELERATION = 100;
     private float speed = 1;
 
@@ -24,9 +19,7 @@ public class Ball extends Actor implements Disposable {
      * @param level the level
      */
     public Ball(Level level) {
-        this.level = level;
-        setWidth(100);
-        setHeight(100);
+        super(level);
     }
 
     @Override
@@ -54,9 +47,9 @@ public class Ball extends Actor implements Disposable {
      * Finds the target. The target is a final position of the ball movement.
      */
     private Vector2 findTarget() {
-        Map map = level.getMap();
+        Map map = getLevel().getMap();
 
-        switch (level.getGravityDirection()) {
+        switch (getLevel().getGravityDirection()) {
             case TOP:
                 if (map.getCellId((int) getX(), (int) getY() + 1) != 1) {
                     return new Vector2((int) getX(), (int) getY() + 1);
@@ -85,12 +78,14 @@ public class Ball extends Actor implements Disposable {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        Map map = getLevel().getMap();
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
-        shapeRenderer.translate(- level.getMap().getWidth() / 2, -level.getMap().getHeight() / 2, 0);
+        shapeRenderer.translate(- map.getWidth() / 2, -map.getHeight() / 2, 0);
 
         shapeRenderer.setColor(getColor());
         shapeRenderer.ellipse(getX() * getWidth(), getY() * getHeight(),

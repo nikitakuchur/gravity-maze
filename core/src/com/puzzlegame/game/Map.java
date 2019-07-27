@@ -1,6 +1,7 @@
 package com.puzzlegame.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -22,15 +23,15 @@ public class Map extends Actor implements Disposable {
                               {1, 1, 0, 0, 0, 0, 1, 1},
                               {1, 1, 0, 0, 0, 0, 1, 1}};
 
+    public static final Color COLOR = new Color(0.01f, 0.31f, 0.45f, 1);
+
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     /**
      * Creates a new map
      */
     public Map() {
-        setColor(0.01f, 0.31f, 0.45f, 1);
-        setWidth(Gdx.graphics.getWidth());
-        setHeight(Gdx.graphics.getWidth() / cells.length * cells[0].length);
+        setColor(COLOR);
     }
 
     @Override
@@ -56,25 +57,26 @@ public class Map extends Actor implements Disposable {
     private void drawCells() {
         shapeRenderer.setColor(getColor());
 
-        int w = cells.length;
-        int h = cells[0].length;
+        int w = getCellsWidth();
+        int h = getCellsHeight();
 
         float cellWidth = getWidth() / w;
         float celHeight = getHeight() / h;
 
-        float max = getHeight() > getWidth() ? getHeight() : getWidth();
+        float max = Gdx.graphics.getHeight() > Gdx.graphics.getWidth() ?
+                Gdx.graphics.getHeight() : Gdx.graphics.getWidth();
 
         // Left
-        shapeRenderer.rect(getX(), getY(), -2 * max, getHeight());
+        shapeRenderer.rect(getX(), getY(), -max, getHeight());
 
         // Right
-        shapeRenderer.rect(getX() + getWidth() , getY(), 2 * max, getHeight());
+        shapeRenderer.rect(getX() + getWidth() , getY(), max, getHeight());
 
         // Top
-        shapeRenderer.rect(getX() - max, getY() + getHeight(), max * 2 + getWidth(), 2 * max);
+        shapeRenderer.rect(getX() - max, getY() + getHeight(), max * 2 + getWidth(), max);
 
         // Bottom
-        shapeRenderer.rect(getX() - max, getY(), max * 2 + getWidth(), -2 * max);
+        shapeRenderer.rect(getX() - max, getY(), max * 2 + getWidth(), -max);
 
 
         float radius = getWidth() / (8 * w);
