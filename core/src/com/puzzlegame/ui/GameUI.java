@@ -49,13 +49,14 @@ public class GameScreenUI extends Group {
         fpsLabel = new Label("FPS: 0", labelStyle);
         fpsLabel.setFontScale(0.5f);
         fpsLabel.setAlignment(Align.bottomLeft);
+        fpsLabel.setPosition(-Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight() / 2);
         this.addActor(fpsLabel);
 
         // Score label
         scoreLabel = new Label("", labelStyle);
         scoreLabel.setAlignment(Align.center);
-        scoreLabel.setPosition(Gdx.graphics.getWidth() / 2,
-                Gdx.graphics.getHeight() - (float) Gdx.graphics.getHeight() / 20);
+        scoreLabel.setPosition(0,
+                (float) Gdx.graphics.getHeight() / 2 - (float) Gdx.graphics.getHeight() / 20);
         this.addActor(scoreLabel);
 
         // Button style
@@ -64,8 +65,8 @@ public class GameScreenUI extends Group {
 
         // Back button
         backButton = new TextButton("Back", textButtonStyle);
-        backButton.setPosition((float) Gdx.graphics.getWidth() / 3 - backButton.getWidth() / 2,
-                (float) Gdx.graphics.getHeight() / 10);
+        backButton.setPosition(-(float) Gdx.graphics.getWidth() / 4 - backButton.getWidth() / 2,
+                -(float) Gdx.graphics.getHeight() / 2 + (float) Gdx.graphics.getHeight() / 10);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -76,8 +77,8 @@ public class GameScreenUI extends Group {
 
         // Reset button
         resetButton = new TextButton("Reset", textButtonStyle);
-        resetButton.setPosition(2 * (float) Gdx.graphics.getWidth() / 3 - resetButton.getWidth() / 2,
-                (float) Gdx.graphics.getHeight() / 10);
+        resetButton.setPosition((float) Gdx.graphics.getWidth() / 4 - resetButton.getWidth() / 2,
+                -(float) Gdx.graphics.getHeight() / 2 + (float) Gdx.graphics.getHeight() / 10);
         resetButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -85,8 +86,6 @@ public class GameScreenUI extends Group {
                 Level level = gameScreen.getLevel();
 
                 Level newlevel = new Level();
-                newlevel.setPosition((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-
                 int index = stage.getActors().indexOf(level, true);
                 stage.getActors().set(index, newlevel);
                 gameScreen.setLevel(newlevel);
