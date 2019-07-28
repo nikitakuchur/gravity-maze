@@ -246,10 +246,24 @@ public class Map extends Actor implements Disposable {
     }
 
     /**
+     * Sets the id for the given cell
+     *
+     * @param x the x-component of the cell position
+     * @param y the y-component of the cell position
+     * @param id the id
+     */
+    public void setCellId(int x, int y, int id) {
+        if (x >= cells.length || x < 0 || y >= cells[0].length || y < 0) {
+            return;
+        }
+        cells[x][y] = id;
+    }
+
+    /**
      * Returns the id of the cell
      *
-     * @param x the x-component of the position
-     * @param y the y-component of the position
+     * @param x the x-component of the cell position
+     * @param y the y-component of the cell position
      * @return the id
      */
     public int getCellId(int x, int y) {

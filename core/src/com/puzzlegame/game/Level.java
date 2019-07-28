@@ -1,6 +1,7 @@
 package com.puzzlegame.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
@@ -27,20 +28,22 @@ public class Level extends Group implements Disposable {
     private Vector2 lastTouchPosition = new Vector2();
 
     private boolean zoom;
-    private boolean rotationLock;
+    private boolean lockRotation;
 
     private float t;
 
     private GravityDirection lastGravityDirection = GravityDirection.BOTTOM;
+
+    private boolean pause;
+    private boolean fillScreen;
 
     /**
      * Creates a new level
      */
     public Level() {
         this.addActor(background);
-
-        map.setWidth(Gdx.graphics.getWidth());
-        map.setHeight(Gdx.graphics.getWidth() / map.getCellsWidth() * map.getCellsHeight());
+        map.setWidth(100);
+        map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
         this.addActor(map);
 
         // Holes
@@ -156,8 +159,32 @@ public class Level extends Group implements Disposable {
         return 0.294f * ((float) Math.cos((float) Math.PI * t) - 1) / 2 + 1;
     }
 
+    /**
+     * Pauses the level
+     *
+     * @param pause
+     */
+    public void setPause(boolean pause) {
+        this.pause = pause;
+    }
+
+    public void fillScreen(boolean fillScreen) {
+        this.fillScreen = fillScreen;
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        if (fillScreen) {
+            map.setWidth(Gdx.graphics.getWidth());
+            map.setHeight(Gdx.graphics.getWidth() / map.getCellsWidth() * map.getCellsHeight());
+        }
+        super.draw(batch, parentAlpha);
+    }
+
     @Override
     public Actor hit(float x, float y, boolean touchable) {
+        if (pause)
+            return null;
         return this;
     }
 
@@ -230,7 +257,7 @@ public class Level extends Group implements Disposable {
             gameObject.dispose();
     }
 
-    public class LevelInputListener extends InputListener {
+    private class LevelInputListener extends InputListener {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -238,11 +265,11 @@ public class Level extends Group implements Disposable {
                 return false;
 
             if (!ballsAreGrounded()) {
-                rotationLock = true;
+                lockRotation = true;
                 return true;
             }
-            
-            rotationLock = false;
+
+            lockRotation = false;
             zoom = true;
             lastTouchPosition.set(Gdx.input.getX(), Gdx.input.getY());
             return true;
@@ -258,13 +285,13 @@ public class Level extends Group implements Disposable {
 
         @Override
         public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-            rotationLock = false;
+            lockRotation = false;
             zoom = false;
         }
 
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
-            if (rotationLock)
+            if (lockRotation)
                 return;
             Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
             Vector2 touchPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());

@@ -1,5 +1,6 @@
 package com.puzzlegame.ui;
 
+import com.badlogic.gdx.utils.Disposable;
 import com.puzzlegame.game.Level;
 import com.puzzlegame.screens.GameScreen;
 import com.badlogic.gdx.Gdx;
@@ -14,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
-public class GameUI extends Group {
+public class GameUI extends Group implements Disposable {
 
     private final GameScreen gameScreen;
 
@@ -95,9 +96,7 @@ public class GameUI extends Group {
         scoreLabel.setText(gameScreen.getLevel().getScore());
     }
 
-    /**
-     * Releases all resources of this object
-     */
+    @Override
     public void dispose() {
         font.dispose();
     }

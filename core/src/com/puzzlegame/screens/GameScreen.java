@@ -21,7 +21,7 @@ public class GameScreen implements Screen {
      */
     public GameScreen() {
         stage.getCamera().position.set(Vector3.Zero);
-
+        level.fillScreen(true);
         stage.addActor(level);
         stage.addActor(gameUI);
     }
