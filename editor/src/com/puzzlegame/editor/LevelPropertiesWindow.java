@@ -10,8 +10,6 @@ public class LevelPropertiesWindow extends VisWindow {
 
     private final EditorUI editorUI;
 
-    private boolean isMapEditing;
-
     public LevelPropertiesWindow(EditorUI editorUI) {
         super("Level Properties");
         this.editorUI = editorUI;
@@ -31,21 +29,16 @@ public class LevelPropertiesWindow extends VisWindow {
         textFieldTable.defaults().right();
         textFieldTable.add(new VisLabel("Background:"));
         textFieldTable.add(new VisTextField());
+        add(textFieldTable).row();
 
-        textFieldTable.defaults().row();
-        textFieldTable.add("Map:");
-        textFieldTable.defaults().fillX();
-        textFieldTable.add(new VisTextButton("Edit Map", "toggle", new ChangeListener() {
+        VisTextButton editMapButton = new VisTextButton("Edit Map", "toggle", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 EditableLevel editableLevel = editorUI.getEditorScreen().getEditableLevel();
                 editableLevel.setMapEditing(!editableLevel.isMapEditing());
             }
-        }));
-        add(textFieldTable);
-    }
-
-    public boolean isMapEditing() {
-        return isMapEditing;
+        });
+        this.defaults().fillX();
+        add(editMapButton).row();
     }
 }
