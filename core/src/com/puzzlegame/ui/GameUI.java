@@ -83,16 +83,15 @@ public class GameUI extends Group implements Disposable {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
         fpsLabel.setPosition(-Gdx.graphics.getWidth() / 2, -Gdx.graphics.getHeight() / 2);
         scoreLabel.setPosition(0, (float) Gdx.graphics.getHeight() / 2 - (float) Gdx.graphics.getHeight() / 20);
         backButton.setPosition(-(float) Gdx.graphics.getWidth() / 4 - backButton.getWidth() / 2,
                 -(float) Gdx.graphics.getHeight() / 2 + (float) Gdx.graphics.getHeight() / 10);
         resetButton.setPosition((float) Gdx.graphics.getWidth() / 4 - resetButton.getWidth() / 2,
                 -(float) Gdx.graphics.getHeight() / 2 + (float) Gdx.graphics.getHeight() / 10);
-
         fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
         scoreLabel.setText(gameScreen.getLevel().getScore());
+        super.draw(batch, parentAlpha);
     }
 
     @Override
