@@ -20,7 +20,7 @@ public class ObjectsWindow extends VisWindow  {
 
     private void addWidgets() {
         VisList<String> list = new VisList<>();
-        list.setItems("Wall", "Ball", "Hole", "Portal");
+        list.setItems("Ball", "Hole", "Portal");
         add(list);
     }
 }

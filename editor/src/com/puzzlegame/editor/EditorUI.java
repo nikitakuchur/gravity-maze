@@ -20,6 +20,7 @@ public class EditorUI extends Group implements Disposable {
     private final Table root = new Table();
     private MenuBar menuBar;
 
+    private LevelPropertiesWindow levelPropertiesWindow;
     private ObjectsWindow objectsWindow;
     private PropertiesWindow propertiesWindow;
 
@@ -35,6 +36,9 @@ public class EditorUI extends Group implements Disposable {
         root.add().expand().fill();
         createMenu();
 
+        levelPropertiesWindow = new LevelPropertiesWindow(this);
+        this.addActor(levelPropertiesWindow);
+
         objectsWindow = new ObjectsWindow();
         this.addActor(objectsWindow);
 
@@ -44,6 +48,8 @@ public class EditorUI extends Group implements Disposable {
 
     private void createMenu() {
         Menu fileMenu = new Menu("File");
+        Menu editMenu = new Menu("Edit");
+        Menu runMenu = new Menu("Run");
 
         fileMenu.addItem(new MenuItem("New"));
         fileMenu.addItem(new MenuItem("Open..."));
@@ -57,7 +63,22 @@ public class EditorUI extends Group implements Disposable {
             }
         }));
 
+        editMenu.addItem(new MenuItem("Turn right"));
+        editMenu.addItem(new MenuItem("Turn left"));
+
+        runMenu.addItem(new MenuItem("Run"));
+        runMenu.addItem(new MenuItem("Stop"));
+
         menuBar.addMenu(fileMenu);
+        menuBar.addMenu(editMenu);
+        menuBar.addMenu(runMenu);
+    }
+
+    /**
+     * @return the editor screen
+     */
+    public EditorScreen getEditorScreen(){
+        return editorScreen;
     }
 
     @Override

@@ -60,6 +60,13 @@ public class EditorScreen implements Screen {
         Gdx.input.setInputProcessor(null);
     }
 
+    /**
+     * @return the editable level
+     */
+    public EditableLevel getEditableLevel() {
+        return editableLevel;
+    }
+
     @Override
     public void dispose() {
         Gdx.input.setInputProcessor(null);

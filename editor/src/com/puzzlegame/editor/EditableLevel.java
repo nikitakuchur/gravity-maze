@@ -18,6 +18,8 @@ public class EditableLevel extends Group implements Disposable {
     private List<GameObject> gameObjects = new ArrayList<>();
     private List<Ball> balls = new ArrayList<>();
 
+    private boolean isMapEditing;
+
     public EditableLevel() {
         this.addActor(background);
 
@@ -43,19 +45,29 @@ public class EditableLevel extends Group implements Disposable {
         map.dispose();
     }
 
+    public void setMapEditing(boolean mapEditing) {
+        isMapEditing = mapEditing;
+    }
+
+    public boolean isMapEditing() {
+        return isMapEditing;
+    }
+
     private class EditableLevelInputListener extends InputListener {
 
         private boolean emptyCell;
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            Vector2 position = screenToMapCoordinates(x, y);
-            if (map.getCellId((int) position.x, (int) position.y) == 0) {
-                map.setCellId((int) position.x, (int) position.y, 1);
-                emptyCell = false;
-            } else {
-                map.setCellId((int) position.x, (int) position.y, 0);
-                emptyCell = true;
+            if (isMapEditing) {
+                Vector2 position = screenToMapCoordinates(x, y);
+                if (map.getCellId((int) position.x, (int) position.y) == 0) {
+                    map.setCellId((int) position.x, (int) position.y, 1);
+                    emptyCell = false;
+                } else {
+                    map.setCellId((int) position.x, (int) position.y, 0);
+                    emptyCell = true;
+                }
             }
             return true;
         }
@@ -66,14 +78,15 @@ public class EditableLevel extends Group implements Disposable {
 
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
-            Vector2 position = screenToMapCoordinates(x, y);
-            if (!emptyCell && map.getCellId((int) position.x, (int) position.y) == 0) {
-                map.setCellId((int) position.x, (int) position.y, 1);
-            } else if (emptyCell){
-                map.setCellId((int) position.x, (int) position.y, 0);
+            if (isMapEditing) {
+                Vector2 position = screenToMapCoordinates(x, y);
+                if (!emptyCell && map.getCellId((int) position.x, (int) position.y) == 0) {
+                    map.setCellId((int) position.x, (int) position.y, 1);
+                } else if (emptyCell){
+                    map.setCellId((int) position.x, (int) position.y, 0);
+                }
             }
         }
-
 
         public Vector2 screenToMapCoordinates(float x, float y) {
             float cellWidth = map.getWidth() / map.getCellsWidth();
