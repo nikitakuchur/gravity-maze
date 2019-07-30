@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 public class Ball extends GameObject {
-    private final float ACCELERATION = 100;
+
+    private static final float ACCELERATION = 100;
     private float speed = 1;
 
     private boolean isGrounded;
