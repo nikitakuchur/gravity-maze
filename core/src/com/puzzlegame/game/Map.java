@@ -70,12 +70,7 @@ public class Map extends Actor implements Disposable {
         float cellWidth = getWidth() / w;
         float celHeight = getHeight() / h;
 
-<<<<<<< HEAD
         float max = Math.max(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-=======
-        float max = (float) Gdx.graphics.getHeight() > Gdx.graphics.getWidth() ?
-                Gdx.graphics.getHeight() : Gdx.graphics.getWidth();
->>>>>>> 5d6f1ceabc4344529564e4df52486ca68b4c1435
 
         // Left
         shapeRenderer.rect(getX(), getY(), -max, getHeight());
