@@ -35,6 +35,13 @@ public class Map extends Actor implements Disposable {
     }
 
     @Override
+    public void act(float delta) {
+        getParent().setWidth(getWidth());
+        getParent().setHeight(getHeight());
+        super.act(delta);
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -63,8 +70,7 @@ public class Map extends Actor implements Disposable {
         float cellWidth = getWidth() / w;
         float celHeight = getHeight() / h;
 
-        float max = Gdx.graphics.getHeight() > Gdx.graphics.getWidth() ?
-                Gdx.graphics.getHeight() : Gdx.graphics.getWidth();
+        float max = Math.max(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
 
         // Left
         shapeRenderer.rect(getX(), getY(), -max, getHeight());

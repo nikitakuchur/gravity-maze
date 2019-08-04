@@ -18,32 +18,29 @@ public class Portal extends GameObject {
 
     /**
      * Creates a new portal
-     *
-     * @param level the level
      */
-    public Portal(Level level) {
-        super(level);
+    public Portal() {
         addAction(Actions.repeat(
                 RepeatAction.FOREVER, Actions.sequence(
                         Actions.parallel(
-                            Actions.rotateBy(-40, 1, Interpolation.linear),
-                            Actions.scaleTo(0.9f,0.9f, 1, Interpolation.smooth)),
+                                Actions.rotateBy(-40, 1, Interpolation.linear),
+                                Actions.scaleTo(0.9f, 0.9f, 1, Interpolation.smooth)),
                         Actions.parallel(
-                            Actions.rotateBy(-40, 1, Interpolation.linear),
-                            Actions.scaleTo(1,1, 1, Interpolation.smooth)
+                                Actions.rotateBy(-40, 1, Interpolation.linear),
+                                Actions.scaleTo(1, 1, 1, Interpolation.smooth)
                         ))));
     }
 
     @Override
-    public void act(float delta) {
-        super.act(delta);
+    public void act(Level level, float delta) {
+        super.act(level, delta);
 
         if (portal == null) {
             return;
         }
 
         if (!isUsed) {
-            for (Ball ball : getLevel().getBalls()) {
+            for (Ball ball : level.getBalls()) {
                 if (getX() == ball.getX() && getY() == ball.getY()) {
                     ball.setPosition(portal.getX(), portal.getY());
                     isUsed = true;
@@ -54,7 +51,7 @@ public class Portal extends GameObject {
         }
 
         // If the portal is free
-        for (Ball ball : getLevel().getBalls()) {
+        for (Ball ball : level.getBalls()) {
             if ((int) getX() == (int) ball.getX() && (int) getY() == (int) ball.getY()) {
                 return;
             }
@@ -65,10 +62,9 @@ public class Portal extends GameObject {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        Map map = getLevel().getMap();
         batch.setColor(getColor());
-        batch.draw(textureRegion, getX() * getWidth() - map.getWidth() / 2,
-                getY() * getHeight() - map.getHeight() / 2,
+        batch.draw(textureRegion, getX() * getWidth() - getParent().getWidth() / 2,
+                getY() * getHeight() - getParent().getHeight() / 2,
                 getOriginX() + getWidth() / 2, getOriginY() + getHeight() / 2,
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }

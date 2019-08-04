@@ -47,22 +47,22 @@ public class Level extends Group implements Disposable {
         this.addActor(map);
 
         // Holes
-        Hole blueHole = new Hole(this);
+        Hole blueHole = new Hole();
         blueHole.setColor(0.14f, 0.35f, 0.76f, 1);
         blueHole.setPosition(9, 2);
         gameObjects.add(blueHole);
 
-        Hole pinkHole = new Hole(this);
+        Hole pinkHole = new Hole();
         pinkHole.setColor(0.86f, 0.34f, 0.68f, 1);
         pinkHole.setPosition(11, 5);
         gameObjects.add(pinkHole);
 
         // Portals
-        Portal portalOne = new Portal(this);
+        Portal portalOne = new Portal();
         portalOne.setPosition(6, 6);
         gameObjects.add(portalOne);
 
-        Portal portalTwo = new Portal(this);
+        Portal portalTwo = new Portal();
         portalTwo.setPosition(11, 2);
         gameObjects.add(portalTwo);
 
@@ -75,12 +75,12 @@ public class Level extends Group implements Disposable {
         }
 
         // Balls
-        Ball blueBall = new Ball(this);
+        Ball blueBall = new Ball();
         blueBall.setColor(blueHole.getColor());
         blueBall.setPosition(0, 0);
         balls.add(blueBall);
 
-        Ball pinkBall = new Ball(this);
+        Ball pinkBall = new Ball();
         pinkBall.setColor(pinkHole.getColor());
         pinkBall.setPosition(4, 1);
         balls.add(pinkBall);
@@ -98,7 +98,17 @@ public class Level extends Group implements Disposable {
 
     @Override
     public void act(float delta) {
+        if (fillScreen) {
+            map.setWidth(Gdx.graphics.getWidth());
+            map.setHeight(Gdx.graphics.getWidth() / map.getCellsWidth() * map.getCellsHeight());
+        }
         super.act(delta);
+        for (Ball ball : balls) {
+            ball.act(this, delta);
+        }
+        for (GameObject gameObject : gameObjects) {
+            gameObject.act(this, delta);
+        }
 
         // Zoom out
         if (zoom && t < 1) {
@@ -174,10 +184,6 @@ public class Level extends Group implements Disposable {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (fillScreen) {
-            map.setWidth(Gdx.graphics.getWidth());
-            map.setHeight(Gdx.graphics.getWidth() / map.getCellsWidth() * map.getCellsHeight());
-        }
         super.draw(batch, parentAlpha);
     }
 
@@ -250,11 +256,12 @@ public class Level extends Group implements Disposable {
         background.dispose();
         map.dispose();
 
-        for (Ball ball : balls)
+        for (Ball ball : balls) {
             ball.dispose();
-
-        for (GameObject gameObject : gameObjects)
+        }
+        for (GameObject gameObject : gameObjects) {
             gameObject.dispose();
+        }
     }
 
     private class LevelInputListener extends InputListener {
@@ -312,7 +319,7 @@ public class Level extends Group implements Disposable {
         }
 
         private float angleDifference(float alpha, float beta) {
-            float diff = ( beta - alpha + 180 ) % 360 - 180;
+            float diff = (beta - alpha + 180) % 360 - 180;
             return diff < -180 ? diff + 360 : diff;
         }
     }

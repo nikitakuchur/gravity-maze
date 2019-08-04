@@ -14,22 +14,12 @@ public class Hole extends GameObject {
     private Texture texture = new Texture("game/hole.png");
     private TextureRegion textureRegion = new TextureRegion(texture);
 
-    /**
-     * Creates a new hole
-     *
-     * @param level the level
-     */
-    public Hole(Level level) {
-        super(level);
-    }
-
     @Override
-    public void act(float delta) {
-        super.act(delta);
-
+    public void act(Level level, float delta) {
+        super.act(level, delta);
         for (Ball ball : balls) {
             if (getX() == ball.getX() && getY() == ball.getY()) {
-                getLevel().removeBall(ball);
+                level.removeBall(ball);
                 balls.remove(ball);
                 break;
             }
@@ -39,10 +29,9 @@ public class Hole extends GameObject {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        Map map = getLevel().getMap();
         batch.setColor(getColor());
-        batch.draw(textureRegion, getX() * getWidth() - map.getWidth() / 2,
-                getY() * getHeight() - map.getHeight() / 2,
+        batch.draw(textureRegion, getX() * getWidth() - getParent().getWidth() / 2,
+                getY() * getHeight() - getParent().getHeight() / 2,
                 getOriginX() + getWidth() / 2, getOriginY() + getHeight() / 2,
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }

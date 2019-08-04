@@ -6,31 +6,23 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 public class Ball extends GameObject {
-    private final float ACCELERATION = 100;
+
+    private static final float ACCELERATION = 100;
     private float speed = 1;
 
     private boolean isGrounded;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    /**
-     * Creates a new ball
-     *
-     * @param level the level
-     */
-    public Ball(Level level) {
-        super(level);
-    }
-
     @Override
-    public void act(float delta) {
-        super.act(delta);
+    public void act(Level level, float delta) {
+        super.act(level, delta);
 
-        Vector2 target = findTarget();
+        Vector2 target = findTarget(level);
         Vector2 position = new Vector2(getX(), getY());
         Vector2 direction = target.cpy().sub(position).nor();
 
-        if (position.cpy().sub(target).len() <  speed * delta) {
+        if (position.cpy().sub(target).len() < speed * delta) {
             setPosition(target.x, target.y);
             if (isGrounded) {
                 speed = 1;
@@ -46,10 +38,9 @@ public class Ball extends GameObject {
     /**
      * Finds the target. The target is a final position of the ball movement.
      */
-    private Vector2 findTarget() {
-        Map map = getLevel().getMap();
-
-        switch (getLevel().getGravityDirection()) {
+    private Vector2 findTarget(Level level) {
+        Map map = level.getMap();
+        switch (level.getGravityDirection()) {
             case TOP:
                 if (map.getCellId((int) getX(), (int) getY() + 1) != 1) {
                     return new Vector2((int) getX(), (int) getY() + 1);
@@ -72,20 +63,18 @@ public class Ball extends GameObject {
                 break;
         }
         isGrounded = true;
-
         return new Vector2(getX(), getY());
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        Map map = getLevel().getMap();
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
-        shapeRenderer.translate(- map.getWidth() / 2, -map.getHeight() / 2, 0);
+        shapeRenderer.translate(-getParent().getWidth() / 2, -getParent().getHeight() / 2, 0);
 
         shapeRenderer.setColor(getColor());
         shapeRenderer.ellipse(getX() * getWidth(), getY() * getHeight(),
@@ -104,8 +93,8 @@ public class Ball extends GameObject {
     }
 
     /**
-    * @return true if the ball on the ground and false otherwise
-    */
+     * @return true if the ball on the ground and false otherwise
+     */
     public boolean isGrounded() {
         return isGrounded;
     }

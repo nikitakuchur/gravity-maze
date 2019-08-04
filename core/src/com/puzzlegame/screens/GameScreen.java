@@ -2,6 +2,7 @@ package com.puzzlegame.screens;
 
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.puzzlegame.game.Map;
 import com.puzzlegame.ui.GameUI;
 import com.puzzlegame.game.Level;
 import com.badlogic.gdx.Gdx;
