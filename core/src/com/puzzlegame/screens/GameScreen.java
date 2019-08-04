@@ -35,8 +35,7 @@ public class GameScreen implements Screen {
     public void setLevel(Level level) {
         int index = stage.getActors().indexOf(this.level, true);
         stage.getActors().set(index, level);
-        level.getMap().setWidth(this.level.getMap().getWidth());
-        level.getMap().setHeight(this.level.getMap().getHeight());
+        level.fillScreen(true);
         this.level.dispose();
         this.level = level;
     }

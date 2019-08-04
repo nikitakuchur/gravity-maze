@@ -178,6 +178,11 @@ public class Level extends Group implements Disposable {
         this.pause = pause;
     }
 
+    /**
+     * Stretches the level to fit the screen
+     *
+     * @param fillScreen
+     */
     public void fillScreen(boolean fillScreen) {
         this.fillScreen = fillScreen;
     }
@@ -323,5 +328,4 @@ public class Level extends Group implements Disposable {
             return diff < -180 ? diff + 360 : diff;
         }
     }
-
 }

@@ -23,7 +23,7 @@ public class Map extends Actor implements Disposable {
                               {1, 1, 0, 0, 0, 0, 1, 1},
                               {1, 1, 0, 0, 0, 0, 1, 1}};
 
-    public static final Color COLOR = new Color(0.01f, 0.31f, 0.45f, 1);
+    private static final Color COLOR = new Color(0.01f, 0.31f, 0.45f, 1);
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -70,7 +70,12 @@ public class Map extends Actor implements Disposable {
         float cellWidth = getWidth() / w;
         float celHeight = getHeight() / h;
 
+<<<<<<< HEAD
         float max = Math.max(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+=======
+        float max = (float) Gdx.graphics.getHeight() > Gdx.graphics.getWidth() ?
+                Gdx.graphics.getHeight() : Gdx.graphics.getWidth();
+>>>>>>> 5d6f1ceabc4344529564e4df52486ca68b4c1435
 
         // Left
         shapeRenderer.rect(getX(), getY(), -max, getHeight());
@@ -160,7 +165,7 @@ public class Map extends Actor implements Disposable {
      * @param isRounded if the corner is rounded, then isRounded[cornerIndex] = true
      */
     private void roundedRect(Vector2 position, Vector2 size, float radius, boolean[] isRounded) {
-        int segments = 32;
+        final int segments = 32;
 
         if (isRounded[0] || isRounded[1] || isRounded[2] || isRounded[3]) {
             if (size.x >= size.y && radius > size.y / 2)
@@ -208,7 +213,7 @@ public class Map extends Actor implements Disposable {
      * @param cornerNumber the number of the corner
      */
     private void roundedInsideCorner(Vector2 position, float radius, int cornerNumber) {
-        int segments = 32;
+        final int segments = 32;
 
         float[] vertices = new float[(segments + 1) * 2];
 
