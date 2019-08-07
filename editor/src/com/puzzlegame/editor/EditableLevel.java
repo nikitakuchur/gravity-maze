@@ -73,10 +73,6 @@ public class EditableLevel extends Group implements Disposable {
         }
 
         @Override
-        public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-        }
-
-        @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
             if (isMapEditing) {
                 Vector2 position = screenToMapCoordinates(x, y);

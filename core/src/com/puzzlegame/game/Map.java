@@ -23,7 +23,7 @@ public class Map extends Actor implements Disposable {
                               {1, 1, 0, 0, 0, 0, 1, 1},
                               {1, 1, 0, 0, 0, 0, 1, 1}};
 
-    private static final Color COLOR = new Color(0.01f, 0.31f, 0.45f, 1);
+    private static final Color CELLS_COLOR = new Color(0.01f, 0.31f, 0.45f, 1);
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -31,7 +31,7 @@ public class Map extends Actor implements Disposable {
      * Creates a new map
      */
     public Map() {
-        setColor(COLOR);
+        setColor(CELLS_COLOR);
     }
 
     @Override
@@ -50,12 +50,20 @@ public class Map extends Actor implements Disposable {
 
         shapeRenderer.translate(-getWidth() / 2, -getHeight() / 2, 0);
 
-        // Draw the level
+        drawRects();
         drawCells();
 
         shapeRenderer.identity();
         shapeRenderer.end();
         batch.begin();
+    }
+
+    private void drawRects() {
+        float max = Math.max(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
+        shapeRenderer.rect(getX(), getY(), -max, getHeight()); // Left
+        shapeRenderer.rect(getX() + getWidth() , getY(), max, getHeight()); // Right
+        shapeRenderer.rect(getX() - max, getY() + getHeight(), max * 2 + getWidth(), max); // Top
+        shapeRenderer.rect(getX() - max, getY(), max * 2 + getWidth(), -max); // Bottom
     }
 
     /**
@@ -69,21 +77,6 @@ public class Map extends Actor implements Disposable {
 
         float cellWidth = getWidth() / w;
         float celHeight = getHeight() / h;
-
-        float max = Math.max(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-
-        // Left
-        shapeRenderer.rect(getX(), getY(), -max, getHeight());
-
-        // Right
-        shapeRenderer.rect(getX() + getWidth() , getY(), max, getHeight());
-
-        // Top
-        shapeRenderer.rect(getX() - max, getY() + getHeight(), max * 2 + getWidth(), max);
-
-        // Bottom
-        shapeRenderer.rect(getX() - max, getY(), max * 2 + getWidth(), -max);
-
 
         float radius = getWidth() / (8 * w);
 

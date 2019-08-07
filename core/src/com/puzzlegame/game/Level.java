@@ -1,7 +1,6 @@
 package com.puzzlegame.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
@@ -100,7 +99,7 @@ public class Level extends Group implements Disposable {
     public void act(float delta) {
         if (fillScreen) {
             map.setWidth(Gdx.graphics.getWidth());
-            map.setHeight(Gdx.graphics.getWidth() / map.getCellsWidth() * map.getCellsHeight());
+            map.setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
         }
         super.act(delta);
         for (Ball ball : balls) {
@@ -126,7 +125,10 @@ public class Level extends Group implements Disposable {
             setScale(scaleAnimation(0));
         }
 
-        // Rotate to closest edge
+        rotateToClosestEdge(delta);
+    }
+
+    private void rotateToClosestEdge(float delta) {
         if (!zoom) {
             float angle = getRotation();
             float angleRad = (float) Math.toRadians(angle);
@@ -185,11 +187,6 @@ public class Level extends Group implements Disposable {
      */
     public void fillScreen(boolean fillScreen) {
         this.fillScreen = fillScreen;
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
     }
 
     @Override

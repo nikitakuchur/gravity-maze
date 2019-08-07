@@ -14,7 +14,7 @@ public class ObjectsWindow extends VisWindow  {
         columnDefaults(0).left();
 
         setSize(75, 150);
-        setPosition(-Gdx.graphics.getWidth() / 2 + 10, (float) Gdx.graphics.getHeight() / 2 - getHeight() - 35);
+        setPosition(-(float) Gdx.graphics.getWidth() / 2 + 10, (float) Gdx.graphics.getHeight() / 2 - getHeight() - 35);
         addWidgets();
     }
 

@@ -43,22 +43,22 @@ public class Ball extends GameObject {
         switch (level.getGravityDirection()) {
             case TOP:
                 if (map.getCellId((int) getX(), (int) getY() + 1) != 1) {
-                    return new Vector2((int) getX(), (int) getY() + 1);
+                    return new Vector2((int) getX(), (int) (getY() + 1));
                 }
                 break;
             case LEFT:
                 if (map.getCellId((int) Math.ceil(getX()) - 1, (int) getY()) != 1) {
-                    return new Vector2((int) Math.ceil(getX()) - 1, (int) getY());
+                    return new Vector2((int) Math.ceil(getX() - 1), (int) getY());
                 }
                 break;
             case BOTTOM:
                 if (map.getCellId((int) getX(), (int) Math.ceil(getY()) - 1) != 1) {
-                    return new Vector2((int) getX(), (int) Math.ceil(getY()) - 1);
+                    return new Vector2((int) getX(), (int) Math.ceil(getY() - 1));
                 }
                 break;
             case RIGHT:
                 if (map.getCellId((int) getX() + 1, (int) getY()) != 1) {
-                    return new Vector2((int) getX() + 1, (int) getY());
+                    return new Vector2((int) (getX() + 1), (int) getY());
                 }
                 break;
         }

@@ -19,7 +19,7 @@ public class LevelPropertiesWindow extends VisWindow {
         columnDefaults(0).left();
 
         setSize(300, 100);
-        setPosition(-Gdx.graphics.getWidth() / 2 + 10, -(float) Gdx.graphics.getHeight() / 2 + 10);
+        setPosition(-(float) Gdx.graphics.getWidth() / 2 + 10, -(float) Gdx.graphics.getHeight() / 2 + 10);
         addWidgets();
     }
 

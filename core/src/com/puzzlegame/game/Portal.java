@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 
 public class Portal extends GameObject {
 
-    private Portal portal;
+    private Portal secondPortal;
 
     private boolean isUsed;
 
@@ -35,16 +35,16 @@ public class Portal extends GameObject {
     public void act(Level level, float delta) {
         super.act(level, delta);
 
-        if (portal == null) {
+        if (secondPortal == null) {
             return;
         }
 
         if (!isUsed) {
             for (Ball ball : level.getBalls()) {
                 if (getX() == ball.getX() && getY() == ball.getY()) {
-                    ball.setPosition(portal.getX(), portal.getY());
+                    ball.setPosition(secondPortal.getX(), secondPortal.getY());
                     isUsed = true;
-                    portal.isUsed = true;
+                    secondPortal.isUsed = true;
                     return;
                 }
             }
@@ -75,7 +75,7 @@ public class Portal extends GameObject {
      * @param portal the portal
      */
     public void to(Portal portal) {
-        this.portal = portal;
+        this.secondPortal = portal;
     }
 
     @Override

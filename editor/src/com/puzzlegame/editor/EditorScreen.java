@@ -1,14 +1,14 @@
 package com.puzzlegame.editor;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.puzzlegame.game.Map;
 
-public class EditorScreen implements Screen {
+public class EditorScreen extends ScreenAdapter {
 
     private Stage stage = new Stage(new ScreenViewport());
 
@@ -43,16 +43,6 @@ public class EditorScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
     }
 
     @Override
