@@ -273,7 +273,7 @@ public class Level extends Group implements Disposable {
             if (pointer != 0)
                 return false;
 
-            if (!ballsAreGrounded()) {
+            if (!areBallsGrounded()) {
                 lockRotation = true;
                 return true;
             }
@@ -284,7 +284,7 @@ public class Level extends Group implements Disposable {
             return true;
         }
 
-        private boolean ballsAreGrounded() {
+        private boolean areBallsGrounded() {
             for (Ball ball : balls) {
                 if (!ball.isGrounded())
                     return false;
