@@ -27,6 +27,13 @@ public class GameScreen extends ScreenAdapter {
     }
 
     /**
+     * @return the level
+     */
+    public Level getLevel() {
+        return level;
+    }
+
+    /**
      * Sets the level
      *
      * @param level the level
@@ -37,13 +44,6 @@ public class GameScreen extends ScreenAdapter {
         level.fillScreen(true);
         this.level.dispose();
         this.level = level;
-    }
-
-    /**
-     * @return the level
-     */
-    public Level getLevel() {
-        return level;
     }
 
     @Override

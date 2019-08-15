@@ -84,12 +84,12 @@ public class Map extends Actor implements Disposable {
         for (int i = 0; i < w ; i++) {
             for (int j = 0; j < h; j++) {
                 if (getCellId(i, j) == 1) {
-                    boolean[] cornersInfo = getCornersInfo(i, j, false);
+                    boolean[] cornersInfo = resolveCornersInfo(i, j, false);
 
                     roundedRect(new Vector2(getX() + i * cellWidth, getY() + j * celHeight),
                             new Vector2(cellWidth, celHeight), radius, cornersInfo);
                 } else {
-                    boolean[] cornersInfo = getCornersInfo(i, j, true);
+                    boolean[] cornersInfo = resolveCornersInfo(i, j, true);
 
                     if (cornersInfo[0])
                         roundedInsideCorner(new Vector2(getX() + i * cellWidth, getY() + j * celHeight),
@@ -117,7 +117,7 @@ public class Map extends Actor implements Disposable {
      * @param inside is it an inside corner?
      * @return the array of booleans
      */
-    private boolean[] getCornersInfo(int x, int y, boolean inside) {
+    private boolean[] resolveCornersInfo(int x, int y, boolean inside) {
         boolean[] cornersInfo = new boolean[4];
 
         int b = inside ? 1 : 0;
@@ -245,20 +245,6 @@ public class Map extends Actor implements Disposable {
     }
 
     /**
-     * Sets the id for the given cell
-     *
-     * @param x the x-component of the cell position
-     * @param y the y-component of the cell position
-     * @param id the id
-     */
-    public void setCellId(int x, int y, int id) {
-        if (x >= cells.length || x < 0 || y >= cells[0].length || y < 0) {
-            return;
-        }
-        cells[x][y] = id;
-    }
-
-    /**
      * Returns the id of the cell
      *
      * @param x the x-component of the cell position
@@ -270,6 +256,20 @@ public class Map extends Actor implements Disposable {
             return 1;
         }
         return cells[x][y];
+    }
+
+    /**
+     * Sets the id for the given cell
+     *
+     * @param x the x-component of the cell position
+     * @param y the y-component of the cell position
+     * @param id the id
+     */
+    public void setCellId(int x, int y, int id) {
+        if (x >= cells.length || x < 0 || y >= cells[0].length || y < 0) {
+            return;
+        }
+        cells[x][y] = id;
     }
 
     @Override
