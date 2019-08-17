@@ -91,18 +91,8 @@ public class Map extends Actor implements Disposable {
                 } else {
                     boolean[] cornersInfo = resolveCornersInfo(i, j, true);
 
-                    if (cornersInfo[0])
-                        roundedInsideCorner(new Vector2(getX() + i * cellWidth, getY() + j * celHeight),
-                                radius, 0);
-                    if (cornersInfo[1])
-                        roundedInsideCorner(new Vector2(getX() + (i + 1) * cellWidth, getY() + j * celHeight),
-                                radius, 1);
-                    if (cornersInfo[2])
-                        roundedInsideCorner(new Vector2(getX() + (i + 1) * cellWidth, getY() + (j + 1) * celHeight),
-                                radius, 2);
-                    if (cornersInfo[3])
-                        roundedInsideCorner(new Vector2(getX() + i * cellWidth, getY() + (j + 1) * celHeight),
-                                radius, 3);
+                    emptyRect(new Vector2(getX() + i * cellWidth, getY() + j * celHeight),
+                            new Vector2(cellWidth, celHeight), radius, cornersInfo);
                 }
             }
         }
@@ -114,7 +104,7 @@ public class Map extends Actor implements Disposable {
      *
      * @param x the x-component of the position
      * @param y the y-component of the position
-     * @param inside is it an inside corner?
+     * @param inside is it an inside corner or outside?
      * @return the array of booleans
      */
     private boolean[] resolveCornersInfo(int x, int y, boolean inside) {
@@ -155,42 +145,66 @@ public class Map extends Actor implements Disposable {
     private void roundedRect(Vector2 position, Vector2 size, float radius, boolean[] isRounded) {
         final int segments = 32;
 
-        if (isRounded[0] || isRounded[1] || isRounded[2] || isRounded[3]) {
-            if (size.x >= size.y && radius > size.y / 2)
-                radius = size.y / 2;
-            else if (size.x < size.y && radius > size.x / 2)
-                radius = size.x / 2;
-
-            shapeRenderer.rect(position.x + radius, position.y + radius,
-                    size.x - 2 * radius, size.y - 2 * radius);
-
-            shapeRenderer.rect(position.x, position.y + radius, radius, size.y - 2 * radius);
-            shapeRenderer.rect(position.x + radius, position.y + size.y - radius, size.x - 2 * radius, radius);
-            shapeRenderer.rect(position.x + size.x - radius, position.y + radius, radius, size.y - 2 * radius);
-            shapeRenderer.rect(position.x + radius, position.y, size.x - 2 * radius, radius);
-
-            if (isRounded[0])
-                shapeRenderer.arc(position.x + radius, position.y + radius, radius, -180, 90, segments);
-            else
-                shapeRenderer.rect(position.x, position.y, radius, radius);
-
-            if (isRounded[1])
-                shapeRenderer.arc(position.x + size.x - radius, position.y + radius, radius, -90, 90, segments);
-            else
-                shapeRenderer.rect(position.x + size.x - radius, position.y, radius, radius);
-
-            if (isRounded[2])
-                shapeRenderer.arc(position.x + size.x - radius, position.y + size.y - radius, radius, 0, 90, segments);
-            else
-                shapeRenderer.rect(position.x + size.x - radius, position.y + size.y - radius, radius, radius);
-
-            if (isRounded[3])
-                shapeRenderer.arc(position.x + radius, position.y + size.y - radius, radius, 90, 90, segments);
-            else
-                shapeRenderer.rect(position.x, position.y + size.y - radius, radius, radius);
+        if (size.x >= size.y && radius > size.y / 2) {
+            radius = size.y / 2;
+        } else if (size.x < size.y && radius > size.x / 2) {
+            radius = size.x / 2;
         }
-        else
-            shapeRenderer.rect(position.x, position.y, size.x, size.y);
+
+        shapeRenderer.rect(position.x + radius, position.y + radius,
+                size.x - 2 * radius, size.y - 2 * radius);
+
+        shapeRenderer.rect(position.x, position.y + radius, radius, size.y - 2 * radius);
+        shapeRenderer.rect(position.x + radius, position.y + size.y - radius, size.x - 2 * radius, radius);
+        shapeRenderer.rect(position.x + size.x - radius, position.y + radius, radius, size.y - 2 * radius);
+        shapeRenderer.rect(position.x + radius, position.y, size.x - 2 * radius, radius);
+
+        if (isRounded[0]) {
+            shapeRenderer.arc(position.x + radius, position.y + radius, radius, -180, 90, segments);
+        } else {
+            shapeRenderer.rect(position.x, position.y, radius, radius);
+        }
+
+        if (isRounded[1]) {
+            shapeRenderer.arc(position.x + size.x - radius, position.y + radius, radius, -90, 90, segments);
+        } else {
+            shapeRenderer.rect(position.x + size.x - radius, position.y, radius, radius);
+        }
+
+        if (isRounded[2]) {
+            shapeRenderer.arc(position.x + size.x - radius, position.y + size.y - radius, radius, 0, 90, segments);
+        } else {
+            shapeRenderer.rect(position.x + size.x - radius, position.y + size.y - radius, radius, radius);
+        }
+
+        if (isRounded[3]) {
+            shapeRenderer.arc(position.x + radius, position.y + size.y - radius, radius, 90, 90, segments);
+        } else {
+            shapeRenderer.rect(position.x, position.y + size.y - radius, radius, radius);
+        }
+    }
+
+    /**
+     * Draws a empty rectangle
+     *
+     * @param position the position
+     * @param size the size
+     * @param radius the radius of the corner
+     * @param isRounded if the corner is rounded, then isRounded[cornerIndex] = true
+     */
+    private void emptyRect(Vector2 position, Vector2 size, float radius, boolean[] isRounded) {
+        if (isRounded[0]) {
+            roundedInsideCorner(new Vector2(position.x, position.y), radius, 0);
+        }
+        if (isRounded[1]) {
+            roundedInsideCorner(new Vector2(position.x + size.x, position.y), radius, 1);
+        }
+        if (isRounded[2]) {
+            roundedInsideCorner(new Vector2(position.x + size.x, position.y + size.y), radius, 2);
+        }
+        if (isRounded[3]) {
+            roundedInsideCorner(new Vector2(position.x, position.y + size.y), radius, 3);
+        }
     }
 
     /**
@@ -211,22 +225,22 @@ public class Map extends Actor implements Disposable {
             vertices[i] = position.x - radius * (float) Math.cos(t);
             vertices[i + 1] = position.y - radius * (float) Math.sin(t);
 
-            if (cornerNumber == 0 || cornerNumber == 3)
+            if (cornerNumber == 0 || cornerNumber == 3) {
                 vertices[i] += radius;
-            else
+            } else {
                 vertices[i] -= radius;
+            }
 
-            if (cornerNumber == 0 || cornerNumber == 1)
+            if (cornerNumber == 0 || cornerNumber == 1) {
                 vertices[i + 1] += radius;
-            else
+            } else {
                 vertices[i + 1] -= radius;
+            }
         }
 
         // Draw triangles
         for (int i = 0; i < vertices.length - 2; i += 2) {
-            shapeRenderer.triangle(vertices[i], vertices[i + 1],
-                    vertices[i + 2], vertices[i + 3],
-                    position.x, position.y);
+            shapeRenderer.triangle(vertices[i], vertices[i + 1], vertices[i + 2], vertices[i + 3], position.x, position.y);
         }
     }
 

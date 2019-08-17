@@ -35,9 +35,7 @@ public class Portal extends GameObject {
     public void act(Level level, float delta) {
         super.act(level, delta);
 
-        if (secondPortal == null) {
-            return;
-        }
+        if (secondPortal == null) return;
 
         if (!isUsed) {
             for (Ball ball : level.getBalls()) {

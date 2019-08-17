@@ -125,46 +125,43 @@ public class Level extends Group implements Disposable {
             setScale(scaleAnimation(0));
         }
 
-        rotateToClosestEdge(delta);
+        if (!zoom) {
+            rotateToClosestEdge(delta);
+        }
     }
 
     private void rotateToClosestEdge(float delta) {
-        if (!zoom) {
-            float angle = getRotation();
-            float angleRad = (float) Math.toRadians(angle);
-            float speed = 800;
+        final float speed = 800;
 
-            // Top
-            if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) < 0) {
+        float angle = getRotation();
+        float angleRad = (float) Math.toRadians(angle);
+
+        if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad))) {
+            if (Math.cos(angleRad) < 0) {
                 setRotation(angle + (float) Math.sin(angleRad) * speed * delta);
                 gravityDirection = GravityDirection.TOP;
-            }
-
-            // Left
-            if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) > 0) {
-                setRotation(angle + (float) Math.cos(angleRad) * speed * delta);
-                gravityDirection = GravityDirection.LEFT;
-            }
-
-            // Bottom
-            if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad)) && Math.cos(angleRad) > 0) {
+            } else {
                 setRotation(angle - (float) Math.sin(angleRad) * speed * delta);
                 gravityDirection = GravityDirection.BOTTOM;
             }
+        }
 
-            // Right
-            if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad)) && Math.sin(angleRad) < 0) {
+        if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad))) {
+            if (Math.sin(angleRad) > 0) {
+                setRotation(angle + (float) Math.cos(angleRad) * speed * delta);
+                gravityDirection = GravityDirection.LEFT;
+            } else {
                 setRotation(angle - (float) Math.cos(angleRad) * speed * delta);
                 gravityDirection = GravityDirection.RIGHT;
             }
-
-            if (lastGravityDirection != gravityDirection) {
-                lastGravityDirection = gravityDirection;
-                score++;
-            }
-
-            lastAngle = getRotation();
         }
+
+        if (lastGravityDirection != gravityDirection) {
+            lastGravityDirection = gravityDirection;
+            score++;
+        }
+
+        lastAngle = getRotation();
     }
 
     private float scaleAnimation(float t) {
