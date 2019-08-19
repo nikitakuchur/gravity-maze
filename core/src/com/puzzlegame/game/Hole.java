@@ -19,7 +19,7 @@ public class Hole extends GameObject {
         super.act(level, delta);
         for (Ball ball : balls) {
             if (getX() == ball.getX() && getY() == ball.getY()) {
-                level.removeBall(ball);
+                level.removeActor(ball);
                 balls.remove(ball);
                 break;
             }
@@ -38,8 +38,6 @@ public class Hole extends GameObject {
 
     /**
      * Adds a ball that can interact with this hole
-     *
-     * @param ball the ball
      */
     public void addBall(Ball ball) {
         balls.add(ball);

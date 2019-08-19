@@ -185,7 +185,7 @@ public class Map extends Actor implements Disposable {
     }
 
     /**
-     * Draws a empty rectangle
+     * Draws an empty rectangle
      *
      * @param position the position
      * @param size the size

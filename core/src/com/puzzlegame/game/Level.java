@@ -16,8 +16,6 @@ public class Level extends Group implements Disposable {
 
     private Background background = new Background();
     private Map map = new Map();
-    private List<GameObject> gameObjects = new ArrayList<>();
-    private List<Ball> balls = new ArrayList<>();
 
     private int score;
 
@@ -45,49 +43,39 @@ public class Level extends Group implements Disposable {
         map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
         this.addActor(map);
 
-        // Holes
+        // Add holes
         Hole blueHole = new Hole();
         blueHole.setColor(0.14f, 0.35f, 0.76f, 1);
         blueHole.setPosition(9, 2);
-        gameObjects.add(blueHole);
+        this.addActor(blueHole);
 
         Hole pinkHole = new Hole();
         pinkHole.setColor(0.86f, 0.34f, 0.68f, 1);
         pinkHole.setPosition(11, 5);
-        gameObjects.add(pinkHole);
+        this.addActor(pinkHole);
 
-        // Portals
+        // Add portals
         Portal portalOne = new Portal();
         portalOne.setPosition(6, 6);
-        gameObjects.add(portalOne);
+        this.addActor(portalOne);
 
         Portal portalTwo = new Portal();
         portalTwo.setPosition(11, 2);
-        gameObjects.add(portalTwo);
+        this.addActor(portalTwo);
 
         portalOne.to(portalTwo);
         portalTwo.to(portalOne);
 
-        // Add game objects to level group
-        for (Actor gameObject : gameObjects) {
-            this.addActor(gameObject);
-        }
-
-        // Balls
+        // Add balls
         Ball blueBall = new Ball();
         blueBall.setColor(blueHole.getColor());
         blueBall.setPosition(0, 0);
-        balls.add(blueBall);
+        this.addActor(blueBall);
 
         Ball pinkBall = new Ball();
         pinkBall.setColor(pinkHole.getColor());
         pinkBall.setPosition(4, 1);
-        balls.add(pinkBall);
-
-        // Add balls to level group
-        for (Ball ball : balls) {
-            this.addActor(ball);
-        }
+        this.addActor(pinkBall);
 
         blueHole.addBall(blueBall);
         pinkHole.addBall(pinkBall);
@@ -101,11 +89,10 @@ public class Level extends Group implements Disposable {
             map.setWidth(Gdx.graphics.getWidth());
             map.setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
         }
+
         super.act(delta);
-        for (Ball ball : balls) {
-            ball.act(this, delta);
-        }
-        for (GameObject gameObject : gameObjects) {
+
+        for (GameObject gameObject : getGameObjects()) {
             gameObject.act(this, delta);
         }
 
@@ -168,19 +155,12 @@ public class Level extends Group implements Disposable {
         return 0.294f * ((float) Math.cos((float) Math.PI * t) - 1) / 2 + 1;
     }
 
-    /**
-     * Pauses the level
-     *
-     * @param pause
-     */
     public void setPause(boolean pause) {
         this.pause = pause;
     }
 
     /**
      * Stretches the level to fit the screen
-     *
-     * @param fillScreen
      */
     public void fillScreen(boolean fillScreen) {
         this.fillScreen = fillScreen;
@@ -193,52 +173,24 @@ public class Level extends Group implements Disposable {
         return this;
     }
 
-    /**
-     * @return the map
-     */
     public Map getMap() {
         return map;
     }
 
-    /**
-     * @return the list of game objects
-     */
     public List<GameObject> getGameObjects() {
-        return gameObjects;
+        return getGameObjects(GameObject.class);
     }
 
-    /**
-     * Removes the game object from the level
-     *
-     * @param gameObject the game object
-     */
-    public void removeGameObject(GameObject gameObject) {
-        gameObjects.remove(gameObject);
-        removeActor(gameObject);
-        gameObject.dispose();
+    public <T extends GameObject> List<T> getGameObjects(Class<T> type) {
+        List<T> result = new ArrayList<>();
+        for (Actor actor : getChildren()) {
+            T gameObject = actor.firstAscendant(type);
+            if (gameObject != null)
+                result.add(gameObject);
+        }
+        return result;
     }
 
-    /**
-     * @return the list of the balls
-     */
-    public List<Ball> getBalls() {
-        return balls;
-    }
-
-    /**
-     * Removes the ball from the level
-     *
-     * @param ball the ball
-     */
-    public void removeBall(Ball ball) {
-        balls.remove(ball);
-        removeActor(ball);
-        ball.dispose();
-    }
-
-    /**
-     * @return the score
-     */
     public int getScore() {
         return score;
     }
@@ -255,10 +207,7 @@ public class Level extends Group implements Disposable {
         background.dispose();
         map.dispose();
 
-        for (Ball ball : balls) {
-            ball.dispose();
-        }
-        for (GameObject gameObject : gameObjects) {
+        for (GameObject gameObject : getGameObjects(GameObject.class)) {
             gameObject.dispose();
         }
     }
@@ -282,9 +231,10 @@ public class Level extends Group implements Disposable {
         }
 
         private boolean areBallsGrounded() {
-            for (Ball ball : balls) {
-                if (!ball.isGrounded())
+            for (Ball ball : getGameObjects(Ball.class)) {
+                if (!ball.isGrounded()) {
                     return false;
+                }
             }
             return true;
         }

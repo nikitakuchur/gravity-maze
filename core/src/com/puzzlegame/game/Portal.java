@@ -38,7 +38,7 @@ public class Portal extends GameObject {
         if (secondPortal == null) return;
 
         if (!isUsed) {
-            for (Ball ball : level.getBalls()) {
+            for (Ball ball : level.getGameObjects(Ball.class)) {
                 if (getX() == ball.getX() && getY() == ball.getY()) {
                     ball.setPosition(secondPortal.getX(), secondPortal.getY());
                     isUsed = true;
@@ -49,7 +49,7 @@ public class Portal extends GameObject {
         }
 
         // If the portal is free
-        for (Ball ball : level.getBalls()) {
+        for (Ball ball : level.getGameObjects(Ball.class)) {
             if ((int) getX() == (int) ball.getX() && (int) getY() == (int) ball.getY()) {
                 return;
             }
