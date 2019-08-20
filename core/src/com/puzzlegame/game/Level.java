@@ -168,8 +168,7 @@ public class Level extends Group implements Disposable {
 
     @Override
     public Actor hit(float x, float y, boolean touchable) {
-        if (pause)
-            return null;
+        if (pause) return null;
         return this;
     }
 
@@ -185,8 +184,9 @@ public class Level extends Group implements Disposable {
         List<T> result = new ArrayList<>();
         for (Actor actor : getChildren()) {
             T gameObject = actor.firstAscendant(type);
-            if (gameObject != null)
+            if (gameObject != null) {
                 result.add(gameObject);
+            }
         }
         return result;
     }
@@ -216,8 +216,7 @@ public class Level extends Group implements Disposable {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (pointer != 0)
-                return false;
+            if (pointer != 0) return false;
 
             if (!areBallsGrounded()) {
                 lockRotation = true;
@@ -247,8 +246,7 @@ public class Level extends Group implements Disposable {
 
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
-            if (lockRotation)
-                return;
+            if (lockRotation) return;
             Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
             Vector2 touchPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 
