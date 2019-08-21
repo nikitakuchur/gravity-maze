@@ -28,7 +28,9 @@ public class LevelPropertiesWindow extends VisWindow {
 
         textFieldTable.defaults().right();
         textFieldTable.add(new VisLabel("Background:"));
-        textFieldTable.add(new VisTextField());
+        VisSelectBox<String> selectBox = new VisSelectBox<>();
+        selectBox.setItems("Theme 1", "Theme 2", "Theme 3");
+        textFieldTable.add(selectBox);
         add(textFieldTable).row();
 
         VisTextButton editMapButton = new VisTextButton("Edit Map", "toggle", new ChangeListener() {
