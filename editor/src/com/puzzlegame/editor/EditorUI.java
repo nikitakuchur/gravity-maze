@@ -51,7 +51,12 @@ public class EditorUI extends Group implements Disposable {
         Menu editMenu = new Menu("Edit");
         Menu runMenu = new Menu("Run");
 
-        fileMenu.addItem(new MenuItem("New"));
+        fileMenu.addItem(new MenuItem("New", new ChangeListener() {
+            @Override
+            public void changed (ChangeEvent event, Actor actor) {
+                editorScreen.clearLevel();
+            }
+        }));
         fileMenu.addItem(new MenuItem("Open..."));
         fileMenu.addItem(new MenuItem("Save"));
         fileMenu.addItem(new MenuItem("Save As..."));

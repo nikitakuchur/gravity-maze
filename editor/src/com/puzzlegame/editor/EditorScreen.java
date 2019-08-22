@@ -57,6 +57,14 @@ public class EditorScreen extends ScreenAdapter {
         return editableLevel;
     }
 
+    public void clearLevel() {
+        EditableLevel newEditableLevel = new EditableLevel();
+        int index = stage.getActors().indexOf(editableLevel, true);
+        stage.getActors().set(index, newEditableLevel);
+        editableLevel.dispose();
+        editableLevel = newEditableLevel;
+    }
+
     @Override
     public void dispose() {
         Gdx.input.setInputProcessor(null);

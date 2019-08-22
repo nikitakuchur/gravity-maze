@@ -39,6 +39,18 @@ public class Level extends Group implements Disposable {
      */
     public Level() {
         this.addActor(background);
+        map.setCells(new int[][]{{0, 1, 1, 1, 1, 1, 0, 0},
+                                 {0, 0, 0, 0, 0, 0, 0, 1},
+                                 {0, 0, 0, 0, 0, 0, 0, 1},
+                                 {0, 0, 0, 1, 1, 0, 0, 1},
+                                 {1, 0, 0, 1, 1, 0, 0, 1},
+                                 {1, 0, 0, 0, 0, 0, 0, 0},
+                                 {1, 0, 0, 0, 0, 0, 0, 1},
+                                 {1, 1, 0, 0, 0, 0, 1, 1},
+                                 {1, 1, 0, 0, 0, 0, 1, 1},
+                                 {1, 1, 0, 0, 0, 0, 1, 1},
+                                 {1, 1, 0, 0, 0, 0, 1, 1},
+                                 {1, 1, 0, 0, 0, 0, 1, 1}});
         map.setWidth(100);
         map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
         this.addActor(map);

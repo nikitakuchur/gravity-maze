@@ -10,18 +10,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class Map extends Actor implements Disposable {
 
-    private int[][] cells =  {{0, 1, 1, 1, 1, 1, 0, 0},
-                              {0, 0, 0, 0, 0, 0, 0, 1},
-                              {0, 0, 0, 0, 0, 0, 0, 1},
-                              {0, 0, 0, 1, 1, 0, 0, 1},
-                              {1, 0, 0, 1, 1, 0, 0, 1},
-                              {1, 0, 0, 0, 0, 0, 0, 0},
-                              {1, 0, 0, 0, 0, 0, 0, 1},
-                              {1, 1, 0, 0, 0, 0, 1, 1},
-                              {1, 1, 0, 0, 0, 0, 1, 1},
-                              {1, 1, 0, 0, 0, 0, 1, 1},
-                              {1, 1, 0, 0, 0, 0, 1, 1},
-                              {1, 1, 0, 0, 0, 0, 1, 1}};
+    private int[][] cells;
 
     private static final Color CELLS_COLOR = new Color(0.01f, 0.31f, 0.45f, 1);
 
@@ -31,6 +20,7 @@ public class Map extends Actor implements Disposable {
      * Creates a new map
      */
     public Map() {
+        this.cells = new int[8][8];
         setColor(CELLS_COLOR);
     }
 
@@ -47,12 +37,10 @@ public class Map extends Actor implements Disposable {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-
         shapeRenderer.translate(-getWidth() / 2, -getHeight() / 2, 0);
-
+        shapeRenderer.setColor(getColor());
         drawRects();
         drawCells();
-
         shapeRenderer.identity();
         shapeRenderer.end();
         batch.begin();
@@ -70,8 +58,6 @@ public class Map extends Actor implements Disposable {
      * Draws the cells of the level
      */
     private void drawCells() {
-        shapeRenderer.setColor(getColor());
-
         int w = getCellsWidth();
         int h = getCellsHeight();
 
@@ -112,17 +98,13 @@ public class Map extends Actor implements Disposable {
 
         int b = inside ? 1 : 0;
 
-        cornersInfo[0] = getCellId(x - 1, y) == b &&
-                getCellId(x, y - 1) == b;
+        cornersInfo[0] = getCellId(x - 1, y) == b && getCellId(x, y - 1) == b;
 
-        cornersInfo[1] = getCellId(x + 1, y) == b &&
-                getCellId(x, y - 1) == b;
+        cornersInfo[1] = getCellId(x + 1, y) == b && getCellId(x, y - 1) == b;
 
-        cornersInfo[2] = getCellId(x + 1, y) == b &&
-                getCellId(x, y + 1) == b;
+        cornersInfo[2] = getCellId(x + 1, y) == b && getCellId(x, y + 1) == b;
 
-        cornersInfo[3] = getCellId(x - 1, y) == b &&
-                getCellId(x, y + 1) == b;
+        cornersInfo[3] = getCellId(x - 1, y) == b && getCellId(x, y + 1) == b;
 
         if (!inside) {
             cornersInfo[0] = cornersInfo[0] && getCellId(x - 1, y - 1) == b;
@@ -242,6 +224,10 @@ public class Map extends Actor implements Disposable {
         for (int i = 0; i < vertices.length - 2; i += 2) {
             shapeRenderer.triangle(vertices[i], vertices[i + 1], vertices[i + 2], vertices[i + 3], position.x, position.y);
         }
+    }
+
+    public void setCells(int[][] cells) {
+        this.cells = cells;
     }
 
     /**

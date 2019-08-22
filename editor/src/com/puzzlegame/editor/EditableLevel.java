@@ -18,11 +18,10 @@ public class EditableLevel extends Group implements Disposable {
     private List<GameObject> gameObjects = new ArrayList<>();
     private List<Ball> balls = new ArrayList<>();
 
-    private boolean isMapEditing;
+    private boolean editingMode;
 
     public EditableLevel() {
         this.addActor(background);
-
         map.setWidth(100);
         map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
         this.addActor(map);
@@ -45,12 +44,12 @@ public class EditableLevel extends Group implements Disposable {
         map.dispose();
     }
 
-    public void setMapEditing(boolean mapEditing) {
-        isMapEditing = mapEditing;
+    public void setEditingMode(boolean editingMode) {
+        this.editingMode = editingMode;
     }
 
     public boolean isMapEditing() {
-        return isMapEditing;
+        return editingMode;
     }
 
     private class EditableLevelInputListener extends InputListener {
@@ -59,7 +58,7 @@ public class EditableLevel extends Group implements Disposable {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (isMapEditing) {
+            if (editingMode) {
                 Vector2 position = screenToMapCoordinates(x, y);
                 if (map.getCellId((int) position.x, (int) position.y) == 0) {
                     map.setCellId((int) position.x, (int) position.y, 1);
@@ -74,7 +73,7 @@ public class EditableLevel extends Group implements Disposable {
 
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
-            if (isMapEditing) {
+            if (editingMode) {
                 Vector2 position = screenToMapCoordinates(x, y);
                 if (!emptyCell && map.getCellId((int) position.x, (int) position.y) == 0) {
                     map.setCellId((int) position.x, (int) position.y, 1);

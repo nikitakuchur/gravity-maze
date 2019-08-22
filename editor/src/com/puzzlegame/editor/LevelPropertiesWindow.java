@@ -9,6 +9,7 @@ import com.kotcrab.vis.ui.widget.*;
 public class LevelPropertiesWindow extends VisWindow {
 
     private final EditorUI editorUI;
+    private boolean editingMode;
 
     public LevelPropertiesWindow(EditorUI editorUI) {
         super("Level Properties");
@@ -21,6 +22,12 @@ public class LevelPropertiesWindow extends VisWindow {
         setSize(300, 100);
         setPosition(-(float) Gdx.graphics.getWidth() / 2 + 10, -(float) Gdx.graphics.getHeight() / 2 + 10);
         addWidgets();
+    }
+    @Override
+    public void act(float delta) {
+        EditableLevel editableLevel = editorUI.getEditorScreen().getEditableLevel();
+        editableLevel.setEditingMode(editingMode);
+        super.act(delta);
     }
 
     private void addWidgets() {
@@ -36,8 +43,7 @@ public class LevelPropertiesWindow extends VisWindow {
         VisTextButton editMapButton = new VisTextButton("Edit Map", "toggle", new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                EditableLevel editableLevel = editorUI.getEditorScreen().getEditableLevel();
-                editableLevel.setMapEditing(!editableLevel.isMapEditing());
+                editingMode = !editingMode;
             }
         });
         this.defaults().fillX();
