@@ -1,7 +1,6 @@
 package com.puzzlegame.editor;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.kotcrab.vis.ui.util.TableUtils;
@@ -42,11 +41,6 @@ public class GameObjectsWindow extends VisWindow  {
         if (!selected) {
             list.getSelection().clear();
         }
-    }
-
-    @Override
-    public Actor hit(float x, float y, boolean touchable) {
-        return super.hit(x, y, touchable);
     }
 
     public GameObject getSelectedObject() {
