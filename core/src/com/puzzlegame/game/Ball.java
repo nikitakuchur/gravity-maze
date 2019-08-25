@@ -39,31 +39,43 @@ public class Ball extends GameObject {
      * Finds the target. The target is a final position of the ball movement.
      */
     private Vector2 findTarget(Level level) {
-        Map map = level.getMap();
         switch (level.getGravityDirection()) {
             case TOP:
-                if (map.getCellId((int) getX(), (int) getY() + 1) != 1) {
+                if (checkCollision(level, (int) getX(), (int) getY() + 1)) {
                     return new Vector2((int) getX(), (int) (getY() + 1));
                 }
                 break;
             case LEFT:
-                if (map.getCellId((int) Math.ceil(getX()) - 1, (int) getY()) != 1) {
+                if (checkCollision(level, (int) Math.ceil(getX()) - 1, (int) getY())) {
                     return new Vector2((int) Math.ceil(getX() - 1), (int) getY());
                 }
                 break;
             case BOTTOM:
-                if (map.getCellId((int) getX(), (int) Math.ceil(getY()) - 1) != 1) {
+                if (checkCollision(level, (int) getX(), (int) Math.ceil(getY()) - 1)) {
                     return new Vector2((int) getX(), (int) Math.ceil(getY() - 1));
                 }
                 break;
             case RIGHT:
-                if (map.getCellId((int) getX() + 1, (int) getY()) != 1) {
+                if (checkCollision(level, (int) getX() + 1, (int) getY())) {
                     return new Vector2((int) (getX() + 1), (int) getY());
                 }
                 break;
         }
         isGrounded = true;
         return new Vector2(getX(), getY());
+    }
+
+    private boolean checkCollision(Level level, int x, int y) {
+        Map map = level.getMap();
+        if (map.getCellId(x, y) == 1) {
+            return false;
+        }
+        for (Ball ball : level.getGameObjects(Ball.class)) {
+            if (ball.getX() == x && ball.getY() == y) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
