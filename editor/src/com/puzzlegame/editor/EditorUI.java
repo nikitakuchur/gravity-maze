@@ -21,7 +21,7 @@ public class EditorUI extends Group implements Disposable {
     private MenuBar menuBar;
 
     private LevelPropertiesWindow levelPropertiesWindow;
-    private ObjectsWindow objectsWindow;
+    private GameObjectsWindow gameObjectsWindow;
     private PropertiesWindow propertiesWindow;
 
     public EditorUI(EditorScreen editorScreen) {
@@ -39,8 +39,8 @@ public class EditorUI extends Group implements Disposable {
         levelPropertiesWindow = new LevelPropertiesWindow(this);
         this.addActor(levelPropertiesWindow);
 
-        objectsWindow = new ObjectsWindow();
-        this.addActor(objectsWindow);
+        gameObjectsWindow = new GameObjectsWindow();
+        this.addActor(gameObjectsWindow);
 
         propertiesWindow = new PropertiesWindow();
         this.addActor(propertiesWindow);

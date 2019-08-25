@@ -1,47 +1,20 @@
 package com.puzzlegame.editor;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.puzzlegame.game.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class EditableLevel extends Group implements Disposable {
-
-    private Background background = new Background();
-    private Map map = new Map();
-    private List<GameObject> gameObjects = new ArrayList<>();
-    private List<Ball> balls = new ArrayList<>();
+public class EditableLevel extends Level implements Disposable {
 
     private boolean editingMode;
 
     public EditableLevel() {
-        this.addActor(background);
-        map.setWidth(100);
-        map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
-        this.addActor(map);
+        super();
+        setPause(true);
 
         addListener(new EditableLevelInputListener());
-    }
-
-    @Override
-    public Actor hit(float x, float y, boolean touchable) {
-        return this;
-    }
-
-    public Map getMap() {
-        return map;
-    }
-
-    @Override
-    public void dispose() {
-        background.dispose();
-        map.dispose();
     }
 
     public void setEditingMode(boolean editingMode) {
@@ -52,6 +25,12 @@ public class EditableLevel extends Group implements Disposable {
         return editingMode;
     }
 
+    public Vector2 screenToMapCoordinates(float x, float y) {
+        float cellWidth = getMap().getWidth() / getMap().getCellsWidth();
+        return new Vector2((int) x / cellWidth + (float) getMap().getCellsWidth() / 2,
+                y / cellWidth + (float) getMap().getCellsHeight() / 2);
+    }
+
     private class EditableLevelInputListener extends InputListener {
 
         private boolean emptyCell;
@@ -60,11 +39,11 @@ public class EditableLevel extends Group implements Disposable {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             if (editingMode) {
                 Vector2 position = screenToMapCoordinates(x, y);
-                if (map.getCellId((int) position.x, (int) position.y) == 0) {
-                    map.setCellId((int) position.x, (int) position.y, 1);
+                if (getMap().getCellId((int) position.x, (int) position.y) == 0) {
+                    getMap().setCellId((int) position.x, (int) position.y, 1);
                     emptyCell = false;
                 } else {
-                    map.setCellId((int) position.x, (int) position.y, 0);
+                    getMap().setCellId((int) position.x, (int) position.y, 0);
                     emptyCell = true;
                 }
             }
@@ -75,18 +54,12 @@ public class EditableLevel extends Group implements Disposable {
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
             if (editingMode) {
                 Vector2 position = screenToMapCoordinates(x, y);
-                if (!emptyCell && map.getCellId((int) position.x, (int) position.y) == 0) {
-                    map.setCellId((int) position.x, (int) position.y, 1);
+                if (!emptyCell && getMap().getCellId((int) position.x, (int) position.y) == 0) {
+                    getMap().setCellId((int) position.x, (int) position.y, 1);
                 } else if (emptyCell){
-                    map.setCellId((int) position.x, (int) position.y, 0);
+                    getMap().setCellId((int) position.x, (int) position.y, 0);
                 }
             }
-        }
-
-        public Vector2 screenToMapCoordinates(float x, float y) {
-            float cellWidth = map.getWidth() / map.getCellsWidth();
-            return new Vector2((int) x / cellWidth + (float) map.getCellsWidth() / 2,
-                    y / cellWidth + (float) map.getCellsHeight() / 2);
         }
     }
 }

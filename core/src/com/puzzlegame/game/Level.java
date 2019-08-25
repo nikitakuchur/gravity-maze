@@ -171,6 +171,10 @@ public class Level extends Group implements Disposable {
         this.pause = pause;
     }
 
+    public boolean isPaused() {
+        return pause;
+    }
+
     /**
      * Stretches the level to fit the screen
      */
@@ -180,7 +184,6 @@ public class Level extends Group implements Disposable {
 
     @Override
     public Actor hit(float x, float y, boolean touchable) {
-        if (pause) return null;
         return this;
     }
 
@@ -228,7 +231,7 @@ public class Level extends Group implements Disposable {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (pointer != 0) return false;
+            if (pause || pointer != 0) return false;
 
             if (!areBallsGrounded()) {
                 lockRotation = true;
