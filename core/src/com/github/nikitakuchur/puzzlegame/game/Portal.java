@@ -1,7 +1,10 @@
 package com.github.nikitakuchur.puzzlegame.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -13,13 +16,14 @@ public class Portal extends GameObject {
 
     private boolean isUsed;
 
-    private Texture texture = new Texture("game/portal.png");
+    private Texture texture = new Texture(Gdx.files.internal("game/portal.png"), true);
     private TextureRegion textureRegion = new TextureRegion(texture);
 
     /**
      * Creates a new portal
      */
     public Portal() {
+        texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
         addAction(Actions.repeat(
                 RepeatAction.FOREVER, Actions.sequence(
                         Actions.parallel(

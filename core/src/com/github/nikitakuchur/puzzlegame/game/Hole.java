@@ -1,5 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,8 +12,12 @@ public class Hole extends GameObject {
 
     private List<Ball> balls = new ArrayList<>();
 
-    private Texture texture = new Texture("game/hole.png");
+    private Texture texture = new Texture(Gdx.files.internal("game/hole.png"), true);
     private TextureRegion textureRegion = new TextureRegion(texture);
+
+    public Hole() {
+        texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+    }
 
     @Override
     public void act(Level level, float delta) {
