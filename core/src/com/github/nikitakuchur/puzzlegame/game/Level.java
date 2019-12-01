@@ -141,12 +141,12 @@ public class Level extends Group implements Disposable {
 
     public <T extends GameObject> List<T> getGameObjects(Class<T> type) {
         List<T> result = new ArrayList<>();
-        for (Actor actor : getChildren()) {
+        getChildren().forEach(actor -> {
             T gameObject = actor.firstAscendant(type);
             if (gameObject != null) {
                 result.add(gameObject);
             }
-        }
+        });
         return result;
     }
 
@@ -165,10 +165,7 @@ public class Level extends Group implements Disposable {
     public void dispose() {
         background.dispose();
         map.dispose();
-
-        for (GameObject gameObject : getGameObjects(GameObject.class)) {
-            gameObject.dispose();
-        }
+        getGameObjects(GameObject.class).forEach(GameObject::dispose);
     }
 
     public static Builder builder() {

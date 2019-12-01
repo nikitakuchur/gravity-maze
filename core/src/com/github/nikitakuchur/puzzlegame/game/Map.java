@@ -223,10 +223,6 @@ public class Map extends Actor implements Disposable {
         }
     }
 
-    //public void setCells(CellType[][] cells) {
-    //    this.cells = cells;
-    //}
-
     /**
      * @return the cells width
      */
