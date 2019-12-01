@@ -19,8 +19,8 @@ public class Map extends Actor implements Disposable {
     /**
      * Creates a new map
      */
-    public Map() {
-        this.cells = new CellType[8][8];
+    public Map(CellType[][] cells) {
+        this.cells = cells;
         setColor(CELLS_COLOR);
     }
 
@@ -223,9 +223,9 @@ public class Map extends Actor implements Disposable {
         }
     }
 
-    public void setCells(CellType[][] cells) {
-        this.cells = cells;
-    }
+    //public void setCells(CellType[][] cells) {
+    //    this.cells = cells;
+    //}
 
     /**
      * @return the cells width
@@ -262,7 +262,7 @@ public class Map extends Actor implements Disposable {
      * @param y the y-component of the cell position
      * @param type the cell type
      */
-    public void setCellId(int x, int y, CellType type) {
+    public void setCellType(int x, int y, CellType type) {
         if (x >= cells.length || x < 0 || y >= cells[0].length || y < 0) {
             return;
         }

@@ -1,7 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.ui;
 
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.game.Level;
 import com.github.nikitakuchur.puzzlegame.screens.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -75,7 +74,7 @@ public class GameUI extends Group implements Disposable {
         resetButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                gameScreen.setLevel(new Level());
+                // Restart the level
             }
         });
         this.addActor(resetButton);

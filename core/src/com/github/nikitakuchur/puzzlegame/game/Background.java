@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class Background extends Actor implements Disposable {
 
-    private static final Background BLUE = new Background(new Color(0.29f, 0.58f, 0.75f, 1),
+    public static final Background BLUE = new Background(new Color(0.29f, 0.58f, 0.75f, 1),
                                                          new Color(0.58f, 0.5f, 0.76f, 1),
                                                          new Color(0.32f, 0.58f, 0.75f, 1),
                                                          new Color(0.03f, 0.66f, 0.73f, 1));
@@ -17,10 +17,6 @@ public class Background extends Actor implements Disposable {
     private Color[] colors;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
-
-    public Background() {
-        colors = BLUE.colors;
-    }
 
     public Background(Color bl, Color br, Color tr, Color tl){
         colors = new Color[]{bl, br, tr, tl};

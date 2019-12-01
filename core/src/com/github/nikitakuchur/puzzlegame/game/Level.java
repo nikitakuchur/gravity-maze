@@ -6,10 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import static com.github.nikitakuchur.puzzlegame.game.CellType.EMPTY;
-import static com.github.nikitakuchur.puzzlegame.game.CellType.BLOCK;
 
 public class Level extends Group implements Disposable {
 
@@ -17,8 +15,8 @@ public class Level extends Group implements Disposable {
         TOP, LEFT, BOTTOM, RIGHT
     }
 
-    private Background background = new Background();
-    private Map map = new Map();
+    private final Background background;
+    private final Map map;
 
     private int score;
 
@@ -35,75 +33,25 @@ public class Level extends Group implements Disposable {
     private GravityDirection lastGravityDirection = GravityDirection.BOTTOM;
 
     private boolean pause;
-    private boolean fillScreen;
 
-    /**
-     * Creates a new level
-     */
-    public Level() {
+    private Level(Background background, Map map, List<GameObject> gameObjects) {
+        this.background = background;
         this.addActor(background);
-        map.setCells(new CellType[][]{{EMPTY, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, EMPTY, EMPTY},
-                                      {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
-                                      {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
-                                      {EMPTY, EMPTY, EMPTY, BLOCK, BLOCK, EMPTY, EMPTY, BLOCK},
-                                      {BLOCK, EMPTY, EMPTY, BLOCK, BLOCK, EMPTY, EMPTY, BLOCK},
-                                      {BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY},
-                                      {BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
-                                      {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
-                                      {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
-                                      {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
-                                      {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
-                                      {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK}});
+
+        this.map = map;
         map.setWidth(100);
         map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
         this.addActor(map);
 
-        // Add holes
-        Hole blueHole = new Hole();
-        blueHole.setColor(0.14f, 0.35f, 0.76f, 1);
-        blueHole.setPosition(9, 2);
-        this.addActor(blueHole);
-
-        Hole pinkHole = new Hole();
-        pinkHole.setColor(0.86f, 0.34f, 0.68f, 1);
-        pinkHole.setPosition(11, 5);
-        this.addActor(pinkHole);
-
-        // Add portals
-        Portal portalOne = new Portal();
-        portalOne.setPosition(6, 6);
-        this.addActor(portalOne);
-
-        Portal portalTwo = new Portal();
-        portalTwo.setPosition(11, 2);
-        this.addActor(portalTwo);
-
-        portalOne.to(portalTwo);
-        portalTwo.to(portalOne);
-
-        // Add balls
-        Ball blueBall = new Ball();
-        blueBall.setColor(blueHole.getColor());
-        blueBall.setPosition(0, 0);
-        this.addActor(blueBall);
-
-        Ball pinkBall = new Ball();
-        pinkBall.setColor(pinkHole.getColor());
-        pinkBall.setPosition(4, 1);
-        this.addActor(pinkBall);
-
-        blueHole.addBall(blueBall);
-        pinkHole.addBall(pinkBall);
+        gameObjects.forEach(this::addActor);
 
         addListener(new LevelInputListener());
     }
 
     @Override
     public void act(float delta) {
-        if (fillScreen) {
-            map.setWidth(Gdx.graphics.getWidth());
-            map.setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
-        }
+        map.setWidth(Gdx.graphics.getWidth());
+        map.setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
 
         super.act(delta);
 
@@ -178,13 +126,6 @@ public class Level extends Group implements Disposable {
         return pause;
     }
 
-    /**
-     * Stretches the level to fit the screen
-     */
-    public void fillScreen(boolean fillScreen) {
-        this.fillScreen = fillScreen;
-    }
-
     @Override
     public Actor hit(float x, float y, boolean touchable) {
         return this;
@@ -227,6 +168,40 @@ public class Level extends Group implements Disposable {
 
         for (GameObject gameObject : getGameObjects(GameObject.class)) {
             gameObject.dispose();
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Background background;
+        private Map map;
+        private List<GameObject> gameObjects = new ArrayList<>();
+
+        public Builder background(Background background) {
+            this.background = background;
+            return this;
+        }
+
+        public Builder map(Map map) {
+            this.map = map;
+            return this;
+        }
+
+        public Builder addGameObject(GameObject gameObject) {
+            gameObjects.add(gameObject);
+            return this;
+        }
+
+        public Builder addGameObjects(GameObject... gameObjects) {
+            this.gameObjects.addAll(Arrays.asList(gameObjects));
+            return this;
+        }
+
+        public Level build() {
+            return new Level(background, map, gameObjects);
         }
     }
 
