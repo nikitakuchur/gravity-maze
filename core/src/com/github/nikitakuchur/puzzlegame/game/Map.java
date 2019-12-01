@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 public class Map extends Actor implements Disposable {
 
-    private int[][] cells;
+    private CellType[][] cells;
 
     private static final Color CELLS_COLOR = new Color(0.01f, 0.31f, 0.45f, 1);
 
@@ -20,7 +20,7 @@ public class Map extends Actor implements Disposable {
      * Creates a new map
      */
     public Map() {
-        this.cells = new int[8][8];
+        this.cells = new CellType[8][8];
         setColor(CELLS_COLOR);
     }
 
@@ -69,7 +69,7 @@ public class Map extends Actor implements Disposable {
         // Draw cells
         for (int i = 0; i < w ; i++) {
             for (int j = 0; j < h; j++) {
-                if (getCellId(i, j) == 1) {
+                if (getCellType(i, j) == CellType.BLOCK) {
                     boolean[] cornersInfo = resolveCornersInfo(i, j, false);
 
                     roundedRect(new Vector2(getX() + i * cellWidth, getY() + j * celHeight),
@@ -96,21 +96,18 @@ public class Map extends Actor implements Disposable {
     private boolean[] resolveCornersInfo(int x, int y, boolean inside) {
         boolean[] cornersInfo = new boolean[4];
 
-        int b = inside ? 1 : 0;
+        CellType b = inside ? CellType.BLOCK : CellType.EMPTY;
 
-        cornersInfo[0] = getCellId(x - 1, y) == b && getCellId(x, y - 1) == b;
-
-        cornersInfo[1] = getCellId(x + 1, y) == b && getCellId(x, y - 1) == b;
-
-        cornersInfo[2] = getCellId(x + 1, y) == b && getCellId(x, y + 1) == b;
-
-        cornersInfo[3] = getCellId(x - 1, y) == b && getCellId(x, y + 1) == b;
+        cornersInfo[0] = getCellType(x - 1, y) == b && getCellType(x, y - 1) == b;
+        cornersInfo[1] = getCellType(x + 1, y) == b && getCellType(x, y - 1) == b;
+        cornersInfo[2] = getCellType(x + 1, y) == b && getCellType(x, y + 1) == b;
+        cornersInfo[3] = getCellType(x - 1, y) == b && getCellType(x, y + 1) == b;
 
         if (!inside) {
-            cornersInfo[0] = cornersInfo[0] && getCellId(x - 1, y - 1) == b;
-            cornersInfo[1] = cornersInfo[1] &&  getCellId(x + 1, y - 1) == b;
-            cornersInfo[2] = cornersInfo[2] && getCellId(x + 1, y + 1) == b;
-            cornersInfo[3] = cornersInfo[3] && getCellId(x - 1, y + 1) == b;
+            cornersInfo[0] = cornersInfo[0] && getCellType(x - 1, y - 1) == b;
+            cornersInfo[1] = cornersInfo[1] &&  getCellType(x + 1, y - 1) == b;
+            cornersInfo[2] = cornersInfo[2] && getCellType(x + 1, y + 1) == b;
+            cornersInfo[3] = cornersInfo[3] && getCellType(x - 1, y + 1) == b;
         }
 
         return cornersInfo;
@@ -226,7 +223,7 @@ public class Map extends Actor implements Disposable {
         }
     }
 
-    public void setCells(int[][] cells) {
+    public void setCells(CellType[][] cells) {
         this.cells = cells;
     }
 
@@ -245,31 +242,31 @@ public class Map extends Actor implements Disposable {
     }
 
     /**
-     * Returns the id of the cell
+     * Returns the type of the cell
      *
      * @param x the x-component of the cell position
      * @param y the y-component of the cell position
-     * @return the id
+     * @return the cell type
      */
-    public int getCellId(int x, int y) {
+    public CellType getCellType(int x, int y) {
         if (x >= cells.length || x < 0 || y >= cells[0].length || y < 0) {
-            return 1;
+            return CellType.BLOCK;
         }
         return cells[x][y];
     }
 
     /**
-     * Sets the id for the given cell
+     * Sets the type for the given cell
      *
      * @param x the x-component of the cell position
      * @param y the y-component of the cell position
-     * @param id the id
+     * @param type the cell type
      */
-    public void setCellId(int x, int y, int id) {
+    public void setCellId(int x, int y, CellType type) {
         if (x >= cells.length || x < 0 || y >= cells[0].length || y < 0) {
             return;
         }
-        cells[x][y] = id;
+        cells[x][y] = type;
     }
 
     @Override

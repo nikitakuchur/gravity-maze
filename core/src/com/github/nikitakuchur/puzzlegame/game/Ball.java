@@ -67,7 +67,7 @@ public class Ball extends GameObject {
 
     private boolean checkCollision(Level level, int x, int y) {
         Map map = level.getMap();
-        if (map.getCellId(x, y) == 1) {
+        if (map.getCellType(x, y) == CellType.BLOCK) {
             return false;
         }
         for (Ball ball : level.getGameObjects(Ball.class)) {

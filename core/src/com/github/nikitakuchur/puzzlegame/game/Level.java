@@ -8,6 +8,9 @@ import com.badlogic.gdx.utils.Disposable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.nikitakuchur.puzzlegame.game.CellType.EMPTY;
+import static com.github.nikitakuchur.puzzlegame.game.CellType.BLOCK;
+
 public class Level extends Group implements Disposable {
 
     public enum GravityDirection {
@@ -39,18 +42,18 @@ public class Level extends Group implements Disposable {
      */
     public Level() {
         this.addActor(background);
-        map.setCells(new int[][]{{0, 1, 1, 1, 1, 1, 0, 0},
-                                 {0, 0, 0, 0, 0, 0, 0, 1},
-                                 {0, 0, 0, 0, 0, 0, 0, 1},
-                                 {0, 0, 0, 1, 1, 0, 0, 1},
-                                 {1, 0, 0, 1, 1, 0, 0, 1},
-                                 {1, 0, 0, 0, 0, 0, 0, 0},
-                                 {1, 0, 0, 0, 0, 0, 0, 1},
-                                 {1, 1, 0, 0, 0, 0, 1, 1},
-                                 {1, 1, 0, 0, 0, 0, 1, 1},
-                                 {1, 1, 0, 0, 0, 0, 1, 1},
-                                 {1, 1, 0, 0, 0, 0, 1, 1},
-                                 {1, 1, 0, 0, 0, 0, 1, 1}});
+        map.setCells(new CellType[][]{{EMPTY, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, EMPTY, EMPTY},
+                                      {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
+                                      {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
+                                      {EMPTY, EMPTY, EMPTY, BLOCK, BLOCK, EMPTY, EMPTY, BLOCK},
+                                      {BLOCK, EMPTY, EMPTY, BLOCK, BLOCK, EMPTY, EMPTY, BLOCK},
+                                      {BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY},
+                                      {BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
+                                      {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
+                                      {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
+                                      {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
+                                      {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
+                                      {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK}});
         map.setWidth(100);
         map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
         this.addActor(map);
