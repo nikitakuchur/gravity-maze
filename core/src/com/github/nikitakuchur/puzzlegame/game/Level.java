@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Level extends Group implements Disposable {
 
-    private final LevelInputController controller;
+    private final LevelInputController inputController;
 
     private final Background background;
     private final Map map;
@@ -20,7 +20,7 @@ public class Level extends Group implements Disposable {
     private boolean pause;
 
     private Level(Background background, Map map, List<GameObject> gameObjects) {
-        controller = new LevelInputController(this);
+        inputController = new LevelInputController(this);
 
         this.background = background;
         this.addActor(background);
@@ -32,7 +32,7 @@ public class Level extends Group implements Disposable {
 
         gameObjects.forEach(this::addActor);
 
-        addListener(controller.getInputListener());
+        addListener(inputController.getInputListener());
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Level extends Group implements Disposable {
         map.setWidth(Gdx.graphics.getWidth());
         map.setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
         super.act(delta);
-        controller.act(delta);
+        inputController.act(delta);
     }
 
     @Override
