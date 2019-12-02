@@ -9,7 +9,6 @@ public class LevelInputController {
 
     private final Level level;
 
-    private GravityDirection gravityDirection = GravityDirection.BOTTOM;
     private GravityDirection lastGravityDirection = GravityDirection.BOTTOM;
 
     private float lastAngle;
@@ -58,25 +57,25 @@ public class LevelInputController {
         if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad))) {
             if (Math.cos(angleRad) < 0) {
                 level.setRotation(angle + (float) Math.sin(angleRad) * speed * delta);
-                gravityDirection = GravityDirection.TOP;
+                level.setGravityDirection(GravityDirection.TOP);
             } else {
                 level.setRotation(angle - (float) Math.sin(angleRad) * speed * delta);
-                gravityDirection = GravityDirection.BOTTOM;
+                level.setGravityDirection(GravityDirection.BOTTOM);
             }
         }
 
         if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad))) {
             if (Math.sin(angleRad) > 0) {
                 level.setRotation(angle + (float) Math.cos(angleRad) * speed * delta);
-                gravityDirection = GravityDirection.LEFT;
+                level.setGravityDirection(GravityDirection.LEFT);
             } else {
                 level.setRotation(angle - (float) Math.cos(angleRad) * speed * delta);
-                gravityDirection = GravityDirection.RIGHT;
+                level.setGravityDirection(GravityDirection.RIGHT);
             }
         }
 
-        if (lastGravityDirection != gravityDirection) {
-            lastGravityDirection = gravityDirection;
+        if (lastGravityDirection != level.getGravityDirection()) {
+            lastGravityDirection = level.getGravityDirection();
             level.setScore(level.getScore() + 1);
         }
 
@@ -85,10 +84,6 @@ public class LevelInputController {
 
     private float scaleAnimation(float t) {
         return 0.294f * ((float) Math.cos((float) Math.PI * t) - 1) / 2 + 1;
-    }
-
-    public GravityDirection getGravityDirection() {
-        return gravityDirection;
     }
 
     public InputListener getInputListener() {

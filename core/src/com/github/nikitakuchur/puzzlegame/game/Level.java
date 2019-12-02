@@ -15,8 +15,8 @@ public class Level extends Group implements Disposable {
     private final Background background;
     private final Map map;
 
+    private GravityDirection gravityDirection = GravityDirection.BOTTOM;
     private int score;
-
     private boolean pause;
 
     private Level(Background background, Map map, List<GameObject> gameObjects) {
@@ -65,6 +65,14 @@ public class Level extends Group implements Disposable {
             }
         });
         return result;
+    }
+
+    public GravityDirection getGravityDirection() {
+        return gravityDirection;
+    }
+
+    public void setGravityDirection(GravityDirection gravityDirection) {
+        this.gravityDirection = gravityDirection;
     }
 
     public int getScore() {
