@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.game;
+package com.github.nikitakuchur.puzzlegame.game.gameobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.github.nikitakuchur.puzzlegame.game.Level;
 
 public class Portal extends GameObject {
 

@@ -1,7 +1,9 @@
-package com.github.nikitakuchur.puzzlegame.game;
+package com.github.nikitakuchur.puzzlegame.game.gameobjects;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.game.Level;
+import com.github.nikitakuchur.puzzlegame.game.Map;
 
 public abstract class GameObject extends Actor implements Disposable {
 

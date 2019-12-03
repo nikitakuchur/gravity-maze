@@ -4,13 +4,17 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.nikitakuchur.puzzlegame.game.*;
+import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
+import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole;
+import com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal;
 import com.github.nikitakuchur.puzzlegame.ui.GameUI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.*;
 
-import static com.github.nikitakuchur.puzzlegame.game.CellType.BLOCK;
-import static com.github.nikitakuchur.puzzlegame.game.CellType.EMPTY;
+import static com.github.nikitakuchur.puzzlegame.game.cells.CellType.BLOCK;
+import static com.github.nikitakuchur.puzzlegame.game.cells.CellType.EMPTY;
 
 public class GameScreen extends ScreenAdapter {
 

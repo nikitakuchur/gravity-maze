@@ -3,6 +3,7 @@ package com.github.nikitakuchur.puzzlegame.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
