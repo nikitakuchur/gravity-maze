@@ -37,10 +37,9 @@ public class Portal extends GameObject {
     @Override
     public void act(Level level, float delta) {
         super.act(level, delta);
-
         if (secondPortal == null) return;
 
-        if (!isUsed) {
+        if (!isUsed && !secondPortal.isUsed) {
             for (Ball ball : level.getGameObjects(Ball.class)) {
                 if (getX() == ball.getX() && getY() == ball.getY()) {
                     ball.setPosition(secondPortal.getX(), secondPortal.getY());
