@@ -96,7 +96,6 @@ public class Level extends Group implements Disposable {
 
     @Override
     public void dispose() {
-        background.dispose();
         map.dispose();
         getGameObjects(GameObject.class).forEach(GameObject::dispose);
     }

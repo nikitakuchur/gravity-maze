@@ -4,17 +4,10 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.nikitakuchur.puzzlegame.game.*;
-import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal;
 import com.github.nikitakuchur.puzzlegame.ui.GameUI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.*;
-
-import static com.github.nikitakuchur.puzzlegame.game.cells.CellType.BLOCK;
-import static com.github.nikitakuchur.puzzlegame.game.cells.CellType.EMPTY;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -28,63 +21,7 @@ public class GameScreen extends ScreenAdapter {
      */
     public GameScreen() {
         stage.getCamera().position.set(Vector3.Zero);
-
-        GameMap map = new GameMap(new CellType[][]{{EMPTY, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, EMPTY, EMPTY},
-                                           {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
-                                           {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
-                                           {EMPTY, EMPTY, EMPTY, BLOCK, BLOCK, EMPTY, EMPTY, BLOCK},
-                                           {BLOCK, EMPTY, EMPTY, BLOCK, BLOCK, EMPTY, EMPTY, BLOCK},
-                                           {BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY},
-                                           {BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
-                                           {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
-                                           {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
-                                           {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
-                                           {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK},
-                                           {BLOCK, BLOCK, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK, BLOCK}});
-
-        // Add holes
-        Hole blueHole = new Hole();
-        blueHole.setColor(0.14f, 0.35f, 0.76f, 1);
-        blueHole.setPosition(9, 2);
-
-        Hole pinkHole = new Hole();
-        pinkHole.setColor(0.86f, 0.34f, 0.68f, 1);
-        pinkHole.setPosition(11, 5);
-
-        // Add portals
-        Portal portalOne = new Portal();
-        portalOne.setName("portal1");
-        portalOne.setPosition(6, 6);
-
-        Portal portalTwo = new Portal();
-        portalTwo.setName("portal2");
-        portalTwo.setPosition(11, 2);
-
-        portalOne.to(portalTwo.getName());
-        portalTwo.to(portalOne.getName());
-
-        // Add balls
-        Ball blueBall = new Ball();
-        blueBall.setName("blueBall");
-        blueBall.setColor(blueHole.getColor());
-        blueBall.setPosition(0, 0);
-
-        Ball pinkBall = new Ball();
-        blueBall.setName("pinkBall");
-        pinkBall.setColor(pinkHole.getColor());
-        pinkBall.setPosition(4, 1);
-
-        blueHole.setBall(blueBall.getName());
-        pinkHole.setBall(pinkBall.getName());
-
-        level = Level.builder()
-                .background(Background.BLUE)
-                .map(map)
-                .addGameObjects(blueHole, pinkHole, portalOne, portalTwo, blueBall, pinkBall)
-                .build();
-
         level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
-
         stage.addActor(level);
         stage.addActor(gameUI);
     }
