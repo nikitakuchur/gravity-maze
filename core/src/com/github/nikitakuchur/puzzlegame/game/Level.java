@@ -13,7 +13,6 @@ public class Level extends Group implements Disposable {
 
     private final LevelInputController inputController;
 
-    private final Background background;
     private final GameMap map;
 
     private GravityDirection gravityDirection = GravityDirection.BOTTOM;
@@ -23,7 +22,6 @@ public class Level extends Group implements Disposable {
     private Level(Background background, GameMap map, List<GameObject> gameObjects) {
         inputController = new LevelInputController(this);
 
-        this.background = background;
         if (background != null) {
             this.addActor(background);
         }

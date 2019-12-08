@@ -68,10 +68,10 @@ public class LevelLoader {
     }
 
     private static GameObject createGameObjectByName(String name) {
-        String gameObjectPacage = "com.github.nikitakuchur.puzzlegame.game.gameobjects";
+        String gameObjectPackage = "com.github.nikitakuchur.puzzlegame.game.gameobjects";
         try {
             String normalName = name.substring(0, 1).toUpperCase() + name.substring(1);
-            Class<?> clazz = Class.forName(gameObjectPacage + "." + normalName);
+            Class<?> clazz = Class.forName(gameObjectPackage + "." + normalName);
             Constructor<?> constructor = clazz.getConstructor();
             return (GameObject) constructor.newInstance();
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
