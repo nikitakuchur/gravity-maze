@@ -1,16 +1,20 @@
 package com.github.nikitakuchur.puzzlegame.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LevelLoader {
+
+    private static String GAME_OBJECTS_PACKAGE = "com.github.nikitakuchur.puzzlegame.game.gameobjects";
 
     private LevelLoader() {
         throw new IllegalStateException("Utility class");
@@ -52,19 +56,31 @@ public class LevelLoader {
         List<GameObject> result = new ArrayList<>();
 
         for (int i = 0; i < gameObjects.size; i++) {
-            JsonValue gameObject = gameObjects.get(i);
-            String type = gameObject.getString("type");
-            int x = gameObject.getInt("x");
-            int y = gameObject.getInt("y");
-            if (type.equals("ball")) {
-                Ball ball = new Ball();
-                ball.setX(x);
-                ball.setY(y);
-                result.add(ball);
-            }
+            JsonValue gameObjectJson = gameObjects.get(i);
+            String type = gameObjectJson.getString("type");
+            int x = gameObjectJson.getInt("x");
+            int y = gameObjectJson.getInt("y");
 
+            GameObject gameObject = createGameObjectByName(type);
+            if (gameObject == null) continue;
+            gameObject.setX(x);
+            gameObject.setY(y);
+            result.add(gameObject);
         }
 
         return result;
+    }
+
+    private static GameObject createGameObjectByName(String name) {
+        try {
+            String normalName = name.substring(0, 1).toUpperCase() + name.substring(1);
+            Class<?> clazz = Class.forName(GAME_OBJECTS_PACKAGE + "." + normalName);
+            Constructor<?> constructor = clazz.getConstructor();
+            return (GameObject) constructor.newInstance();
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
+                InstantiationException | InvocationTargetException e) {
+            Gdx.app.error(LevelLoader.class.getName(), "Cannot create \"" + name + "\"");
+        }
+        return null;
     }
 }

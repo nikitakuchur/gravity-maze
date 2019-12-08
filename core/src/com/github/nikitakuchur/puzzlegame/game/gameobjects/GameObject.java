@@ -26,4 +26,8 @@ public abstract class GameObject extends Actor implements Disposable {
         setWidth(map.getWidth() / map.getCellsWidth());
         setHeight(map.getHeight() / map.getCellsHeight());
     }
+
+    public void setAttributes(Map map) {
+
+    }
 }
