@@ -31,16 +31,16 @@ public class LevelLoader {
     }
 
     private static Background parseBackground(JsonValue jsonValue) {
-        JsonValue map = jsonValue.get("background");
-        return Background.getBackground(map.asString());
+        JsonValue backgroundJson = jsonValue.get("background");
+        return Background.getBackground(backgroundJson.asString());
     }
 
-    private static Map parseMap(JsonValue jsonValue) {
-        JsonValue map = jsonValue.get("map");
-        CellType[][] cells = new CellType[map.size][];
+    private static GameMap parseMap(JsonValue jsonValue) {
+        JsonValue mapJson = jsonValue.get("map");
+        CellType[][] cells = new CellType[mapJson.size][];
 
-        for (int i = 0; i < map.size; i++) {
-            int[] cellsData = map.get(i).asIntArray();
+        for (int i = 0; i < mapJson.size; i++) {
+            int[] cellsData = mapJson.get(i).asIntArray();
             cells[i] = new CellType[cellsData.length];
 
             for (int j = 0; j < cellsData.length; j++) {
@@ -48,27 +48,23 @@ public class LevelLoader {
             }
         }
 
-        return new Map(cells);
+        return new GameMap(cells);
     }
 
     private static List<GameObject> parseGameObjects(JsonValue jsonValue) {
-        JsonValue gameObjects = jsonValue.get("gameObjects");
-        List<GameObject> result = new ArrayList<>();
+        JsonValue gameObjectsJson = jsonValue.get("gameObjects");
+        List<GameObject> gameObjects = new ArrayList<>();
 
-        for (int i = 0; i < gameObjects.size; i++) {
-            JsonValue gameObjectJson = gameObjects.get(i);
+        for (int i = 0; i < gameObjectsJson.size; i++) {
+            JsonValue gameObjectJson = gameObjectsJson.get(i);
             String type = gameObjectJson.getString("type");
-            int x = gameObjectJson.getInt("x");
-            int y = gameObjectJson.getInt("y");
-
             GameObject gameObject = createGameObjectByName(type);
             if (gameObject == null) continue;
-            gameObject.setX(x);
-            gameObject.setY(y);
-            result.add(gameObject);
+            gameObject.restore(gameObjectJson);
+            gameObjects.add(gameObject);
         }
 
-        return result;
+        return gameObjects;
     }
 
     private static GameObject createGameObjectByName(String name) {
@@ -79,7 +75,7 @@ public class LevelLoader {
             return (GameObject) constructor.newInstance();
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
                 InstantiationException | InvocationTargetException e) {
-            Gdx.app.error(LevelLoader.class.getName(), "Cannot create \"" + name + "\"");
+            Gdx.app.error(LevelLoader.class.getName(), "Cannot create a game object with type \"" + name + "\".");
         }
         return null;
     }

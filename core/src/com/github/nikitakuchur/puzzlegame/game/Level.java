@@ -14,13 +14,13 @@ public class Level extends Group implements Disposable {
     private final LevelInputController inputController;
 
     private final Background background;
-    private final Map map;
+    private final GameMap map;
 
     private GravityDirection gravityDirection = GravityDirection.BOTTOM;
     private int score;
     private boolean pause;
 
-    private Level(Background background, Map map, List<GameObject> gameObjects) {
+    private Level(Background background, GameMap map, List<GameObject> gameObjects) {
         inputController = new LevelInputController(this);
 
         this.background = background;
@@ -51,7 +51,7 @@ public class Level extends Group implements Disposable {
         return this;
     }
 
-    public Map getMap() {
+    public GameMap getMap() {
         return map;
     }
 
@@ -107,7 +107,7 @@ public class Level extends Group implements Disposable {
 
     public static class Builder {
         private Background background;
-        private Map map;
+        private GameMap map;
         private List<GameObject> gameObjects = new ArrayList<>();
 
         public Builder background(Background background) {
@@ -115,7 +115,7 @@ public class Level extends Group implements Disposable {
             return this;
         }
 
-        public Builder map(Map map) {
+        public Builder map(GameMap map) {
             this.map = map;
             return this;
         }

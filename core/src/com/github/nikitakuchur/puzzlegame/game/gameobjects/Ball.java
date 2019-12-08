@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.github.nikitakuchur.puzzlegame.game.Level;
-import com.github.nikitakuchur.puzzlegame.game.Map;
+import com.github.nikitakuchur.puzzlegame.game.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 
 public class Ball extends GameObject {
@@ -69,7 +69,7 @@ public class Ball extends GameObject {
     }
 
     private boolean checkCollision(Level level, int x, int y) {
-        Map map = level.getMap();
+        GameMap map = level.getMap();
         if (map.getCellType(x, y) == CellType.BLOCK) {
             return false;
         }

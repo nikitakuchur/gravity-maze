@@ -1,11 +1,11 @@
 package com.github.nikitakuchur.puzzlegame.game.cells;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.github.nikitakuchur.puzzlegame.game.Map;
+import com.github.nikitakuchur.puzzlegame.game.GameMap;
 
 public class Block extends Cell {
 
-    public Block(ShapeRenderer shapeRenderer, Map map) {
+    public Block(ShapeRenderer shapeRenderer, GameMap map) {
         super(shapeRenderer, map);
     }
 

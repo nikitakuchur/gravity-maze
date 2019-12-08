@@ -29,7 +29,7 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen() {
         stage.getCamera().position.set(Vector3.Zero);
 
-        Map map = new Map(new CellType[][]{{EMPTY, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, EMPTY, EMPTY},
+        GameMap map = new GameMap(new CellType[][]{{EMPTY, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, EMPTY, EMPTY},
                                            {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
                                            {EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCK},
                                            {EMPTY, EMPTY, EMPTY, BLOCK, BLOCK, EMPTY, EMPTY, BLOCK},
@@ -79,7 +79,7 @@ public class GameScreen extends ScreenAdapter {
                 .addGameObjects(blueHole, pinkHole, portalOne, portalTwo, blueBall, pinkBall)
                 .build();
 
-        //level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
+        level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
 
         stage.addActor(level);
         stage.addActor(gameUI);

@@ -11,7 +11,7 @@ import com.github.nikitakuchur.puzzlegame.game.cells.Cell;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.cells.EmptyCell;
 
-public class Map extends Actor implements Disposable {
+public class GameMap extends Actor implements Disposable {
 
     private CellType[][] cells;
 
@@ -25,7 +25,7 @@ public class Map extends Actor implements Disposable {
     /**
      * Creates a new map
      */
-    public Map(CellType[][] cells) {
+    public GameMap(CellType[][] cells) {
         this.cells = cells;
         setColor(CELLS_COLOR);
 

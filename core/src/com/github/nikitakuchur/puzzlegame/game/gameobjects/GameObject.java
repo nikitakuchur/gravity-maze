@@ -2,8 +2,12 @@ package com.github.nikitakuchur.puzzlegame.game.gameobjects;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.Level;
-import com.github.nikitakuchur.puzzlegame.game.Map;
+import com.github.nikitakuchur.puzzlegame.game.GameMap;
+import com.github.nikitakuchur.puzzlegame.utils.JsonUtils;
+
+import java.util.Optional;
 
 public abstract class GameObject extends Actor implements Disposable {
 
@@ -22,12 +26,17 @@ public abstract class GameObject extends Actor implements Disposable {
      * Updates width and height
      */
     private void update(Level level) {
-        Map map = level.getMap();
+        GameMap map = level.getMap();
         setWidth(map.getWidth() / map.getCellsWidth());
         setHeight(map.getHeight() / map.getCellsHeight());
     }
 
-    public void setAttributes(Map map) {
-
+    /**
+     * Restores data from json
+     */
+    public void restore(JsonValue json) {
+        Optional.ofNullable(JsonUtils.getInt(json, "x")).ifPresent(this::setX);
+        Optional.ofNullable(JsonUtils.getInt(json, "y")).ifPresent(this::setY);
+        Optional.ofNullable(JsonUtils.getColor(json, "color")).ifPresent(this::setColor);
     }
 }
