@@ -10,10 +10,10 @@ import java.util.HashMap;
 
 public class Background extends Actor {
 
-    public static final Background BLUE = new Background(new Color(0.29f, 0.58f, 0.75f, 1),
-                                                         new Color(0.58f, 0.5f, 0.76f, 1),
-                                                         new Color(0.32f, 0.58f, 0.75f, 1),
-                                                         new Color(0.03f, 0.66f, 0.73f, 1));
+    public static final Background BLUE = new Background(Color.valueOf("#4993bf"),
+                                                         Color.valueOf("#937fc1"),
+                                                         Color.valueOf("#5193bf"),
+                                                         Color.valueOf("#07a8ba"));
 
     private static HashMap<String, Background> hashMap = new HashMap<>();
 

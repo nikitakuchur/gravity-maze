@@ -29,33 +29,33 @@
               },
               {
                      "type": "hole",
-                     "name": "blueHole",
-                     "x": 9,
-                     "y": 2,
-                     "color": "#0000ff",
-                     "ball": "blueBall"
-              },
-              {
-                     "type": "hole",
                      "name": "redHole",
                      "x": 11,
                      "y": 5,
-                     "color": "#ff0000",
+                     "color": "#de55af",
                      "ball": "redBall"
+              },
+              {
+                     "type": "hole",
+                     "name": "blueHole",
+                     "x": 9,
+                     "y": 2,
+                     "color": "#2557ca",
+                     "ball": "blueBall"
               },
               {
                      "type": "ball",
                      "name": "redBall",
                      "x": 0,
                      "y": 0,
-                     "color": "#ff0000"
+                     "color": "#de55af"
               },
               {
                      "type": "ball",
                      "name": "blueBall",
                      "x": 4,
                      "y": 1,
-                     "color": "#0000ff"
+                     "color": "#2557ca"
               }
        ]
 }

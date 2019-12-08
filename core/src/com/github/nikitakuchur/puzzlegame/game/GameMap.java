@@ -15,7 +15,7 @@ public class GameMap extends Actor implements Disposable {
 
     private CellType[][] cells;
 
-    private static final Color CELLS_COLOR = new Color(0.01f, 0.31f, 0.45f, 1);
+    private static final Color CELLS_COLOR = Color.valueOf("#024f72");
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
