@@ -44,14 +44,16 @@
                      "name": "blueHole",
                      "x": 9,
                      "y": 2,
-                     "color": "#0000ff"
+                     "color": "#0000ff",
+                     "ball": "blueBall"
               },
               {
                      "type": "hole",
                      "name": "redHole",
                      "x": 11,
                      "y": 5,
-                     "color": "#ff0000"
+                     "color": "#ff0000",
+                     "ball": "redBall"
               }
        ]
 }

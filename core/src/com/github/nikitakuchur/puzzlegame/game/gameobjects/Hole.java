@@ -4,14 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.Level;
+import com.github.nikitakuchur.puzzlegame.utils.JsonUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 public class Hole extends GameObject {
 
-    private List<Ball> balls = new ArrayList<>();
+    private String ballName;
 
     private Texture texture = new Texture(Gdx.files.internal("game/hole.png"), true);
     private TextureRegion textureRegion = new TextureRegion(texture);
@@ -23,12 +24,9 @@ public class Hole extends GameObject {
     @Override
     public void act(Level level, float delta) {
         super.act(level, delta);
-        for (Ball ball : balls) {
-            if (getX() == ball.getX() && getY() == ball.getY()) {
-                level.removeActor(ball);
-                balls.remove(ball);
-                break;
-            }
+        Ball ball = level.findActor(ballName);
+        if (ball != null && getX() == ball.getX() && getY() == ball.getY()) {
+            level.removeActor(ball);
         }
     }
 
@@ -45,8 +43,14 @@ public class Hole extends GameObject {
     /**
      * Adds a ball that can interact with this hole
      */
-    public void addBall(Ball ball) {
-        balls.add(ball);
+    public void setBall(String name) {
+        ballName = name;
+    }
+
+    @Override
+    public void restore(JsonValue json) {
+        super.restore(json);
+        Optional.ofNullable(JsonUtils.getString(json,"ball")).ifPresent(name -> ballName = name);
     }
 
     @Override

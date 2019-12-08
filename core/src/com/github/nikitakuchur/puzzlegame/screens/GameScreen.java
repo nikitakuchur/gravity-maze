@@ -63,15 +63,17 @@ public class GameScreen extends ScreenAdapter {
 
         // Add balls
         Ball blueBall = new Ball();
+        blueBall.setName("blueBall");
         blueBall.setColor(blueHole.getColor());
         blueBall.setPosition(0, 0);
 
         Ball pinkBall = new Ball();
+        blueBall.setName("pinkBall");
         pinkBall.setColor(pinkHole.getColor());
         pinkBall.setPosition(4, 1);
 
-        blueHole.addBall(blueBall);
-        pinkHole.addBall(pinkBall);
+        blueHole.setBall(blueBall.getName());
+        pinkHole.setBall(pinkBall.getName());
 
         level = Level.builder()
                 .background(Background.BLUE)
