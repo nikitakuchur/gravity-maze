@@ -79,6 +79,8 @@ public class GameScreen extends ScreenAdapter {
                 .addGameObjects(blueHole, pinkHole, portalOne, portalTwo, blueBall, pinkBall)
                 .build();
 
+        //level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
+
         stage.addActor(level);
         stage.addActor(gameUI);
     }

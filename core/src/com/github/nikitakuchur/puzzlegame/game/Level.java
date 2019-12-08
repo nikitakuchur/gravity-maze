@@ -24,7 +24,9 @@ public class Level extends Group implements Disposable {
         inputController = new LevelInputController(this);
 
         this.background = background;
-        this.addActor(background);
+        if (background != null) {
+            this.addActor(background);
+        }
 
         this.map = map;
         map.setWidth(100);
