@@ -126,7 +126,12 @@ public class Level extends Group implements Disposable {
         }
 
         public Builder addGameObjects(GameObject... gameObjects) {
-            this.gameObjects.addAll(Arrays.asList(gameObjects));
+            addGameObjects(Arrays.asList(gameObjects));
+            return this;
+        }
+
+        public Builder addGameObjects(List<GameObject> gameObjects) {
+            this.gameObjects.addAll(gameObjects);
             return this;
         }
 

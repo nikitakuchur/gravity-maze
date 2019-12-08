@@ -4,6 +4,11 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
+import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LevelLoader {
 
@@ -17,6 +22,7 @@ public class LevelLoader {
         return Level.builder()
                 .background(parseBackground(jsonValue))
                 .map(parseMap(jsonValue))
+                .addGameObjects(parseGameObjects(jsonValue))
                 .build();
     }
 
@@ -39,5 +45,26 @@ public class LevelLoader {
         }
 
         return new Map(cells);
+    }
+
+    private static List<GameObject> parseGameObjects(JsonValue jsonValue) {
+        JsonValue gameObjects = jsonValue.get("gameObjects");
+        List<GameObject> result = new ArrayList<>();
+
+        for (int i = 0; i < gameObjects.size; i++) {
+            JsonValue gameObject = gameObjects.get(i);
+            String type = gameObject.getString("type");
+            int x = gameObject.getInt("x");
+            int y = gameObject.getInt("y");
+            if (type.equals("ball")) {
+                Ball ball = new Ball();
+                ball.setX(x);
+                ball.setY(y);
+                result.add(ball);
+            }
+
+        }
+
+        return result;
     }
 }
