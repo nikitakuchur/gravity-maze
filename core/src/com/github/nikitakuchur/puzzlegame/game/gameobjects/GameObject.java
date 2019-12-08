@@ -35,6 +35,7 @@ public abstract class GameObject extends Actor implements Disposable {
      * Restores data from json
      */
     public void restore(JsonValue json) {
+        Optional.ofNullable(JsonUtils.getString(json, "name")).ifPresent(this::setName);
         Optional.ofNullable(JsonUtils.getInt(json, "x")).ifPresent(this::setX);
         Optional.ofNullable(JsonUtils.getInt(json, "y")).ifPresent(this::setY);
         Optional.ofNullable(JsonUtils.getColor(json, "color")).ifPresent(this::setColor);

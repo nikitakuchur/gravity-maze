@@ -15,34 +15,40 @@
        "gameObjects": [
               {
                      "type": "ball",
+                     "name": "redBall",
                      "x": 0,
                      "y": 0,
                      "color": "#ff0000"
               },
               {
                      "type": "ball",
+                     "name": "blueBall",
                      "x": 4,
                      "y": 1,
                      "color": "#0000ff"
               },
               {
                      "type": "portal",
+                     "name": "portal1",
                      "x": 6,
                      "y": 6
               },
               {
                      "type": "portal",
+                     "name": "portal2",
                      "x": 11,
                      "y": 2
               },
               {
                      "type": "hole",
+                     "name": "blueHole",
                      "x": 9,
                      "y": 2,
                      "color": "#0000ff"
               },
               {
                      "type": "hole",
+                     "name": "redHole",
                      "x": 11,
                      "y": 5,
                      "color": "#ff0000"
