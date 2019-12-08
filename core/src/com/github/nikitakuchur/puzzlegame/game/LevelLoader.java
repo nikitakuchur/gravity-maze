@@ -14,10 +14,15 @@ public class LevelLoader {
     public static Level load(FileHandle handle) {
         JsonReader jsonReader = new JsonReader();
         JsonValue jsonValue = jsonReader.parse(handle);
-        Map map = parseMap(jsonValue);
         return Level.builder()
-                .map(map)
+                .background(parseBackground(jsonValue))
+                .map(parseMap(jsonValue))
                 .build();
+    }
+
+    private static Background parseBackground(JsonValue jsonValue) {
+        JsonValue map = jsonValue.get("background");
+        return Background.getBackground(map.asString());
     }
 
     private static Map parseMap(JsonValue jsonValue) {
