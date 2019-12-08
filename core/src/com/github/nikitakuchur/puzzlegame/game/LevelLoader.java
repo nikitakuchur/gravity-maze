@@ -57,11 +57,13 @@ public class LevelLoader {
 
         for (int i = 0; i < gameObjectsJson.size; i++) {
             JsonValue gameObjectJson = gameObjectsJson.get(i);
+            if (!gameObjectJson.has("type")) continue;
             String type = gameObjectJson.getString("type");
             GameObject gameObject = createGameObjectByName(type);
-            if (gameObject == null) continue;
-            gameObject.restore(gameObjectJson);
-            gameObjects.add(gameObject);
+            if (gameObject != null) {
+                gameObject.restore(gameObjectJson);
+                gameObjects.add(gameObject);
+            }
         }
 
         return gameObjects;
