@@ -25,7 +25,9 @@ public class Hole extends GameObject {
     public void act(Level level, float delta) {
         super.act(level, delta);
         Ball ball = level.findActor(ballName);
-        if (ball != null && getX() == ball.getX() && getY() == ball.getY()) {
+        if (ball == null) return;
+
+        if (getX() == ball.getX() && getY() == ball.getY()) {
             level.removeActor(ball);
         }
     }

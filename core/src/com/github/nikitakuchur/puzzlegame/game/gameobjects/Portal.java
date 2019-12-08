@@ -7,11 +7,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.Level;
+import com.github.nikitakuchur.puzzlegame.utils.JsonUtils;
+
+import java.util.Optional;
 
 public class Portal extends GameObject {
 
-    private Portal secondPortal;
+    private String secondPortalName;
 
     private boolean isUsed;
 
@@ -37,7 +41,8 @@ public class Portal extends GameObject {
     @Override
     public void act(Level level, float delta) {
         super.act(level, delta);
-        if (secondPortal == null) return;
+        if (secondPortalName == null) return;
+        Portal secondPortal = level.findActor(secondPortalName);
 
         if (!isUsed && !secondPortal.isUsed) {
             for (Ball ball : level.getGameObjects(Ball.class)) {
@@ -72,10 +77,16 @@ public class Portal extends GameObject {
     /**
      * Sets the second portal
      *
-     * @param portal the portal
+     * @param name the second portal name
      */
-    public void to(Portal portal) {
-        this.secondPortal = portal;
+    public void to(String name) {
+        this.secondPortalName = name;
+    }
+
+    @Override
+    public void restore(JsonValue json) {
+        super.restore(json);
+        Optional.ofNullable(JsonUtils.getString(json, "to")).ifPresent(name -> secondPortalName = name);
     }
 
     @Override

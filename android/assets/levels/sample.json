@@ -31,13 +31,15 @@
                      "type": "portal",
                      "name": "portal1",
                      "x": 6,
-                     "y": 6
+                     "y": 6,
+                     "to": "portal2"
               },
               {
                      "type": "portal",
                      "name": "portal2",
                      "x": 11,
-                     "y": 2
+                     "y": 2,
+                     "to": "portal1"
               },
               {
                      "type": "hole",

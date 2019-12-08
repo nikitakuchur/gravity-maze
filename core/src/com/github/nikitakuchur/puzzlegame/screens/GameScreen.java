@@ -53,13 +53,15 @@ public class GameScreen extends ScreenAdapter {
 
         // Add portals
         Portal portalOne = new Portal();
+        portalOne.setName("portal1");
         portalOne.setPosition(6, 6);
 
         Portal portalTwo = new Portal();
+        portalTwo.setName("portal2");
         portalTwo.setPosition(11, 2);
 
-        portalOne.to(portalTwo);
-        portalTwo.to(portalOne);
+        portalOne.to(portalTwo.getName());
+        portalTwo.to(portalOne.getName());
 
         // Add balls
         Ball blueBall = new Ball();
