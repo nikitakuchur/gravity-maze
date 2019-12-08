@@ -19,17 +19,23 @@ public class JsonUtils {
         return null;
     }
 
-    public static Color getColor(JsonValue json, String name) {
+    public static String getString(JsonValue json, String name) {
         if (json.has(name)) {
-            JsonValue color = json.get(name);
-            if (color.isString()) {
-                try {
-                    return Color.valueOf(json.getString(name));
-                } catch (NumberFormatException e) {
-                    return null;
-                }
+            JsonValue str = json.get(name);
+            if (str.isString()) {
+                return json.getString(name);
             }
         }
         return null;
+    }
+
+    public static Color getColor(JsonValue json, String name) {
+        String color = getString(json, name);
+        if (color == null) return null;
+        try {
+            return Color.valueOf(color);
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }
