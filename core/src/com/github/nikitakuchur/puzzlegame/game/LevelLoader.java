@@ -29,11 +29,13 @@ public class LevelLoader {
     }
 
     private static Background parseBackground(JsonValue jsonValue) {
+        if (!jsonValue.has("background")) return null;
         JsonValue backgroundJson = jsonValue.get("background");
         return Background.getBackground(backgroundJson.asString());
     }
 
     private static GameMap parseMap(JsonValue jsonValue) {
+        if (!jsonValue.has("map")) return new GameMap(new CellType[][]{{}});
         JsonValue mapJson = jsonValue.get("map");
         CellType[][] cells = new CellType[mapJson.size][];
 

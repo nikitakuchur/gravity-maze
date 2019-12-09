@@ -3,6 +3,7 @@ package com.github.nikitakuchur.puzzlegame.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class Level extends Group implements Disposable {
 
     public static class Builder {
         private Background background;
-        private GameMap map;
+        private GameMap map = new GameMap(new CellType[][] {{CellType.EMPTY}});
         private List<GameObject> gameObjects = new ArrayList<>();
 
         public Builder background(Background background) {
