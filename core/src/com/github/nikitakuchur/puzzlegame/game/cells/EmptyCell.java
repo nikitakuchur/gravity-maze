@@ -32,7 +32,7 @@ public class EmptyCell extends Cell {
         float[] vertices = new float[(SEGMENTS + 1) * 2];
         float t = corner.ordinal() * (float) Math.PI / 2;
 
-        for(int i = 0; i <= SEGMENTS * 2; i += 2, t += Math.PI / (2 * SEGMENTS)) {
+        for (int i = 0; i <= SEGMENTS * 2; i += 2, t += Math.PI / (2 * SEGMENTS)) {
             vertices[i] = x - getRadius() * (float) Math.cos(t);
             vertices[i + 1] = y - getRadius() * (float) Math.sin(t);
 
@@ -56,7 +56,7 @@ public class EmptyCell extends Cell {
     }
 
     private boolean isCornerRound(Corner corner) {
-        switch (corner){
+        switch (corner) {
             case BOTTOM_LEFT: return !isCellEmpty(-1, 0) && !isCellEmpty(0, -1);
             case BOTTOM_RIGHT: return !isCellEmpty(0, -1) && !isCellEmpty(1, 0);
             case TOP_RIGHT: return !isCellEmpty(1, 0) && !isCellEmpty(0, 1);

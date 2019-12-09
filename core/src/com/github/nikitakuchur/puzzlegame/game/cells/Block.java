@@ -46,7 +46,7 @@ public class Block extends Cell {
     }
 
     private boolean isCornerRound(Corner corner) {
-        switch (corner){
+        switch (corner) {
             case BOTTOM_LEFT: return isCellEmpty(-1, 0) && isCellEmpty(-1, -1) && isCellEmpty(0, -1);
             case BOTTOM_RIGHT: return isCellEmpty(0, -1) && isCellEmpty(1, -1) && isCellEmpty(1, 0);
             case TOP_RIGHT: return isCellEmpty(1, 0) && isCellEmpty(1, 1) && isCellEmpty(0, 1);
