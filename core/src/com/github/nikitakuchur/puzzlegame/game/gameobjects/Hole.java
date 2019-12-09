@@ -8,8 +8,6 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.Level;
 import com.github.nikitakuchur.puzzlegame.utils.JsonUtils;
 
-import java.util.Optional;
-
 public class Hole extends GameObject {
 
     private String ballName;
@@ -24,11 +22,12 @@ public class Hole extends GameObject {
     @Override
     public void act(Level level, float delta) {
         super.act(level, delta);
+        if (ballName == null) return;
         Ball ball = level.findActor(ballName);
-        if (ball == null) return;
 
         if (getX() == ball.getX() && getY() == ball.getY()) {
             level.removeActor(ball);
+            ballName = null;
         }
     }
 
@@ -52,7 +51,7 @@ public class Hole extends GameObject {
     @Override
     public void restore(JsonValue json) {
         super.restore(json);
-        Optional.ofNullable(JsonUtils.getString(json,"ball")).ifPresent(name -> ballName = name);
+        ballName = JsonUtils.getString(json,"ball");
     }
 
     @Override

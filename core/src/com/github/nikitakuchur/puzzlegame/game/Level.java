@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Level extends Group implements Disposable {
 
-    private final LevelInputController inputController;
+    private final LevelInputHandler inputController;
 
     private final GameMap map;
 
@@ -20,7 +20,7 @@ public class Level extends Group implements Disposable {
     private boolean pause;
 
     private Level(Background background, GameMap map, List<GameObject> gameObjects) {
-        inputController = new LevelInputController(this);
+        inputController = new LevelInputHandler(this);
 
         if (background != null) {
             this.addActor(background);

@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 
-public class LevelInputController {
+public class LevelInputHandler {
 
     private final Level level;
 
@@ -21,7 +21,7 @@ public class LevelInputController {
 
     private float t;
 
-    public LevelInputController(Level level) {
+    public LevelInputHandler(Level level) {
         this.level = level;
     }
 
