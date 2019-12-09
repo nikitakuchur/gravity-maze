@@ -1,0 +1,61 @@
+{
+       "background": "blue",
+       "map": [[0, 1, 1, 1, 1, 1, 0, 0],
+              [0, 0, 0, 0, 0, 0, 0, 1],
+              [0, 0, 0, 0, 0, 0, 0, 1],
+              [0, 0, 0, 1, 1, 0, 0, 1],
+              [1, 0, 0, 1, 1, 0, 0, 1],
+              [1, 0, 0, 0, 0, 0, 0, 0],
+              [1, 0, 0, 0, 0, 0, 0, 1],
+              [1, 1, 0, 0, 0, 0, 1, 1],
+              [1, 1, 0, 0, 0, 0, 1, 1],
+              [1, 1, 0, 0, 0, 0, 1, 1],
+              [1, 1, 0, 0, 0, 0, 1, 1],
+              [1, 1, 0, 0, 0, 0, 1, 1]],
+       "gameObjects": [
+              {
+                     "type": "portal",
+                     "name": "portal1",
+                     "x": 6,
+                     "y": 6,
+                     "to": "portal2"
+              },
+              {
+                     "type": "portal",
+                     "name": "portal2",
+                     "x": 11,
+                     "y": 2,
+                     "to": "portal1"
+              },
+              {
+                     "type": "hole",
+                     "name": "redHole",
+                     "x": 11,
+                     "y": 5,
+                     "color": "#de55af",
+                     "ball": "redBall"
+              },
+              {
+                     "type": "hole",
+                     "name": "blueHole",
+                     "x": 9,
+                     "y": 2,
+                     "color": "#2557ca",
+                     "ball": "blueBall"
+              },
+              {
+                     "type": "ball",
+                     "name": "redBall",
+                     "x": 0,
+                     "y": 0,
+                     "color": "#de55af"
+              },
+              {
+                     "type": "ball",
+                     "name": "blueBall",
+                     "x": 4,
+                     "y": 1,
+                     "color": "#2557ca"
+              }
+       ]
+}
