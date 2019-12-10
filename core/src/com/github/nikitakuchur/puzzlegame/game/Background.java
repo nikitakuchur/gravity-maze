@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Background extends Actor {
 
@@ -43,5 +44,9 @@ public class Background extends Actor {
 
     public static Background getBackground(String name) {
         return hashMap.get(name);
+    }
+
+    public static Set<String> getBackgroundNames() {
+        return hashMap.keySet();
     }
 }
