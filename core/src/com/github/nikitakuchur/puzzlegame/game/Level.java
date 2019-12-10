@@ -42,6 +42,9 @@ public class Level extends Group implements Disposable {
         map.setWidth(Gdx.graphics.getWidth());
         map.setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
         super.act(delta);
+        for (GameObject gameObject : getGameObjects()) {
+            gameObject.act(this, delta);
+        }
         inputController.act(delta);
     }
 

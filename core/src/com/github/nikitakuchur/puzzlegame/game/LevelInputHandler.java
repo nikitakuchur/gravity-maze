@@ -26,10 +26,6 @@ public class LevelInputHandler {
     }
 
     public void act(float delta) {
-        for (GameObject gameObject : level.getGameObjects()) {
-            gameObject.act(level, delta);
-        }
-
         // Zoom out
         if (zoom && t < 1) {
             t += 4 * delta;
