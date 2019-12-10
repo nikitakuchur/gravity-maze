@@ -11,6 +11,8 @@ import com.github.nikitakuchur.puzzlegame.game.cells.Cell;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.cells.EmptyCell;
 
+import java.util.Arrays;
+
 public class GameMap extends Actor implements Disposable {
 
     private CellType[][] cells;
@@ -27,6 +29,20 @@ public class GameMap extends Actor implements Disposable {
      */
     public GameMap(CellType[][] cells) {
         this.cells = cells;
+        setColor(CELLS_COLOR);
+
+        block = new Block(shapeRenderer, this);
+        emptyCell = new EmptyCell(shapeRenderer, this);
+    }
+
+    /**
+     * Creates a new empty map
+     */
+    public GameMap(int width, int height) {
+        cells = new CellType[width][height];
+        for (CellType[] row: cells) {
+            Arrays.fill(row, CellType.EMPTY);
+        }
         setColor(CELLS_COLOR);
 
         block = new Block(shapeRenderer, this);

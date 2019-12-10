@@ -1,38 +1,32 @@
 package com.github.nikitakuchur.puzzlegame.editor;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.game.Background;
 import com.github.nikitakuchur.puzzlegame.game.GameMap;
+import com.github.nikitakuchur.puzzlegame.game.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
 public class EditableLevel extends Group implements Disposable {
 
-    private Layer layer;
-
-    private GameMap map = new GameMap(new CellType[][]{{CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY},
-                                                       {CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY},
-                                                       {CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY},
-                                                       {CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY}});
+    private Level level;
 
     public EditableLevel() {
         super();
-        map.setWidth(100);
-        map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
-        addActor(map);
-        addListener(new MapEditorInputListener());
+        level = Level.builder()
+                .background(Background.BLUE)
+                .map(new GameMap(8, 8))
+                .build();
+        level.clearListeners();
+        addActor(level);
     }
 
     public void setLayer(Layer layer) {
-        this.layer = layer;
         clearListeners();
         switch (layer) {
             case BACKGROUND:
@@ -47,23 +41,17 @@ public class EditableLevel extends Group implements Disposable {
     }
 
     @Override
-    public void act(float delta) {
-        map.setWidth(Gdx.graphics.getWidth());
-        map.setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
-        super.act(delta);
-    }
-
-    @Override
     public Actor hit(float x, float y, boolean touchable) {
         return this;
     }
 
     @Override
     public void dispose() {
-        map.dispose();
+        level.dispose();
     }
 
     private Vector2 screenToMapCoordinates(float x, float y) {
+        GameMap map = level.getMap();
         float cellWidth = map.getWidth() / map.getCellsWidth();
         return new Vector2((int) x / cellWidth + (float) map.getCellsWidth() / 2,
                 y / cellWidth + (float) map.getCellsHeight() / 2);
@@ -75,6 +63,7 @@ public class EditableLevel extends Group implements Disposable {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            GameMap map = level.getMap();
             Vector2 position = screenToMapCoordinates(x, y);
             if (map.getCellType((int) position.x, (int) position.y) == CellType.EMPTY) {
                 map.setCellType((int) position.x, (int) position.y, CellType.BLOCK);
@@ -88,6 +77,7 @@ public class EditableLevel extends Group implements Disposable {
 
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
+            GameMap map = level.getMap();
             Vector2 position = screenToMapCoordinates(x, y);
             if (!emptyCell && map.getCellType((int) position.x, (int) position.y) == CellType.EMPTY) {
                 map.setCellType((int) position.x, (int) position.y, CellType.BLOCK);
@@ -101,6 +91,20 @@ public class EditableLevel extends Group implements Disposable {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            Vector2 position = screenToMapCoordinates(x, y);
+
+            boolean isFree = level.getGameObjects(Ball.class).stream().
+                    noneMatch(gameObject -> (int) gameObject.getX() == (int) position.x &&
+                            (int) gameObject.getY() ==  (int) position.y);
+
+            if (!isFree) return true;
+
+            Ball ball = new Ball();
+            ball.setX((int) position.x);
+            ball.setY((int) position.y);
+            ball.setColor(Color.BLUE);
+            level.addActor(ball);
+
             return true;
         }
     }
