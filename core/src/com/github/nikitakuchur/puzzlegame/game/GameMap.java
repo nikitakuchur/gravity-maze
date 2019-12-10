@@ -110,6 +110,19 @@ public class GameMap extends Actor implements Disposable {
         return cells[x][y];
     }
 
+    /**
+     * Sets the type of the cell
+     *
+     * @param x the x-component of the cell position
+     * @param y the y-component of the cell position
+     * @param type the cell type
+     */
+    public void setCellType(int x, int y, CellType type) {
+        if (x >= 0 && x < cells.length && y >= 0 && y < cells[0].length) {
+             cells[x][y] = type;
+        }
+    }
+
     @Override
     public void dispose() {
         shapeRenderer.dispose();
