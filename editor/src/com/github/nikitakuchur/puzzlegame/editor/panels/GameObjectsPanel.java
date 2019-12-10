@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.editor.components;
+package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import javax.swing.*;
 

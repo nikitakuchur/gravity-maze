@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.editor.components;
+package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.github.nikitakuchur.puzzlegame.game.Background;
 

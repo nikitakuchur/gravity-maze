@@ -3,8 +3,6 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 import com.github.nikitakuchur.puzzlegame.editor.EditableLevel;
 import com.github.nikitakuchur.puzzlegame.editor.EditorApplication;
 import com.github.nikitakuchur.puzzlegame.editor.Layer;
-import com.github.nikitakuchur.puzzlegame.editor.components.BackgroundPanel;
-import com.github.nikitakuchur.puzzlegame.editor.components.GameObjectsPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
