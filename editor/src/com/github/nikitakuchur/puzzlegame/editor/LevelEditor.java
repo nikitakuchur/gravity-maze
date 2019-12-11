@@ -12,15 +12,14 @@ import com.github.nikitakuchur.puzzlegame.game.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
+
 public class EditableLevel extends Group implements Disposable {
 
     private Level level;
 
     public EditableLevel() {
         super();
-        level = Level.builder()
-                .map(new GameMap(8, 8))
-                .build();
+        level = new Level();
         level.clearListeners();
         addActor(level);
     }
@@ -39,8 +38,14 @@ public class EditableLevel extends Group implements Disposable {
         }
     }
 
-    public Background getBackground() {
-        return level.getBackgroud();
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+        clearChildren();
+        addActor(level);
     }
 
     @Override
