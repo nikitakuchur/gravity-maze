@@ -3,11 +3,10 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.github.nikitakuchur.puzzlegame.editor.EditorApplication;
 import com.github.nikitakuchur.puzzlegame.game.Level;
+import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
 
 import javax.swing.*;
 
@@ -19,16 +18,10 @@ public class TopPanel extends JPanel {
         this.app = app;
 
         JButton loadButton = new JButton("Load");
-        loadButton.addActionListener(e -> {
-            JsonReader jsonReader = new JsonReader();
-            JsonValue jsonValue = jsonReader.parse(Gdx.files.local("levels/sample.json"));
-
-            Json json = new Json();
-            Gdx.app.postRunnable(() -> {
-                Level level = json.readValue(Level.class, jsonValue);
-                app.getEditableLevel().setLevel(level);
-            });
-        });
+        loadButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
+            Level level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
+            app.getEditableLevel().setLevel(level);
+        }));
 
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(e -> {
