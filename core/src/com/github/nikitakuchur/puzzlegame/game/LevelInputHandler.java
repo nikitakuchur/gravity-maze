@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 
 public class LevelInputHandler {
 

@@ -19,7 +19,6 @@ public class EditableLevel extends Group implements Disposable {
     public EditableLevel() {
         super();
         level = Level.builder()
-                .background(Background.BLUE)
                 .map(new GameMap(8, 8))
                 .build();
         level.clearListeners();
@@ -38,6 +37,10 @@ public class EditableLevel extends Group implements Disposable {
                 addListener(new GameObjectsEditorInputListener());
                 break;
         }
+    }
+
+    public Background getBackground() {
+        return level.getBackgroud();
     }
 
     @Override

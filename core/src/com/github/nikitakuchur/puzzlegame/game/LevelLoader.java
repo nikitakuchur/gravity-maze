@@ -2,10 +2,12 @@ package com.github.nikitakuchur.puzzlegame.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.utils.JsonUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -31,7 +33,10 @@ public class LevelLoader {
     private static Background parseBackground(JsonValue jsonValue) {
         if (!jsonValue.has("background")) return null;
         JsonValue backgroundJson = jsonValue.get("background");
-        return Background.getBackground(backgroundJson.asString());
+        Color startColor = JsonUtils.getColor(backgroundJson, "startColor");
+        Color stopColor = JsonUtils.getColor(backgroundJson, "stopColor");
+        if (startColor == null || stopColor == null) return null;
+        return new Background(startColor, stopColor);
     }
 
     private static GameMap parseMap(JsonValue jsonValue) {

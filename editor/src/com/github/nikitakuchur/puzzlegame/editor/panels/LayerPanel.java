@@ -20,7 +20,7 @@ public class LayerPanel extends JPanel {
             comboBoxModel.addElement(value);
         }
 
-        BackgroundPanel backgroundPanel = new BackgroundPanel();
+        BackgroundPanel backgroundPanel = new BackgroundPanel(app.getEditableLevel().getBackground());
         GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
 
         backgroundPanel.setBorder(new EmptyBorder(10, 0, 0, 0));

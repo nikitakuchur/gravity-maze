@@ -1,9 +1,9 @@
 package com.github.nikitakuchur.puzzlegame.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 
 import java.util.ArrayList;
@@ -14,7 +14,8 @@ public class Level extends Group implements Disposable {
 
     private final LevelInputHandler inputController;
 
-    private final GameMap map;
+    private Background background = new Background(Color.WHITE, Color.WHITE);;
+    private GameMap map = new GameMap(8, 8);
 
     private GravityDirection gravityDirection = GravityDirection.BOTTOM;
     private int score;
@@ -24,13 +25,16 @@ public class Level extends Group implements Disposable {
         inputController = new LevelInputHandler(this);
 
         if (background != null) {
-            this.addActor(background);
+            this.background = background;
         }
+        this.addActor(this.background);
 
-        this.map = map;
-        map.setWidth(100);
-        map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
-        this.addActor(map);
+        if (map != null) {
+            this.map = map;
+        }
+        this.map.setWidth(100);
+        this.map.setHeight(this.map.getWidth() / this.map.getCellsWidth() * this.map.getCellsHeight());
+        this.addActor(this.map);
 
         gameObjects.forEach(this::addActor);
 
@@ -49,6 +53,10 @@ public class Level extends Group implements Disposable {
     @Override
     public Actor hit(float x, float y, boolean touchable) {
         return this;
+    }
+
+    public Background getBackgroud() {
+        return background;
     }
 
     public GameMap getMap() {
@@ -96,6 +104,7 @@ public class Level extends Group implements Disposable {
 
     @Override
     public void dispose() {
+        background.dispose();
         map.dispose();
         getGameObjects(GameObject.class).forEach(GameObject::dispose);
     }
@@ -106,7 +115,7 @@ public class Level extends Group implements Disposable {
 
     public static class Builder {
         private Background background;
-        private GameMap map = new GameMap(new CellType[][] {{CellType.EMPTY}});
+        private GameMap map;
         private List<GameObject> gameObjects = new ArrayList<>();
 
         public Builder background(Background background) {

@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class EditorWindow extends JFrame {
 
-    private EditorApplication app;
+    private transient EditorApplication app;
 
     private JPanel contentPane = new JPanel();
 

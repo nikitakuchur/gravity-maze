@@ -1,5 +1,8 @@
 {
-       "background": "blue",
+       "background": {
+              "startColor": "#07a8ba",
+              "stopColor": "#937fc1"
+       },
        "map": [[0, 1, 1, 1, 1, 1, 0, 0],
               [0, 0, 0, 0, 0, 0, 0, 1],
               [0, 0, 0, 0, 0, 0, 0, 1],
