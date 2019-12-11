@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.Level;
 import com.github.nikitakuchur.puzzlegame.utils.JsonUtils;
@@ -49,9 +50,15 @@ public class Hole extends GameObject {
     }
 
     @Override
-    public void restore(JsonValue json) {
-        super.restore(json);
-        ballName = JsonUtils.getString(json,"ball");
+    public void write(Json json) {
+        super.write(json);
+        json.writeValue("ball", ballName);
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        super.read(json, jsonData);
+        ballName = JsonUtils.getString(jsonData,"ball");
     }
 
     @Override

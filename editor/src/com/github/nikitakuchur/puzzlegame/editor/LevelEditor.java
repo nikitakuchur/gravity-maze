@@ -7,17 +7,16 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.game.Background;
 import com.github.nikitakuchur.puzzlegame.game.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
 
-public class EditableLevel extends Group implements Disposable {
+public class LevelEditor extends Group implements Disposable {
 
     private Level level;
 
-    public EditableLevel() {
+    public LevelEditor() {
         super();
         level = new Level();
         level.clearListeners();

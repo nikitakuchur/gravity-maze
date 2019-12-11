@@ -1,64 +1,124 @@
 {
-       "background": {
-              "startColor": "#07a8ba",
-              "stopColor": "#937fc1"
-       },
-       "map": [[0, 1, 1, 1, 1, 1, 0, 0],
-              [0, 0, 0, 0, 0, 0, 0, 1],
-              [0, 0, 0, 0, 0, 0, 0, 1],
-              [0, 0, 0, 1, 1, 0, 0, 1],
-              [1, 0, 0, 1, 1, 0, 0, 1],
-              [1, 0, 0, 0, 0, 0, 0, 0],
-              [1, 0, 0, 0, 0, 0, 0, 1],
-              [1, 1, 0, 0, 0, 0, 1, 1],
-              [1, 1, 0, 0, 0, 0, 1, 1],
-              [1, 1, 0, 0, 0, 0, 1, 1],
-              [1, 1, 0, 0, 0, 0, 1, 1],
-              [1, 1, 0, 0, 0, 0, 1, 1]],
-       "gameObjects": [
-              {
-                     "type": "portal",
-                     "name": "portal1",
-                     "x": 6,
-                     "y": 6,
-                     "to": "portal2"
-              },
-              {
-                     "type": "portal",
-                     "name": "portal2",
-                     "x": 11,
-                     "y": 2,
-                     "to": "portal1"
-              },
-              {
-                     "type": "hole",
-                     "name": "redHole",
-                     "x": 11,
-                     "y": 5,
-                     "color": "#de55af",
-                     "ball": "redBall"
-              },
-              {
-                     "type": "hole",
-                     "name": "blueHole",
-                     "x": 9,
-                     "y": 2,
-                     "color": "#2557ca",
-                     "ball": "blueBall"
-              },
-              {
-                     "type": "ball",
-                     "name": "redBall",
-                     "x": 0,
-                     "y": 0,
-                     "color": "#de55af"
-              },
-              {
-                     "type": "ball",
-                     "name": "blueBall",
-                     "x": 4,
-                     "y": 1,
-                     "color": "#2557ca"
-              }
-       ]
+"background": {
+	"startColor": "07a8baff",
+	"stopColor": "937fc1ff"
+},
+"map": {
+	"color": "024f72ff",
+	"cells": [
+		[
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"BLOCK",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"BLOCK",
+			"BLOCK",
+			"EMPTY",
+			"BLOCK",
+			"EMPTY",
+			"BLOCK",
+			"BLOCK"
+		],
+		[
+			"EMPTY",
+			"BLOCK",
+			"EMPTY",
+			"EMPTY",
+			"BLOCK",
+			"EMPTY",
+			"BLOCK",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"BLOCK",
+			"BLOCK",
+			"BLOCK",
+			"BLOCK",
+			"EMPTY",
+			"BLOCK",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"BLOCK",
+			"BLOCK",
+			"BLOCK",
+			"BLOCK",
+			"BLOCK",
+			"BLOCK",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"BLOCK",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"BLOCK",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"BLOCK",
+			"BLOCK",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY"
+		]
+	]
+},
+"gameObjects": [
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole",
+		"name": null,
+		"x": 4,
+		"y": 5,
+		"color": "0000ffff",
+		"ball": "ball"
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
+		"name": "portal1",
+		"x": 7,
+		"y": 0,
+		"color": "ffffff",
+		"to": "portal2"
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
+		"name": "portal2",
+		"x": 0,
+		"y": 5,
+		"color": "ffffff",
+		"to": "portal1"
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
+		"name": "ball",
+		"x": 2,
+		"y": 2,
+		"color": "0000ffff"
+	}
+]
 }

@@ -1,8 +1,9 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
-import com.github.nikitakuchur.puzzlegame.editor.EditableLevel;
+import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.editor.EditorApplication;
 import com.github.nikitakuchur.puzzlegame.editor.Layer;
+import com.github.nikitakuchur.puzzlegame.game.Level;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +21,8 @@ public class LayerPanel extends JPanel {
             comboBoxModel.addElement(value);
         }
 
-        BackgroundPanel backgroundPanel = new BackgroundPanel(app.getEditableLevel().getBackground());
+        Level level = app.getEditableLevel().getLevel();
+        BackgroundPanel backgroundPanel = new BackgroundPanel(level.getBackground());
         GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
 
         backgroundPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
@@ -28,7 +30,7 @@ public class LayerPanel extends JPanel {
 
         JComboBox<Layer> comboBox = new JComboBox<>(comboBoxModel);
         comboBox.addActionListener(actionEvent -> {
-            EditableLevel level = app.getEditableLevel();
+            LevelEditor levelEditor = app.getEditableLevel();
             Layer layer = (Layer) comboBox.getSelectedItem();
             if (layer == null) return;
 
@@ -41,7 +43,7 @@ public class LayerPanel extends JPanel {
                 gameObjectsPanel.setVisible(true);
             }
 
-            level.setLayer(layer);
+            levelEditor.setLayer(layer);
         });
 
 

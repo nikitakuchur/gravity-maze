@@ -1,8 +1,10 @@
 package com.github.nikitakuchur.puzzlegame.editor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.github.nikitakuchur.puzzlegame.editor.panels.LayerPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
+import com.github.nikitakuchur.puzzlegame.game.Level;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +24,7 @@ public class EditorWindow extends JFrame {
 
         contentPane.setLayout(new BorderLayout());
         contentPane.add(canvas.getCanvas(), BorderLayout.CENTER);
-        app.addOnCreateListener(this::init);
+        Gdx.app.postRunnable(this::init);
         setContentPane(contentPane);
 
         pack();
@@ -31,7 +33,7 @@ public class EditorWindow extends JFrame {
     }
 
     private void init() {
-        contentPane.add(new TopPanel(), BorderLayout.NORTH);
+        contentPane.add(new TopPanel(app), BorderLayout.NORTH);
         contentPane.add(new LayerPanel(app), BorderLayout.EAST);
         revalidate();
     }

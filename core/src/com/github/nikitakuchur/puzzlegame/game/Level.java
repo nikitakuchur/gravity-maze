@@ -1,42 +1,40 @@
 package com.github.nikitakuchur.puzzlegame.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class Level extends Group implements Disposable {
+public class Level extends Group implements Json.Serializable, Disposable {
 
     private final LevelInputHandler inputController;
 
-    private Background background = new Background(Color.WHITE, Color.WHITE);;
-    private GameMap map = new GameMap(8, 8);
+    private Background background;
+    private GameMap map;
 
     private GravityDirection gravityDirection = GravityDirection.BOTTOM;
     private int score;
     private boolean pause;
 
-    private Level(Background background, GameMap map, List<GameObject> gameObjects) {
+    public Level() {
+        this(new Background(), new GameMap());
+    }
+
+    public Level(Background background, GameMap map) {
         inputController = new LevelInputHandler(this);
 
-        if (background != null) {
-            this.background = background;
-        }
-        this.addActor(this.background);
+        this.background = background;
+        addActor(background);
 
-        if (map != null) {
-            this.map = map;
-        }
-        this.map.setWidth(100);
-        this.map.setHeight(this.map.getWidth() / this.map.getCellsWidth() * this.map.getCellsHeight());
-        this.addActor(this.map);
-
-        gameObjects.forEach(this::addActor);
+        this.map = map;
+        map.setWidth(100);
+        map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
+        addActor(map);
 
         addListener(inputController.getInputListener());
     }
@@ -55,7 +53,7 @@ public class Level extends Group implements Disposable {
         return this;
     }
 
-    public Background getBackgroud() {
+    public Background getBackground() {
         return background;
     }
 
@@ -103,48 +101,30 @@ public class Level extends Group implements Disposable {
     }
 
     @Override
+    public void write(Json json) {
+        json.writeValue("background", background);
+        json.writeValue("map", map);
+        json.writeValue("gameObjects", getGameObjects());
+    }
+
+    @Override
+    public void read(Json json, JsonValue jsonData) {
+        background = json.readValue(Background.class, jsonData.get("background"));
+        map = json.readValue(GameMap.class, jsonData.get("map"));
+        JsonValue.JsonIterator iterator = jsonData.get("gameObjects").iterator();
+
+        clearChildren();
+        addActor(background);
+        addActor(map);
+        while (iterator.hasNext()) {
+            addActor(json.readValue(GameObject.class, iterator.next()));
+        }
+    }
+
+    @Override
     public void dispose() {
         background.dispose();
         map.dispose();
         getGameObjects(GameObject.class).forEach(GameObject::dispose);
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder {
-        private Background background;
-        private GameMap map;
-        private List<GameObject> gameObjects = new ArrayList<>();
-
-        public Builder background(Background background) {
-            this.background = background;
-            return this;
-        }
-
-        public Builder map(GameMap map) {
-            this.map = map;
-            return this;
-        }
-
-        public Builder addGameObject(GameObject gameObject) {
-            gameObjects.add(gameObject);
-            return this;
-        }
-
-        public Builder addGameObjects(GameObject... gameObjects) {
-            addGameObjects(Arrays.asList(gameObjects));
-            return this;
-        }
-
-        public Builder addGameObjects(List<GameObject> gameObjects) {
-            this.gameObjects.addAll(gameObjects);
-            return this;
-        }
-
-        public Level build() {
-            return new Level(background, map, gameObjects);
-        }
     }
 }

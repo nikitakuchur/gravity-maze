@@ -7,28 +7,21 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class EditorApplication extends ApplicationAdapter {
 
     private Stage stage;
 
-    private EditableLevel editableLevel;
-
-    private List<Runnable> listeners = new ArrayList<>();
+    private LevelEditor editableLevel;
 
     @Override
     public void create() {
         stage = new Stage(new ScreenViewport());
         stage.getCamera().position.set(Vector3.Zero);
 
-        editableLevel = new EditableLevel();
+        editableLevel = new LevelEditor();
         stage.addActor(editableLevel);
 
         Gdx.input.setInputProcessor(stage);
-
-        listeners.forEach(Runnable::run);
     }
 
     @Override
@@ -44,7 +37,7 @@ public class EditorApplication extends ApplicationAdapter {
         stage.getViewport().update(width, height);
     }
 
-    public EditableLevel getEditableLevel() {
+    public LevelEditor getEditableLevel() {
         return editableLevel;
     }
 
@@ -53,9 +46,5 @@ public class EditorApplication extends ApplicationAdapter {
         Gdx.input.setInputProcessor(null);
         stage.dispose();
         editableLevel.dispose();
-    }
-
-    public void addOnCreateListener(Runnable runnable) {
-        listeners.add(runnable);
     }
 }
