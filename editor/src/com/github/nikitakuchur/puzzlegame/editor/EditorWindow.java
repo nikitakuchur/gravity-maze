@@ -2,7 +2,7 @@ package com.github.nikitakuchur.puzzlegame.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.github.nikitakuchur.puzzlegame.editor.panels.LayerPanel;
+import com.github.nikitakuchur.puzzlegame.editor.panels.RightPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
 
 import javax.swing.*;
@@ -33,7 +33,7 @@ public class EditorWindow extends JFrame {
 
     private void init() {
         contentPane.add(new TopPanel(app), BorderLayout.NORTH);
-        contentPane.add(new LayerPanel(app), BorderLayout.EAST);
+        contentPane.add(new RightPanel(app), BorderLayout.EAST);
         revalidate();
     }
 }

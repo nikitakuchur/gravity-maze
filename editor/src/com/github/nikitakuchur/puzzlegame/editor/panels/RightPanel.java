@@ -3,14 +3,13 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.editor.EditorApplication;
 import com.github.nikitakuchur.puzzlegame.editor.Layer;
-import com.github.nikitakuchur.puzzlegame.game.Level;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class LayerPanel extends JPanel {
+public class RightPanel extends JPanel {
 
-    public LayerPanel(EditorApplication app) {
+    public RightPanel(EditorApplication app) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setVisible(true);
@@ -21,11 +20,7 @@ public class LayerPanel extends JPanel {
             comboBoxModel.addElement(value);
         }
 
-        Level level = app.getEditableLevel().getLevel();
-        BackgroundPanel backgroundPanel = new BackgroundPanel(level.getBackground());
         GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
-
-        backgroundPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
         gameObjectsPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
 
         JComboBox<Layer> comboBox = new JComboBox<>(comboBoxModel);
@@ -34,11 +29,7 @@ public class LayerPanel extends JPanel {
             Layer layer = (Layer) comboBox.getSelectedItem();
             if (layer == null) return;
 
-            backgroundPanel.setVisible(false);
             gameObjectsPanel.setVisible(false);
-            if (layer == Layer.BACKGROUND) {
-                backgroundPanel.setVisible(true);
-            }
             if (layer == Layer.GAME_OBJECTS) {
                 gameObjectsPanel.setVisible(true);
             }
@@ -46,8 +37,9 @@ public class LayerPanel extends JPanel {
             levelEditor.setLayer(layer);
         });
 
+        PropertiesPanel propertiesPanel = new PropertiesPanel();
 
         panel.add(comboBox);
-        panel.add(backgroundPanel);
+        panel.add(propertiesPanel);
     }
 }
