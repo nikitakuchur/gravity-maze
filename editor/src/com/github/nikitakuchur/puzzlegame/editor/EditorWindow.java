@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.github.nikitakuchur.puzzlegame.editor.panels.LayerPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
-import com.github.nikitakuchur.puzzlegame.game.Level;
 
 import javax.swing.*;
 import java.awt.*;
