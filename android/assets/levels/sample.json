@@ -1,39 +1,28 @@
 {
 "background": {
-	"stopColor": "937fc1ff",
-	"startColor": "07a8baff"
+	"stopColor": {
+		"r": 0.02745098,
+		"g": 0.65882355,
+		"b": 0.7294118,
+		"a": 1
+	},
+	"startColor": {
+		"r": 0.5764706,
+		"g": 0.49803922,
+		"b": 0.75686276,
+		"a": 1
+	}
 },
 "gameObjects": [
 	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole",
-		"ball": "ball",
-		"color": "0000ffff",
-		"name": null,
-		"x": 4,
-		"y": 5
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
-		"color": "ffffffff",
-		"name": "portal1",
-		"x": 7,
-		"y": 0,
-		"to": "portal2"
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
-		"color": "ffffffff",
-		"name": "portal2",
-		"x": 0,
-		"y": 5,
-		"to": "portal1"
-	},
-	{
 		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
-		"color": "0000ffff",
-		"name": "ball",
-		"x": 2,
-		"y": 2
+		"color": {
+			"b": 1,
+			"a": 1
+		},
+		"name": null,
+		"x": 1,
+		"y": 3
 	}
 ],
 "map": {
@@ -56,31 +45,31 @@
 			"BLOCK",
 			"EMPTY",
 			"BLOCK",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"EMPTY",
+			"BLOCK",
+			"BLOCK",
+			"BLOCK",
+			"EMPTY",
+			"BLOCK",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"BLOCK",
 			"BLOCK"
 		],
 		[
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"BLOCK",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
 			"BLOCK",
 			"BLOCK",
-			"BLOCK",
-			"BLOCK",
-			"EMPTY",
-			"BLOCK",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
-			"EMPTY",
 			"EMPTY",
 			"EMPTY",
 			"EMPTY",
@@ -91,34 +80,39 @@
 		[
 			"EMPTY",
 			"BLOCK",
-			"BLOCK",
-			"BLOCK",
-			"BLOCK",
-			"BLOCK",
-			"BLOCK",
-			"EMPTY"
-		],
-		[
 			"EMPTY",
 			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
 			"BLOCK",
+			"BLOCK",
+			"EMPTY",
 			"EMPTY"
 		],
 		[
 			"EMPTY",
 			"EMPTY",
 			"EMPTY",
+			"EMPTY",
 			"BLOCK",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
 			"BLOCK",
 			"EMPTY",
 			"EMPTY",
 			"EMPTY"
 		]
 	],
-	"color": "024f72ff"
+	"color": {
+		"r": 0.007843138,
+		"g": 0.30980393,
+		"b": 0.44705883,
+		"a": 1
+	}
 }
 }

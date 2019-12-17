@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.game.cells.Cell;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
@@ -61,15 +62,15 @@ public class Background extends Actor implements PropertiesHolder, Disposable {
     @Override
     public Properties getProperties() {
         Properties properties = new Properties();
-        properties.put("startColor", String.class, startColor.toString());
-        properties.put("stopColor", String.class, stopColor.toString());
+        properties.put("startColor", Color.class, startColor);
+        properties.put("stopColor", Color.class, stopColor);
         return properties;
     }
 
     @Override
     public void setProperties(Properties properties) {
-        startColor =  Color.valueOf((String) properties.getValue("startColor"));
-        stopColor = Color.valueOf((String) properties.getValue("stopColor"));
+        startColor =  (Color) properties.getValue("startColor");
+        stopColor = (Color) properties.getValue("stopColor");
     }
 
     @Override

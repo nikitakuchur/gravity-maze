@@ -148,14 +148,14 @@ public class GameMap extends Actor implements PropertiesHolder, Disposable {
     @Override
     public Properties getProperties() {
         Properties properties = new Properties();
-        properties.put("color", String.class, getColor().toString());
+        properties.put("color", Color.class, getColor());
         properties.put("cells", cells.getClass(), cells);
         return properties;
     }
 
     @Override
     public void setProperties(Properties properties) {
-        setColor(Color.valueOf((String) properties.getValue("color")));
+        setColor((Color) properties.getValue("color"));
         cells = (CellType[][]) properties.getValue("cells");
     }
 

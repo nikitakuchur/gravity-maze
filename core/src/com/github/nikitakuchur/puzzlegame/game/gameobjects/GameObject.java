@@ -36,7 +36,7 @@ public abstract class GameObject extends Actor implements PropertiesHolder, Disp
         properties.put("name", String.class, getName());
         properties.put("x", int.class, (int) getX());
         properties.put("y", int.class, (int) getY());
-        properties.put("color", String.class, getColor().toString());
+        properties.put("color", Color.class, getColor());
         return properties;
     }
 
@@ -45,6 +45,6 @@ public abstract class GameObject extends Actor implements PropertiesHolder, Disp
         setName((String) properties.getValue("name"));
         setX((int) properties.getValue("x"));
         setY((int) properties.getValue("y"));
-        setColor(Color.valueOf((String) properties.getValue("color")));
+        setColor((Color) properties.getValue("color"));
     }
 }
