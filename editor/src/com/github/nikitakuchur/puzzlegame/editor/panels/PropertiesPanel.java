@@ -12,7 +12,7 @@ public class PropertiesPanel extends JPanel {
         JTable table = new JTable(tableModel);
         tableModel.addRow(new String[]{"name", "ball"});
         tableModel.addRow(new String[]{"x", "0"});
-        tableModel.addRow(new String[]{"x", "0"});
+        tableModel.addRow(new String[]{"y", "0"});
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(150, 300));
