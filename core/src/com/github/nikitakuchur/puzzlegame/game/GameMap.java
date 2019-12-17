@@ -6,18 +6,16 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.cells.Block;
 import com.github.nikitakuchur.puzzlegame.game.cells.Cell;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.cells.EmptyCell;
-import com.github.nikitakuchur.puzzlegame.utils.JsonUtils;
+import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
 import java.util.Arrays;
-import java.util.Optional;
 
-public class GameMap extends Actor implements Json.Serializable, Disposable {
+public class GameMap extends Actor implements PropertiesHolder, Disposable {
 
     private CellType[][] cells;
 
@@ -148,15 +146,17 @@ public class GameMap extends Actor implements Json.Serializable, Disposable {
     }
 
     @Override
-    public void write(Json json) {
-        json.writeValue("color", getColor().toString());
-        json.writeValue("cells", cells);
+    public Properties getProperties() {
+        Properties properties = new Properties();
+        properties.put("color", String.class, getColor().toString());
+        properties.put("cells", cells.getClass(), cells);
+        return properties;
     }
 
     @Override
-    public void read(Json json, JsonValue jsonData) {
-        Optional.ofNullable(JsonUtils.getColor(jsonData, "color")).ifPresent(this::setColor);
-        cells = json.readValue(cells.getClass(), jsonData.get("cells"));
+    public void setProperties(Properties properties) {
+        setColor(Color.valueOf((String) properties.getValue("color")));
+        cells = (CellType[][]) properties.getValue("cells");
     }
 
     @Override

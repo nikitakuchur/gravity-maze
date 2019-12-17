@@ -1,10 +1,42 @@
 {
 "background": {
-	"startColor": "07a8baff",
-	"stopColor": "937fc1ff"
+	"stopColor": "937fc1ff",
+	"startColor": "07a8baff"
 },
+"gameObjects": [
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole",
+		"ball": "ball",
+		"color": "0000ffff",
+		"name": null,
+		"x": 4,
+		"y": 5
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
+		"color": "ffffffff",
+		"name": "portal1",
+		"x": 7,
+		"y": 0,
+		"to": "portal2"
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
+		"color": "ffffffff",
+		"name": "portal2",
+		"x": 0,
+		"y": 5,
+		"to": "portal1"
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
+		"color": "0000ffff",
+		"name": "ball",
+		"x": 2,
+		"y": 2
+	}
+],
 "map": {
-	"color": "024f72ff",
 	"cells": [
 		[
 			"EMPTY",
@@ -86,39 +118,7 @@
 			"EMPTY",
 			"EMPTY"
 		]
-	]
-},
-"gameObjects": [
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole",
-		"name": null,
-		"x": 4,
-		"y": 5,
-		"color": "0000ffff",
-		"ball": "ball"
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
-		"name": "portal1",
-		"x": 7,
-		"y": 0,
-		"color": "ffffff",
-		"to": "portal2"
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
-		"name": "portal2",
-		"x": 0,
-		"y": 5,
-		"color": "ffffff",
-		"to": "portal1"
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
-		"name": "ball",
-		"x": 2,
-		"y": 2,
-		"color": "0000ffff"
-	}
-]
+	],
+	"color": "024f72ff"
+}
 }

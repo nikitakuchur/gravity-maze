@@ -1,16 +1,14 @@
 package com.github.nikitakuchur.puzzlegame.game.gameobjects;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.Level;
 import com.github.nikitakuchur.puzzlegame.game.GameMap;
-import com.github.nikitakuchur.puzzlegame.utils.JsonUtils;
+import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
-import java.util.Optional;
-
-public abstract class GameObject extends Actor implements Json.Serializable, Disposable {
+public abstract class GameObject extends Actor implements PropertiesHolder, Disposable {
 
     /**
      * Updates the game object based on time
@@ -33,18 +31,20 @@ public abstract class GameObject extends Actor implements Json.Serializable, Dis
     }
 
     @Override
-    public void write(Json json) {
-        json.writeValue("name", getName());
-        json.writeValue("x", (int) getX());
-        json.writeValue("y", (int) getY());
-        json.writeValue("color", getColor().toString());
+    public Properties getProperties() {
+        Properties properties = new Properties();
+        properties.put("name", String.class, getName());
+        properties.put("x", int.class, (int) getX());
+        properties.put("y", int.class, (int) getY());
+        properties.put("color", String.class, getColor().toString());
+        return properties;
     }
 
     @Override
-    public void read(Json json, JsonValue jsonData) {
-        Optional.ofNullable(JsonUtils.getString(jsonData, "name")).ifPresent(this::setName);
-        Optional.ofNullable(JsonUtils.getInt(jsonData, "x")).ifPresent(this::setX);
-        Optional.ofNullable(JsonUtils.getInt(jsonData, "y")).ifPresent(this::setY);
-        Optional.ofNullable(JsonUtils.getColor(jsonData, "color")).ifPresent(this::setColor);
+    public void setProperties(Properties properties) {
+        setName((String) properties.getValue("name"));
+        setX((int) properties.getValue("x"));
+        setY((int) properties.getValue("y"));
+        setColor(Color.valueOf((String) properties.getValue("color")));
     }
 }

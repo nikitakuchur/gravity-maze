@@ -68,8 +68,8 @@ public class Background extends Actor implements PropertiesHolder, Disposable {
 
     @Override
     public void setProperties(Properties properties) {
-        startColor = Color.valueOf((String) properties.getValueOrDefault("startColor", startColor.toString()));
-        stopColor = Color.valueOf((String) properties.getValueOrDefault("stopColor", stopColor.toString()));
+        startColor =  Color.valueOf((String) properties.getValue("startColor"));
+        stopColor = Color.valueOf((String) properties.getValue("stopColor"));
     }
 
     @Override

@@ -7,10 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.Level;
-import com.github.nikitakuchur.puzzlegame.utils.JsonUtils;
+import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 public class Portal extends GameObject {
 
@@ -83,15 +81,16 @@ public class Portal extends GameObject {
     }
 
     @Override
-    public void write(Json json) {
-        super.write(json);
-        json.writeValue("to", secondPortalName);
+    public Properties getProperties() {
+        Properties properties = super.getProperties();
+        properties.put("to", String.class, secondPortalName);
+        return properties;
     }
 
     @Override
-    public void read(Json json, JsonValue jsonData) {
-        super.read(json, jsonData);
-        secondPortalName = JsonUtils.getString(jsonData, "to");
+    public void setProperties(Properties properties) {
+        super.setProperties(properties);
+        secondPortalName = (String) properties.getValue("to");
     }
 
     @Override

@@ -3,14 +3,14 @@ package com.github.nikitakuchur.puzzlegame.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level extends Group implements Json.Serializable, Disposable {
+public class Level extends Group implements PropertiesHolder, Disposable {
 
     private final LevelInputHandler inputController;
 
@@ -101,24 +101,26 @@ public class Level extends Group implements Json.Serializable, Disposable {
     }
 
     @Override
-    public void write(Json json) {
-        json.writeValue("background", background);
-        json.writeValue("map", map);
-        json.writeValue("gameObjects", getGameObjects());
+    public Properties getProperties() {
+        Properties properties = new Properties();
+        properties.put("background", Background.class, background);
+        properties.put("map", GameMap.class, map);
+        properties.put("gameObjects", getGameObjects().getClass(), getGameObjects());
+        return properties;
     }
 
     @Override
-    public void read(Json json, JsonValue jsonData) {
-        background = json.readValue(Background.class, jsonData.get("background"));
-        map = json.readValue(GameMap.class, jsonData.get("map"));
-        JsonValue.JsonIterator iterator = jsonData.get("gameObjects").iterator();
+    public void setProperties(Properties properties) {
+        background = (Background) properties.getValue("background");
+        map = (GameMap) properties.getValue("map");
+        List<?> gameObjects = (List<?>) properties.getValue("gameObjects");
 
         clearChildren();
         addActor(background);
         addActor(map);
-        while (iterator.hasNext()) {
-            addActor(json.readValue(GameObject.class, iterator.next()));
-        }
+        gameObjects.forEach(gameObject -> {
+            addActor((GameObject) gameObject);
+        });
     }
 
     @Override
