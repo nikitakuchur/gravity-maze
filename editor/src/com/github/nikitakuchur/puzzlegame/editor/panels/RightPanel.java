@@ -3,11 +3,14 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.editor.EditorApplication;
 import com.github.nikitakuchur.puzzlegame.editor.Layer;
+import com.github.nikitakuchur.puzzlegame.game.Background;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 public class RightPanel extends JPanel {
+
+    PropertiesPanel propertiesPanel = new PropertiesPanel();
 
     public RightPanel(EditorApplication app) {
         JPanel panel = new JPanel();
@@ -37,7 +40,8 @@ public class RightPanel extends JPanel {
             levelEditor.setLayer(layer);
         });
 
-        PropertiesPanel propertiesPanel = new PropertiesPanel();
+        Background background = app.getEditableLevel().getLevel().getBackground();
+        propertiesPanel.setProperties(background.getProperties());
 
         panel.add(comboBox);
         panel.add(propertiesPanel);

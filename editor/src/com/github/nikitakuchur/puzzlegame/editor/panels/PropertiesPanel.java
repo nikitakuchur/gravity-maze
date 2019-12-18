@@ -1,22 +1,26 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
+import com.github.nikitakuchur.puzzlegame.utils.Properties;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class PropertiesPanel extends JPanel {
 
+    private DefaultTableModel tableModel = new PropertiesTableModel();
+
     public PropertiesPanel() {
-        DefaultTableModel tableModel = new PropertiesTableModel();
-
         JTable table = new JTable(tableModel);
-        tableModel.addRow(new String[]{"name", "ball"});
-        tableModel.addRow(new String[]{"x", "0"});
-        tableModel.addRow(new String[]{"y", "0"});
-
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(150, 300));
         add(scrollPane);
+    }
+
+    public void setProperties(Properties properties) {
+        properties.nameSet().forEach(name -> {
+            tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
+        });
     }
 
     private static class PropertiesTableModel extends DefaultTableModel {
