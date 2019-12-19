@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 public class RightPanel extends JPanel {
 
-    private final LevelEditor levelEditor;
+    private final transient LevelEditor levelEditor;
 
     private PropertiesPanel propertiesPanel = new PropertiesPanel();
 

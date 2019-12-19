@@ -12,9 +12,9 @@ import java.util.List;
 public class PropertiesPanel extends JPanel {
 
     private DefaultTableModel tableModel = new PropertiesTableModel();
-    private Properties properties = new Properties();
+    private transient Properties properties = new Properties();
 
-    private List<Runnable> propertiesListeners = new ArrayList<>();
+    private transient List<Runnable> propertiesListeners = new ArrayList<>();
 
     public PropertiesPanel() {
         JTable table = new JTable(tableModel);
