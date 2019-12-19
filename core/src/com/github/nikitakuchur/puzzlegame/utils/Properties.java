@@ -1,12 +1,12 @@
 package com.github.nikitakuchur.puzzlegame.utils;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class Properties {
 
-    private Map<String, Property> propertyMap = new HashMap<>();
+    private Map<String, Property> propertyMap = new LinkedHashMap<>();
 
     public void put(String name, Class<?> type, Object value) {
         propertyMap.put(name, new Property(type, value));
