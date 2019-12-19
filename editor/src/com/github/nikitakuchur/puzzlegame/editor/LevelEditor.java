@@ -12,9 +12,14 @@ import com.github.nikitakuchur.puzzlegame.game.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LevelEditor extends Group implements Disposable {
 
     private Level level;
+
+    private List<Runnable> levelChangeListener = new ArrayList<>();
 
     public LevelEditor() {
         super();
@@ -45,6 +50,11 @@ public class LevelEditor extends Group implements Disposable {
         this.level = level;
         clearChildren();
         addActor(level);
+        levelChangeListener.forEach(Runnable::run);
+    }
+
+    public void addLevelChangeListener(Runnable runnable) {
+        levelChangeListener.add(runnable);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class EditorWindow extends JFrame {
 
     private void init() {
         contentPane.add(new TopPanel(app), BorderLayout.NORTH);
-        contentPane.add(new RightPanel(app), BorderLayout.EAST);
+        contentPane.add(new RightPanel(app.getLevelEditor()), BorderLayout.EAST);
         revalidate();
     }
 }

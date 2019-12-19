@@ -1,7 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
-import com.github.nikitakuchur.puzzlegame.editor.EditorApplication;
 import com.github.nikitakuchur.puzzlegame.editor.Layer;
 import com.github.nikitakuchur.puzzlegame.game.Background;
 
@@ -10,9 +9,13 @@ import javax.swing.border.EmptyBorder;
 
 public class RightPanel extends JPanel {
 
-    PropertiesPanel propertiesPanel = new PropertiesPanel();
+    private final LevelEditor levelEditor;
 
-    public RightPanel(EditorApplication app) {
+    private PropertiesPanel propertiesPanel = new PropertiesPanel();
+
+    public RightPanel(LevelEditor levelEditor) {
+        this.levelEditor = levelEditor;
+
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setVisible(true);
@@ -28,7 +31,6 @@ public class RightPanel extends JPanel {
 
         JComboBox<Layer> comboBox = new JComboBox<>(comboBoxModel);
         comboBox.addActionListener(actionEvent -> {
-            LevelEditor levelEditor = app.getEditableLevel();
             Layer layer = (Layer) comboBox.getSelectedItem();
             if (layer == null) return;
 
@@ -40,11 +42,16 @@ public class RightPanel extends JPanel {
             levelEditor.setLayer(layer);
         });
 
-        Background background = app.getEditableLevel().getLevel().getBackground();
-        propertiesPanel.setProperties(background.getProperties());
-        propertiesPanel.addPropertiesListener(() -> background.setProperties(propertiesPanel.getProperties()));
+        initBackgroundProperties();
+        levelEditor.addLevelChangeListener(this::initBackgroundProperties);
 
         panel.add(comboBox);
         panel.add(propertiesPanel);
+    }
+
+    private void initBackgroundProperties() {
+        Background background = levelEditor.getLevel().getBackground();
+        propertiesPanel.setProperties(background.getProperties());
+        propertiesPanel.addPropertiesListener(() -> background.setProperties(propertiesPanel.getProperties()));
     }
 }

@@ -11,15 +11,15 @@ public class EditorApplication extends ApplicationAdapter {
 
     private Stage stage;
 
-    private LevelEditor editableLevel;
+    private LevelEditor levelEditor;
 
     @Override
     public void create() {
         stage = new Stage(new ScreenViewport());
         stage.getCamera().position.set(Vector3.Zero);
 
-        editableLevel = new LevelEditor();
-        stage.addActor(editableLevel);
+        levelEditor = new LevelEditor();
+        stage.addActor(levelEditor);
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -37,14 +37,14 @@ public class EditorApplication extends ApplicationAdapter {
         stage.getViewport().update(width, height);
     }
 
-    public LevelEditor getEditableLevel() {
-        return editableLevel;
+    public LevelEditor getLevelEditor() {
+        return levelEditor;
     }
 
     @Override
     public void dispose() {
         Gdx.input.setInputProcessor(null);
         stage.dispose();
-        editableLevel.dispose();
+        levelEditor.dispose();
     }
 }

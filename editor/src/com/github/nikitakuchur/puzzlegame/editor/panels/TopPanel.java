@@ -20,12 +20,12 @@ public class TopPanel extends JPanel {
         JButton loadButton = new JButton("Load");
         loadButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
             Level level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
-            app.getEditableLevel().setLevel(level);
+            app.getLevelEditor().setLevel(level);
         }));
 
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(e -> {
-            Level level = app.getEditableLevel().getLevel();
+            Level level = app.getLevelEditor().getLevel();
 
             Json json = new Json(JsonWriter.OutputType.json);
             String text = json.prettyPrint(json.toJson(level));

@@ -48,6 +48,7 @@ public class PropertiesPanel extends JPanel {
 
     public void setProperties(Properties properties) {
         this.properties = properties;
+        tableModel.setRowCount(0);
         properties.nameSet().forEach(name -> {
             if (properties.getType(name) == String.class) {
                 tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
