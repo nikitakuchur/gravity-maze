@@ -42,6 +42,7 @@ public class RightPanel extends JPanel {
 
         Background background = app.getEditableLevel().getLevel().getBackground();
         propertiesPanel.setProperties(background.getProperties());
+        propertiesPanel.addPropertiesListener(() -> background.setProperties(propertiesPanel.getProperties()));
 
         panel.add(comboBox);
         panel.add(propertiesPanel);

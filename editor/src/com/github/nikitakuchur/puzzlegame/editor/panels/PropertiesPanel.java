@@ -1,26 +1,65 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
+import com.badlogic.gdx.graphics.Color;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PropertiesPanel extends JPanel {
 
     private DefaultTableModel tableModel = new PropertiesTableModel();
+    private Properties properties = new Properties();
+
+    private List<Runnable> propertiesListeners = new ArrayList<>();
 
     public PropertiesPanel() {
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(150, 300));
         add(scrollPane);
+
+        tableModel.addTableModelListener(tableModelEvent -> {
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                String name = tableModel.getValueAt(i, 0).toString();
+                if (properties.getType(name) == String.class) {
+                    String value = tableModel.getValueAt(i, 1).toString();
+                    properties.put(name, properties.getType(name), value);
+                }
+                if (properties.getType(name) == Color.class) {
+                    try {
+                        Color color = Color.valueOf(tableModel.getValueAt(i, 1).toString());
+                        properties.put(name, properties.getType(name), color);
+                    } catch (StringIndexOutOfBoundsException e) {
+                        properties.put(name, properties.getType(name), Color.WHITE);
+                    }
+                }
+                propertiesListeners.forEach(Runnable::run);
+            }
+        });
+    }
+
+    public Properties getProperties() {
+        return properties;
     }
 
     public void setProperties(Properties properties) {
+        this.properties = properties;
         properties.nameSet().forEach(name -> {
-            tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
+            if (properties.getType(name) == String.class) {
+                tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
+            }
+            if (properties.getType(name) == Color.class) {
+                tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
+            }
         });
+    }
+
+    public void addPropertiesListener(Runnable runnable) {
+        propertiesListeners.add(runnable);
     }
 
     private static class PropertiesTableModel extends DefaultTableModel {
