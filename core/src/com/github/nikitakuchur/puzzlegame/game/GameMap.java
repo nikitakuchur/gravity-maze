@@ -149,7 +149,7 @@ public class GameMap extends Actor implements PropertiesHolder, Disposable {
     public Properties getProperties() {
         Properties properties = new Properties();
         properties.put("color", Color.class, getColor());
-        properties.put("cells", cells.getClass(), cells);
+        properties.put("cells", CellType[][].class, cells);
         return properties;
     }
 

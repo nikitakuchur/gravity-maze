@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.game.cells.Cell;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 

@@ -2,7 +2,7 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.editor.Layer;
-import com.github.nikitakuchur.puzzlegame.game.Background;
+import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,11 +10,13 @@ import javax.swing.border.EmptyBorder;
 public class RightPanel extends JPanel {
 
     private final transient LevelEditor levelEditor;
-
+    JComboBox<Layer> comboBox;
+    private PropertiesHolder propertiesHolder;
     private PropertiesPanel propertiesPanel = new PropertiesPanel();
 
     public RightPanel(LevelEditor levelEditor) {
         this.levelEditor = levelEditor;
+        propertiesHolder = levelEditor.getLevel().getBackground();
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -29,7 +31,7 @@ public class RightPanel extends JPanel {
         GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
         gameObjectsPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
 
-        JComboBox<Layer> comboBox = new JComboBox<>(comboBoxModel);
+        comboBox = new JComboBox<>(comboBoxModel);
         comboBox.addActionListener(actionEvent -> {
             Layer layer = (Layer) comboBox.getSelectedItem();
             if (layer == null) return;
@@ -40,18 +42,30 @@ public class RightPanel extends JPanel {
             }
 
             levelEditor.setLayer(layer);
+            initProperties();
         });
 
-        initBackgroundProperties();
-        levelEditor.addLevelChangeListener(this::initBackgroundProperties);
+        initProperties();
+        levelEditor.addLevelChangeListener(this::initProperties);
 
         panel.add(comboBox);
         panel.add(propertiesPanel);
     }
 
-    private void initBackgroundProperties() {
-        Background background = levelEditor.getLevel().getBackground();
-        propertiesPanel.setProperties(background.getProperties());
-        propertiesPanel.addPropertiesListener(() -> background.setProperties(propertiesPanel.getProperties()));
+    private void initProperties() {
+        Layer layer = (Layer) comboBox.getSelectedItem();
+        if (layer == null) return;
+        switch (layer) {
+            case BACKGROUND:
+                propertiesHolder = levelEditor.getLevel().getBackground();
+                break;
+            case MAP:
+                propertiesHolder = levelEditor.getLevel().getMap();
+                break;
+            default:
+                break;
+        }
+        propertiesPanel.setProperties(propertiesHolder.getProperties());
+        propertiesPanel.addPropertiesListener(() -> propertiesHolder.setProperties(propertiesPanel.getProperties()));
     }
 }
