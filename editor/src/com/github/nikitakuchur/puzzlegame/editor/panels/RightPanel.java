@@ -10,7 +10,9 @@ import javax.swing.border.EmptyBorder;
 public class RightPanel extends JPanel {
 
     private final transient LevelEditor levelEditor;
-    JComboBox<Layer> comboBox;
+
+    private JComboBox<Layer> comboBox;
+
     private PropertiesHolder propertiesHolder;
     private PropertiesPanel propertiesPanel = new PropertiesPanel();
 
@@ -23,15 +25,10 @@ public class RightPanel extends JPanel {
         panel.setVisible(true);
         add(panel);
 
-        DefaultComboBoxModel<Layer> comboBoxModel = new DefaultComboBoxModel<>();
-        for (Layer value : Layer.values()) {
-            comboBoxModel.addElement(value);
-        }
-
         GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
         gameObjectsPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
 
-        comboBox = new JComboBox<>(comboBoxModel);
+        comboBox = new JComboBox<>(Layer.values());
         comboBox.addActionListener(actionEvent -> {
             Layer layer = (Layer) comboBox.getSelectedItem();
             if (layer == null) return;
