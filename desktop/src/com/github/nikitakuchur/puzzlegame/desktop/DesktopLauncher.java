@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.height = 800;
 		config.width = 450;
-		config.samples = 10;
+		config.samples = 12;
 		config.forceExit = false;
 
 		new LwjglApplication(new PuzzleGame(), config);
