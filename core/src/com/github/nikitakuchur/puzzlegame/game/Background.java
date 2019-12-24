@@ -14,11 +14,19 @@ public class Background extends Actor implements PropertiesHolder, Disposable {
     private Color startColor;
     private Color stopColor;
 
+    private boolean[] dirs = new boolean[4];
+    private float[] ts = new float[4];
+
+    Color[] colors = new Color[4];
+
+    private final float ANIMATION_SPEED = 0.1f;
+
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     public Background() {
         this.startColor = Color.WHITE;
         this.stopColor = Color.WHITE;
+        initAnimation();
     }
 
     /**
@@ -27,6 +35,27 @@ public class Background extends Actor implements PropertiesHolder, Disposable {
     public Background(Color startColor, Color stopColor) {
         this.startColor = startColor;
         this.stopColor = stopColor;
+        initAnimation();
+    }
+
+    void initAnimation() {
+        ts[0] = 0.5f;
+        ts[1] = 1;
+        ts[2] = 0.5f;
+        ts[3] = 0;
+        dirs[2] = true;
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        for(int i = 0; i < colors.length; i++) {
+            if (ts[i] >= 1) dirs[i] = false;
+            if (ts[i] <= 0) dirs[i] = true;
+            if (dirs[i]) ts[i] += ANIMATION_SPEED * delta;
+            else ts[i] -= ANIMATION_SPEED * delta;
+            colors[i] = startColor.cpy().lerp(stopColor, ts[i]);
+        }
     }
 
     @Override
@@ -34,10 +63,9 @@ public class Background extends Actor implements PropertiesHolder, Disposable {
         batch.end();
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        Color midColor = startColor.cpy().lerp(stopColor, 0.5f);
         shapeRenderer.rect(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getHeight() / 2,
                 Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),
-                midColor, stopColor, midColor, startColor);
+                colors[0], colors[1], colors[2], colors[3]);
         shapeRenderer.end();
         batch.begin();
     }
@@ -70,6 +98,7 @@ public class Background extends Actor implements PropertiesHolder, Disposable {
     public void setProperties(Properties properties) {
         startColor =  (Color) properties.getValue("startColor");
         stopColor = (Color) properties.getValue("stopColor");
+        initAnimation();
     }
 
     @Override
