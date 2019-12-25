@@ -33,7 +33,7 @@ public class PropertiesPanel extends JPanel {
                     try {
                         Color color = Color.valueOf(tableModel.getValueAt(i, 1).toString());
                         properties.put(name, properties.getType(name), color);
-                    } catch (StringIndexOutOfBoundsException e) {
+                    } catch (Exception e) {
                         properties.put(name, properties.getType(name), Color.WHITE);
                     }
                 }

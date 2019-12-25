@@ -17,9 +17,7 @@ public class Background extends Actor implements PropertiesHolder, Disposable {
     private boolean[] dirs = new boolean[4];
     private float[] ts = new float[4];
 
-    Color[] colors = new Color[4];
-
-    private final float ANIMATION_SPEED = 0.1f;
+    private Color[] colors = new Color[4];
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -49,11 +47,12 @@ public class Background extends Actor implements PropertiesHolder, Disposable {
     @Override
     public void act(float delta) {
         super.act(delta);
+        float speed = 0.1f;
         for(int i = 0; i < colors.length; i++) {
             if (ts[i] >= 1) dirs[i] = false;
             if (ts[i] <= 0) dirs[i] = true;
-            if (dirs[i]) ts[i] += ANIMATION_SPEED * delta;
-            else ts[i] -= ANIMATION_SPEED * delta;
+            if (dirs[i]) ts[i] += speed * delta;
+            else ts[i] -= speed * delta;
             colors[i] = startColor.cpy().lerp(stopColor, ts[i]);
         }
     }
@@ -96,9 +95,8 @@ public class Background extends Actor implements PropertiesHolder, Disposable {
 
     @Override
     public void setProperties(Properties properties) {
-        startColor =  (Color) properties.getValue("startColor");
+        startColor = (Color) properties.getValue("startColor");
         stopColor = (Color) properties.getValue("stopColor");
-        initAnimation();
     }
 
     @Override
