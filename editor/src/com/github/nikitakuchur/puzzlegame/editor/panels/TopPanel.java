@@ -12,11 +12,7 @@ import javax.swing.*;
 
 public class TopPanel extends JPanel {
 
-    private final EditorApplication app;
-
     public TopPanel(EditorApplication app) {
-        this.app = app;
-
         JButton loadButton = new JButton("Load");
         loadButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
             Level level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));

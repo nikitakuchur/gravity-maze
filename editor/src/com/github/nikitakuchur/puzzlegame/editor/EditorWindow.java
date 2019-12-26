@@ -8,15 +8,15 @@ import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class EditorWindow extends JFrame {
+public class EditorWindow {
 
-    private transient EditorApplication app;
+    JFrame window = new JFrame("Editor");
+    private EditorApplication app;
 
     private JPanel contentPane = new JPanel();
 
     public EditorWindow() {
-        setTitle("Editor");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         app = new EditorApplication();
         LwjglAWTCanvas canvas = new LwjglAWTCanvas(app);
@@ -24,16 +24,16 @@ public class EditorWindow extends JFrame {
         contentPane.setLayout(new BorderLayout());
         contentPane.add(canvas.getCanvas(), BorderLayout.CENTER);
         Gdx.app.postRunnable(this::init);
-        setContentPane(contentPane);
+        window.setContentPane(contentPane);
 
-        pack();
-        setSize(800, 800);
-        setVisible(true);
+        window.pack();
+        window.setSize(800, 800);
+        window.setVisible(true);
     }
 
     private void init() {
         contentPane.add(new TopPanel(app), BorderLayout.NORTH);
         contentPane.add(new RightPanel(app.getLevelEditor()), BorderLayout.EAST);
-        revalidate();
+        window.revalidate();
     }
 }
