@@ -5,7 +5,7 @@ import com.github.nikitakuchur.puzzlegame.editor.Layer;
 import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class RightPanel extends JPanel {
 
@@ -23,10 +23,11 @@ public class RightPanel extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setVisible(true);
+        panel.setPreferredSize(new Dimension(140, 400));
         add(panel);
 
         GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
-        gameObjectsPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+        gameObjectsPanel.setVisible(false);
 
         comboBox = new JComboBox<>(Layer.values());
         comboBox.addActionListener(actionEvent -> {
@@ -46,6 +47,7 @@ public class RightPanel extends JPanel {
         levelEditor.addLevelChangeListener(this::initProperties);
 
         panel.add(comboBox);
+        panel.add(gameObjectsPanel);
         panel.add(propertiesPanel);
     }
 

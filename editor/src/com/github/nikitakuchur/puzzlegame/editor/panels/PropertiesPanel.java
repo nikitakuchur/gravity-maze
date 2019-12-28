@@ -5,7 +5,6 @@ import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +16,10 @@ public class PropertiesPanel extends JPanel {
     private transient List<Runnable> propertiesListeners = new ArrayList<>();
 
     public PropertiesPanel() {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(150, 300));
+        add(new JLabel("Properties:"));
         add(scrollPane);
 
         tableModel.addTableModelListener(tableModelEvent -> {
