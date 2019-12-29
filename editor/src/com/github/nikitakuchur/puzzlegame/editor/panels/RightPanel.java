@@ -16,6 +16,7 @@ public class RightPanel extends JPanel {
 
     private transient PropertiesHolder propertiesHolder;
     private PropertiesPanel propertiesPanel = new PropertiesPanel();
+    private GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
 
     public RightPanel(LevelEditor levelEditor) {
         this.levelEditor = levelEditor;
@@ -27,7 +28,6 @@ public class RightPanel extends JPanel {
         panel.setPreferredSize(new Dimension(140, 400));
         add(panel);
 
-        GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
         gameObjectsPanel.setVisible(false);
 
         comboBox = new JComboBox<>(Layer.values());
