@@ -7,10 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.editor.panels.GameObjectType;
 import com.github.nikitakuchur.puzzlegame.game.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,8 @@ public class LevelEditor extends Group implements Disposable {
     private Level level;
 
     private List<Runnable> levelChangeListener = new ArrayList<>();
+
+    private GameObjectType gameObjectType = GameObjectType.BALL;
 
     public LevelEditor() {
         super();
@@ -40,6 +44,10 @@ public class LevelEditor extends Group implements Disposable {
                 addListener(new GameObjectsEditorInputListener());
                 break;
         }
+    }
+
+    public void setGameObjectType(GameObjectType gameObjectType) {
+        this.gameObjectType = gameObjectType;
     }
 
     public Level getLevel() {
@@ -116,11 +124,12 @@ public class LevelEditor extends Group implements Disposable {
 
             if (!isFree) return true;
 
-            Ball ball = new Ball();
-            ball.setX((int) position.x);
-            ball.setY((int) position.y);
-            ball.setColor(Color.BLUE);
-            level.addActor(ball);
+            GameObject gameObject = gameObjectType.getGameObject();
+            if (gameObject == null) return true;
+            gameObject.setX((int) position.x);
+            gameObject.setY((int) position.y);
+            gameObject.setColor(Color.BLUE);
+            level.addActor(gameObject);
 
             return true;
         }
