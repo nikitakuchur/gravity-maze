@@ -29,6 +29,8 @@ public class RightPanel extends JPanel {
         add(panel);
 
         gameObjectsPanel.setVisible(false);
+        gameObjectsPanel.addGameObjectsListener(
+                () -> levelEditor.setGameObjectType(gameObjectsPanel.getSelectedGameObjectType()));
 
         comboBox = new JComboBox<>(Layer.values());
         comboBox.addActionListener(actionEvent -> {
