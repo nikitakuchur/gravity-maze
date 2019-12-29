@@ -2,6 +2,7 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.editor.Layer;
+import com.github.nikitakuchur.puzzlegame.utils.Properties;
 import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
 import javax.swing.*;
@@ -61,6 +62,9 @@ public class RightPanel extends JPanel {
             case MAP:
                 propertiesHolder = levelEditor.getLevel().getMap();
                 break;
+            case GAME_OBJECTS:
+                propertiesPanel.setProperties(new Properties());
+                return;
             default:
                 break;
         }
