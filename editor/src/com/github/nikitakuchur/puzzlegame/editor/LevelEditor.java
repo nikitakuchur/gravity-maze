@@ -118,7 +118,7 @@ public class LevelEditor extends Group implements Disposable {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             Vector2 position = screenToMapCoordinates(x, y);
 
-            boolean isFree = level.getGameObjects(Ball.class).stream().
+            boolean isFree = level.getGameObjects().stream().
                     noneMatch(gameObject -> (int) gameObject.getX() == (int) position.x &&
                             (int) gameObject.getY() ==  (int) position.y);
 
