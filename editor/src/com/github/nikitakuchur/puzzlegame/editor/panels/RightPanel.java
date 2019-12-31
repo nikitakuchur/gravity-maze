@@ -48,6 +48,10 @@ public class RightPanel extends JPanel {
 
         initProperties();
         levelEditor.addLevelChangeListener(this::initProperties);
+        levelEditor.addSelectGameObjectListener(() -> {
+            propertiesHolder = levelEditor.getSelectedGameObject();
+            updateProperties();
+        });
 
         panel.add(comboBox);
         panel.add(gameObjectsPanel);
@@ -70,6 +74,11 @@ public class RightPanel extends JPanel {
             default:
                 break;
         }
+        updateProperties();
+    }
+
+    private void updateProperties() {
+        if (propertiesHolder == null) return;
         propertiesPanel.setProperties(propertiesHolder.getProperties());
         propertiesPanel.addPropertiesListener(() -> propertiesHolder.setProperties(propertiesPanel.getProperties()));
     }

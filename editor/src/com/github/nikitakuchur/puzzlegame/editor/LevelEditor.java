@@ -11,7 +11,6 @@ import com.github.nikitakuchur.puzzlegame.editor.panels.GameObjectType;
 import com.github.nikitakuchur.puzzlegame.game.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 
 import java.util.ArrayList;
@@ -21,9 +20,11 @@ public class LevelEditor extends Group implements Disposable {
 
     private Level level;
 
-    private List<Runnable> levelChangeListener = new ArrayList<>();
+    private List<Runnable> levelChangeListeners = new ArrayList<>();
+    private List<Runnable> selectGameObjectListeners = new ArrayList<>();
 
     private GameObjectType gameObjectType = GameObjectType.BALL;
+    private GameObject selectedGameObject;
 
     public LevelEditor() {
         super();
@@ -41,6 +42,7 @@ public class LevelEditor extends Group implements Disposable {
                 addListener(new MapEditorInputListener());
                 break;
             case GAME_OBJECTS:
+                selectedGameObject = null;
                 addListener(new GameObjectsEditorInputListener());
                 break;
         }
@@ -58,11 +60,19 @@ public class LevelEditor extends Group implements Disposable {
         this.level = level;
         clearChildren();
         addActor(level);
-        levelChangeListener.forEach(Runnable::run);
+        levelChangeListeners.forEach(Runnable::run);
+    }
+
+    public GameObject getSelectedGameObject() {
+        return selectedGameObject;
     }
 
     public void addLevelChangeListener(Runnable runnable) {
-        levelChangeListener.add(runnable);
+        levelChangeListeners.add(runnable);
+    }
+
+    public void addSelectGameObjectListener(Runnable runnable) {
+        selectGameObjectListeners.add(runnable);
     }
 
     @Override
@@ -118,11 +128,16 @@ public class LevelEditor extends Group implements Disposable {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             Vector2 position = screenToMapCoordinates(x, y);
 
-            boolean isFree = level.getGameObjects().stream().
-                    noneMatch(gameObject -> (int) gameObject.getX() == (int) position.x &&
-                            (int) gameObject.getY() ==  (int) position.y);
+            selectedGameObject = level.getGameObjects().stream().
+                    filter(object -> (int) object.getX() == (int) position.x &&
+                                     (int) object.getY() == (int) position.y)
+                    .findAny()
+                    .orElse(null);
 
-            if (!isFree) return true;
+            if (selectedGameObject != null) {
+                selectGameObjectListeners.forEach(Runnable::run);
+                return true;
+            }
 
             GameObject gameObject = gameObjectType.getGameObject();
             if (gameObject == null) return true;
@@ -130,7 +145,6 @@ public class LevelEditor extends Group implements Disposable {
             gameObject.setY((int) position.y);
             gameObject.setColor(Color.BLUE);
             level.addActor(gameObject);
-
             return true;
         }
     }

@@ -27,7 +27,7 @@ public class PropertiesPanel extends JPanel {
                 String name = tableModel.getValueAt(i, 0).toString();
                 if (properties.getType(name) == String.class) {
                     String value = tableModel.getValueAt(i, 1).toString();
-                    properties.put(name, properties.getType(name), value);
+                    properties.put(name, properties.getType(name), "".equals(value) ? null : value);
                 }
                 if (properties.getType(name) == Color.class) {
                     try {
@@ -51,7 +51,8 @@ public class PropertiesPanel extends JPanel {
         tableModel.setRowCount(0);
         properties.nameSet().forEach(name -> {
             if (properties.getType(name) == String.class) {
-                tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
+                String value = (String) properties.getValue(name);
+                tableModel.addRow(new String[]{name, value == null ? "" : value});
             }
             if (properties.getType(name) == Color.class) {
                 tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
