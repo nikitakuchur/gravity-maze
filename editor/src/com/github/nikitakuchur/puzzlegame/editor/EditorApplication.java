@@ -20,6 +20,7 @@ public class EditorApplication extends ApplicationAdapter {
 
         levelEditor = new LevelEditor();
         stage.addActor(levelEditor);
+        stage.setKeyboardFocus(levelEditor);
 
         Gdx.input.setInputProcessor(stage);
     }

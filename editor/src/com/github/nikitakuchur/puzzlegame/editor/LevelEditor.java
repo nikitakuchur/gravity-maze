@@ -1,6 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.editor;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -172,6 +173,16 @@ public class LevelEditor extends Group implements Disposable {
             gameObject.setY((int) position.y);
             gameObject.setColor(Color.BLUE);
             level.addActor(gameObject);
+            return true;
+        }
+
+        @Override
+        public boolean keyDown(InputEvent event, int keycode) {
+            if (selectedGameObject != null && keycode == Input.Keys.FORWARD_DEL) {
+                level.removeActor(selectedGameObject);
+                selectedGameObject.dispose();
+                selectedGameObject = null;
+            }
             return true;
         }
     }

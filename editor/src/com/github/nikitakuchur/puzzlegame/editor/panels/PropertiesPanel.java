@@ -24,25 +24,27 @@ public class PropertiesPanel extends JPanel {
 
         tableModel.addTableModelListener(tableModelEvent -> {
             for (int i = 0; i < tableModel.getRowCount(); i++) {
-                String name = tableModel.getValueAt(i, 0).toString();
-                if (properties.getType(name) == String.class) {
-                    String value = tableModel.getValueAt(i, 1).toString();
-                    properties.put(name, properties.getType(name), "".equals(value) ? null : value);
-                }
-                if (properties.getType(name) == Color.class) {
-                    try {
-                        Color color = Color.valueOf(tableModel.getValueAt(i, 1).toString());
-                        properties.put(name, properties.getType(name), color);
-                    } catch (Exception e) {
-                        properties.put(name, properties.getType(name), Color.WHITE);
-                    }
-                }
                 propertiesListeners.forEach(Runnable::run);
             }
         });
     }
 
     public Properties getProperties() {
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            String name = tableModel.getValueAt(i, 0).toString();
+            if (properties.getType(name) == String.class) {
+                String value = tableModel.getValueAt(i, 1).toString();
+                properties.put(name, properties.getType(name), "".equals(value) ? null : value);
+            }
+            if (properties.getType(name) == Color.class) {
+                try {
+                    Color color = Color.valueOf(tableModel.getValueAt(i, 1).toString());
+                    properties.put(name, properties.getType(name), color);
+                } catch (Exception e) {
+                    properties.put(name, properties.getType(name), Color.WHITE);
+                }
+            }
+        }
         return properties;
     }
 
