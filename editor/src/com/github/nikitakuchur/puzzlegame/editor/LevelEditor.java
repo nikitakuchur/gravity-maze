@@ -66,6 +66,7 @@ public class LevelEditor extends Group implements Disposable {
         this.level = level;
         clearChildren();
         level.setPause(true);
+        selectedGameObject = null;
         addActor(level);
         levelChangeListeners.forEach(Runnable::run);
     }
