@@ -86,6 +86,11 @@ public class Background extends Actor implements PropertiesHolder, Disposable {
     }
 
     @Override
+    public Color getColor() {
+        return startColor.cpy().lerp(stopColor, 0.5f);
+    }
+
+    @Override
     public Properties getProperties() {
         Properties properties = new Properties();
         properties.put("startColor", Color.class, startColor);
