@@ -45,7 +45,7 @@ public class Level extends Group implements PropertiesHolder, Disposable {
         map.setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
         super.act(delta);
         getGameObjects().forEach(gameObject -> gameObject.act(this, delta));
-        inputController.act(delta);
+        if (!pause) inputController.act(delta);
     }
 
     @Override
@@ -90,10 +90,6 @@ public class Level extends Group implements PropertiesHolder, Disposable {
 
     public void setScore(int score) {
         this.score = score;
-    }
-
-    public boolean getPause() {
-        return pause;
     }
 
     public void setPause(boolean pause) {

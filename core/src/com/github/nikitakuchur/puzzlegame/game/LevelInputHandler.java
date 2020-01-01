@@ -91,8 +91,6 @@ public class LevelInputHandler {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (level.getPause() || pointer != 0) return false;
-
             if (!areBallsGrounded()) {
                 lockRotation = true;
                 return true;
