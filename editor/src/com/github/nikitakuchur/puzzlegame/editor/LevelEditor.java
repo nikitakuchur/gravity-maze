@@ -1,6 +1,9 @@
 package com.github.nikitakuchur.puzzlegame.editor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -26,6 +29,8 @@ public class LevelEditor extends Group implements Disposable {
     private GameObjectType gameObjectType = GameObjectType.BALL;
     private GameObject selectedGameObject;
 
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+
     public LevelEditor() {
         super();
         level = new Level();
@@ -35,6 +40,7 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setLayer(Layer layer) {
         clearListeners();
+        selectedGameObject = null;
         switch (layer) {
             case BACKGROUND:
                 break;
@@ -42,7 +48,6 @@ public class LevelEditor extends Group implements Disposable {
                 addListener(new MapEditorInputListener());
                 break;
             case GAME_OBJECTS:
-                selectedGameObject = null;
                 addListener(new GameObjectsEditorInputListener());
                 break;
         }
@@ -76,6 +81,24 @@ public class LevelEditor extends Group implements Disposable {
     }
 
     @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        if (selectedGameObject != null) {
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+            shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
+            shapeRenderer.translate(-level.getWidth() / 2, -level.getHeight() / 2, 0);
+            Color color = level.getBackground().getColor();
+            shapeRenderer.setColor(new Color(1 - color.r, 1 - color.g, 1 - color.b, 1));
+            Gdx.gl20.glLineWidth(2);
+            shapeRenderer.rect(selectedGameObject.getX() * selectedGameObject.getWidth(),
+                               selectedGameObject.getY() * selectedGameObject.getHeight(),
+                                  selectedGameObject.getWidth(), selectedGameObject.getHeight());
+            shapeRenderer.end();
+        }
+    }
+
+    @Override
     public Actor hit(float x, float y, boolean touchable) {
         return this;
     }
@@ -83,6 +106,7 @@ public class LevelEditor extends Group implements Disposable {
     @Override
     public void dispose() {
         level.dispose();
+        shapeRenderer.dispose();
     }
 
     private Vector2 screenToMapCoordinates(float x, float y) {
