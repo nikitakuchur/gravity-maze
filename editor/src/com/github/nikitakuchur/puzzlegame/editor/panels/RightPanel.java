@@ -78,7 +78,10 @@ public class RightPanel extends JPanel {
     }
 
     private void updateProperties() {
-        if (propertiesHolder == null) return;
+        if (propertiesHolder == null) {
+            propertiesPanel.setProperties(new Properties());
+            return;
+        }
         propertiesPanel.setProperties(propertiesHolder.getProperties());
         propertiesPanel.addPropertiesListener(() -> propertiesHolder.setProperties(propertiesPanel.getProperties()));
     }

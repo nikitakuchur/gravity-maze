@@ -57,6 +57,8 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setGameObjectType(GameObjectType gameObjectType) {
         this.gameObjectType = gameObjectType;
+        selectedGameObject = null;
+        selectGameObjectListeners.forEach(Runnable::run);
     }
 
     public Level getLevel() {
@@ -173,6 +175,8 @@ public class LevelEditor extends Group implements Disposable {
             gameObject.setY((int) position.y);
             gameObject.setColor(Color.BLUE);
             level.addActor(gameObject);
+            selectedGameObject = gameObject;
+            selectGameObjectListeners.forEach(Runnable::run);
             return true;
         }
 
