@@ -1,7 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
-import com.github.nikitakuchur.puzzlegame.editor.Layer;
+import com.github.nikitakuchur.puzzlegame.editor.utils.Layer;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
