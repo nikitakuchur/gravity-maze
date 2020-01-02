@@ -35,10 +35,7 @@ public class LevelEditor extends Group implements Disposable {
 
     public LevelEditor() {
         super();
-        level = new Level();
-        level.clearListeners();
-        level.setPause(true);
-        addActor(level);
+        setLevel(new Level());
     }
 
     public void setLayer(Layer layer) {
@@ -69,9 +66,9 @@ public class LevelEditor extends Group implements Disposable {
     public void setLevel(Level level) {
         this.level = level;
         clearChildren();
-        level.setPause(true);
-        selectedGameObject = null;
         addActor(level);
+        level.act(0);
+        level.setPause(true);
         levelChangeListeners.forEach(Runnable::run);
     }
 

@@ -116,9 +116,7 @@ public class Level extends Group implements PropertiesHolder, Disposable {
         clearChildren();
         addActor(background);
         addActor(map);
-        gameObjects.forEach(gameObject -> {
-            addActor((GameObject) gameObject);
-        });
+        gameObjects.forEach(gameObject -> addActor((GameObject) gameObject));
     }
 
     @Override
