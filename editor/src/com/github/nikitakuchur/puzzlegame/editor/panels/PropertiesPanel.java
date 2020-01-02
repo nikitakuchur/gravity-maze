@@ -1,6 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.badlogic.gdx.graphics.Color;
+import com.github.nikitakuchur.puzzlegame.editor.utils.PropertiesUtils;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 import javax.swing.*;
@@ -32,25 +33,15 @@ public class PropertiesPanel extends JPanel {
     public Properties getProperties() {
         for (int i = 0; i < tableModel.getRowCount(); i++) {
             String name = tableModel.getValueAt(i, 0).toString();
+            String value = tableModel.getValueAt(i, 1).toString();
             if (properties.getType(name) == String.class) {
-                String value = tableModel.getValueAt(i, 1).toString();
                 properties.put(name, String.class, "".equals(value) ? null : value);
             }
             if (properties.getType(name) == Color.class) {
-                try {
-                    Color color = Color.valueOf(tableModel.getValueAt(i, 1).toString());
-                    properties.put(name, Color.class, color);
-                } catch (Exception e) {
-                    properties.put(name, Color.class, Color.WHITE);
-                }
+                properties.put(name, Color.class, PropertiesUtils.parseColorOrDefault(value, Color.WHITE));
             }
             if (properties.getType(name) == int.class) {
-                try {
-                    int value = Integer.parseInt(tableModel.getValueAt(i, 1).toString());
-                    properties.put(name, int.class, value);
-                } catch (Exception e) {
-                    properties.put(name, int.class, 0);
-                }
+                properties.put(name, int.class, PropertiesUtils.parseIntOrDefault(value, 0));
             }
         }
         return properties;
@@ -68,7 +59,7 @@ public class PropertiesPanel extends JPanel {
                 tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
             }
             if (properties.getType(name) == int.class) {
-                tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
+                tableModel.addRow(new Object[]{name, properties.getValue(name)});
             }
         });
     }

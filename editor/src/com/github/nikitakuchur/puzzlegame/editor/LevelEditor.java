@@ -159,6 +159,7 @@ public class LevelEditor extends Group implements Disposable {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             if (selectedGameObject != null) {
                 selectedGameObject = null;
+                selectGameObjectListeners.forEach(Runnable::run);
                 return true;
             }
 
