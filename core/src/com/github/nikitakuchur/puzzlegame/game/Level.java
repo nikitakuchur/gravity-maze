@@ -44,8 +44,10 @@ public class Level extends Group implements PropertiesHolder, Disposable {
         map.setWidth(Gdx.graphics.getWidth());
         map.setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
         super.act(delta);
-        getGameObjects().forEach(gameObject -> gameObject.act(this, delta));
-        if (!pause) inputController.act(delta);
+        if (!pause) {
+            getGameObjects().forEach(gameObject -> gameObject.act(this, delta));
+            inputController.act(delta);
+        }
     }
 
     @Override
