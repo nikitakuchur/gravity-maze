@@ -187,6 +187,7 @@ public class LevelEditor extends Group implements Disposable {
                 level.removeActor(selectedGameObject);
                 selectedGameObject.dispose();
                 selectedGameObject = null;
+                selectGameObjectListeners.forEach(Runnable::run);
             }
             return true;
         }
