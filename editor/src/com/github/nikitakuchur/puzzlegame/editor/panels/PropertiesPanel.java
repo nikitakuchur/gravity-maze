@@ -34,14 +34,22 @@ public class PropertiesPanel extends JPanel {
             String name = tableModel.getValueAt(i, 0).toString();
             if (properties.getType(name) == String.class) {
                 String value = tableModel.getValueAt(i, 1).toString();
-                properties.put(name, properties.getType(name), "".equals(value) ? null : value);
+                properties.put(name, String.class, "".equals(value) ? null : value);
             }
             if (properties.getType(name) == Color.class) {
                 try {
                     Color color = Color.valueOf(tableModel.getValueAt(i, 1).toString());
-                    properties.put(name, properties.getType(name), color);
+                    properties.put(name, Color.class, color);
                 } catch (Exception e) {
-                    properties.put(name, properties.getType(name), Color.WHITE);
+                    properties.put(name, Color.class, Color.WHITE);
+                }
+            }
+            if (properties.getType(name) == int.class) {
+                try {
+                    int value = Integer.parseInt(tableModel.getValueAt(i, 1).toString());
+                    properties.put(name, int.class, value);
+                } catch (Exception e) {
+                    properties.put(name, int.class, 0);
                 }
             }
         }
@@ -57,6 +65,9 @@ public class PropertiesPanel extends JPanel {
                 tableModel.addRow(new String[]{name, value == null ? "" : value});
             }
             if (properties.getType(name) == Color.class) {
+                tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
+            }
+            if (properties.getType(name) == int.class) {
                 tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
             }
         });
