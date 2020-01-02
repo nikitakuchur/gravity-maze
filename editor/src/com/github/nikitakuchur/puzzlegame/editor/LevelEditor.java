@@ -79,6 +79,11 @@ public class LevelEditor extends Group implements Disposable {
         return selectedGameObject;
     }
 
+    public void setSelectedGameObject(GameObject gameObject) {
+        selectedGameObject = gameObject;
+        selectGameObjectListeners.forEach(Runnable::run);
+    }
+
     public void addLevelChangeListener(Runnable runnable) {
         levelChangeListeners.add(runnable);
     }
@@ -157,22 +162,21 @@ public class LevelEditor extends Group implements Disposable {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (selectedGameObject != null) {
-                selectedGameObject = null;
-                selectGameObjectListeners.forEach(Runnable::run);
-                return true;
-            }
-
             Vector2 position = screenToMapCoordinates(x, y);
 
-            selectedGameObject = level.getGameObjects().stream().
+            GameObject currentGameObject = level.getGameObjects().stream().
                     filter(object -> (int) object.getX() == (int) position.x &&
                                      (int) object.getY() == (int) position.y)
                     .findAny()
                     .orElse(null);
 
+            if (currentGameObject != null) {
+                setSelectedGameObject(currentGameObject);
+                return true;
+            }
+
             if (selectedGameObject != null) {
-                selectGameObjectListeners.forEach(Runnable::run);
+                setSelectedGameObject(null);
                 return true;
             }
 
@@ -181,9 +185,9 @@ public class LevelEditor extends Group implements Disposable {
             gameObject.setX((int) position.x);
             gameObject.setY((int) position.y);
             gameObject.setColor(Color.BLUE);
+            gameObject.act(level, 0);
             level.addActor(gameObject);
-            selectedGameObject = gameObject;
-            selectGameObjectListeners.forEach(Runnable::run);
+            setSelectedGameObject(gameObject);
             return true;
         }
 
@@ -192,8 +196,7 @@ public class LevelEditor extends Group implements Disposable {
             if (selectedGameObject != null && keycode == Input.Keys.FORWARD_DEL) {
                 level.removeActor(selectedGameObject);
                 selectedGameObject.dispose();
-                selectedGameObject = null;
-                selectGameObjectListeners.forEach(Runnable::run);
+                setSelectedGameObject(null);
             }
             return true;
         }
