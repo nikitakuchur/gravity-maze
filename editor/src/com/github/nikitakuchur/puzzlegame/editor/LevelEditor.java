@@ -157,6 +157,11 @@ public class LevelEditor extends Group implements Disposable {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            if (selectedGameObject != null) {
+                selectedGameObject = null;
+                return true;
+            }
+
             Vector2 position = screenToMapCoordinates(x, y);
 
             selectedGameObject = level.getGameObjects().stream().
