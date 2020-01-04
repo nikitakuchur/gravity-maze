@@ -12,30 +12,47 @@ import javax.swing.*;
 
 public class TopPanel extends JPanel {
 
+    private EditorApplication app;
+
     public TopPanel(EditorApplication app) {
+        this.app = app;
+
         JButton loadButton = new JButton("Load");
-        loadButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
-            Level level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
-            app.getLevelEditor().setLevel(level);
-        }));
+        loadButton.addActionListener(e -> Gdx.app.postRunnable(this::loadLevel));
 
         JButton saveButton = new JButton("Save");
-        saveButton.addActionListener(e -> {
-            Level level = app.getLevelEditor().getLevel();
-
-            Json json = new Json(JsonWriter.OutputType.json);
-            String text = json.prettyPrint(json.toJson(level));
-
-            FileHandle file = Gdx.files.local("levels/sample.json");
-            file.writeString(text, false);
-        });
+        saveButton.addActionListener(e -> Gdx.app.postRunnable(this::saveLevel));
 
         JButton playButton = new JButton("Play");
+        playButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
+            saveLevel();
+            app.getLevelEditor().play();
+        }));
+
         JButton stopButton = new JButton("Stop");
+        stopButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
+            loadLevel();
+            app.getLevelEditor().stop();
+        }));
 
         add(loadButton);
         add(saveButton);
         add(playButton);
         add(stopButton);
+    }
+
+    private void loadLevel() {
+        Level level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
+        app.getLevelEditor().setLevel(level);
+    }
+
+    private void saveLevel() {
+        Level level = app.getLevelEditor().getLevel();
+
+        Json json = new Json(JsonWriter.OutputType.json);
+        String text = json.prettyPrint(json.toJson(level));
+
+        FileHandle file = Gdx.files.local("levels/sample.json");
+        file.writeString(text, false);
     }
 }
