@@ -95,6 +95,7 @@ public class Level extends Group implements PropertiesHolder, Disposable {
     }
 
     public void setPause(boolean pause) {
+        this.pause = pause;
         if (pause) {
             clearListeners();
         } else {
