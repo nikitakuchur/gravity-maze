@@ -12,7 +12,7 @@ public class RightPanel extends JPanel {
 
     private final transient LevelEditor levelEditor;
 
-    JPanel panel = new JPanel();
+    private JPanel panel = new JPanel();
     private JComboBox<Layer> comboBox = new JComboBox<>(Layer.values());;
 
     private transient PropertiesHolder propertiesHolder;
@@ -30,7 +30,10 @@ public class RightPanel extends JPanel {
 
         levelEditor.addLevelPlayListener(() -> setEnabled(false));
 
-        levelEditor.addLevelStopListener(() -> setEnabled(true));
+        levelEditor.addLevelStopListener(() -> {
+            setEnabled(true);
+            comboBox.setSelectedIndex(comboBox.getSelectedIndex());
+        });
 
         gameObjectsPanel.setVisible(false);
         gameObjectsPanel.addGameObjectsListener(
