@@ -17,14 +17,13 @@ public abstract class GameObject extends Actor implements PropertiesHolder, Disp
      * @param delta time in seconds since the last frame.
      */
     public void act(Level level, float delta) {
-        update(level);
         super.act(delta);
     }
 
     /**
      * Updates width and height
      */
-    private void update(Level level) {
+    public void update(Level level) {
         GameMap map = level.getMap();
         setWidth(map.getWidth() / map.getCellsWidth());
         setHeight(map.getHeight() / map.getCellsHeight());
