@@ -107,9 +107,14 @@ public class LevelEditor extends Group implements Disposable {
         }
     }
 
+    public void play() {
+        level.setPause(false);
+        clearListeners();
+    }
+
     @Override
     public Actor hit(float x, float y, boolean touchable) {
-        return this;
+        return level.hit(x, y, touchable);
     }
 
     @Override
