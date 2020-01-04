@@ -32,96 +32,152 @@
 		],
 		[
 			"EMPTY",
-			"BLOCK",
-			"BLOCK",
+			"EMPTY",
+			"EMPTY",
 			"EMPTY",
 			"BLOCK",
 			"EMPTY",
-			"BLOCK",
-			"EMPTY"
-		],
-		[
 			"EMPTY",
-			"EMPTY",
-			"BLOCK",
-			"BLOCK",
-			"BLOCK",
-			"EMPTY",
-			"BLOCK",
 			"EMPTY"
 		],
 		[
 			"EMPTY",
 			"EMPTY",
 			"EMPTY",
+			"EMPTY",
+			"BLOCK",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"BLOCK",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"BLOCK",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY"
+		],
+		[
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"EMPTY",
+			"BLOCK"
+		],
+		[
+			"EMPTY",
+			"EMPTY",
+			"BLOCK",
 			"EMPTY",
 			"EMPTY",
 			"EMPTY",
 			"BLOCK",
 			"BLOCK"
-		],
-		[
-			"BLOCK",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"BLOCK",
-			"BLOCK",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY"
 		]
 	]
 },
 "gameObjects": [
 	{
 		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
-		"name": null,
-		"x": 1,
+		"name": "redBall",
+		"x": 7,
 		"y": 3,
 		"color": {
-			"b": 1,
+			"r": 0.75686276,
+			"g": 0.3019608,
+			"b": 0.29411766,
 			"a": 1
 		}
 	},
 	{
 		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
-		"name": null,
-		"x": 6,
+		"name": "blueBall",
+		"x": 2,
 		"y": 0,
 		"color": {
-			"b": 1,
+			"r": 0.35686275,
+			"g": 0.40392157,
+			"b": 0.8,
 			"a": 1
 		}
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
+		"name": "portal2",
+		"x": 6,
+		"y": 2,
+		"color": {
+			"r": 1,
+			"g": 1,
+			"b": 1,
+			"a": 1
+		},
+		"to": "portal1"
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
+		"name": "portal1",
+		"x": 3,
+		"y": 6,
+		"color": {
+			"r": 1,
+			"g": 1,
+			"b": 1,
+			"a": 1
+		},
+		"to": "portal2"
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole",
+		"name": null,
+		"x": 6,
+		"y": 6,
+		"color": {
+			"r": 0.35686275,
+			"g": 0.40392157,
+			"b": 0.8,
+			"a": 1
+		},
+		"ball": "blueBall"
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole",
+		"name": null,
+		"x": 0,
+		"y": 5,
+		"color": {
+			"r": 0.75686276,
+			"g": 0.3019608,
+			"b": 0.29411766,
+			"a": 1
+		},
+		"ball": "redBall"
 	}
 ]
 }
