@@ -91,8 +91,6 @@ public class LevelInputHandler {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (level.isPaused()) return true;
-
             if (!areBallsGrounded()) {
                 lockRotation = true;
                 return true;
@@ -121,7 +119,7 @@ public class LevelInputHandler {
 
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
-            if (lockRotation || level.isPaused()) return;
+            if (lockRotation) return;
             Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
             Vector2 touchPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 

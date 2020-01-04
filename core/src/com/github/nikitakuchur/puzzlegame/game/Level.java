@@ -94,12 +94,12 @@ public class Level extends Group implements PropertiesHolder, Disposable {
         this.score = score;
     }
 
-    public boolean isPaused() {
-        return pause;
-    }
-
     public void setPause(boolean pause) {
-        this.pause = pause;
+        if (pause) {
+            clearListeners();
+        } else {
+            addListener(inputController.getInputListener());
+        }
     }
 
     @Override
