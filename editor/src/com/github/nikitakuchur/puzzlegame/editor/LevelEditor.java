@@ -71,8 +71,8 @@ public class LevelEditor extends Group implements Disposable {
         addActor(level);
         level.act(0);
         level.setPause(true);
-        levelChangeListeners.forEach(Runnable::run);
         setSelectedGameObject(null);
+        levelChangeListeners.forEach(Runnable::run);
     }
 
     public GameObject getSelectedGameObject() {
@@ -208,6 +208,15 @@ public class LevelEditor extends Group implements Disposable {
             level.addActor(gameObject);
             setSelectedGameObject(gameObject);
             return true;
+        }
+
+        @Override
+        public void touchDragged(InputEvent event, float x, float y, int pointer) {
+            Vector2 position = screenToMapCoordinates(x, y);
+            if (selectedGameObject != null) {
+                selectedGameObject.setX((int) position.x);
+                selectedGameObject.setY((int) position.y);
+            }
         }
 
         @Override
