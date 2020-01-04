@@ -12,13 +12,14 @@ import java.util.List;
 public class PropertiesPanel extends JPanel {
 
     private DefaultTableModel tableModel = new PropertiesTableModel();
+    private JTable table = new JTable(tableModel);
     private transient Properties properties = new Properties();
 
     private transient List<Runnable> propertiesListeners = new ArrayList<>();
 
     public PropertiesPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        JTable table = new JTable(tableModel);
+
         JScrollPane scrollPane = new JScrollPane(table);
         add(new JLabel("Properties:"));
         add(scrollPane);
@@ -66,6 +67,12 @@ public class PropertiesPanel extends JPanel {
 
     public void addPropertiesListener(Runnable runnable) {
         propertiesListeners.add(runnable);
+    }
+
+    @Override
+    public void setEnabled(boolean b) {
+        super.setEnabled(b);
+        table.setEnabled(b);
     }
 
     private static class PropertiesTableModel extends DefaultTableModel {

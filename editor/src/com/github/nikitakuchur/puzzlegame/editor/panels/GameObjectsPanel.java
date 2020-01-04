@@ -26,4 +26,10 @@ public class GameObjectsPanel extends JPanel {
     public GameObjectType getSelectedGameObjectType() {
         return list.getSelectedValue();
     }
+
+    @Override
+    public void setEnabled(boolean b) {
+        super.setEnabled(b);
+        list.setEnabled(b);
+    }
 }

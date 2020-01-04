@@ -12,7 +12,8 @@ public class RightPanel extends JPanel {
 
     private final transient LevelEditor levelEditor;
 
-    private JComboBox<Layer> comboBox;
+    JPanel panel = new JPanel();
+    private JComboBox<Layer> comboBox = new JComboBox<>(Layer.values());;
 
     private transient PropertiesHolder propertiesHolder;
     private PropertiesPanel propertiesPanel = new PropertiesPanel();
@@ -22,17 +23,19 @@ public class RightPanel extends JPanel {
         this.levelEditor = levelEditor;
         propertiesHolder = levelEditor.getLevel().getBackground();
 
-        JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setVisible(true);
         panel.setPreferredSize(new Dimension(140, 400));
         add(panel);
 
+        levelEditor.addLevelPlayListener(() -> setEnabled(false));
+
+        levelEditor.addLevelStopListener(() -> setEnabled(true));
+
         gameObjectsPanel.setVisible(false);
         gameObjectsPanel.addGameObjectsListener(
                 () -> levelEditor.setGameObjectType(gameObjectsPanel.getSelectedGameObjectType()));
 
-        comboBox = new JComboBox<>(Layer.values());
         comboBox.addActionListener(actionEvent -> {
             Layer layer = (Layer) comboBox.getSelectedItem();
             if (layer == null) return;
@@ -56,6 +59,14 @@ public class RightPanel extends JPanel {
         panel.add(comboBox);
         panel.add(gameObjectsPanel);
         panel.add(propertiesPanel);
+    }
+
+    @Override
+    public void setEnabled(boolean b) {
+        super.setEnabled(b);
+        for (Component component : panel.getComponents()) {
+            component.setEnabled(b);
+        }
     }
 
     private void initProperties() {

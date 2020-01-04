@@ -27,6 +27,8 @@ public class LevelEditor extends Group implements Disposable {
 
     private List<Runnable> levelChangeListeners = new ArrayList<>();
     private List<Runnable> selectGameObjectListeners = new ArrayList<>();
+    private List<Runnable> levelPlayListeners = new ArrayList<>();
+    private List<Runnable> levelStopListeners = new ArrayList<>();
 
     private GameObjectType gameObjectType = GameObjectType.BALL;
     private GameObject selectedGameObject;
@@ -89,6 +91,14 @@ public class LevelEditor extends Group implements Disposable {
         selectGameObjectListeners.add(runnable);
     }
 
+    public void addLevelPlayListener(Runnable runnable) {
+        levelPlayListeners.add(runnable);
+    }
+
+    public void addLevelStopListener(Runnable runnable) {
+        levelStopListeners.add(runnable);
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
@@ -110,10 +120,12 @@ public class LevelEditor extends Group implements Disposable {
     public void play() {
         level.setPause(false);
         clearListeners();
+        levelPlayListeners.forEach(Runnable::run);
     }
 
     public void stop() {
         level.setPause(true);
+        levelStopListeners.forEach(Runnable::run);
     }
 
     @Override

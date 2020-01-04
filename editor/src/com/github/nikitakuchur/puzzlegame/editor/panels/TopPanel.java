@@ -24,15 +24,25 @@ public class TopPanel extends JPanel {
         saveButton.addActionListener(e -> Gdx.app.postRunnable(this::saveLevel));
 
         JButton playButton = new JButton("Play");
+        JButton stopButton = new JButton("Stop");
+
         playButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
             saveLevel();
             app.getLevelEditor().play();
+            loadButton.setEnabled(false);
+            saveButton.setEnabled(false);
+            playButton.setEnabled(false);
+            stopButton.setEnabled(true);
         }));
 
-        JButton stopButton = new JButton("Stop");
+        stopButton.setEnabled(false);
         stopButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
             loadLevel();
             app.getLevelEditor().stop();
+            loadButton.setEnabled(true);
+            saveButton.setEnabled(true);
+            playButton.setEnabled(true);
+            stopButton.setEnabled(false);
         }));
 
         add(loadButton);
