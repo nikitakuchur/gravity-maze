@@ -20,6 +20,7 @@ import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class LevelEditor extends Group implements Disposable {
 
@@ -203,7 +204,8 @@ public class LevelEditor extends Group implements Disposable {
             if (gameObject == null) return true;
             gameObject.setX((int) position.x);
             gameObject.setY((int) position.y);
-            gameObject.setColor(Color.BLUE);
+            Random random = new Random();
+            gameObject.setColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
             gameObject.act(level, 0);
             level.addActor(gameObject);
             setSelectedGameObject(gameObject);
