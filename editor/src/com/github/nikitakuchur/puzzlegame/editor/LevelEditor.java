@@ -36,6 +36,8 @@ public class LevelEditor extends Group implements Disposable {
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
+    private Random rand = new Random();
+
     public LevelEditor() {
         super();
         setLevel(new Level());
@@ -205,8 +207,7 @@ public class LevelEditor extends Group implements Disposable {
             if (gameObject == null) return true;
             gameObject.setX((int) position.x);
             gameObject.setY((int) position.y);
-            Random random = new Random();
-            gameObject.setColor(new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1));
+            gameObject.setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1));
             gameObject.act(level, 0);
             level.addActor(gameObject);
             setSelectedGameObject(gameObject);

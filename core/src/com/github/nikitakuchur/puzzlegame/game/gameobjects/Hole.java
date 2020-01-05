@@ -21,6 +21,7 @@ public class Hole extends GameObject {
     @Override
     public void act(Level level, float delta) {
         super.act(level, delta);
+
         if (ballName == null) return;
         Ball ball = level.findActor(ballName);
 

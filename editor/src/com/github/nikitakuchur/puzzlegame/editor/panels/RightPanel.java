@@ -13,7 +13,7 @@ public class RightPanel extends JPanel {
     private final transient LevelEditor levelEditor;
 
     private JPanel panel = new JPanel();
-    private JComboBox<Layer> comboBox = new JComboBox<>(Layer.values());;
+    private JComboBox<Layer> comboBox = new JComboBox<>(Layer.values());
 
     private transient PropertiesHolder propertiesHolder;
     private PropertiesPanel propertiesPanel = new PropertiesPanel();

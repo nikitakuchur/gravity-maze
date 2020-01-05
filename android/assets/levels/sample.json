@@ -178,6 +178,16 @@
 			"a": 1
 		},
 		"ball": "redBall"
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
+		"name": "redBall",
+		"x": 7,
+		"y": 4,
+		"color": {
+			"r": 1,
+			"a": 1
+		}
 	}
 ]
 }

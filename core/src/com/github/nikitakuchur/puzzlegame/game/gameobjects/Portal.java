@@ -38,6 +38,7 @@ public class Portal extends GameObject {
     @Override
     public void act(Level level, float delta) {
         super.act(level, delta);
+
         if (secondPortalName == null) return;
         Portal secondPortal = level.findActor(secondPortalName);
 
