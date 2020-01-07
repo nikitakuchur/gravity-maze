@@ -40,7 +40,7 @@ public class Portal extends GameObject {
         super.act(level, delta);
 
         if (secondPortalName == null) return;
-        Portal secondPortal = level.findActor(secondPortalName);
+        Portal secondPortal = level.findGameObject(secondPortalName);
 
         if (!isUsed && !secondPortal.isUsed) {
             for (Ball ball : level.getGameObjects(Ball.class)) {

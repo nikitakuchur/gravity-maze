@@ -3,12 +3,17 @@ package com.github.nikitakuchur.puzzlegame.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Level extends Group implements PropertiesHolder, Disposable {
 
@@ -16,6 +21,8 @@ public class Level extends Group implements PropertiesHolder, Disposable {
 
     private Background background;
     private GameMap map;
+    private Group gameObjectsGroup = new Group();
+    private Group ballsGroup = new Group();
 
     private GravityDirection gravityDirection = GravityDirection.BOTTOM;
     private int score;
@@ -35,14 +42,15 @@ public class Level extends Group implements PropertiesHolder, Disposable {
         map.setWidth(100);
         map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
         addActor(map);
+        addActor(gameObjectsGroup);
+        addActor(ballsGroup);
 
         addListener(inputController.getInputListener());
     }
 
     @Override
     public void act(float delta) {
-        map.setWidth(Gdx.graphics.getWidth());
-        map.setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
+        update();
         getGameObjects().forEach(gameObject -> gameObject.update(this));
         super.act(delta);
         if (!pause) {
@@ -64,19 +72,57 @@ public class Level extends Group implements PropertiesHolder, Disposable {
         return map;
     }
 
+    /**
+     * Updates width and height
+     */
+    public void update() {
+        setWidth(Gdx.graphics.getWidth());
+        setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
+        map.setWidth(getWidth());
+        map.setHeight(getHeight());
+        gameObjectsGroup.setWidth(getWidth());
+        gameObjectsGroup.setHeight(getHeight());
+        ballsGroup.setWidth(getWidth());
+        ballsGroup.setHeight(getHeight());
+    }
+
+    public void addGameObject(GameObject gameObject) {
+        if (gameObject instanceof Ball) {
+            ballsGroup.addActor(gameObject);
+        } else {
+            gameObjectsGroup.addActor(gameObject);
+        }
+    }
+
     public List<GameObject> getGameObjects() {
-        return getGameObjects(GameObject.class);
+        Actor[] gameObjects = gameObjectsGroup.getChildren().items;
+        Actor[] balls = ballsGroup.getChildren().items;
+        return Stream.concat(Arrays.stream(gameObjects), Arrays.stream(balls))
+                .filter(Objects::nonNull)
+                .map(GameObject.class::cast)
+                .collect(Collectors.toList());
     }
 
     public <T extends GameObject> List<T> getGameObjects(Class<T> type) {
         List<T> result = new ArrayList<>();
-        getChildren().forEach(actor -> {
+        getGameObjects().forEach(actor -> {
             T gameObject = actor.firstAscendant(type);
             if (gameObject != null) {
                 result.add(gameObject);
             }
         });
         return result;
+    }
+
+    public <T extends GameObject> T findGameObject(String name) {
+        T gameObject = gameObjectsGroup.findActor(name);
+        if (gameObject != null) return gameObject;
+        return ballsGroup.findActor(name);
+    }
+
+    public void removeGameObject(GameObject gameObject) {
+        gameObjectsGroup.removeActor(gameObject);
+        ballsGroup.removeActor(gameObject);
     }
 
     public GravityDirection getGravityDirection() {
@@ -122,7 +168,9 @@ public class Level extends Group implements PropertiesHolder, Disposable {
         clearChildren();
         addActor(background);
         addActor(map);
-        gameObjects.forEach(gameObject -> addActor((GameObject) gameObject));
+        addActor(gameObjectsGroup);
+        addActor(ballsGroup);
+        gameObjects.forEach(gameObject -> addGameObject((GameObject) gameObject));
     }
 
     @Override

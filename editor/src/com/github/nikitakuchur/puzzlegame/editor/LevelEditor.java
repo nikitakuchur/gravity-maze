@@ -209,7 +209,7 @@ public class LevelEditor extends Group implements Disposable {
             gameObject.setY((int) position.y);
             gameObject.setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1));
             gameObject.act(level, 0);
-            level.addActor(gameObject);
+            level.addGameObject(gameObject);
             setSelectedGameObject(gameObject);
             return true;
         }
@@ -226,7 +226,7 @@ public class LevelEditor extends Group implements Disposable {
         @Override
         public boolean keyDown(InputEvent event, int keycode) {
             if (selectedGameObject != null && keycode == Input.Keys.FORWARD_DEL) {
-                level.removeActor(selectedGameObject);
+                level.removeGameObject(selectedGameObject);
                 selectedGameObject.dispose();
                 setSelectedGameObject(null);
             }

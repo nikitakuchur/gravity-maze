@@ -56,13 +56,6 @@ public class GameMap extends Actor implements PropertiesHolder, Disposable {
     }
 
     @Override
-    public void act(float delta) {
-        getParent().setWidth(getWidth());
-        getParent().setHeight(getHeight());
-        super.act(delta);
-    }
-
-    @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);

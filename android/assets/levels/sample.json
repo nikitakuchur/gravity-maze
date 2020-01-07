@@ -104,30 +104,6 @@
 },
 "gameObjects": [
 	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
-		"name": "redBall",
-		"x": 7,
-		"y": 3,
-		"color": {
-			"r": 0.75686276,
-			"g": 0.3019608,
-			"b": 0.29411766,
-			"a": 1
-		}
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
-		"name": "blueBall",
-		"x": 2,
-		"y": 0,
-		"color": {
-			"r": 0.35686275,
-			"g": 0.40392157,
-			"b": 0.8,
-			"a": 1
-		}
-	},
-	{
 		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
 		"name": "portal2",
 		"x": 6,
@@ -183,9 +159,35 @@
 		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
 		"name": "redBall",
 		"x": 7,
-		"y": 4,
+		"y": 3,
 		"color": {
-			"r": 1,
+			"r": 0.75686276,
+			"g": 0.3019608,
+			"b": 0.29411766,
+			"a": 1
+		}
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
+		"name": "blueBall",
+		"x": 2,
+		"y": 0,
+		"color": {
+			"r": 0.35686275,
+			"g": 0.40392157,
+			"b": 0.8,
+			"a": 1
+		}
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
+		"name": null,
+		"x": 7,
+		"y": 8,
+		"color": {
+			"r": 0.33333334,
+			"g": 0.7372549,
+			"b": 0.75686276,
 			"a": 1
 		}
 	}

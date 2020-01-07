@@ -23,10 +23,10 @@ public class Hole extends GameObject {
         super.act(level, delta);
 
         if (ballName == null) return;
-        Ball ball = level.findActor(ballName);
+        Ball ball = level.findGameObject(ballName);
 
         if (getX() == ball.getX() && getY() == ball.getY()) {
-            level.removeActor(ball);
+            level.removeGameObject(ball);
             ballName = null;
         }
     }
