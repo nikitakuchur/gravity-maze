@@ -178,18 +178,6 @@
 			"b": 0.8,
 			"a": 1
 		}
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
-		"name": null,
-		"x": 7,
-		"y": 8,
-		"color": {
-			"r": 0.33333334,
-			"g": 0.7372549,
-			"b": 0.75686276,
-			"a": 1
-		}
 	}
 ]
 }
