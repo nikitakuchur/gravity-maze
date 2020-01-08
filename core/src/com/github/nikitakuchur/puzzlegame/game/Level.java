@@ -76,8 +76,12 @@ public class Level extends Group implements PropertiesHolder, Disposable {
      * Updates width and height
      */
     public void update() {
-        setWidth(Gdx.graphics.getWidth());
-        setHeight(Gdx.graphics.getWidth() / (float) map.getCellsWidth() * map.getCellsHeight());
+        float w = Gdx.graphics.getWidth();
+        if (w > Gdx.graphics.getHeight()) {
+            w = Gdx.graphics.getHeight();
+        }
+        setWidth(w);
+        setHeight(w / (float) map.getCellsWidth() * map.getCellsHeight());
         map.setWidth(getWidth());
         map.setHeight(getHeight());
         gameObjectsGroup.setWidth(getWidth());
