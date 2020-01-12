@@ -60,8 +60,7 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setGameObjectType(GameObjectType gameObjectType) {
         this.gameObjectType = gameObjectType;
-        selectedGameObject = null;
-        selectGameObjectListeners.forEach(Runnable::run);
+        setSelectedGameObject(null);
     }
 
     public Level getLevel() {
@@ -221,6 +220,12 @@ public class LevelEditor extends Group implements Disposable {
                 selectedGameObject.setX((int) position.x);
                 selectedGameObject.setY((int) position.y);
             }
+        }
+
+        @Override
+        public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+            super.touchUp(event, x, y, pointer, button);
+            setSelectedGameObject(selectedGameObject);
         }
 
         @Override
