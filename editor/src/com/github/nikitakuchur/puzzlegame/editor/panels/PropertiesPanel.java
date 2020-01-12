@@ -49,6 +49,9 @@ public class PropertiesPanel extends JPanel {
     }
 
     public void setProperties(Properties properties) {
+        if (table.isEditing()) {
+            table.getCellEditor().cancelCellEditing();
+        }
         this.properties = properties;
         tableModel.setRowCount(0);
         properties.nameSet().forEach(name -> {
