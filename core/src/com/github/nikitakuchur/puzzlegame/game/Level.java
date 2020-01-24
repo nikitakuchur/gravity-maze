@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 
 public class Level extends Group implements PropertiesHolder, Disposable {
 
-    private final LevelInputHandler inputController;
+    private final LevelInputHandler inputController = new LevelInputHandler(this);
 
     private Background background;
     private GameMap map;
@@ -33,8 +33,6 @@ public class Level extends Group implements PropertiesHolder, Disposable {
     }
 
     public Level(Background background, GameMap map) {
-        inputController = new LevelInputHandler(this);
-
         this.background = background;
         addActor(background);
 

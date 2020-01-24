@@ -23,8 +23,8 @@ public class GameMap extends Actor implements PropertiesHolder, Disposable {
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private Cell block;
-    private Cell emptyCell;
+    private Cell block = new Block(shapeRenderer, this);
+    private Cell emptyCell = new EmptyCell(shapeRenderer, this);
 
     public GameMap() {
         this(8, 8);
@@ -36,9 +36,6 @@ public class GameMap extends Actor implements PropertiesHolder, Disposable {
     public GameMap(CellType[][] cells) {
         this.cells = cells;
         setColor(CELLS_COLOR);
-
-        block = new Block(shapeRenderer, this);
-        emptyCell = new EmptyCell(shapeRenderer, this);
     }
 
     /**

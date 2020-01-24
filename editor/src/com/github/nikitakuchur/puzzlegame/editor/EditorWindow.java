@@ -11,14 +11,13 @@ import java.awt.*;
 public class EditorWindow {
 
     private JFrame window = new JFrame("Editor");
-    private EditorApplication app;
+    private EditorApplication app = new EditorApplication();
 
     private JPanel contentPane = new JPanel();
 
     public EditorWindow() {
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        app = new EditorApplication();
         LwjglAWTCanvas canvas = new LwjglAWTCanvas(app);
 
         contentPane.setLayout(new BorderLayout());
