@@ -6,6 +6,7 @@ import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,12 @@ public class PropertiesPanel extends JPanel {
     public PropertiesPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JScrollPane scrollPane = new JScrollPane(table);
+        //table.setDefaultEditor(ButtonTextFieldCell.class, new ButtonTextFieldCell());
+        TableColumn col = table.getColumnModel().getColumn(1);
+        col.setCellEditor(new ButtonTextFieldCell());
+
         add(new JLabel("Properties:"));
-        add(scrollPane);
+        add(new JScrollPane(table));
 
         tableModel.addTableModelListener(tableModelEvent -> {
             for (int i = 0; i < tableModel.getRowCount(); i++) {
@@ -57,13 +61,16 @@ public class PropertiesPanel extends JPanel {
         properties.nameSet().forEach(name -> {
             if (properties.getType(name) == String.class) {
                 String value = (String) properties.getValue(name);
-                tableModel.addRow(new String[]{name, value == null ? "" : value});
+                value = value == null ? "" : value;
+                tableModel.addRow(new Object[]{name, value});
             }
             if (properties.getType(name) == Color.class) {
-                tableModel.addRow(new String[]{name, properties.getValue(name).toString()});
+                String value = properties.getValue(name).toString();
+                tableModel.addRow(new Object[]{name, value});
             }
             if (properties.getType(name) == int.class) {
-                tableModel.addRow(new Object[]{name, properties.getValue(name)});
+                String value = properties.getValue(name).toString();
+                tableModel.addRow(new Object[]{name, value});
             }
         });
     }
@@ -85,6 +92,11 @@ public class PropertiesPanel extends JPanel {
         @Override
         public boolean isCellEditable(int row, int column) {
             return column != 0;
+        }
+
+        @Override
+        public Class<?> getColumnClass(int col) {
+            return getValueAt(0, col).getClass();
         }
 
         @Override
