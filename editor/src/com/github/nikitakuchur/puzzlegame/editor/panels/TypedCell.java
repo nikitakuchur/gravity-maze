@@ -16,14 +16,9 @@ class TypedCell extends AbstractCellEditor implements TableCellEditor {
     private  Class<?> type;
 
     public TypedCell(Class<?> type) {
-        this("");
         this.type = type;
-    }
-
-    public TypedCell(String txt) {
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
-        textField.setText(txt);
         panel.add(textField);
 
         button.setPreferredSize(new Dimension(16, 16));

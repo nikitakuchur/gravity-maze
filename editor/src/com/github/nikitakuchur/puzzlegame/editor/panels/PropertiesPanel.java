@@ -12,7 +12,7 @@ import java.util.List;
 public class PropertiesPanel extends JPanel {
 
     private DefaultTableModel tableModel = new PropertiesTableModel();
-    private JTable table = new JTable(tableModel);
+    private JTable table = new PropertiesTable(tableModel);
     private transient Properties properties = new Properties();
 
     private transient List<Runnable> propertiesListeners = new ArrayList<>();
@@ -89,11 +89,6 @@ public class PropertiesPanel extends JPanel {
         @Override
         public boolean isCellEditable(int row, int column) {
             return column != 0;
-        }
-
-        @Override
-        public Class<?> getColumnClass(int col) {
-            return getValueAt(0, col).getClass();
         }
 
         @Override
