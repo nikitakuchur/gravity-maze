@@ -9,14 +9,16 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class EditorApplication extends ApplicationAdapter {
 
-    private Stage stage = new Stage(new ScreenViewport());
+    private Stage stage;
 
-    private LevelEditor levelEditor = new LevelEditor();
+    private LevelEditor levelEditor;
 
     @Override
     public void create() {
+        stage = new Stage(new ScreenViewport());
         stage.getCamera().position.set(Vector3.Zero);
 
+        levelEditor = new LevelEditor();
         stage.addActor(levelEditor);
         stage.setKeyboardFocus(levelEditor);
 
