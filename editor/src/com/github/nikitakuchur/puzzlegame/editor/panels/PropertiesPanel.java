@@ -21,7 +21,6 @@ public class PropertiesPanel extends JPanel {
     public PropertiesPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        //table.setDefaultEditor(ButtonTextFieldCell.class, new ButtonTextFieldCell());
         TableColumn col = table.getColumnModel().getColumn(1);
         col.setCellEditor(new ButtonTextFieldCell());
 
