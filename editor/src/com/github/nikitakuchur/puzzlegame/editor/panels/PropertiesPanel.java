@@ -6,7 +6,6 @@ import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +20,7 @@ public class PropertiesPanel extends JPanel {
     public PropertiesPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        TableColumn col = table.getColumnModel().getColumn(1);
-        col.setCellEditor(new ButtonTextFieldCell());
+        table.setDefaultEditor(Color.class, new TypedCell(Color.class));
 
         add(new JLabel("Properties:"));
         add(new JScrollPane(table));
@@ -64,7 +62,7 @@ public class PropertiesPanel extends JPanel {
                 tableModel.addRow(new Object[]{name, value});
             }
             if (properties.getType(name) == Color.class) {
-                String value = properties.getValue(name).toString();
+                Color value = (Color) properties.getValue(name);
                 tableModel.addRow(new Object[]{name, value});
             }
             if (properties.getType(name) == int.class) {

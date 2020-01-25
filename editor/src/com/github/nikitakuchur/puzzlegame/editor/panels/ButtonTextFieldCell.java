@@ -1,20 +1,26 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
+import com.badlogic.gdx.graphics.Color;
+import com.github.nikitakuchur.puzzlegame.editor.utils.PropertiesUtils;
+
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
 import java.awt.*;
 
-class ButtonTextFieldCell extends AbstractCellEditor implements TableCellEditor {
+class TypedCell extends AbstractCellEditor implements TableCellEditor {
 
     private JPanel panel = new JPanel();
     private JTextField textField = new JTextField();
     private JButton button = new JButton("...");
 
-    public ButtonTextFieldCell() {
+    private  Class<?> type;
+
+    public TypedCell(Class<?> type) {
         this("");
+        this.type = type;
     }
 
-    public ButtonTextFieldCell(String txt) {
+    public TypedCell(String txt) {
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
         textField.setText(txt);
@@ -33,6 +39,9 @@ class ButtonTextFieldCell extends AbstractCellEditor implements TableCellEditor 
 
     @Override
     public Object getCellEditorValue() {
+        if (type == Color.class) {
+            return PropertiesUtils.parseColorOrDefault(textField.getText(), Color.WHITE);
+        }
         return textField.getText();
     }
 
