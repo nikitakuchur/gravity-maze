@@ -1,6 +1,5 @@
 package com.github.nikitakuchur.puzzlegame.editor;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.github.nikitakuchur.puzzlegame.editor.panels.RightPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
@@ -13,6 +12,7 @@ public class EditorWindow {
     private JFrame window = new JFrame("Editor");
     private EditorApplication app = new EditorApplication();
 
+    private MenuBar menuBar = new MenuBar();
     private JPanel contentPane = new JPanel();
 
     public EditorWindow() {
@@ -20,9 +20,11 @@ public class EditorWindow {
 
         LwjglAWTCanvas canvas = new LwjglAWTCanvas(app);
 
+        window.setMenuBar(menuBar);
+
         contentPane.setLayout(new BorderLayout());
         contentPane.add(canvas.getCanvas(), BorderLayout.CENTER);
-        Gdx.app.postRunnable(this::init);
+        canvas.postRunnable(this::init);
         window.setContentPane(contentPane);
 
         window.pack();
@@ -30,9 +32,27 @@ public class EditorWindow {
         window.setVisible(true);
     }
 
+    private Menu createFileMenu()
+    {
+        Menu file = new Menu("File");
+        MenuItem open = new MenuItem("Open...");
+        MenuItem save = new MenuItem("Save");
+        MenuItem saveAs = new MenuItem("Save As...");
+        MenuItem exit = new MenuItem("Exit");
+        file.add(open);
+        file.add(save);
+        file.add(saveAs);
+        file.addSeparator();
+        file.add(exit);
+
+        open.addActionListener(e -> System.out.println ("ActionListener.actionPerformed : open"));
+        return file;
+    }
+
     private void init() {
         contentPane.add(new TopPanel(app), BorderLayout.NORTH);
         contentPane.add(new RightPanel(app.getLevelEditor()), BorderLayout.EAST);
+        menuBar.add(createFileMenu());
         window.revalidate();
     }
 }
