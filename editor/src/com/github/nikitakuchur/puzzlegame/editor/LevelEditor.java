@@ -216,10 +216,7 @@ public class LevelEditor extends Group implements Disposable {
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
             Vector2 position = screenToMapCoordinates(x, y);
-            GameMap map = level.getMap();
-            if (selectedGameObject != null
-                    && 0 <= position.x && position.x < map.getCellsWidth()
-                    && 0 <= position.y && position.y < map.getCellsHeight()) {
+            if (selectedGameObject != null) {
                 selectedGameObject.setX((int) position.x);
                 selectedGameObject.setY((int) position.y);
             }
