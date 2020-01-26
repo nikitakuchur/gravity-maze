@@ -7,16 +7,13 @@ import javax.swing.*;
 import javax.swing.table.TableCellEditor;
 import java.awt.*;
 
-class TypedCell extends AbstractCellEditor implements TableCellEditor {
+class ColorCell extends AbstractCellEditor implements TableCellEditor {
 
     private JPanel panel = new JPanel();
     private JTextField textField = new JTextField();
     private JButton button = new JButton("...");
 
-    private  Class<?> type;
-
-    public TypedCell(Class<?> type) {
-        this.type = type;
+    public ColorCell() {
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
         panel.add(textField);
@@ -24,20 +21,28 @@ class TypedCell extends AbstractCellEditor implements TableCellEditor {
         button.setPreferredSize(new Dimension(16, 16));
         button.addActionListener(e -> {
             if (e.getSource() instanceof JButton) {
-                JOptionPane.showConfirmDialog(panel, "you clicked a button", "Info", JOptionPane.DEFAULT_OPTION);
+                String hex = "0x" + textField.getText().substring(0, 6);
+                java.awt.Color color = JColorChooser.
+                        showDialog(panel, "Choose a color", java.awt.Color.decode(hex));
+                if (color != null) {
+                    textField.setText(toHex(color));
+                }
+                stopCellEditing();
             }
         });
         panel.add(button);
-
         panel.add(Box.createHorizontalGlue());
+    }
+
+    private String toHex(java.awt.Color color) {
+        float[] rgba = color.getComponents(new float[4]);
+        Color c = new Color(rgba[0], rgba[1], rgba[2], rgba[3]);
+        return c.toString();
     }
 
     @Override
     public Object getCellEditorValue() {
-        if (type == Color.class) {
-            return PropertiesUtils.parseColorOrDefault(textField.getText(), Color.WHITE);
-        }
-        return textField.getText();
+        return PropertiesUtils.parseColorOrDefault(textField.getText(), Color.WHITE);
     }
 
     @Override

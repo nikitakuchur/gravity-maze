@@ -20,7 +20,7 @@ public class PropertiesPanel extends JPanel {
     public PropertiesPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        table.setDefaultEditor(Color.class, new TypedCell(Color.class));
+        table.setDefaultEditor(Color.class, new ColorCell());
 
         add(new JLabel("Properties:"));
         add(new JScrollPane(table));
