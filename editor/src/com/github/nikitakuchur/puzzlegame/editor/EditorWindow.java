@@ -39,13 +39,22 @@ public class EditorWindow {
         Menu file = new Menu("File");
 
         MenuItem open = new MenuItem("Open...");
-        open.addActionListener(e -> Gdx.app.postRunnable(() -> LevelUtils.load(app)));
+        open.addActionListener(e -> Gdx.app.postRunnable(() -> {
+            app.getLevelEditor().stop();
+            LevelUtils.load(app);
+        }));
 
         MenuItem save = new MenuItem("Save");
-        save.addActionListener(e -> Gdx.app.postRunnable(() -> LevelUtils.save(app)));
+        save.addActionListener(e -> Gdx.app.postRunnable(() -> {
+            app.getLevelEditor().stop();
+            LevelUtils.save(app);
+        }));
 
         MenuItem saveAs = new MenuItem("Save As...");
-        saveAs.addActionListener(e -> Gdx.app.postRunnable(() -> LevelUtils.save(app)));
+        saveAs.addActionListener(e -> Gdx.app.postRunnable(() -> {
+            app.getLevelEditor().stop();
+            LevelUtils.save(app);
+        }));
 
         MenuItem exit = new MenuItem("Exit");
         exit.addActionListener(e -> System.exit(0));
