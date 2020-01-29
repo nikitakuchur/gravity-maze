@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.github.nikitakuchur.puzzlegame.editor.panels.RightPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
 import com.github.nikitakuchur.puzzlegame.editor.utils.LevelUtils;
+import com.github.nikitakuchur.puzzlegame.game.Level;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,32 +39,40 @@ public class EditorWindow {
     {
         Menu file = new Menu("File");
 
-        MenuItem open = new MenuItem("Open...");
-        open.addActionListener(e -> Gdx.app.postRunnable(() -> {
+        MenuItem newItem = new MenuItem("New");
+        newItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
+            LevelEditor editor = app.getLevelEditor();
+            editor.stop();
+            editor.setLevel(new Level());
+        }));
+
+        MenuItem openItem = new MenuItem("Open...");
+        openItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
             app.getLevelEditor().stop();
             LevelUtils.load(app);
         }));
 
-        MenuItem save = new MenuItem("Save");
-        save.addActionListener(e -> Gdx.app.postRunnable(() -> {
+        MenuItem saveItem = new MenuItem("Save");
+        saveItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
             app.getLevelEditor().stop();
             LevelUtils.save(app);
         }));
 
-        MenuItem saveAs = new MenuItem("Save As...");
-        saveAs.addActionListener(e -> Gdx.app.postRunnable(() -> {
+        MenuItem saveAsItem = new MenuItem("Save As...");
+        saveAsItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
             app.getLevelEditor().stop();
             LevelUtils.save(app);
         }));
 
-        MenuItem exit = new MenuItem("Exit");
-        exit.addActionListener(e -> System.exit(0));
+        MenuItem exitItem = new MenuItem("Exit");
+        exitItem.addActionListener(e -> System.exit(0));
 
-        file.add(open);
-        file.add(save);
-        file.add(saveAs);
+        file.add(newItem);
+        file.add(openItem);
+        file.add(saveItem);
+        file.add(saveAsItem);
         file.addSeparator();
-        file.add(exit);
+        file.add(exitItem);
 
         return file;
     }
