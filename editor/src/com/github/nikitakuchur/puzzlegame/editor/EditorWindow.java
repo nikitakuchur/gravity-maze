@@ -2,9 +2,13 @@ package com.github.nikitakuchur.puzzlegame.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
+import com.github.nikitakuchur.puzzlegame.editor.panels.NewLevelDialogWindow;
 import com.github.nikitakuchur.puzzlegame.editor.panels.RightPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
 import com.github.nikitakuchur.puzzlegame.editor.utils.LevelUtils;
+import com.github.nikitakuchur.puzzlegame.editor.utils.PropertiesUtils;
+import com.github.nikitakuchur.puzzlegame.game.Background;
+import com.github.nikitakuchur.puzzlegame.game.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.Level;
 
 import javax.swing.*;
@@ -35,15 +39,31 @@ public class EditorWindow {
         window.setVisible(true);
     }
 
-    private Menu createFileMenu()
-    {
+    private Menu createFileMenu() {
         Menu file = new Menu("File");
 
         MenuItem newItem = new MenuItem("New");
         newItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
             LevelEditor editor = app.getLevelEditor();
             editor.stop();
-            editor.setLevel(new Level());
+
+            JTextField widthField = new JTextField(5);
+            JTextField heightField = new JTextField(5);
+
+            JPanel dialogPanel = new JPanel();
+            dialogPanel.add(new JLabel("Width:"));
+            dialogPanel.add(widthField);
+            dialogPanel.add(new JLabel("Height:"));
+            dialogPanel.add(heightField);
+
+            int result = JOptionPane.showConfirmDialog(null, dialogPanel,
+                    "New Level", JOptionPane.OK_CANCEL_OPTION);
+
+            if (result == JOptionPane.OK_OPTION) {
+                int width = PropertiesUtils.parseIntOrDefault(widthField.getText(), 8);
+                int height = PropertiesUtils.parseIntOrDefault(heightField.getText(), 8);
+                editor.setLevel(new Level(new Background(), new GameMap(width, height)));
+            }
         }));
 
         MenuItem openItem = new MenuItem("Open...");
