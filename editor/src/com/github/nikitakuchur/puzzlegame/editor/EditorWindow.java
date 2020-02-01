@@ -2,7 +2,6 @@ package com.github.nikitakuchur.puzzlegame.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.github.nikitakuchur.puzzlegame.editor.panels.NewLevelDialogWindow;
 import com.github.nikitakuchur.puzzlegame.editor.panels.RightPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
 import com.github.nikitakuchur.puzzlegame.editor.utils.LevelUtils;
