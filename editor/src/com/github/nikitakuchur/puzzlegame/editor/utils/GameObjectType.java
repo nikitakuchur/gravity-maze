@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.editor.panels;
+package com.github.nikitakuchur.puzzlegame.editor.utils;
 
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;

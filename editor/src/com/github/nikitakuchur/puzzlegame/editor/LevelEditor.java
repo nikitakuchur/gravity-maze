@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.editor.panels.GameObjectType;
+import com.github.nikitakuchur.puzzlegame.editor.utils.GameObjectType;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Layer;
 import com.github.nikitakuchur.puzzlegame.game.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.Level;

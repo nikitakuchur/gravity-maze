@@ -1,5 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
+import com.github.nikitakuchur.puzzlegame.editor.utils.GameObjectType;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
