@@ -12,9 +12,8 @@ public class Background extends Actor implements Entity {
     private Color startColor;
     private Color stopColor;
 
-    private boolean[] dirs = new boolean[4];
-    private float[] ts = new float[4];
-
+    private boolean[] dirs;
+    private float[] ts;
     private Color[] colors = new Color[4];
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -35,18 +34,18 @@ public class Background extends Actor implements Entity {
     }
 
     void initAnimation() {
-        ts[0] = 0.5f;
-        ts[1] = 1;
-        ts[2] = 0.5f;
-        ts[3] = 0;
-        dirs[2] = true;
+        dirs = new boolean[]{false, false, true, true};
+        ts = new float[]{0.5f, 1, 0.5f, 0};
+        for (int i = 0; i < colors.length; i++) {
+            colors[i] = startColor.cpy().lerp(stopColor, ts[i]);
+        }
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
         float speed = 0.1f;
-        for(int i = 0; i < colors.length; i++) {
+        for (int i = 0; i < colors.length; i++) {
             if (ts[i] >= 1) dirs[i] = false;
             if (ts[i] <= 0) dirs[i] = true;
             if (dirs[i]) ts[i] += speed * delta;
@@ -100,6 +99,7 @@ public class Background extends Actor implements Entity {
     public void setProperties(Properties properties) {
         startColor = (Color) properties.getValue("startColor");
         stopColor = (Color) properties.getValue("stopColor");
+        initAnimation();
     }
 
     @Override
