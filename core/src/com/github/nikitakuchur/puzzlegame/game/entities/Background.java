@@ -1,15 +1,13 @@
-package com.github.nikitakuchur.puzzlegame.game;
+package com.github.nikitakuchur.puzzlegame.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
-import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
-public class Background extends Actor implements PropertiesHolder, Disposable {
+public class Background extends Actor implements Entity {
 
     private Color startColor;
     private Color stopColor;

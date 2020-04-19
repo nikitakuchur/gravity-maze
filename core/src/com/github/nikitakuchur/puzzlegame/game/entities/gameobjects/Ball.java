@@ -1,11 +1,11 @@
-package com.github.nikitakuchur.puzzlegame.game.gameobjects;
+package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.github.nikitakuchur.puzzlegame.game.Level;
-import com.github.nikitakuchur.puzzlegame.game.GameMap;
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 
 public class Ball extends GameObject {
@@ -63,6 +63,8 @@ public class Ball extends GameObject {
                     return new Vector2((int) (getX() + 1), (int) getY());
                 }
                 break;
+            default:
+                throw new IllegalStateException("Incorrect gravity direction");
         }
         isGrounded = true;
         return new Vector2(getX(), getY());

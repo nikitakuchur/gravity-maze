@@ -3,7 +3,7 @@ package com.github.nikitakuchur.puzzlegame.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.github.nikitakuchur.puzzlegame.game.*;
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.ui.GameUI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,7 +14,7 @@ public class GameScreen extends ScreenAdapter {
 
     private Stage stage = new Stage(new ScreenViewport());
 
-    private Level level;
+    private com.github.nikitakuchur.puzzlegame.game.entities.Level level;
     private GameUI gameUI = new GameUI(this);
 
     /**
@@ -30,7 +30,7 @@ public class GameScreen extends ScreenAdapter {
     /**
      * @return the level
      */
-    public Level getLevel() {
+    public com.github.nikitakuchur.puzzlegame.game.entities.Level getLevel() {
         return level;
     }
 

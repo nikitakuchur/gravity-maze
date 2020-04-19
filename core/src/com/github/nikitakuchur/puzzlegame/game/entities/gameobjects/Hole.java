@@ -1,10 +1,10 @@
-package com.github.nikitakuchur.puzzlegame.game.gameobjects;
+package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.github.nikitakuchur.puzzlegame.game.Level;
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 public class Hole extends GameObject {

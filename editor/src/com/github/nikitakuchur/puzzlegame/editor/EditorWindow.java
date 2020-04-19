@@ -6,9 +6,9 @@ import com.github.nikitakuchur.puzzlegame.editor.panels.RightPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
 import com.github.nikitakuchur.puzzlegame.editor.utils.LevelUtils;
 import com.github.nikitakuchur.puzzlegame.editor.utils.PropertiesUtils;
-import com.github.nikitakuchur.puzzlegame.game.Background;
-import com.github.nikitakuchur.puzzlegame.game.GameMap;
-import com.github.nikitakuchur.puzzlegame.game.Level;
+import com.github.nikitakuchur.puzzlegame.game.entities.Background;
+import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 
 import javax.swing.*;
 import java.awt.*;

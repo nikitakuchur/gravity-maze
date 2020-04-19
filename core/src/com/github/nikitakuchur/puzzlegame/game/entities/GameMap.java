@@ -1,21 +1,19 @@
-package com.github.nikitakuchur.puzzlegame.game;
+package com.github.nikitakuchur.puzzlegame.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.game.cells.Block;
 import com.github.nikitakuchur.puzzlegame.game.cells.Cell;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.cells.EmptyCell;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
-import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
 import java.util.Arrays;
 
-public class GameMap extends Actor implements PropertiesHolder, Disposable {
+public class GameMap extends Actor implements Entity {
 
     private CellType[][] cells;
 

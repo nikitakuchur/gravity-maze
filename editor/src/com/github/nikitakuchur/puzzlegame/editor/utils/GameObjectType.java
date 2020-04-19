@@ -1,9 +1,9 @@
 package com.github.nikitakuchur.puzzlegame.editor.utils;
 
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Hole;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal;
 
 import java.lang.reflect.InvocationTargetException;
 

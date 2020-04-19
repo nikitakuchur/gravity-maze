@@ -4,11 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball;
 
 public class LevelInputHandler {
 
-    private final Level level;
+    private final com.github.nikitakuchur.puzzlegame.game.entities.Level level;
 
     private GravityDirection lastGravityDirection = GravityDirection.BOTTOM;
 

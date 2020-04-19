@@ -2,8 +2,8 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Layer;
+import com.github.nikitakuchur.puzzlegame.game.entities.Entity;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
-import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,13 +15,13 @@ public class RightPanel extends JPanel {
     private JPanel panel = new JPanel();
     private JComboBox<Layer> comboBox = new JComboBox<>(Layer.values());
 
-    private transient PropertiesHolder propertiesHolder;
+    private transient Entity entity;
     private PropertiesPanel propertiesPanel = new PropertiesPanel();
     private GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
 
     public RightPanel(LevelEditor levelEditor) {
         this.levelEditor = levelEditor;
-        propertiesHolder = levelEditor.getLevel().getBackground();
+        entity = levelEditor.getLevel().getBackground();
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setVisible(true);
@@ -55,7 +55,7 @@ public class RightPanel extends JPanel {
         initProperties();
         levelEditor.addLevelChangeListener(this::initProperties);
         levelEditor.addSelectGameObjectListener(() -> {
-            propertiesHolder = levelEditor.getSelectedGameObject();
+            entity = levelEditor.getSelectedGameObject();
             updateProperties();
         });
 
@@ -77,10 +77,10 @@ public class RightPanel extends JPanel {
         if (layer == null) return;
         switch (layer) {
             case BACKGROUND:
-                propertiesHolder = levelEditor.getLevel().getBackground();
+                entity = levelEditor.getLevel().getBackground();
                 break;
             case MAP:
-                propertiesHolder = levelEditor.getLevel().getMap();
+                entity = levelEditor.getLevel().getMap();
                 break;
             case GAME_OBJECTS:
                 propertiesPanel.setProperties(new Properties());
@@ -92,11 +92,11 @@ public class RightPanel extends JPanel {
     }
 
     private void updateProperties() {
-        if (propertiesHolder == null) {
+        if (entity == null) {
             propertiesPanel.setProperties(new Properties());
             return;
         }
-        propertiesPanel.setProperties(propertiesHolder.getProperties());
-        propertiesPanel.addPropertiesListener(() -> propertiesHolder.setProperties(propertiesPanel.getProperties()));
+        propertiesPanel.setProperties(entity.getProperties());
+        propertiesPanel.addPropertiesListener(() -> entity.setProperties(propertiesPanel.getProperties()));
     }
 }

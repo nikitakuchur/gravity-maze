@@ -5,7 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.github.nikitakuchur.puzzlegame.editor.EditorApplication;
-import com.github.nikitakuchur.puzzlegame.game.Level;
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
 
 public class LevelUtils {

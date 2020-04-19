@@ -1,14 +1,13 @@
-package com.github.nikitakuchur.puzzlegame.game.gameobjects;
+package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.game.Level;
-import com.github.nikitakuchur.puzzlegame.game.GameMap;
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+import com.github.nikitakuchur.puzzlegame.game.entities.Entity;
+import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
-import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
-public abstract class GameObject extends Actor implements PropertiesHolder, Disposable {
+public abstract class GameObject extends Actor implements Entity {
 
     /**
      * Updates the game object based on time

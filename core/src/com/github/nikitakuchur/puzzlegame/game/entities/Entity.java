@@ -1,9 +1,11 @@
-package com.github.nikitakuchur.puzzlegame.utils;
+package com.github.nikitakuchur.puzzlegame.game.entities;
 
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
-public interface PropertiesHolder extends Json.Serializable {
+public interface Entity extends Json.Serializable, Disposable {
 
     Properties getProperties();
 

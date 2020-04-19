@@ -1,12 +1,12 @@
-package com.github.nikitakuchur.puzzlegame.game;
+package com.github.nikitakuchur.puzzlegame.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball;
-import com.github.nikitakuchur.puzzlegame.game.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.game.GravityDirection;
+import com.github.nikitakuchur.puzzlegame.game.LevelInputHandler;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
-import com.github.nikitakuchur.puzzlegame.utils.PropertiesHolder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Level extends Group implements PropertiesHolder, Disposable {
+public class Level extends Group implements Entity {
 
     private final LevelInputHandler inputController = new LevelInputHandler(this);
 

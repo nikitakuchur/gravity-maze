@@ -1,7 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.game.cells;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.github.nikitakuchur.puzzlegame.game.GameMap;
+import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 
 public class Block extends Cell {
 
