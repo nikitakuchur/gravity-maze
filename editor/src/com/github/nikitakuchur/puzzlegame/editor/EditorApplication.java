@@ -6,12 +6,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.github.nikitakuchur.puzzlegame.editor.utils.FileController;
 
 public class EditorApplication extends ApplicationAdapter {
 
     private Stage stage;
 
     private LevelEditor levelEditor;
+
+    private FileController fileController;
 
     @Override
     public void create() {
@@ -21,6 +24,8 @@ public class EditorApplication extends ApplicationAdapter {
         levelEditor = new LevelEditor();
         stage.addActor(levelEditor);
         stage.setKeyboardFocus(levelEditor);
+
+        fileController = new FileController(levelEditor);
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -40,6 +45,10 @@ public class EditorApplication extends ApplicationAdapter {
 
     public LevelEditor getLevelEditor() {
         return levelEditor;
+    }
+
+    public FileController getFileController() {
+        return fileController;
     }
 
     @Override
