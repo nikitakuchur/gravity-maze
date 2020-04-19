@@ -9,8 +9,6 @@ import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
-import java.util.Random;
-
 public class Portal extends GameObject {
 
     private String secondPortalName;
@@ -19,8 +17,6 @@ public class Portal extends GameObject {
 
     private Texture texture = new Texture(Gdx.files.internal("game/portal.png"), true);
     private TextureRegion textureRegion = new TextureRegion(texture);
-
-    private Random random = new Random();
 
     /**
      * Creates a new portal
@@ -55,6 +51,7 @@ public class Portal extends GameObject {
             }
         }
         isUsed = false;
+        secondPortal.isUsed = false;
     }
 
     @Override
