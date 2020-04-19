@@ -4,11 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
+
+import java.util.Random;
 
 public class Portal extends GameObject {
 
@@ -19,20 +20,14 @@ public class Portal extends GameObject {
     private Texture texture = new Texture(Gdx.files.internal("game/portal.png"), true);
     private TextureRegion textureRegion = new TextureRegion(texture);
 
+    private Random random = new Random();
+
     /**
      * Creates a new portal
      */
     public Portal() {
         texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
-        addAction(Actions.repeat(
-                RepeatAction.FOREVER, Actions.sequence(
-                        Actions.parallel(
-                                Actions.rotateBy(-40, 1, Interpolation.linear),
-                                Actions.scaleTo(0.9f, 0.9f, 1, Interpolation.smooth)),
-                        Actions.parallel(
-                                Actions.rotateBy(-40, 1, Interpolation.linear),
-                                Actions.scaleTo(1, 1, 1, Interpolation.smooth)
-                        ))));
+        addAction(Actions.forever(GameActions.bounceAndRotate()));
     }
 
     @Override
