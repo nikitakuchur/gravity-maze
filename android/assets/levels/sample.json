@@ -104,7 +104,7 @@
 },
 "gameObjects": [
 	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
+		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal",
 		"name": "portal2",
 		"x": 6,
 		"y": 2,
@@ -117,7 +117,7 @@
 		"to": "portal1"
 	},
 	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Portal",
+		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal",
 		"name": "portal1",
 		"x": 3,
 		"y": 6,
@@ -130,7 +130,7 @@
 		"to": "portal2"
 	},
 	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole",
+		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Hole",
 		"name": null,
 		"x": 6,
 		"y": 6,
@@ -143,7 +143,7 @@
 		"ball": "blueBall"
 	},
 	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Hole",
+		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Hole",
 		"name": null,
 		"x": 0,
 		"y": 5,
@@ -156,7 +156,7 @@
 		"ball": "redBall"
 	},
 	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
+		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball",
 		"name": "redBall",
 		"x": 7,
 		"y": 3,
@@ -168,7 +168,7 @@
 		}
 	},
 	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.gameobjects.Ball",
+		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball",
 		"name": "blueBall",
 		"x": 2,
 		"y": 0,
