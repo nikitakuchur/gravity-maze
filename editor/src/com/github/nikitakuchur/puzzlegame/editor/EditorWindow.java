@@ -50,7 +50,9 @@ public class EditorWindow {
             editor.stop();
 
             JTextField widthField = new JTextField(5);
+            widthField.setText("8");
             JTextField heightField = new JTextField(5);
+            heightField.setText("8");
 
             JPanel dialogPanel = new JPanel();
             dialogPanel.add(new JLabel("Width:"));
