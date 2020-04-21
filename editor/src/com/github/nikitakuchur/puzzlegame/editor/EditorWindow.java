@@ -33,7 +33,7 @@ public class EditorWindow {
 
         contentPane.setLayout(new BorderLayout());
         contentPane.add(canvas.getCanvas(), BorderLayout.CENTER);
-        canvas.postRunnable(this::init);
+        Gdx.app.postRunnable(this::init);
         window.setContentPane(contentPane);
 
         window.pack();
@@ -45,7 +45,7 @@ public class EditorWindow {
         Menu fileMenu = new Menu("File");
 
         MenuItem newItem = new MenuItem("New");
-        newItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
+        newItem.addActionListener(e -> EventQueue.invokeLater(() -> {
             LevelEditor editor = app.getLevelEditor();
             editor.stop();
 
@@ -66,19 +66,23 @@ public class EditorWindow {
             if (option == JOptionPane.OK_OPTION) {
                 int width = PropertiesUtils.parseIntOrDefault(widthField.getText(), 8);
                 int height = PropertiesUtils.parseIntOrDefault(heightField.getText(), 8);
-                editor.setLevel(new Level(new Background(), new GameMap(width, height)));
-                app.getFileController().newFile();
+                Gdx.app.postRunnable(() -> {
+                    editor.setLevel(new Level(new Background(), new GameMap(width, height)));
+                    app.getFileController().newFile();
+                });
             }
         }));
 
         MenuItem openItem = new MenuItem("Open...");
-        openItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
+        openItem.addActionListener(e -> EventQueue.invokeLater(() -> {
             JFileChooser fileChooser = new JFileChooser();
             int option = fileChooser.showDialog(null, "Open");
             if (option == APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                app.getLevelEditor().stop();
-                app.getFileController().open(file.getPath());
+                Gdx.app.postRunnable(() -> {
+                    app.getLevelEditor().stop();
+                    app.getFileController().open(file.getPath());
+                });
             }
         }));
 
@@ -92,13 +96,15 @@ public class EditorWindow {
         });
 
         MenuItem saveAsItem = new MenuItem("Save As...");
-        saveAsItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
+        saveAsItem.addActionListener(e -> EventQueue.invokeLater(() -> {
             JFileChooser fileChooser = new JFileChooser();
             int option = fileChooser.showDialog(null, "Save");
             if (option == APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                app.getLevelEditor().stop();
-                app.getFileController().saveAs(file.getPath());
+                Gdx.app.postRunnable(() -> {
+                    app.getLevelEditor().stop();
+                    app.getFileController().saveAs(file.getPath());
+                });
             }
         }));
 
@@ -116,9 +122,6 @@ public class EditorWindow {
     }
 
     private void init() {
-        contentPane.add(new TopPanel(app), BorderLayout.NORTH);
-        contentPane.add(new RightPanel(app.getLevelEditor()), BorderLayout.EAST);
-        menuBar.add(createFileMenu());
         app.getFileController().addPathChangeListener(() -> {
             if (app.getFileController().getPath() == null) {
                 window.setTitle(TITLE);
@@ -126,6 +129,9 @@ public class EditorWindow {
                 window.setTitle(TITLE + " - " + app.getFileController().getPath());
             }
         });
+        contentPane.add(new TopPanel(app), BorderLayout.NORTH);
+        contentPane.add(new RightPanel(app.getLevelEditor()), BorderLayout.EAST);
+        menuBar.add(createFileMenu());
         window.revalidate();
     }
 }
