@@ -24,10 +24,6 @@ public class FileController {
         this.editor = editor;
     }
 
-    public String getPath() {
-        return path;
-    }
-
     public void newFile() {
         path = null;
         pathChangeListeners.forEach(listener -> listener.accept(path));
