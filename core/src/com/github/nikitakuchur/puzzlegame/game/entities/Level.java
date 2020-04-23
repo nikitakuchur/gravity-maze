@@ -20,8 +20,8 @@ public class Level extends Group implements Entity {
 
     private final GameObjectsManager manager = new GameObjectsManager();
 
-    private Group gameObjectsGroup = new Group();
-    private Group ballsGroup = new Group();
+    private final Group gameObjectsGroup = new Group();
+    private final Group ballsGroup = new Group();
 
     private GravityDirection gravityDirection = GravityDirection.BOTTOM;
     private int score;

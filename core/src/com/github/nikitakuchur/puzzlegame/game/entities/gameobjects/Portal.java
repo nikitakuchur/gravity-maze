@@ -15,8 +15,8 @@ public class Portal extends GameObject {
 
     private boolean isUsed;
 
-    private Texture texture = new Texture(Gdx.files.internal("game/portal.png"), true);
-    private TextureRegion textureRegion = new TextureRegion(texture);
+    private final Texture texture = new Texture(Gdx.files.internal("game/portal.png"), true);
+    private final TextureRegion textureRegion = new TextureRegion(texture);
 
     /**
      * Creates a new portal

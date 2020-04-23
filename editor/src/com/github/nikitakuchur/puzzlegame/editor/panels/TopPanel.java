@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class TopPanel extends JPanel {
 
-    private final EditorApplication app;
+    private final transient EditorApplication app;
 
     private String levelSave;
 

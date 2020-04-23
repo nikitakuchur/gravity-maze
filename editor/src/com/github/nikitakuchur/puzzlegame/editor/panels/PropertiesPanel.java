@@ -11,11 +11,11 @@ import java.util.List;
 
 public class PropertiesPanel extends JPanel {
 
-    private DefaultTableModel tableModel = new PropertiesTableModel();
-    private JTable table = new PropertiesTable(tableModel);
+    private final DefaultTableModel tableModel = new PropertiesTableModel();
+    private final JTable table = new PropertiesTable(tableModel);
     private transient Properties properties = new Properties();
 
-    private transient List<Runnable> propertiesListeners = new ArrayList<>();
+    private final transient List<Runnable> propertiesListeners = new ArrayList<>();
 
     public PropertiesPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -84,7 +84,7 @@ public class PropertiesPanel extends JPanel {
 
     private static class PropertiesTableModel extends DefaultTableModel {
 
-        private String[] columnsHeader = new String[]{"Name", "Value"};
+        private final String[] columnsHeader = new String[]{"Name", "Value"};
 
         @Override
         public boolean isCellEditable(int row, int column) {

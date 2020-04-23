@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class Properties {
 
-    private Map<String, Property> propertyMap = new LinkedHashMap<>();
+    private final Map<String, Property> propertyMap = new LinkedHashMap<>();
 
     public void put(String name, Class<?> type, Object value) {
         propertyMap.put(name, new Property(type, value));
@@ -30,8 +30,8 @@ public class Properties {
     }
 
     private static class Property {
-        private Class<?> type;
-        private Object value;
+        private final Class<?> type;
+        private final Object value;
 
         public Property(Class<?> type, Object value) {
             this.type = type;

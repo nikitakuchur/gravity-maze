@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 
 public class GameObjectsManager {
 
-    private HashMap<Class<?>, List<GameObject>> gameObjects = new HashMap<>();
+    private final HashMap<Class<?>, List<GameObject>> gameObjects = new HashMap<>();
 
-    private List<Consumer<GameObject>> gameObjectAddListeners = new ArrayList<>();
-    private List<Consumer<GameObject>> gameObjectRemoveListeners = new ArrayList<>();
+    private final List<Consumer<GameObject>> gameObjectAddListeners = new ArrayList<>();
+    private final List<Consumer<GameObject>> gameObjectRemoveListeners = new ArrayList<>();
 
     public void add(GameObject gameObject) {
         Set<Class<?>> classes = getAllClasses(gameObject.getClass());
@@ -80,10 +80,8 @@ public class GameObjectsManager {
         if (superclass != null) {
             getAllClasses(superclass, classes);
         }
-        if (interfaces != null) {
-            for (Class<?> inter : interfaces) {
-                getAllClasses(inter, classes);
-            }
+        for (Class<?> inter : interfaces) {
+            getAllClasses(inter, classes);
         }
     }
 

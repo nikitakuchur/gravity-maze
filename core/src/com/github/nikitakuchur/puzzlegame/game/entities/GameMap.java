@@ -19,7 +19,7 @@ public class GameMap extends Actor implements Entity {
 
     private static final Color CELLS_COLOR = Color.valueOf("#024f72");
 
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private Cell block = new Block(shapeRenderer, this);
     private Cell emptyCell = new EmptyCell(shapeRenderer, this);

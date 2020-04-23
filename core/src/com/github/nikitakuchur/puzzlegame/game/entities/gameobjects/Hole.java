@@ -13,8 +13,8 @@ public class Hole extends GameObject {
 
     private String ballName;
 
-    private Texture texture = new Texture(Gdx.files.internal("game/hole.png"), true);
-    private TextureRegion textureRegion = new TextureRegion(texture);
+    private final Texture texture = new Texture(Gdx.files.internal("game/hole.png"), true);
+    private final TextureRegion textureRegion = new TextureRegion(texture);
 
     public Hole() {
         texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);

@@ -15,7 +15,7 @@ public class Ball extends GameObject {
 
     private boolean isGrounded;
 
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     @Override
     public void act(Level level, float delta) {

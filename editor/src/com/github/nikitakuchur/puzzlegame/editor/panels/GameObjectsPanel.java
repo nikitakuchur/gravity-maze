@@ -8,9 +8,9 @@ import java.util.List;
 
 public class GameObjectsPanel extends JPanel {
 
-    private JList<GameObjectType> list = new JList<>(GameObjectType.values());
+    private final JList<GameObjectType> list = new JList<>(GameObjectType.values());
 
-    private transient List<Runnable> gameObjectsListeners = new ArrayList<>();
+    private final transient List<Runnable> gameObjectsListeners = new ArrayList<>();
 
     public GameObjectsPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

@@ -10,13 +10,15 @@ import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class FileController {
 
     private String path;
+
     private final LevelEditor editor;
 
-    private List<Runnable> pathChangeListeners = new ArrayList<>();
+    private final List<Consumer<String>> pathChangeListeners = new ArrayList<>();
 
     public FileController(LevelEditor editor) {
         this.editor = editor;
@@ -28,14 +30,14 @@ public class FileController {
 
     public void newFile() {
         path = null;
-        pathChangeListeners.forEach(Runnable::run);
+        pathChangeListeners.forEach(listener -> listener.accept(path));
     }
 
     public void open(String path) {
         Level level = LevelLoader.load(Gdx.files.absolute(path));
         editor.setLevel(level);
         this.path = path;
-        pathChangeListeners.forEach(Runnable::run);
+        pathChangeListeners.forEach(listener -> listener.accept(path));
     }
 
     public void save() {
@@ -52,10 +54,14 @@ public class FileController {
         FileHandle file = Gdx.files.absolute(path);
         file.writeString(text, false);
         this.path = path;
-        pathChangeListeners.forEach(Runnable::run);
+        pathChangeListeners.forEach(listener -> listener.accept(path));
     }
 
-    public void addPathChangeListener(Runnable runnable) {
-        pathChangeListeners.add(runnable);
+    public void addPathChangeListener(Consumer<String> consumer) {
+        pathChangeListeners.add(consumer);
+    }
+
+    public void clearPathChangeListeners() {
+        pathChangeListeners.clear();
     }
 }

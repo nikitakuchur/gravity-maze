@@ -9,8 +9,8 @@ import java.awt.*;
 
 class ColorCell extends AbstractCellEditor implements TableCellEditor {
 
-    private JPanel panel = new JPanel();
-    private JTextField textField = new JTextField();
+    private final JPanel panel = new JPanel();
+    private final JTextField textField = new JTextField();
 
     public ColorCell() {
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));

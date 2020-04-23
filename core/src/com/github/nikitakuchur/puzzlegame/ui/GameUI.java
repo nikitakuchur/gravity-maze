@@ -19,13 +19,13 @@ public class GameUI extends Group implements Disposable {
 
     private final GameScreen gameScreen;
 
-    private BitmapFont font;
+    private final BitmapFont font;
 
-    private Label fpsLabel;
-    private Label scoreLabel;
+    private final Label fpsLabel;
+    private final Label scoreLabel;
 
-    private TextButton backButton;
-    private TextButton resetButton;
+    private final TextButton backButton;
+    private final TextButton resetButton;
 
     /**
      * Create a new ui for the game screen

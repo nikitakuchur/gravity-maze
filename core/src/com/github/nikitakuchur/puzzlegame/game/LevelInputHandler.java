@@ -9,12 +9,12 @@ import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball;
 
 public class LevelInputHandler {
 
-    private final com.github.nikitakuchur.puzzlegame.game.entities.Level level;
+    private final Level level;
 
     private GravityDirection lastGravityDirection = GravityDirection.BOTTOM;
 
     private float lastAngle;
-    private Vector2 lastTouchPosition = new Vector2();
+    private final Vector2 lastTouchPosition = new Vector2();
 
     private boolean zoom;
     private boolean lockRotation;

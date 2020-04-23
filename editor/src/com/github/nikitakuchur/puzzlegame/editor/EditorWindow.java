@@ -18,11 +18,11 @@ import static javax.swing.JFileChooser.APPROVE_OPTION;
 public class EditorWindow {
     private static final String TITLE = "Editor";
 
-    private JFrame window = new JFrame(TITLE);
-    private EditorApplication app = new EditorApplication();
+    private final JFrame window = new JFrame(TITLE);
+    private final EditorApplication app = new EditorApplication();
 
-    private MenuBar menuBar = new MenuBar();
-    private JPanel contentPane = new JPanel();
+    private final MenuBar menuBar = new MenuBar();
+    private final JPanel contentPane = new JPanel();
 
     public EditorWindow() {
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -88,8 +88,7 @@ public class EditorWindow {
 
         MenuItem saveItem = new MenuItem("Save");
         saveItem.setEnabled(false);
-        app.getFileController().addPathChangeListener(() ->
-                saveItem.setEnabled(app.getFileController().getPath() == null));
+        app.getFileController().addPathChangeListener(path -> saveItem.setEnabled(path == null));
         saveItem.addActionListener(e -> {
             app.getLevelEditor().stop();
             app.getFileController().save();
@@ -122,11 +121,11 @@ public class EditorWindow {
     }
 
     private void init() {
-        app.getFileController().addPathChangeListener(() -> {
-            if (app.getFileController().getPath() == null) {
+        app.getFileController().addPathChangeListener(path -> {
+            if (path == null) {
                 window.setTitle(TITLE);
             } else {
-                window.setTitle(TITLE + " - " + app.getFileController().getPath());
+                window.setTitle(TITLE + " - " + path);
             }
         });
         contentPane.add(new TopPanel(app), BorderLayout.NORTH);

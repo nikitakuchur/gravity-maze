@@ -14,9 +14,9 @@ public class Background extends Actor implements Entity {
 
     private boolean[] dirs;
     private float[] ts;
-    private Color[] colors = new Color[4];
+    private final Color[] colors = new Color[4];
 
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     public Background() {
         this.startColor = Color.WHITE;

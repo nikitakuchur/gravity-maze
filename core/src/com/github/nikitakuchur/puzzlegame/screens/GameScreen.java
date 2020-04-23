@@ -12,10 +12,10 @@ import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
 
 public class GameScreen extends ScreenAdapter {
 
-    private Stage stage = new Stage(new ScreenViewport());
+    private final Stage stage = new Stage(new ScreenViewport());
 
     private Level level;
-    private GameUI gameUI = new GameUI(this);
+    private final GameUI gameUI = new GameUI(this);
 
     /**
      * Creates a new game screen

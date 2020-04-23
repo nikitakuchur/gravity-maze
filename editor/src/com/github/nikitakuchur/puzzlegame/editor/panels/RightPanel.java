@@ -12,12 +12,12 @@ public class RightPanel extends JPanel {
 
     private final transient LevelEditor levelEditor;
 
-    private JPanel panel = new JPanel();
-    private JComboBox<Layer> comboBox = new JComboBox<>(Layer.values());
+    private final JPanel panel = new JPanel();
+    private final JComboBox<Layer> comboBox = new JComboBox<>(Layer.values());
 
     private transient Entity entity;
-    private PropertiesPanel propertiesPanel = new PropertiesPanel();
-    private GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
+    private final PropertiesPanel propertiesPanel = new PropertiesPanel();
+    private final GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
 
     public RightPanel(LevelEditor levelEditor) {
         this.levelEditor = levelEditor;
