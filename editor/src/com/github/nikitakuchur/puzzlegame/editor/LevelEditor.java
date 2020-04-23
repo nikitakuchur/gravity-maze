@@ -22,23 +22,24 @@ import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsM
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 public class LevelEditor extends Group implements Disposable {
 
     private Level level;
     private GameObjectsManager manager;
 
-    private List<Runnable> levelChangeListeners = new ArrayList<>();
-    private List<Runnable> selectGameObjectListeners = new ArrayList<>();
-    private List<Runnable> levelPlayListeners = new ArrayList<>();
-    private List<Runnable> levelStopListeners = new ArrayList<>();
+    private final List<Consumer<Level>> levelChangeListeners = new ArrayList<>();
+    private final List<Consumer<GameObject>> gameObjectSelectListeners = new ArrayList<>();
+    private final List<Runnable> levelPlayListeners = new ArrayList<>();
+    private final List<Runnable> levelStopListeners = new ArrayList<>();
 
     private GameObjectType gameObjectType = GameObjectType.BALL;
     private GameObject selectedGameObject;
 
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private Random rand = new Random();
+    private final Random rand = new Random();
 
     public LevelEditor() {
         super();
@@ -77,7 +78,7 @@ public class LevelEditor extends Group implements Disposable {
         level.act(0);
         level.setPause(true);
         setSelectedGameObject(null);
-        levelChangeListeners.forEach(Runnable::run);
+        levelChangeListeners.forEach(listener -> listener.accept(level));
     }
 
     public GameObject getSelectedGameObject() {
@@ -86,23 +87,39 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setSelectedGameObject(GameObject gameObject) {
         selectedGameObject = gameObject;
-        selectGameObjectListeners.forEach(Runnable::run);
+        gameObjectSelectListeners.forEach(listener -> listener.accept(gameObject));
     }
 
-    public void addLevelChangeListener(Runnable runnable) {
-        levelChangeListeners.add(runnable);
+    public void addLevelChangeListener(Consumer<Level> consumer) {
+        levelChangeListeners.add(consumer);
     }
 
-    public void addSelectGameObjectListener(Runnable runnable) {
-        selectGameObjectListeners.add(runnable);
+    public void clearLevelChangeListeners() {
+        levelChangeListeners.clear();
+    }
+
+    public void addGameObjectSelectListener(Consumer<GameObject> consumer) {
+        gameObjectSelectListeners.add(consumer);
+    }
+
+    public void clearGameObjectSelectListeners() {
+        gameObjectSelectListeners.clear();
     }
 
     public void addLevelPlayListener(Runnable runnable) {
         levelPlayListeners.add(runnable);
     }
 
+    public void clearLevelPlayListeners() {
+        levelPlayListeners.clear();
+    }
+
     public void addLevelStopListener(Runnable runnable) {
         levelStopListeners.add(runnable);
+    }
+
+    public void clearLevelStopListeners() {
+        levelStopListeners.clear();
     }
 
     @Override

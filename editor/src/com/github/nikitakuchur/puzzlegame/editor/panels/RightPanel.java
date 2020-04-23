@@ -3,6 +3,7 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Layer;
 import com.github.nikitakuchur.puzzlegame.game.entities.Entity;
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 import javax.swing.*;
@@ -10,18 +11,17 @@ import java.awt.*;
 
 public class RightPanel extends JPanel {
 
-    private final transient LevelEditor levelEditor;
-
     private final JPanel panel = new JPanel();
     private final JComboBox<Layer> comboBox = new JComboBox<>(Layer.values());
 
-    private transient Entity entity;
     private final PropertiesPanel propertiesPanel = new PropertiesPanel();
     private final GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
 
+    private transient Entity entity;
+
     public RightPanel(LevelEditor levelEditor) {
-        this.levelEditor = levelEditor;
-        entity = levelEditor.getLevel().getBackground();
+        Level level = levelEditor.getLevel();
+        entity = level.getBackground();
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setVisible(true);
@@ -36,8 +36,7 @@ public class RightPanel extends JPanel {
         });
 
         gameObjectsPanel.setVisible(false);
-        gameObjectsPanel.addGameObjectsListener(
-                () -> levelEditor.setGameObjectType(gameObjectsPanel.getSelectedGameObjectType()));
+        gameObjectsPanel.addGameObjectSelectListener(levelEditor::setGameObjectType);
 
         comboBox.addActionListener(actionEvent -> {
             Layer layer = (Layer) comboBox.getSelectedItem();
@@ -49,13 +48,13 @@ public class RightPanel extends JPanel {
             }
 
             levelEditor.setLayer(layer);
-            initProperties();
+            initProperties(level);
         });
 
-        initProperties();
+        initProperties(level);
         levelEditor.addLevelChangeListener(this::initProperties);
-        levelEditor.addSelectGameObjectListener(() -> {
-            entity = levelEditor.getSelectedGameObject();
+        levelEditor.addGameObjectSelectListener(gameObject -> {
+            entity = gameObject;
             updateProperties();
         });
 
@@ -72,15 +71,15 @@ public class RightPanel extends JPanel {
         }
     }
 
-    private void initProperties() {
+    private void initProperties(Level level) {
         Layer layer = (Layer) comboBox.getSelectedItem();
         if (layer == null) return;
         switch (layer) {
             case BACKGROUND:
-                entity = levelEditor.getLevel().getBackground();
+                entity = level.getBackground();
                 break;
             case MAP:
-                entity = levelEditor.getLevel().getMap();
+                entity = level.getMap();
                 break;
             case GAME_OBJECTS:
                 propertiesPanel.setProperties(new Properties());
@@ -97,6 +96,6 @@ public class RightPanel extends JPanel {
             return;
         }
         propertiesPanel.setProperties(entity.getProperties());
-        propertiesPanel.addPropertiesListener(() -> entity.setProperties(propertiesPanel.getProperties()));
+        propertiesPanel.addPropertiesChangeListener(properties -> entity.setProperties(properties));
     }
 }

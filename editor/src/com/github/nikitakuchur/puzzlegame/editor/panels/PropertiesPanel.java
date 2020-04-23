@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class PropertiesPanel extends JPanel {
 
@@ -15,7 +16,7 @@ public class PropertiesPanel extends JPanel {
     private final JTable table = new PropertiesTable(tableModel);
     private transient Properties properties = new Properties();
 
-    private final transient List<Runnable> propertiesListeners = new ArrayList<>();
+    private final transient List<Consumer<Properties>> propertiesChangeListeners = new ArrayList<>();
 
     public PropertiesPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -26,8 +27,8 @@ public class PropertiesPanel extends JPanel {
         add(new JScrollPane(table));
 
         tableModel.addTableModelListener(tableModelEvent -> {
-            for (int i = 0; i < tableModel.getRowCount(); i++) {
-                propertiesListeners.forEach(Runnable::run);
+            if (tableModel.getRowCount() > 0) {
+                propertiesChangeListeners.forEach(listener -> listener.accept(getProperties()));
             }
         });
     }
@@ -72,8 +73,12 @@ public class PropertiesPanel extends JPanel {
         });
     }
 
-    public void addPropertiesListener(Runnable runnable) {
-        propertiesListeners.add(runnable);
+    public void addPropertiesChangeListener(Consumer<Properties> consumer) {
+        propertiesChangeListeners.add(consumer);
+    }
+
+    public void clearPropertiesChangeListeners() {
+        propertiesChangeListeners.clear();
     }
 
     @Override

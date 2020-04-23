@@ -5,12 +5,13 @@ import com.github.nikitakuchur.puzzlegame.editor.utils.GameObjectType;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class GameObjectsPanel extends JPanel {
 
     private final JList<GameObjectType> list = new JList<>(GameObjectType.values());
 
-    private final transient List<Runnable> gameObjectsListeners = new ArrayList<>();
+    private final transient List<Consumer<GameObjectType>> gameObjectSelectListener = new ArrayList<>();
 
     public GameObjectsPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -18,15 +19,16 @@ public class GameObjectsPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(list);
         add(new JLabel("Game objects:"));
         add(scrollPane);
-        list.addListSelectionListener(e -> gameObjectsListeners.forEach(Runnable::run));
+        list.addListSelectionListener(e ->
+                gameObjectSelectListener.forEach(listener -> listener.accept(list.getSelectedValue())));
     }
 
-    public void addGameObjectsListener(Runnable gameObjectsListener) {
-        gameObjectsListeners.add(gameObjectsListener);
+    public void addGameObjectSelectListener(Consumer<GameObjectType> consumer) {
+        gameObjectSelectListener.add(consumer);
     }
 
-    public GameObjectType getSelectedGameObjectType() {
-        return list.getSelectedValue();
+    public void clearGameObjectsSelectionListeners() {
+        gameObjectSelectListener.clear();
     }
 
     @Override
