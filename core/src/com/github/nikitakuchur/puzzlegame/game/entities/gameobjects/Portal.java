@@ -30,11 +30,13 @@ public class Portal extends GameObject {
     public void act(Level level, float delta) {
         super.act(level, delta);
 
+        GameObjectsManager manager = level.getGameObjectsManager();
+
         if (secondPortalName == null) return;
-        Portal secondPortal = level.findGameObject(secondPortalName);
+        Portal secondPortal = manager.find(Portal.class, secondPortalName);
 
         if (!isUsed && !secondPortal.isUsed) {
-            for (Ball ball : level.getGameObjects(Ball.class)) {
+            for (Ball ball : manager.getGameObjects(Ball.class)) {
                 if (getX() == ball.getX() && getY() == ball.getY()) {
                     ball.setPosition(secondPortal.getX(), secondPortal.getY());
                     isUsed = true;
@@ -45,7 +47,7 @@ public class Portal extends GameObject {
         }
 
         // If the portal is free
-        for (Ball ball : level.getGameObjects(Ball.class)) {
+        for (Ball ball : manager.getGameObjects(Ball.class)) {
             if ((int) getX() == (int) ball.getX() && (int) getY() == (int) ball.getY()) {
                 return;
             }

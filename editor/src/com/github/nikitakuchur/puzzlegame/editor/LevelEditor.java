@@ -17,6 +17,7 @@ import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.Random;
 public class LevelEditor extends Group implements Disposable {
 
     private Level level;
+    private GameObjectsManager manager;
 
     private List<Runnable> levelChangeListeners = new ArrayList<>();
     private List<Runnable> selectGameObjectListeners = new ArrayList<>();
@@ -69,6 +71,7 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setLevel(Level level) {
         this.level = level;
+        manager = level.getGameObjectsManager();
         clearChildren();
         addActor(level);
         level.act(0);
@@ -186,7 +189,7 @@ public class LevelEditor extends Group implements Disposable {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             Vector2 position = screenToMapCoordinates(x, y);
 
-            GameObject currentGameObject = level.getGameObjects().stream().
+            GameObject currentGameObject = manager.getGameObjects().stream().
                     filter(object -> (int) object.getX() == (int) position.x &&
                                      (int) object.getY() == (int) position.y)
                     .findAny()
@@ -208,7 +211,7 @@ public class LevelEditor extends Group implements Disposable {
             gameObject.setY((int) position.y);
             gameObject.setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1));
             gameObject.act(level, 0);
-            level.addGameObject(gameObject);
+            manager.add(gameObject);
             setSelectedGameObject(gameObject);
             return true;
         }
@@ -231,7 +234,7 @@ public class LevelEditor extends Group implements Disposable {
         @Override
         public boolean keyDown(InputEvent event, int keycode) {
             if (selectedGameObject != null && keycode == Input.Keys.FORWARD_DEL) {
-                level.removeGameObject(selectedGameObject);
+                manager.remove(selectedGameObject);
                 selectedGameObject.dispose();
                 setSelectedGameObject(null);
             }

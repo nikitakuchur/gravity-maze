@@ -104,7 +104,7 @@ public class LevelInputHandler {
         }
 
         private boolean areBallsGrounded() {
-            for (Ball ball : level.getGameObjects(Ball.class)) {
+            for (Ball ball : level.getGameObjectsManager().getGameObjects(Ball.class)) {
                 if (!ball.isGrounded()) {
                     return false;
                 }

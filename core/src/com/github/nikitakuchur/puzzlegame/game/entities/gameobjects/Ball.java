@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
+import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 
 public class Ball extends GameObject {
 
@@ -75,7 +75,7 @@ public class Ball extends GameObject {
         if (map.getCellType(x, y) == CellType.BLOCK) {
             return false;
         }
-        for (Ball ball : level.getGameObjects(Ball.class)) {
+        for (Ball ball : level.getGameObjectsManager().getGameObjects(Ball.class)) {
             if (ball.getX() == x && ball.getY() == y) {
                 return false;
             }

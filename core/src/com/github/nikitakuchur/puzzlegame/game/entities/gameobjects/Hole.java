@@ -25,11 +25,13 @@ public class Hole extends GameObject {
     public void act(Level level, float delta) {
         super.act(level, delta);
 
+        GameObjectsManager manager = level.getGameObjectsManager();
+
         if (ballName == null) return;
-        Ball ball = level.findGameObject(ballName);
+        Ball ball = manager.find(Ball.class, ballName);
 
         if (getX() == ball.getX() && getY() == ball.getY()) {
-            level.removeGameObject(ball);
+            manager.remove(ball);
             ballName = null;
         }
     }

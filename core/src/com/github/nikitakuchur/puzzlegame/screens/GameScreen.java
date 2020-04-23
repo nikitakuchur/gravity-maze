@@ -14,7 +14,7 @@ public class GameScreen extends ScreenAdapter {
 
     private Stage stage = new Stage(new ScreenViewport());
 
-    private com.github.nikitakuchur.puzzlegame.game.entities.Level level;
+    private Level level;
     private GameUI gameUI = new GameUI(this);
 
     /**
@@ -30,7 +30,7 @@ public class GameScreen extends ScreenAdapter {
     /**
      * @return the level
      */
-    public com.github.nikitakuchur.puzzlegame.game.entities.Level getLevel() {
+    public Level getLevel() {
         return level;
     }
 

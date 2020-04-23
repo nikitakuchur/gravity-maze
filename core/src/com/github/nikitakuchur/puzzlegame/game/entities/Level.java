@@ -6,14 +6,10 @@ import com.github.nikitakuchur.puzzlegame.game.GravityDirection;
 import com.github.nikitakuchur.puzzlegame.game.LevelInputHandler;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Level extends Group implements Entity {
 
@@ -21,6 +17,9 @@ public class Level extends Group implements Entity {
 
     private Background background;
     private GameMap map;
+
+    private final GameObjectsManager manager = new GameObjectsManager();
+
     private Group gameObjectsGroup = new Group();
     private Group ballsGroup = new Group();
 
@@ -43,16 +42,31 @@ public class Level extends Group implements Entity {
         addActor(gameObjectsGroup);
         addActor(ballsGroup);
 
+        manager.addGameObjectAddListener(gameObject -> {
+            if (gameObject.getClass() == Ball.class) {
+                ballsGroup.addActor(gameObject);
+            } else {
+                gameObjectsGroup.addActor(gameObject);
+            }
+        });
+        manager.addGameObjectRemoveListener(gameObject -> {
+            if (gameObject.getClass() == Ball.class) {
+                ballsGroup.removeActor(gameObject);
+            } else {
+                gameObjectsGroup.removeActor(gameObject);
+            }
+        });
+
         addListener(inputController.getInputListener());
     }
 
     @Override
     public void act(float delta) {
         update();
-        getGameObjects().forEach(gameObject -> gameObject.update(this));
+        manager.getGameObjects().forEach(gameObject -> gameObject.update(this));
         super.act(delta);
         if (!pause) {
-            getGameObjects().forEach(gameObject -> gameObject.act(this, delta));
+            manager.getGameObjects().forEach(gameObject -> gameObject.act(this, delta));
             inputController.act(delta);
         }
     }
@@ -88,43 +102,8 @@ public class Level extends Group implements Entity {
         ballsGroup.setHeight(getHeight());
     }
 
-    public void addGameObject(GameObject gameObject) {
-        if (gameObject instanceof Ball) {
-            ballsGroup.addActor(gameObject);
-        } else {
-            gameObjectsGroup.addActor(gameObject);
-        }
-    }
-
-    public List<GameObject> getGameObjects() {
-        Actor[] gameObjects = gameObjectsGroup.getChildren().items;
-        Actor[] balls = ballsGroup.getChildren().items;
-        return Stream.concat(Arrays.stream(gameObjects), Arrays.stream(balls))
-                .filter(Objects::nonNull)
-                .map(GameObject.class::cast)
-                .collect(Collectors.toList());
-    }
-
-    public <T extends GameObject> List<T> getGameObjects(Class<T> type) {
-        List<T> result = new ArrayList<>();
-        getGameObjects().forEach(actor -> {
-            T gameObject = actor.firstAscendant(type);
-            if (gameObject != null) {
-                result.add(gameObject);
-            }
-        });
-        return result;
-    }
-
-    public <T extends GameObject> T findGameObject(String name) {
-        T gameObject = gameObjectsGroup.findActor(name);
-        if (gameObject != null) return gameObject;
-        return ballsGroup.findActor(name);
-    }
-
-    public void removeGameObject(GameObject gameObject) {
-        gameObjectsGroup.removeActor(gameObject);
-        ballsGroup.removeActor(gameObject);
+    public GameObjectsManager getGameObjectsManager() {
+        return manager;
     }
 
     public GravityDirection getGravityDirection() {
@@ -157,7 +136,8 @@ public class Level extends Group implements Entity {
         Properties properties = new Properties();
         properties.put("background", Background.class, background);
         properties.put("map", GameMap.class, map);
-        properties.put("gameObjects", getGameObjects().getClass(), getGameObjects());
+        List<GameObject> gameObjects = manager.getGameObjects();
+        properties.put("gameObjects", gameObjects.getClass(), gameObjects);
         return properties;
     }
 
@@ -172,13 +152,13 @@ public class Level extends Group implements Entity {
         addActor(map);
         addActor(gameObjectsGroup);
         addActor(ballsGroup);
-        gameObjects.forEach(gameObject -> addGameObject((GameObject) gameObject));
+        gameObjects.forEach(gameObject -> manager.add((GameObject) gameObject));
     }
 
     @Override
     public void dispose() {
         background.dispose();
         map.dispose();
-        getGameObjects(GameObject.class).forEach(GameObject::dispose);
+        manager.getGameObjects(GameObject.class).forEach(GameObject::dispose);
     }
 }
