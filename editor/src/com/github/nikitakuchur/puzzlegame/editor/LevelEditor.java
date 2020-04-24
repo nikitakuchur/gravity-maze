@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.editor.utils.GameObjectType;
-import com.github.nikitakuchur.puzzlegame.editor.utils.Layer;
+import com.github.nikitakuchur.puzzlegame.editor.utils.Option;
 import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
@@ -46,10 +46,10 @@ public class LevelEditor extends Group implements Disposable {
         setLevel(new Level());
     }
 
-    public void setLayer(Layer layer) {
+    public void setLayer(Option option) {
         clearListeners();
         selectedGameObject = null;
-        switch (layer) {
+        switch (option) {
             case BACKGROUND:
                 break;
             case MAP:

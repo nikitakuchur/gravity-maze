@@ -1,7 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
-import com.github.nikitakuchur.puzzlegame.editor.utils.Layer;
+import com.github.nikitakuchur.puzzlegame.editor.utils.Option;
 import com.github.nikitakuchur.puzzlegame.game.entities.Entity;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
@@ -12,7 +12,7 @@ import java.awt.*;
 public class RightPanel extends JPanel {
 
     private final JPanel panel = new JPanel();
-    private final JComboBox<Layer> comboBox = new JComboBox<>(Layer.values());
+    private final JComboBox<Option> comboBox = new JComboBox<>(Option.values());
 
     private final PropertiesPanel propertiesPanel = new PropertiesPanel();
     private final GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
@@ -39,15 +39,15 @@ public class RightPanel extends JPanel {
         gameObjectsPanel.addGameObjectSelectListener(levelEditor::setGameObjectType);
 
         comboBox.addActionListener(actionEvent -> {
-            Layer layer = (Layer) comboBox.getSelectedItem();
-            if (layer == null) return;
+            Option option = (Option) comboBox.getSelectedItem();
+            if (option == null) return;
 
             gameObjectsPanel.setVisible(false);
-            if (layer == Layer.GAME_OBJECTS) {
+            if (option == Option.GAME_OBJECTS) {
                 gameObjectsPanel.setVisible(true);
             }
 
-            levelEditor.setLayer(layer);
+            levelEditor.setLayer(option);
             initProperties(level);
         });
 
@@ -72,9 +72,9 @@ public class RightPanel extends JPanel {
     }
 
     private void initProperties(Level level) {
-        Layer layer = (Layer) comboBox.getSelectedItem();
-        if (layer == null) return;
-        switch (layer) {
+        Option option = (Option) comboBox.getSelectedItem();
+        if (option == null) return;
+        switch (option) {
             case BACKGROUND:
                 entity = level.getBackground();
                 break;

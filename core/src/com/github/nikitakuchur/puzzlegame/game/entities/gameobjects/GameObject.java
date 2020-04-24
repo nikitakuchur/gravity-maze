@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.entities.Entity;
 import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
+import com.github.nikitakuchur.puzzlegame.utils.Layer;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 public abstract class GameObject extends Actor implements Entity {
@@ -26,6 +27,10 @@ public abstract class GameObject extends Actor implements Entity {
         GameMap map = level.getMap();
         setWidth(map.getWidth() / map.getCellsWidth());
         setHeight(map.getHeight() / map.getCellsHeight());
+    }
+
+    public Layer getLayer() {
+        return Layer.MIDDLE;
     }
 
     @Override

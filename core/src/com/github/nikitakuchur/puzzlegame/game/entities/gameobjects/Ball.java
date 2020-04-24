@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+import com.github.nikitakuchur.puzzlegame.utils.Layer;
 
 public class Ball extends GameObject {
 
@@ -107,6 +108,11 @@ public class Ball extends GameObject {
         shapeRenderer.identity();
         shapeRenderer.end();
         batch.begin();
+    }
+
+    @Override
+    public Layer getLayer() {
+        return Layer.FRONT;
     }
 
     /**

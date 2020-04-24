@@ -2,11 +2,12 @@ package com.github.nikitakuchur.puzzlegame.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.game.GravityDirection;
 import com.github.nikitakuchur.puzzlegame.game.LevelInputHandler;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
+import com.github.nikitakuchur.puzzlegame.utils.Layer;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 import java.util.List;
@@ -19,9 +20,7 @@ public class Level extends Group implements Entity {
     private GameMap map;
 
     private final GameObjectsManager manager = new GameObjectsManager();
-
-    private final Group gameObjectsGroup = new Group();
-    private final Group ballsGroup = new Group();
+    private final Group[] groups = new Group[Layer.values().length];
 
     private GravityDirection gravityDirection = GravityDirection.BOTTOM;
     private int score;
@@ -39,22 +38,18 @@ public class Level extends Group implements Entity {
         map.setWidth(100);
         map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
         addActor(map);
-        addActor(gameObjectsGroup);
-        addActor(ballsGroup);
 
+        for (int i = 0; i < groups.length; i++) {
+            groups[i] = new Group();
+            addActor(groups[i]);
+        }
         manager.addGameObjectAddListener(gameObject -> {
-            if (gameObject.getClass() == Ball.class) {
-                ballsGroup.addActor(gameObject);
-            } else {
-                gameObjectsGroup.addActor(gameObject);
-            }
+            int index = gameObject.getLayer().ordinal();
+            groups[index].addActor(gameObject);
         });
         manager.addGameObjectRemoveListener(gameObject -> {
-            if (gameObject.getClass() == Ball.class) {
-                ballsGroup.removeActor(gameObject);
-            } else {
-                gameObjectsGroup.removeActor(gameObject);
-            }
+            int index = gameObject.getLayer().ordinal();
+            groups[index].removeActor(gameObject);
         });
 
         addListener(inputController.getInputListener());
@@ -96,10 +91,10 @@ public class Level extends Group implements Entity {
         setHeight(w / (float) map.getCellsWidth() * map.getCellsHeight());
         map.setWidth(getWidth());
         map.setHeight(getHeight());
-        gameObjectsGroup.setWidth(getWidth());
-        gameObjectsGroup.setHeight(getHeight());
-        ballsGroup.setWidth(getWidth());
-        ballsGroup.setHeight(getHeight());
+        for (Group group : groups) {
+            group.setWidth(getWidth());
+            group.setHeight(getHeight());
+        }
     }
 
     public GameObjectsManager getGameObjectsManager() {
@@ -150,8 +145,9 @@ public class Level extends Group implements Entity {
         clearChildren();
         addActor(background);
         addActor(map);
-        addActor(gameObjectsGroup);
-        addActor(ballsGroup);
+        for (Group group : groups) {
+            addActor(group);
+        }
         gameObjects.forEach(gameObject -> manager.add((GameObject) gameObject));
     }
 
@@ -159,6 +155,6 @@ public class Level extends Group implements Entity {
     public void dispose() {
         background.dispose();
         map.dispose();
-        manager.getGameObjects(GameObject.class).forEach(GameObject::dispose);
+        manager.getGameObjects(Disposable.class).forEach(Disposable::dispose);
     }
 }

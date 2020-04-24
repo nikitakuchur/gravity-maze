@@ -1,5 +1,5 @@
 package com.github.nikitakuchur.puzzlegame.editor.utils;
 
-public enum Layer {
+public enum Option {
     BACKGROUND, MAP, GAME_OBJECTS
 }
