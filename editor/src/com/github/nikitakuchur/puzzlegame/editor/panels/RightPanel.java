@@ -11,6 +11,8 @@ import java.awt.*;
 
 public class RightPanel extends JPanel {
 
+    private final transient LevelEditor levelEditor;
+
     private final JPanel panel = new JPanel();
     private final JComboBox<Option> comboBox = new JComboBox<>(Option.values());
 
@@ -20,6 +22,7 @@ public class RightPanel extends JPanel {
     private transient Entity entity;
 
     public RightPanel(LevelEditor levelEditor) {
+        this.levelEditor = levelEditor;
         Level level = levelEditor.getLevel();
         entity = level.getBackground();
 
@@ -48,11 +51,11 @@ public class RightPanel extends JPanel {
             }
 
             levelEditor.setLayer(option);
-            initProperties(level);
+            initProperties();
         });
 
-        initProperties(level);
-        levelEditor.addLevelChangeListener(this::initProperties);
+        initProperties();
+        levelEditor.addLevelChangeListener(lev -> initProperties());
         levelEditor.addGameObjectSelectListener(gameObject -> {
             entity = gameObject;
             updateProperties();
@@ -71,7 +74,8 @@ public class RightPanel extends JPanel {
         }
     }
 
-    private void initProperties(Level level) {
+    private void initProperties() {
+        Level level = levelEditor.getLevel();
         Option option = (Option) comboBox.getSelectedItem();
         if (option == null) return;
         switch (option) {
