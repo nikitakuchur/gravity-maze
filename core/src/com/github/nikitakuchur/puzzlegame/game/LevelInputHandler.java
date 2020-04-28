@@ -1,5 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.game;
 
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -105,7 +107,9 @@ public class LevelInputHandler {
         }
 
         private boolean areBallsGrounded() {
-            for (Ball ball : level.getGameObjectsManager().getGameObjects(Ball.class)) {
+            List<Ball> balls = level.getGameObjectsManager().getGameObjects(Ball.class);
+            if (balls.isEmpty()) return false;
+            for (Ball ball : balls) {
                 if (ball.getPhysicalController().isMoving()) {
                     return false;
                 }
