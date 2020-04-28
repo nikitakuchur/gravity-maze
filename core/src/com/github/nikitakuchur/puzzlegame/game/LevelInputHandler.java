@@ -14,7 +14,7 @@ public class LevelInputHandler {
 
     private final Level level;
 
-    private com.github.nikitakuchur.puzzlegame.physics.GravityDirection lastGravityDirection = com.github.nikitakuchur.puzzlegame.physics.GravityDirection.BOTTOM;
+    private GravityDirection lastGravityDirection = GravityDirection.BOTTOM;
 
     private float lastAngle;
     private final Vector2 lastTouchPosition = new Vector2();
