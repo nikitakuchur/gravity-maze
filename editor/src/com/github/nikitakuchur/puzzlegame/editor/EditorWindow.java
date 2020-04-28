@@ -88,7 +88,7 @@ public class EditorWindow {
 
         MenuItem saveItem = new MenuItem("Save");
         saveItem.setEnabled(false);
-        app.getFileController().addPathChangeListener(path -> saveItem.setEnabled(path == null));
+        app.getFileController().addPathChangeListener(path -> saveItem.setEnabled(path != null));
         saveItem.addActionListener(e -> {
             app.getLevelEditor().stop();
             app.getFileController().save();

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
@@ -13,7 +14,7 @@ public class Portal extends GameObject {
 
     private String secondPortalName;
 
-    private boolean isUsed;
+    private boolean isLock;
 
     private final Texture texture = new Texture(Gdx.files.internal("game/portal.png"), true);
     private final TextureRegion textureRegion = new TextureRegion(texture);
@@ -29,31 +30,33 @@ public class Portal extends GameObject {
     @Override
     public void act(Level level, float delta) {
         super.act(level, delta);
-
         GameObjectsManager manager = level.getGameObjectsManager();
-
-        if (secondPortalName == null) return;
         Portal secondPortal = manager.find(Portal.class, secondPortalName);
+        Vector2 position = new Vector2(getX(), getY());
 
-        if (!isUsed && !secondPortal.isUsed) {
+        if (secondPortal != null && !isLock && !secondPortal.isLock) {
             for (Ball ball : manager.getGameObjects(Ball.class)) {
-                if (getX() == ball.getX() && getY() == ball.getY()) {
+                if (position.dst(ball.getX(), ball.getY()) < 1) {
                     ball.setPosition(secondPortal.getX(), secondPortal.getY());
-                    isUsed = true;
-                    secondPortal.isUsed = true;
-                    return;
+                    secondPortal.isLock = true;
+                    break;
                 }
             }
         }
 
-        // If the portal is free
+        if (isFree(manager)) {
+            isLock = false;
+        }
+    }
+
+    private boolean isFree(GameObjectsManager manager) {
+        Vector2 position = new Vector2(getX(), getY());
         for (Ball ball : manager.getGameObjects(Ball.class)) {
-            if ((int) getX() == (int) ball.getX() && (int) getY() == (int) ball.getY()) {
-                return;
+            if (position.dst(ball.getX(), ball.getY()) < 1) {
+                return false;
             }
         }
-        isUsed = false;
-        secondPortal.isUsed = false;
+        return true;
     }
 
     @Override

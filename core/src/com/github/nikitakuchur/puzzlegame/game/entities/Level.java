@@ -3,10 +3,11 @@ package com.github.nikitakuchur.puzzlegame.game.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.game.GravityDirection;
+import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
 import com.github.nikitakuchur.puzzlegame.game.LevelInputHandler;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
+import com.github.nikitakuchur.puzzlegame.physics.Physics;
 import com.github.nikitakuchur.puzzlegame.utils.Layer;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
@@ -21,6 +22,8 @@ public class Level extends Group implements Entity {
 
     private final GameObjectsManager manager = new GameObjectsManager();
     private final Group[] groups = new Group[Layer.values().length];
+
+    private final Physics physics = new Physics(this);
 
     private GravityDirection gravityDirection = GravityDirection.BOTTOM;
     private int score;
@@ -51,7 +54,6 @@ public class Level extends Group implements Entity {
             int index = gameObject.getLayer().ordinal();
             groups[index].removeActor(gameObject);
         });
-
         addListener(inputController.getInputListener());
     }
 
@@ -61,6 +63,7 @@ public class Level extends Group implements Entity {
         manager.getGameObjects().forEach(gameObject -> gameObject.update(this));
         super.act(delta);
         if (!pause) {
+            physics.update(delta);
             manager.getGameObjects().forEach(gameObject -> gameObject.act(this, delta));
             inputController.act(delta);
         }

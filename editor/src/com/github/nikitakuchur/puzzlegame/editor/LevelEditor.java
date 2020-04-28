@@ -239,6 +239,7 @@ public class LevelEditor extends Group implements Disposable {
             if (selectedGameObject != null) {
                 selectedGameObject.setX((int) position.x);
                 selectedGameObject.setY((int) position.y);
+                selectedGameObject.initialize();
             }
         }
 

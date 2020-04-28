@@ -6,12 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
 
 public class LevelInputHandler {
 
     private final Level level;
 
-    private GravityDirection lastGravityDirection = GravityDirection.BOTTOM;
+    private com.github.nikitakuchur.puzzlegame.physics.GravityDirection lastGravityDirection = com.github.nikitakuchur.puzzlegame.physics.GravityDirection.BOTTOM;
 
     private float lastAngle;
     private final Vector2 lastTouchPosition = new Vector2();
@@ -55,17 +56,17 @@ public class LevelInputHandler {
         if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad))) {
             if (Math.cos(angleRad) < 0) {
                 level.setRotation(angle + (float) Math.sin(angleRad) * speed * delta);
-                level.setGravityDirection(GravityDirection.TOP);
+                level.setGravityDirection(com.github.nikitakuchur.puzzlegame.physics.GravityDirection.TOP);
             } else {
                 level.setRotation(angle - (float) Math.sin(angleRad) * speed * delta);
-                level.setGravityDirection(GravityDirection.BOTTOM);
+                level.setGravityDirection(com.github.nikitakuchur.puzzlegame.physics.GravityDirection.BOTTOM);
             }
         }
 
         if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad))) {
             if (Math.sin(angleRad) > 0) {
                 level.setRotation(angle + (float) Math.cos(angleRad) * speed * delta);
-                level.setGravityDirection(GravityDirection.LEFT);
+                level.setGravityDirection(com.github.nikitakuchur.puzzlegame.physics.GravityDirection.LEFT);
             } else {
                 level.setRotation(angle - (float) Math.cos(angleRad) * speed * delta);
                 level.setGravityDirection(GravityDirection.RIGHT);
@@ -105,7 +106,7 @@ public class LevelInputHandler {
 
         private boolean areBallsGrounded() {
             for (Ball ball : level.getGameObjectsManager().getGameObjects(Ball.class)) {
-                if (!ball.isGrounded()) {
+                if (ball.getPhysicalController().isMoving()) {
                     return false;
                 }
             }

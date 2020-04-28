@@ -10,6 +10,9 @@ import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 public abstract class GameObject extends Actor implements Entity {
 
+    public void initialize() {
+    }
+
     /**
      * Updates the game object based on time
      *
