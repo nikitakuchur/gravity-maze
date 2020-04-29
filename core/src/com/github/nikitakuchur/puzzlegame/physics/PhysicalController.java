@@ -10,7 +10,7 @@ import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 
 public class PhysicalController {
 
-    private static final float ACCELERATION = 4;
+    private static final float ACCELERATION = 2;
     private Vector2 velocity = Vector2.Zero.cpy();
 
     private final GameObject gameObject;
