@@ -10,7 +10,7 @@ import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 
 public class PhysicalController {
 
-    private static final float ACCELERATION = 1;
+    private static final float ACCELERATION = 4;
     private Vector2 velocity = Vector2.Zero.cpy();
 
     private final GameObject gameObject;
@@ -26,7 +26,7 @@ public class PhysicalController {
         nextPosition = new Vector2(gameObject.getX(), gameObject.getY());
     }
 
-    public void update(Level level, float delta) {
+    public void update(float delta) {
         Vector2 position = new Vector2(gameObject.getX(), gameObject.getY());
         Vector2 direction = nextPosition.cpy().sub(position).nor();
 

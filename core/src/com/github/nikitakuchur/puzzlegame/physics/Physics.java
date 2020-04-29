@@ -20,6 +20,6 @@ public class Physics {
                 .map(PhysicalObject::getPhysicalController)
                 .collect(Collectors.toList());
         controllers.forEach(controller -> controller.calcNextPosition(level));
-        controllers.forEach(controller -> controller.update(level, delta));
+        controllers.forEach(controller -> controller.update(delta));
     }
 }

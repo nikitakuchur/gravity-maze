@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
-import com.github.nikitakuchur.puzzlegame.game.LevelInputHandler;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
 import com.github.nikitakuchur.puzzlegame.physics.Physics;
