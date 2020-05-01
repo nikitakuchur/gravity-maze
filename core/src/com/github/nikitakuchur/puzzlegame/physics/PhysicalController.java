@@ -1,16 +1,12 @@
 package com.github.nikitakuchur.puzzlegame.physics;
 
-import java.util.List;
-
 import com.badlogic.gdx.math.Vector2;
-import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
-import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 
 public class PhysicalController {
 
-    private static final float ACCELERATION = 2;
+    private static final float ACCELERATION = 100;
+    private static final float MAX_SPEED = 40;
     private Vector2 velocity = Vector2.Zero.cpy();
 
     private final GameObject gameObject;
@@ -18,78 +14,68 @@ public class PhysicalController {
     private Vector2 prevPosition;
     private Vector2 nextPosition;
 
-    private PhysicalObject collisionObject;
-
     public PhysicalController(GameObject gameObject) {
         this.gameObject = gameObject;
-        prevPosition = new Vector2(gameObject.getX(), gameObject.getY());
-        nextPosition = new Vector2(gameObject.getX(), gameObject.getY());
+        prevPosition = getPosition();
+        nextPosition = getPosition();
     }
 
     public void update(float delta) {
-        Vector2 position = new Vector2(gameObject.getX(), gameObject.getY());
-        Vector2 direction = nextPosition.cpy().sub(position).nor();
+        Vector2 position = getPosition();
+        Vector2 direction = nextPosition.cpy().sub(prevPosition).nor();
 
-        if (collisionObject != null) {
-            velocity = collisionObject.getPhysicalController().velocity;
-        } else if (direction.isZero()) {
+        if (direction.isZero()) {
             velocity = Vector2.Zero.cpy();
+            setPosition(prevPosition);
+            return;
         }
 
-        if (position.cpy().dst(nextPosition) < velocity.len()) {
-            getGameObject().setPosition((int) nextPosition.x, (int) nextPosition.y);
-            prevPosition = nextPosition.cpy();
+        if (position.cpy().dst(nextPosition) < velocity.len() * delta) {
+            setPosition(nextPosition);
         } else {
-            velocity.add(direction.cpy().scl(ACCELERATION * delta));
-            position.add(velocity);
-            getGameObject().setPosition(position.x, position.y);
-        }
-    }
-
-    public void calcNextPosition(Level level) {
-        Vector2 position = new Vector2(getGameObject().getX(), getGameObject().getY());
-        if (position.dst(prevPosition) >= 1) {
-            prevPosition = new Vector2(Math.round(position.x), Math.round(position.y));
-        }
-        nextPosition = nextPosition(level);
-    }
-
-    private Vector2 nextPosition(Level level) {
-        Vector2 gravityDirection = level.getGravityDirection().getDirection();
-        Vector2 vec = prevPosition.cpy().add(gravityDirection);
-        vec = new Vector2((int) vec.x, (int) vec.y);
-
-        if (detectCollision(level, (int) vec.x, (int) vec.y)) {
-            return new Vector2(Math.round(prevPosition.x), Math.round(prevPosition.y));
-        }
-
-        return vec;
-    }
-
-    private boolean detectCollision(Level level, int x, int y) {
-        Vector2 position = new Vector2(x, y);
-        GameMap map = level.getMap();
-        if (map.getCellType(x, y) == CellType.BLOCK) {
-            return true;
-        }
-        collisionObject = null;
-        List<PhysicalObject> physicalObjects = level.getGameObjectsManager().getGameObjects(PhysicalObject.class);
-        for (PhysicalObject physicalObject : physicalObjects) {
-            if (physicalObject == getGameObject()) continue;
-            Vector2 objNextPosition = physicalObject.getPhysicalController().nextPosition;
-            if (position.dst(objNextPosition) < 1) {
-                collisionObject = physicalObject;
-                return true;
+            position.add(velocity.cpy().scl(delta));
+            setPosition(position);
+            if (velocity.len() >= MAX_SPEED) {
+                velocity.nor().scl(MAX_SPEED);
+                return;
             }
+            velocity.add(direction.cpy().scl(ACCELERATION * delta));
         }
-        return false;
-    }
-
-    public GameObject getGameObject() {
-        return gameObject;
     }
 
     public boolean isMoving() {
         return !velocity.isZero();
+    }
+
+    public Vector2 getPosition() {
+        return new Vector2(gameObject.getX(), gameObject.getY());
+    }
+
+    public void setPosition(Vector2 position) {
+        gameObject.setPosition(position.x, position.y);
+    }
+
+    public Vector2 getVelocity() {
+        return velocity.cpy();
+    }
+
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity.cpy();
+    }
+
+    public Vector2 getPrevPosition() {
+        Vector2 position = getPosition();
+        if (position.dst(prevPosition) >= 1) {
+            prevPosition = new Vector2(Math.round(position.x), Math.round(position.y));
+        }
+        return prevPosition.cpy();
+    }
+
+    public Vector2 getNextPosition() {
+        return nextPosition.cpy();
+    }
+
+    public void setNextPosition(Vector2 nextPosition) {
+        this.nextPosition = nextPosition.cpy();
     }
 }

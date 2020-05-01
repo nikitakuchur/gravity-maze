@@ -26,6 +26,16 @@ public class Ball extends GameObject implements PhysicalObject {
 
         shapeRenderer.translate(-getParent().getWidth() / 2, -getParent().getHeight() / 2, 0);
 
+        // DEBUG
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(Color.BLUE);
+        shapeRenderer.rect(physicalController.getPrevPosition().x * getWidth(),
+                physicalController.getPrevPosition().y * getHeight(), getWidth(), getHeight());
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.rect(physicalController.getNextPosition().x * getWidth(),
+                physicalController.getNextPosition().y * getHeight(), getWidth(), getHeight());
+        shapeRenderer.end();
+        // DEBUG
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(getColor());
         shapeRenderer.ellipse(getX() * getWidth(), getY() * getHeight(),

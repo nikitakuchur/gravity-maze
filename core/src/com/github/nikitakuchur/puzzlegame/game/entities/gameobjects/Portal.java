@@ -36,7 +36,7 @@ public class Portal extends GameObject {
 
         if (secondPortal != null && !isLock && !secondPortal.isLock) {
             for (Ball ball : manager.getGameObjects(Ball.class)) {
-                if (position.dst(ball.getX(), ball.getY()) < 1) {
+                if (position.x == ball.getX() && position.y == ball.getY()) {
                     ball.setPosition(secondPortal.getX(), secondPortal.getY());
                     secondPortal.isLock = true;
                     break;
@@ -52,7 +52,7 @@ public class Portal extends GameObject {
     private boolean isFree(GameObjectsManager manager) {
         Vector2 position = new Vector2(getX(), getY());
         for (Ball ball : manager.getGameObjects(Ball.class)) {
-            if (position.dst(ball.getX(), ball.getY()) < 1) {
+            if (position.x == ball.getX() && position.y == ball.getY()) {
                 return false;
             }
         }

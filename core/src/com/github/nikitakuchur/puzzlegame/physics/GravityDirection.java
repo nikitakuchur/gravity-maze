@@ -15,6 +15,6 @@ public enum GravityDirection {
     }
 
     public Vector2 getDirection() {
-        return direction;
+        return direction.cpy();
     }
 }
