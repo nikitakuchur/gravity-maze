@@ -18,6 +18,7 @@ import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
+import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,6 +145,9 @@ public class LevelEditor extends Group implements Disposable {
         level.setPause(false);
         clearListeners();
         setSelectedGameObject(null);
+        manager.getGameObjects(PhysicalObject.class).stream()
+                .map(GameObject.class::cast)
+                .forEach(GameObject::initialize);
         levelPlayListeners.forEach(Runnable::run);
     }
 

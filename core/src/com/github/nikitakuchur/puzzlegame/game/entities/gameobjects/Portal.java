@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+import com.github.nikitakuchur.puzzlegame.physics.Physics;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
