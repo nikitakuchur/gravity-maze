@@ -14,7 +14,7 @@ public class PuzzleGame extends Game {
 	@Override
 	public void render() {
 		float delta = Gdx.graphics.getDeltaTime();
-		if (delta > 1) delta = 1;
+		if (delta > 0.05f) delta = 0.05f;
 		screen.render(delta);
 	}
 }

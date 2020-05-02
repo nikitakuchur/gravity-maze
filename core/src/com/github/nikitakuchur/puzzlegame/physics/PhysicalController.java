@@ -6,7 +6,6 @@ import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 public class PhysicalController {
 
     private static final float ACCELERATION = 2f;
-    private static final float MAX_SPEED = 0.5f;
     private Vector2 velocity = Vector2.Zero.cpy();
 
     private final GameObject gameObject;
@@ -30,14 +29,11 @@ public class PhysicalController {
             return;
         }
 
-        if (position.cpy().dst(nextPosition) < velocity.len()) {
+        velocity.add(direction.cpy().scl(ACCELERATION * delta));
+
+        if (position.cpy().dst(nextPosition) <= velocity.len()) {
             setPosition(nextPosition);
         } else {
-            if (velocity.len() >= MAX_SPEED) {
-                velocity.nor().scl(MAX_SPEED);
-            } else {
-                velocity.add(direction.cpy().scl(ACCELERATION * delta));
-            }
             position.add(velocity.cpy());
             setPosition(position);
         }
