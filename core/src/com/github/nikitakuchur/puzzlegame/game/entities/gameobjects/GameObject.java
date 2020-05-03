@@ -20,6 +20,10 @@ public abstract class GameObject extends Actor implements Entity {
      * @param delta time in seconds since the last frame.
      */
     public void act(Level level, float delta) {
+    }
+
+    @Override
+    public final void act(float delta) {
         super.act(delta);
     }
 
