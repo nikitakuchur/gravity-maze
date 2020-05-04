@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.github.nikitakuchur.puzzlegame.game.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
@@ -16,14 +18,27 @@ public class Hole extends GameObject {
     private final Texture texture = new Texture(Gdx.files.internal("game/hole.png"), true);
     private final TextureRegion textureRegion = new TextureRegion(texture);
 
+    private Effect effect;
+
     public Hole() {
         texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
         addAction(Actions.forever(Actions.timeScale(0.4f, GameActions.bounceAndRotate())));
     }
 
     @Override
-    public void act(Level level, float delta) {
-        super.act(level, delta);
+    public void initialize(Level level) {
+        super.initialize(level);
+        effect = new Effect(level)
+                .color(getColor())
+                .position(new Vector2(getX(), getY()))
+                .delay(0.8f)
+                .useGravity();
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        effect.update(delta);
 
         GameObjectsManager manager = level.getGameObjectsManager();
 
@@ -33,6 +48,7 @@ public class Hole extends GameObject {
         if (getX() == ball.getX() && getY() == ball.getY()) {
             manager.remove(ball);
             ballName = null;
+            effect.start();
         }
     }
 
@@ -44,6 +60,7 @@ public class Hole extends GameObject {
                 getY() * getHeight() - getParent().getHeight() / 2,
                 getOriginX() + getWidth() / 2, getOriginY() + getHeight() / 2,
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+        effect.draw(batch);
     }
 
     /**

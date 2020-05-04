@@ -38,7 +38,7 @@ public class Level extends Group implements Entity {
 
         this.map = map;
         map.setWidth(100);
-        map.setHeight(map.getWidth() / map.getCellsWidth() * map.getCellsHeight());
+        map.setHeight(map.getCellSize() * map.getCellsHeight());
         addActor(map);
 
         for (int i = 0; i < groups.length; i++) {
@@ -48,6 +48,7 @@ public class Level extends Group implements Entity {
         manager.addGameObjectAddListener(gameObject -> {
             int index = gameObject.getLayer().ordinal();
             groups[index].addActor(gameObject);
+            gameObject.initialize(this);
         });
         manager.addGameObjectRemoveListener(gameObject -> {
             int index = gameObject.getLayer().ordinal();
@@ -59,11 +60,10 @@ public class Level extends Group implements Entity {
     @Override
     public void act(float delta) {
         update();
-        manager.getGameObjects().forEach(gameObject -> gameObject.update(this));
-        super.act(delta);
+        manager.getGameObjects().forEach(GameObject::update);
         if (!pause) {
             physics.update(delta);
-            manager.getGameObjects().forEach(gameObject -> gameObject.act(this, delta));
+            super.act(delta);
             inputController.act(delta);
         }
     }

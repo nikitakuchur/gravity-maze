@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.github.nikitakuchur.puzzlegame.game.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
@@ -19,6 +20,8 @@ public class Portal extends GameObject {
     private final Texture texture = new Texture(Gdx.files.internal("game/portal.png"), true);
     private final TextureRegion textureRegion = new TextureRegion(texture);
 
+    private Effect effect;
+
     /**
      * Creates a new portal
      */
@@ -28,8 +31,19 @@ public class Portal extends GameObject {
     }
 
     @Override
-    public void act(Level level, float delta) {
-        super.act(level, delta);
+    public void initialize(Level level) {
+        super.initialize(level);
+        effect = new Effect(level)
+                .color(getColor())
+                .size(5)
+                .speed(300)
+                .delay(0.5f)
+                .useGravity();
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
         GameObjectsManager manager = level.getGameObjectsManager();
         Portal secondPortal = manager.find(Portal.class, secondPortalName);
         Vector2 position = new Vector2(getX(), getY());
@@ -38,6 +52,12 @@ public class Portal extends GameObject {
             for (Ball ball : manager.getGameObjects(Ball.class)) {
                 if (position.x == ball.getX() && position.y == ball.getY()) {
                     ball.setPosition(secondPortal.getX(), secondPortal.getY());
+                    effect.position(new Vector2(position.x, position.y))
+                            .direction(ball.getPhysicalController().getVelocity().rotate(180))
+                            .start();
+                    secondPortal.effect.position(new Vector2(secondPortal.getX(), secondPortal.getY()))
+                            .direction(ball.getPhysicalController().getVelocity())
+                            .start();
                     secondPortal.isLock = true;
                     break;
                 }
@@ -47,6 +67,7 @@ public class Portal extends GameObject {
         if (isFree(manager)) {
             isLock = false;
         }
+        effect.update(delta);
     }
 
     private boolean isFree(GameObjectsManager manager) {
@@ -67,6 +88,7 @@ public class Portal extends GameObject {
                 getY() * getHeight() - getParent().getHeight() / 2,
                 getOriginX() + getWidth() / 2, getOriginY() + getHeight() / 2,
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+        effect.draw(batch);
     }
 
     /**

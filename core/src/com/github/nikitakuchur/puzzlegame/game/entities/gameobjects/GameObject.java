@@ -10,27 +10,16 @@ import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 public abstract class GameObject extends Actor implements Entity {
 
-    public void initialize() {
-    }
+    protected Level level;
 
-    /**
-     * Updates the game object based on time
-     *
-     * @param level the current level
-     * @param delta time in seconds since the last frame.
-     */
-    public void act(Level level, float delta) {
-    }
-
-    @Override
-    public final void act(float delta) {
-        super.act(delta);
+    public void initialize(Level level) {
+        this.level = level;
     }
 
     /**
      * Updates width and height
      */
-    public void update(Level level) {
+    public void update() {
         GameMap map = level.getMap();
         setWidth(map.getWidth() / map.getCellsWidth());
         setHeight(map.getHeight() / map.getCellsHeight());

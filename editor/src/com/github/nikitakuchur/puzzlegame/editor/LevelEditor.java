@@ -18,7 +18,6 @@ import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
-import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,12 +144,13 @@ public class LevelEditor extends Group implements Disposable {
         level.setPause(false);
         clearListeners();
         setSelectedGameObject(null);
-        manager.getGameObjects(GameObject.class).forEach(GameObject::initialize);
+        manager.getGameObjects(GameObject.class).forEach(gameObject -> gameObject.initialize(level));
         levelPlayListeners.forEach(Runnable::run);
     }
 
     public void stop() {
         level.setPause(true);
+        manager.getGameObjects(GameObject.class).forEach(gameObject -> gameObject.initialize(level));
         levelStopListeners.forEach(Runnable::run);
     }
 
@@ -229,7 +229,8 @@ public class LevelEditor extends Group implements Disposable {
             gameObject.setX((int) position.x);
             gameObject.setY((int) position.y);
             gameObject.setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1));
-            gameObject.act(level, 0);
+            gameObject.initialize(level);
+            gameObject.act(0);
             manager.add(gameObject);
             setSelectedGameObject(gameObject);
             return true;
@@ -241,7 +242,7 @@ public class LevelEditor extends Group implements Disposable {
             if (selectedGameObject != null) {
                 selectedGameObject.setX((int) position.x);
                 selectedGameObject.setY((int) position.y);
-                selectedGameObject.initialize();
+                selectedGameObject.initialize(level);
             }
         }
 

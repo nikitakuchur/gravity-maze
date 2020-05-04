@@ -17,7 +17,6 @@ public class GameObjectsManager {
     private final List<Consumer<GameObject>> gameObjectRemoveListeners = new ArrayList<>();
 
     public void add(GameObject gameObject) {
-        gameObject.initialize();
         Set<Class<?>> classes = getAllClasses(gameObject.getClass());
         classes.forEach(clazz -> {
             List<GameObject> list = gameObjects.get(clazz);

@@ -3,6 +3,7 @@ package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 import com.github.nikitakuchur.puzzlegame.utils.Layer;
@@ -13,7 +14,8 @@ public class Ball extends GameObject implements PhysicalObject {
     private PhysicalController physicalController;
 
     @Override
-    public void initialize() {
+    public void initialize(Level level) {
+        super.initialize(level);
         physicalController = new PhysicalController(this);
     }
 

@@ -107,6 +107,13 @@ public class GameMap extends Actor implements Entity {
     }
 
     /**
+     * @return the cell size
+     */
+    public float getCellSize() {
+        return getWidth() / getCellsWidth();
+    }
+
+    /**
      * Returns the type of the cell
      *
      * @param x the x-component of the cell position
