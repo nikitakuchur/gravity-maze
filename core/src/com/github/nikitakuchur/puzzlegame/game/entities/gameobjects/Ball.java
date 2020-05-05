@@ -3,6 +3,7 @@ package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
@@ -26,18 +27,16 @@ public class Ball extends GameObject implements PhysicalObject {
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
-        shapeRenderer.translate(-getParent().getWidth() / 2, -getParent().getHeight() / 2, 0);
-
+        Vector2 position = getActualPosition();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(getColor());
-        shapeRenderer.ellipse(getX() * getWidth(), getY() * getHeight(),
-                getWidth(), getHeight(), 32);
+        shapeRenderer.ellipse(position.x, position.y, getWidth(), getHeight(), 32);
 
         shapeRenderer.setColor(Color.WHITE);
 
         float dw = (getWidth() * 0.7f - getWidth()) / 2;
         float dh = (getHeight() * 0.7f - getHeight()) / 2;
-        shapeRenderer.ellipse(getX() * getWidth() - dw, getY() * getHeight() - dh,
+        shapeRenderer.ellipse(position.x - dw, position.y - dh,
                 getWidth() * 0.7f, getHeight() * 0.7f, 32);
 
         shapeRenderer.identity();

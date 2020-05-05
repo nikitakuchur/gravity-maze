@@ -43,13 +43,12 @@ public class Spike extends GameObject {
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
-        shapeRenderer.translate(-getParent().getWidth() / 2, -getParent().getHeight() / 2, 0);
-
+        Vector2 position = getActualPosition();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(getColor());
-        shapeRenderer.triangle(getX() * getWidth(), getY() * getHeight(),
-                getX() * getWidth() + getWidth(), getY() * getHeight(),
-                (getX() * getWidth() + (getX() * getWidth() + getWidth())) / 2, getY() * getHeight() + getHeight());
+        shapeRenderer.triangle(position.x, position.y,
+                position.x + getWidth(), position.y,
+                (position.x + position.x + getWidth()) / 2, position.y + getHeight());
         shapeRenderer.end();
         batch.begin();
         effect.draw(batch);
