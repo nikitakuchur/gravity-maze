@@ -4,13 +4,15 @@ import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Hole;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Spike;
 
 import java.lang.reflect.InvocationTargetException;
 
 public enum GameObjectType {
     BALL(Ball.class),
     HOLE(Hole.class),
-    PORTAL(Portal.class);
+    PORTAL(Portal.class),
+    SPIKE(Spike.class);
 
     private final Class<? extends GameObject> clazz;
 
