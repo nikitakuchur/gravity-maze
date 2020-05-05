@@ -1,6 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.entities.Entity;
@@ -23,10 +24,20 @@ public abstract class GameObject extends Actor implements Entity {
         GameMap map = level.getMap();
         setWidth(map.getWidth() / map.getCellsWidth());
         setHeight(map.getHeight() / map.getCellsHeight());
+        setOriginX(getWidth() / 2);
+        setOriginY(getHeight() / 2);
     }
 
     public Layer getLayer() {
         return Layer.MIDDLE;
+    }
+
+    /**
+     * @return the actual position of the gameObject
+     */
+    public Vector2 getActualPosition() {
+        return new Vector2(getX() * getWidth() - getParent().getWidth() / 2,
+                getY() * getHeight() - getParent().getHeight() / 2);
     }
 
     @Override

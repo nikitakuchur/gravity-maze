@@ -56,9 +56,8 @@ public class Hole extends GameObject {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         batch.setColor(getColor());
-        batch.draw(textureRegion, getX() * getWidth() - getParent().getWidth() / 2,
-                getY() * getHeight() - getParent().getHeight() / 2,
-                getOriginX() + getWidth() / 2, getOriginY() + getHeight() / 2,
+        Vector2 position = getActualPosition();
+        batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         effect.draw(batch);
     }
