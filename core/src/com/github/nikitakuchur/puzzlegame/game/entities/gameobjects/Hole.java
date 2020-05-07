@@ -41,14 +41,11 @@ public class Hole extends GameObject {
 
         GameObjectsManager manager = level.getGameObjectsManager();
 
-        if (ballName != null) {
-            Ball ball = manager.find(Ball.class, ballName);
-
-            if (getX() == ball.getX() && getY() == ball.getY()) {
-                manager.remove(ball);
-                ballName = null;
-                effect.start();
-            }
+        Ball ball = manager.find(Ball.class, ballName);
+        if (ball != null && getX() == ball.getX() && getY() == ball.getY()) {
+            manager.remove(ball);
+            ballName = null;
+            effect.start();
         }
         effect.update(delta);
     }

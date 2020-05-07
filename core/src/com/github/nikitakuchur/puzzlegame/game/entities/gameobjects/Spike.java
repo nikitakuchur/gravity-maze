@@ -1,16 +1,23 @@
 package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.github.nikitakuchur.puzzlegame.game.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 
 public class Spike extends GameObject {
 
-    // TODO: Add texture
-    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final Texture texture = new Texture(Gdx.files.internal("game/spike.png"), true);
+    private final TextureRegion textureRegion = new TextureRegion(texture);
+
     private Effect effect;
+
+    public Spike() {
+        texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+    }
 
     @Override
     public void initialize(Level level) {
@@ -39,23 +46,15 @@ public class Spike extends GameObject {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.end();
-        shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-
         Vector2 position = getActualPosition();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(getColor());
-        shapeRenderer.triangle(position.x, position.y,
-                position.x + getWidth(), position.y,
-                (position.x + position.x + getWidth()) / 2, position.y + getHeight());
-        shapeRenderer.end();
-        batch.begin();
+        batch.setColor(getColor()); // TODO: Fix color
+        batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
+                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         effect.draw(batch);
     }
 
     @Override
     public void dispose() {
-        shapeRenderer.dispose();
+        texture.dispose();
     }
 }

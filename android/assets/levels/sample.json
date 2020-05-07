@@ -178,6 +178,29 @@
 			"b": 0.8,
 			"a": 1
 		}
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Spike",
+		"name": null,
+		"x": 7,
+		"y": 0,
+		"color": {
+			"r": 0.73333335,
+			"g": 0.3019608,
+			"b": 0.5921569,
+			"a": 1
+		}
+	},
+	{
+		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Spike",
+		"name": null,
+		"x": 0,
+		"y": 7,
+		"color": {
+			"r": 0.25882354,
+			"g": 0.53333336,
+			"a": 1
+		}
 	}
 ]
 }
