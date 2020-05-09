@@ -39,12 +39,13 @@ public class Level extends Group implements Entity {
         this.map = map;
         map.setWidth(100);
         map.setHeight(map.getCellSize() * map.getCellsHeight());
-        addActor(map);
 
         for (int i = 0; i < groups.length; i++) {
             groups[i] = new Group();
             addActor(groups[i]);
         }
+        addActor(map);
+
         manager.addGameObjectAddListener(gameObject -> {
             int index = gameObject.getLayer().ordinal();
             groups[index].addActor(gameObject);
@@ -146,10 +147,10 @@ public class Level extends Group implements Entity {
 
         clearChildren();
         addActor(background);
-        addActor(map);
         for (Group group : groups) {
             addActor(group);
         }
+        addActor(map);
         gameObjects.forEach(gameObject -> manager.add((GameObject) gameObject));
     }
 
