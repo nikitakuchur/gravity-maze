@@ -37,7 +37,7 @@ public class Spike extends GameObject {
             if (getX() == ball.getX() && getY() == ball.getY()) {
                 manager.remove(ball);
                 effect.color(ball.getColor()).start();
-                // TODO: Game over
+                level.endGame();
             }
         });
         effect.update(delta);

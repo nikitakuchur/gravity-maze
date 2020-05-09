@@ -100,6 +100,10 @@ public class Level extends Group implements Entity {
         }
     }
 
+    public void endGame() {
+        clearListeners();
+    }
+
     public GameObjectsManager getGameObjectsManager() {
         return manager;
     }
