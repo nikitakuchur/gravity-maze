@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.github.nikitakuchur.puzzlegame.game.cells.Block;
-import com.github.nikitakuchur.puzzlegame.game.cells.Cell;
+import com.github.nikitakuchur.puzzlegame.game.cells.BlockRenderer;
+import com.github.nikitakuchur.puzzlegame.game.cells.CellRenderer;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
-import com.github.nikitakuchur.puzzlegame.game.cells.EmptyCell;
+import com.github.nikitakuchur.puzzlegame.game.cells.EmptyCellRenderer;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
 import java.util.Arrays;
@@ -21,8 +21,8 @@ public class GameMap extends Actor implements Entity {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private Cell block = new Block(shapeRenderer, this);
-    private Cell emptyCell = new EmptyCell(shapeRenderer, this);
+    private final CellRenderer block = new BlockRenderer(shapeRenderer, this);
+    private final CellRenderer emptyCellRenderer = new EmptyCellRenderer(shapeRenderer, this);
 
     public GameMap() {
         this(8, 8);
@@ -45,9 +45,6 @@ public class GameMap extends Actor implements Entity {
             Arrays.fill(row, CellType.EMPTY);
         }
         setColor(CELLS_COLOR);
-
-        block = new Block(shapeRenderer, this);
-        emptyCell = new EmptyCell(shapeRenderer, this);
     }
 
     @Override
@@ -84,9 +81,9 @@ public class GameMap extends Actor implements Entity {
                     block.setY(j);
                     block.draw();
                 } else {
-                    emptyCell.setX(i);
-                    emptyCell.setY(j);
-                    emptyCell.draw();
+                    emptyCellRenderer.setX(i);
+                    emptyCellRenderer.setY(j);
+                    emptyCellRenderer.draw();
                 }
             }
         }

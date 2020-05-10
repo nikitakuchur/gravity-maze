@@ -3,7 +3,7 @@ package com.github.nikitakuchur.puzzlegame.game.cells;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 
-public abstract class Cell {
+public abstract class CellRenderer {
 
     protected enum Corner {
         BOTTOM_LEFT, BOTTOM_RIGHT, TOP_RIGHT, TOP_LEFT
@@ -18,7 +18,7 @@ public abstract class Cell {
     private int x;
     private int y;
 
-    public Cell(ShapeRenderer shapeRenderer, GameMap map) {
+    public CellRenderer(ShapeRenderer shapeRenderer, GameMap map) {
         this.shapeRenderer = shapeRenderer;
         this.map = map;
     }
