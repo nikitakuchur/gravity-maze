@@ -21,7 +21,6 @@ import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsM
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Consumer;
 
 public class LevelEditor extends Group implements Disposable {
@@ -38,8 +37,6 @@ public class LevelEditor extends Group implements Disposable {
     private GameObject selectedGameObject;
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
-
-    private final Random rand = new Random();
 
     public LevelEditor() {
         super();
@@ -228,7 +225,6 @@ public class LevelEditor extends Group implements Disposable {
             if (gameObject == null) return true;
             gameObject.setX((int) position.x);
             gameObject.setY((int) position.y);
-            gameObject.setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1));
             gameObject.initialize(level);
             gameObject.act(0);
             manager.add(gameObject);

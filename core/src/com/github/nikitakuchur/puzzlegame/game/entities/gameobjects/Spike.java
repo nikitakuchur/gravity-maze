@@ -1,6 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,13 +11,18 @@ import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 
 public class Spike extends GameObject {
 
-    private final Texture texture = new Texture(Gdx.files.internal("game/spike.png"), true);
-    private final TextureRegion textureRegion = new TextureRegion(texture);
+    private final Texture spikeTexture = new Texture(Gdx.files.internal("game/spike/spike.png"), true);
+    private final Texture centerTexture = new Texture(Gdx.files.internal("game/spike/center.png"), true);
+
+    private final TextureRegion spikeTextureRegion = new TextureRegion(spikeTexture);
+    private final TextureRegion centerTextureRegion = new TextureRegion(centerTexture);
 
     private Effect effect;
 
     public Spike() {
-        texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+        spikeTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+        centerTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+        setColor(Color.RED.cpy());
     }
 
     @Override
@@ -47,14 +53,18 @@ public class Spike extends GameObject {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         Vector2 position = getActualPosition();
-        batch.setColor(getColor()); // TODO: Fix color
-        batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
+        batch.setColor(Color.WHITE);
+        batch.draw(spikeTextureRegion, position.x, position.y, getOriginX(), getOriginY(),
+                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+        batch.setColor(getColor());
+        batch.draw(centerTextureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         effect.draw(batch);
     }
 
     @Override
     public void dispose() {
-        texture.dispose();
+        spikeTexture.dispose();
+        centerTexture.dispose();
     }
 }

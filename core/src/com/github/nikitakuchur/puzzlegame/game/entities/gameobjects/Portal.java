@@ -17,7 +17,7 @@ public class Portal extends GameObject {
 
     private boolean isLock;
 
-    private final Texture texture = new Texture(Gdx.files.internal("game/portal.png"), true);
+    private final Texture texture = new Texture(Gdx.files.internal("game/portal/portal.png"), true);
     private final TextureRegion textureRegion = new TextureRegion(texture);
 
     private Effect effect;

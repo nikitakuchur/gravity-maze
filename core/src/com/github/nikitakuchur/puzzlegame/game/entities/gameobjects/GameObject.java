@@ -1,5 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
 
+import java.util.Random;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -12,6 +14,11 @@ import com.github.nikitakuchur.puzzlegame.utils.Properties;
 public abstract class GameObject extends Actor implements Entity {
 
     protected Level level;
+
+    public GameObject() {
+        Random rand = new Random();
+        setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1));
+    }
 
     public void initialize(Level level) {
         this.level = level;

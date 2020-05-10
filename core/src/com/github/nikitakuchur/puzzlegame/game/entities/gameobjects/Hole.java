@@ -15,7 +15,7 @@ public class Hole extends GameObject {
 
     private String ballName;
 
-    private final Texture texture = new Texture(Gdx.files.internal("game/hole.png"), true);
+    private final Texture texture = new Texture(Gdx.files.internal("game/hole/hole.png"), true);
     private final TextureRegion textureRegion = new TextureRegion(texture);
 
     private Effect effect;
