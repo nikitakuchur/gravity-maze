@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class GameObjectsManager {
 
-    private final HashMap<Class<?>, List<GameObject>> gameObjects = new HashMap<>();
+    private final HashMap<String, List<GameObject>> gameObjects = new HashMap<>();
 
     private final List<Consumer<GameObject>> gameObjectAddListeners = new ArrayList<>();
     private final List<Consumer<GameObject>> gameObjectRemoveListeners = new ArrayList<>();
@@ -19,11 +19,11 @@ public class GameObjectsManager {
     public void add(GameObject gameObject) {
         Set<Class<?>> classes = getAllClasses(gameObject.getClass());
         classes.forEach(clazz -> {
-            List<GameObject> list = gameObjects.get(clazz);
+            List<GameObject> list = gameObjects.get(clazz.getName());
             if (list != null) {
                 list.add(gameObject);
             } else {
-                gameObjects.put(clazz, new ArrayList<>(Collections.singletonList(gameObject)));
+                gameObjects.put(clazz.getName(), new ArrayList<>(Collections.singletonList(gameObject)));
             }
         });
         gameObjectAddListeners.forEach(listener -> listener.accept(gameObject));
@@ -32,11 +32,11 @@ public class GameObjectsManager {
     public void remove(GameObject gameObject) {
         Set<Class<?>> classes = getAllClasses(gameObject.getClass());
         classes.forEach(clazz -> {
-            List<GameObject> list = gameObjects.get(clazz);
+            List<GameObject> list = gameObjects.get(clazz.getName());
             if (list != null) {
                 list.remove(gameObject);
                 if (list.isEmpty()) {
-                    gameObjects.remove(clazz);
+                    gameObjects.remove(clazz.getName());
                 }
             }
         });
@@ -60,7 +60,7 @@ public class GameObjectsManager {
     }
 
     public <T> List<T> getGameObjects(Class<T> clazz) {
-        List<GameObject> list = gameObjects.get(clazz);
+        List<GameObject> list = gameObjects.get(clazz.getName());
         if (list == null) return new ArrayList<>();
         return list.stream()
                 .map(clazz::cast)
