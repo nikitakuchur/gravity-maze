@@ -97,8 +97,8 @@ public class Background extends Actor implements Entity {
 
     @Override
     public void setProperties(Properties properties) {
-        startColor = (Color) properties.getValue("startColor");
-        stopColor = (Color) properties.getValue("stopColor");
+        startColor = properties.getValue("startColor");
+        stopColor = properties.getValue("stopColor");
         initAnimation();
     }
 

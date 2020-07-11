@@ -59,17 +59,17 @@ public abstract class GameObject extends Actor implements Entity {
     public Properties getProperties() {
         Properties properties = new Properties();
         properties.put("name", String.class, getName());
-        properties.put("x", int.class, (int) getX());
-        properties.put("y", int.class, (int) getY());
+        properties.put("x", Integer.class, (int) getX());
+        properties.put("y", Integer.class, (int) getY());
         properties.put("color", Color.class, getColor());
         return properties;
     }
 
     @Override
     public void setProperties(Properties properties) {
-        setName((String) properties.getValue("name"));
-        setX((int) properties.getValue("x"));
-        setY((int) properties.getValue("y"));
-        setColor((Color) properties.getValue("color"));
+        setName(properties.getValue("name"));
+        setX(properties.<Integer>getValue("x"));
+        setY(properties.<Integer>getValue("y"));
+        setColor(properties.getValue("color"));
     }
 }

@@ -147,8 +147,8 @@ public class GameMap extends Actor implements Entity {
 
     @Override
     public void setProperties(Properties properties) {
-        setColor((Color) properties.getValue("color"));
-        cells = (CellType[][]) properties.getValue("cells");
+        setColor(properties.getValue("color"));
+        cells = properties.getValue("cells");
     }
 
     @Override

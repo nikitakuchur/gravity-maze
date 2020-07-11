@@ -14,7 +14,7 @@ public interface Entity extends Json.Serializable, Disposable {
     @Override
     default void write(Json json) {
         Properties properties = getProperties();
-        properties.nameSet().forEach(name -> json.writeValue(name, properties.getValue(name)));
+        properties.nameSet().forEach(name -> json.writeValue(name, properties.<Object>getValue(name)));
     }
 
     @Override

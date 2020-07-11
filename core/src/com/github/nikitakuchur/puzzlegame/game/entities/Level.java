@@ -145,9 +145,9 @@ public class Level extends Group implements Entity {
 
     @Override
     public void setProperties(Properties properties) {
-        background = (Background) properties.getValue("background");
-        map = (GameMap) properties.getValue("map");
-        List<?> gameObjects = (List<?>) properties.getValue("gameObjects");
+        background = properties.getValue("background");
+        map = properties.getValue("map");
+        List<GameObject> gameObjects = properties.getValue("gameObjects");
 
         clearChildren();
         addActor(background);
@@ -155,7 +155,7 @@ public class Level extends Group implements Entity {
             addActor(group);
         }
         addActor(map);
-        gameObjects.forEach(gameObject -> manager.add((GameObject) gameObject));
+        gameObjects.forEach(manager::add);
     }
 
     @Override

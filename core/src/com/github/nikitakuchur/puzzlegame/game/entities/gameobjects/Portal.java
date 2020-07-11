@@ -127,7 +127,7 @@ public class Portal extends GameObject {
     @Override
     public void setProperties(Properties properties) {
         super.setProperties(properties);
-        secondPortalName = (String) properties.getValue("to");
+        secondPortalName = properties.getValue("to");
     }
 
     @Override
