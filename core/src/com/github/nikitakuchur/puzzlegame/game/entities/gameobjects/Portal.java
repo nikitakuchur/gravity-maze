@@ -15,12 +15,14 @@ public class Portal extends GameObject {
 
     private String secondPortalName;
 
-    private boolean isLock;
+    private boolean isLocked;
 
     private final Texture texture = new Texture(Gdx.files.internal("game/portal/portal.png"), true);
     private final TextureRegion textureRegion = new TextureRegion(texture);
 
     private Effect effect;
+
+    private GameObjectsManager manager;
 
     /**
      * Creates a new portal
@@ -33,6 +35,7 @@ public class Portal extends GameObject {
     @Override
     public void initialize(Level level) {
         super.initialize(level);
+        manager = level.getGameObjectsManager();
         effect = new Effect(level)
                 .color(getColor())
                 .size(5)
@@ -44,36 +47,51 @@ public class Portal extends GameObject {
     @Override
     public void act(float delta) {
         super.act(delta);
-        GameObjectsManager manager = level.getGameObjectsManager();
         Portal secondPortal = manager.find(Portal.class, secondPortalName);
-        Vector2 position = new Vector2(getX(), getY());
+        Vector2 position = getPosition();
 
-        if (secondPortal != null && !isLock && !secondPortal.isLock) {
-            for (Ball ball : manager.getGameObjects(Ball.class)) {
-                if (position.x == ball.getX() && position.y == ball.getY()) {
-                    ball.setPosition(secondPortal.getX(), secondPortal.getY());
-                    effect.position(new Vector2(position.x, position.y))
-                            .direction(ball.getPhysicalController().getVelocity().rotate(180))
-                            .start();
-                    secondPortal.effect.position(new Vector2(secondPortal.getX(), secondPortal.getY()))
-                            .direction(ball.getPhysicalController().getVelocity())
-                            .start();
-                    secondPortal.isLock = true;
-                    break;
-                }
-            }
+        if (secondPortal == null || detectCollision()) return;
+
+        Ball ball = manager.getGameObjects(Ball.class).stream()
+                .filter(b -> position.equals(b.getPosition()))
+                .findAny()
+                .orElse(null);
+
+        if (ball != null && !isLocked && !secondPortal.isLocked) {
+            ball.setPosition(secondPortal.getPosition());
+            isLocked = true;
+            secondPortal.isLocked = true;
+
+            effect.position(position)
+                    .direction(ball.getPhysicalController().getVelocity().rotate(180))
+                    .start();
+            secondPortal.effect.position(secondPortal.getPosition())
+                    .direction(ball.getPhysicalController().getVelocity())
+                    .start();
         }
 
-        if (isFree(manager)) {
-            isLock = false;
+        if(ball == null && secondPortal.isFree()) {
+            isLocked = false;
+            secondPortal.isLocked = false;
         }
+
         effect.update(delta);
     }
 
-    private boolean isFree(GameObjectsManager manager) {
-        Vector2 position = new Vector2(getX(), getY());
+    private boolean detectCollision() {
+        Portal secondPortal = manager.find(Portal.class, secondPortalName);
+
+        boolean isFirstBallDetected = manager.getGameObjects(Ball.class).stream()
+                .anyMatch(b -> getPosition().equals(b.getPosition()));
+        boolean isSecondBallDetected = manager.getGameObjects(Ball.class).stream()
+                .anyMatch(b -> secondPortal.getPosition().equals(b.getPosition()));
+
+        return isFirstBallDetected && isSecondBallDetected;
+    }
+
+    private boolean isFree() {
         for (Ball ball : manager.getGameObjects(Ball.class)) {
-            if (position.x == ball.getX() && position.y == ball.getY()) {
+            if (getPosition().equals(ball.getPosition())) {
                 return false;
             }
         }
