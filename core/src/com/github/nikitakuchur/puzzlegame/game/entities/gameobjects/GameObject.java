@@ -39,6 +39,14 @@ public abstract class GameObject extends Actor implements Entity {
         return Layer.MIDDLE;
     }
 
+    public Vector2 getPosition() {
+        return new Vector2(getX(), getY());
+    }
+
+    public void setPosition(Vector2 position){
+        setPosition(position.x, position.y);
+    }
+
     /**
      * @return the actual position of the gameObject
      */
