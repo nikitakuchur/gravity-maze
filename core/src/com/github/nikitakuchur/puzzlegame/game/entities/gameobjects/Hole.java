@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.game.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
-import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 public class Hole extends GameObject {
 
@@ -68,16 +68,16 @@ public class Hole extends GameObject {
     }
 
     @Override
-    public Properties getProperties() {
-        Properties properties = super.getProperties();
-        properties.put("ball", String.class, ballName);
-        return properties;
+    public Parameters getParameters() {
+        Parameters parameters = super.getParameters();
+        parameters.put("ball", String.class, ballName);
+        return parameters;
     }
 
     @Override
-    public void setProperties(Properties properties) {
-        super.setProperties(properties);
-        ballName = properties.getValue("ball");
+    public void setParameters(Parameters parameters) {
+        super.setParameters(parameters);
+        ballName = parameters.getValue("ball");
     }
 
     @Override

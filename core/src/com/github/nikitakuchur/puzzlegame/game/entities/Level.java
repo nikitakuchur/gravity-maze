@@ -8,13 +8,13 @@ import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
 import com.github.nikitakuchur.puzzlegame.physics.Physics;
 import com.github.nikitakuchur.puzzlegame.utils.Layer;
-import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Level extends Group implements Entity {
+public class Level extends Group implements Parameterizable, Disposable {
 
     private final LevelInputHandler inputController = new LevelInputHandler(this);
 
@@ -143,20 +143,20 @@ public class Level extends Group implements Entity {
     }
 
     @Override
-    public Properties getProperties() {
-        Properties properties = new Properties();
-        properties.put("background", Background.class, background);
-        properties.put("map", GameMap.class, map);
+    public Parameters getParameters() {
+        Parameters parameters = new Parameters();
+        parameters.put("background", Background.class, background);
+        parameters.put("map", GameMap.class, map);
         List<GameObject> gameObjects = manager.getGameObjects();
-        properties.put("gameObjects", gameObjects.getClass(), gameObjects);
-        return properties;
+        parameters.put("gameObjects", gameObjects.getClass(), gameObjects);
+        return parameters;
     }
 
     @Override
-    public void setProperties(Properties properties) {
-        background = properties.getValue("background");
-        map = properties.getValue("map");
-        List<GameObject> gameObjects = properties.getValue("gameObjects");
+    public void setParameters(Parameters parameters) {
+        background = parameters.getValue("background");
+        map = parameters.getValue("map");
+        List<GameObject> gameObjects = parameters.getValue("gameObjects");
 
         clearChildren();
         addActor(background);

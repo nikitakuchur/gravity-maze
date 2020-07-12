@@ -2,7 +2,7 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.badlogic.gdx.graphics.Color;
 import com.github.nikitakuchur.puzzlegame.editor.utils.PropertiesUtils;
-import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,70 +10,70 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class PropertiesPanel extends JPanel {
+public class ParametersPanel extends JPanel {
 
     private final DefaultTableModel tableModel = new PropertiesTableModel();
     private final JTable table = new PropertiesTable(tableModel);
-    private transient Properties properties = new Properties();
+    private transient Parameters parameters = new Parameters();
 
-    private final transient List<Consumer<Properties>> propertiesChangeListeners = new ArrayList<>();
+    private final transient List<Consumer<Parameters>> propertiesChangeListeners = new ArrayList<>();
 
-    public PropertiesPanel() {
+    public ParametersPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         table.setDefaultEditor(Color.class, new ColorCell());
 
-        add(new JLabel("Properties:"));
+        add(new JLabel("Parameters:"));
         add(new JScrollPane(table));
 
         tableModel.addTableModelListener(tableModelEvent -> {
             if (tableModel.getRowCount() > 0) {
-                propertiesChangeListeners.forEach(listener -> listener.accept(getProperties()));
+                propertiesChangeListeners.forEach(listener -> listener.accept(getParameters()));
             }
         });
     }
 
-    public Properties getProperties() {
+    public Parameters getParameters() {
         for (int i = 0; i < tableModel.getRowCount(); i++) {
             String name = tableModel.getValueAt(i, 0).toString();
             String value = tableModel.getValueAt(i, 1).toString();
-            if (properties.getType(name) == String.class) {
-                properties.put(name, String.class, "".equals(value) ? null : value);
+            if (parameters.getType(name) == String.class) {
+                parameters.put(name, String.class, "".equals(value) ? null : value);
             }
-            if (properties.getType(name) == Color.class) {
-                properties.put(name, Color.class, PropertiesUtils.parseColorOrDefault(value, Color.WHITE));
+            if (parameters.getType(name) == Color.class) {
+                parameters.put(name, Color.class, PropertiesUtils.parseColorOrDefault(value, Color.WHITE));
             }
-            if (properties.getType(name) == int.class) {
-                properties.put(name, int.class, PropertiesUtils.parseIntOrDefault(value, 0));
+            if (parameters.getType(name) == int.class) {
+                parameters.put(name, int.class, PropertiesUtils.parseIntOrDefault(value, 0));
             }
         }
-        return properties;
+        return parameters;
     }
 
-    public void setProperties(Properties properties) {
+    public void setParameters(Parameters parameters) {
         if (table.isEditing()) {
             table.getCellEditor().cancelCellEditing();
         }
-        this.properties = properties;
+        this.parameters = parameters;
         tableModel.setRowCount(0);
-        properties.nameSet().forEach(name -> {
-            if (properties.getType(name) == String.class) {
-                String value = (String) properties.getValue(name);
+        parameters.nameSet().forEach(name -> {
+            if (parameters.getType(name) == String.class) {
+                String value = parameters.getValue(name);
                 value = value == null ? "" : value;
                 tableModel.addRow(new Object[]{name, value});
             }
-            if (properties.getType(name) == Color.class) {
-                Color value = (Color) properties.getValue(name);
+            if (parameters.getType(name) == Color.class) {
+                Color value = parameters.getValue(name);
                 tableModel.addRow(new Object[]{name, value});
             }
-            if (properties.getType(name) == int.class) {
-                String value = properties.getValue(name).toString();
+            if (parameters.getType(name) == int.class) {
+                String value = parameters.getValue(name).toString();
                 tableModel.addRow(new Object[]{name, value});
             }
         });
     }
 
-    public void addPropertiesChangeListener(Consumer<Properties> consumer) {
+    public void addPropertiesChangeListener(Consumer<Parameters> consumer) {
         propertiesChangeListeners.add(consumer);
     }
 

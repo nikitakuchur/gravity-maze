@@ -5,15 +5,16 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.game.cells.BlockRenderer;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellRenderer;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.cells.EmptyCellRenderer;
-import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 import java.util.Arrays;
 
-public class GameMap extends Actor implements Entity {
+public class GameMap extends Actor implements Parameterizable, Disposable {
 
     private CellType[][] cells;
 
@@ -138,17 +139,17 @@ public class GameMap extends Actor implements Entity {
     }
 
     @Override
-    public Properties getProperties() {
-        Properties properties = new Properties();
-        properties.put("color", Color.class, getColor());
-        properties.put("cells", CellType[][].class, cells);
-        return properties;
+    public Parameters getParameters() {
+        Parameters parameters = new Parameters();
+        parameters.put("color", Color.class, getColor());
+        parameters.put("cells", CellType[][].class, cells);
+        return parameters;
     }
 
     @Override
-    public void setProperties(Properties properties) {
-        setColor(properties.getValue("color"));
-        cells = properties.getValue("cells");
+    public void setParameters(Parameters parameters) {
+        setColor(parameters.getValue("color"));
+        cells = parameters.getValue("cells");
     }
 
     @Override

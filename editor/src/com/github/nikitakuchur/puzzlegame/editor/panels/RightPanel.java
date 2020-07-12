@@ -2,9 +2,9 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Option;
-import com.github.nikitakuchur.puzzlegame.game.entities.Entity;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
+import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,15 +16,15 @@ public class RightPanel extends JPanel {
     private final JPanel panel = new JPanel();
     private final JComboBox<Option> comboBox = new JComboBox<>(Option.values());
 
-    private final PropertiesPanel propertiesPanel = new PropertiesPanel();
+    private final ParametersPanel parametersPanel = new ParametersPanel();
     private final GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
 
-    private transient Entity entity;
+    private transient Parameterizable parameterizable;
 
     public RightPanel(LevelEditor levelEditor) {
         this.levelEditor = levelEditor;
         Level level = levelEditor.getLevel();
-        entity = level.getBackground();
+        parameterizable = level.getBackground();
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setVisible(true);
@@ -57,13 +57,13 @@ public class RightPanel extends JPanel {
         initProperties();
         levelEditor.addLevelChangeListener(lev -> initProperties());
         levelEditor.addGameObjectSelectListener(gameObject -> {
-            entity = gameObject;
+            parameterizable = gameObject;
             updateProperties();
         });
 
         panel.add(comboBox);
         panel.add(gameObjectsPanel);
-        panel.add(propertiesPanel);
+        panel.add(parametersPanel);
     }
 
     @Override
@@ -80,13 +80,13 @@ public class RightPanel extends JPanel {
         if (option == null) return;
         switch (option) {
             case BACKGROUND:
-                entity = level.getBackground();
+                parameterizable = level.getBackground();
                 break;
             case MAP:
-                entity = level.getMap();
+                parameterizable = level.getMap();
                 break;
             case GAME_OBJECTS:
-                propertiesPanel.setProperties(new Properties());
+                parametersPanel.setParameters(new Parameters());
                 return;
             default:
                 break;
@@ -95,11 +95,11 @@ public class RightPanel extends JPanel {
     }
 
     private void updateProperties() {
-        if (entity == null) {
-            propertiesPanel.setProperties(new Properties());
+        if (parameterizable == null) {
+            parametersPanel.setParameters(new Parameters());
             return;
         }
-        propertiesPanel.setProperties(entity.getProperties());
-        propertiesPanel.addPropertiesChangeListener(properties -> entity.setProperties(properties));
+        parametersPanel.setParameters(parameterizable.getParameters());
+        parametersPanel.addPropertiesChangeListener(properties -> parameterizable.setParameters(properties));
     }
 }
