@@ -10,7 +10,9 @@ import com.github.nikitakuchur.puzzlegame.physics.Physics;
 import com.github.nikitakuchur.puzzlegame.utils.Layer;
 import com.github.nikitakuchur.puzzlegame.utils.Properties;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Level extends Group implements Entity {
 
@@ -20,7 +22,7 @@ public class Level extends Group implements Entity {
     private GameMap map;
 
     private final GameObjectsManager manager = new GameObjectsManager();
-    private final Group[] groups = new Group[Layer.values().length];
+    private final EnumMap<Layer, Group> groups = new EnumMap<>(Layer.class);
 
     private final Physics physics = new Physics(this);
 
@@ -40,20 +42,27 @@ public class Level extends Group implements Entity {
         map.setWidth(100);
         map.setHeight(map.getCellSize() * map.getCellsHeight());
 
-        for (int i = 0; i < groups.length; i++) {
-            groups[i] = new Group();
-            addActor(groups[i]);
-        }
+        Stream.of(Layer.values()).forEach(layer -> {
+            Group group = new Group();
+            groups.put(layer, group);
+            addActor(group);
+        });
+
         addActor(map);
 
         manager.addGameObjectAddListener(gameObject -> {
-            int index = gameObject.getLayer().ordinal();
-            groups[index].addActor(gameObject);
+            Layer layer = gameObject.getLayer();
+            groups.get(layer).addActor(gameObject);
             gameObject.initialize(this);
         });
+
+        groups.values().forEach(this::addActor);
+
+        addActor(map);
+
         manager.addGameObjectRemoveListener(gameObject -> {
-            int index = gameObject.getLayer().ordinal();
-            groups[index].removeActor(gameObject);
+            Layer layer = gameObject.getLayer();
+            groups.get(layer).removeActor(gameObject);
         });
         addListener(inputController.getInputListener());
     }
@@ -94,10 +103,10 @@ public class Level extends Group implements Entity {
         setHeight(w / (float) map.getCellsWidth() * map.getCellsHeight());
         map.setWidth(getWidth());
         map.setHeight(getHeight());
-        for (Group group : groups) {
+        groups.values().forEach(group -> {
             group.setWidth(getWidth());
             group.setHeight(getHeight());
-        }
+        });
     }
 
     public void endGame() {
@@ -151,9 +160,7 @@ public class Level extends Group implements Entity {
 
         clearChildren();
         addActor(background);
-        for (Group group : groups) {
-            addActor(group);
-        }
+        groups.values().forEach(this::addActor);
         addActor(map);
         gameObjects.forEach(manager::add);
     }
