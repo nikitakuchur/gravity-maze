@@ -1,9 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.editor.utils;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonWriter;
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
@@ -42,13 +39,7 @@ public class FileController {
     }
 
     public void saveAs(String path) {
-        Level level = editor.getLevel();
-
-        Json json = new Json(JsonWriter.OutputType.json);
-        String text = json.prettyPrint(json.toJson(level));
-
-        FileHandle file = Gdx.files.absolute(path);
-        file.writeString(text, false);
+        LevelLoader.save(Gdx.files.absolute(path), editor.getLevel());
         this.path = path;
         pathChangeListeners.forEach(listener -> listener.accept(path));
     }

@@ -6,10 +6,10 @@ import java.util.Set;
 
 public class Parameters {
 
-    private final Map<String, Property<?>> propertyMap = new LinkedHashMap<>();
+    private final Map<String, Parameter<?>> propertyMap = new LinkedHashMap<>();
 
     public <T> void put(String name, Class<? extends T> type, T value) {
-        propertyMap.put(name, new Property<>(type, value));
+        propertyMap.put(name, new Parameter<>(type, value));
     }
 
     @SuppressWarnings("unchecked")
@@ -30,11 +30,11 @@ public class Parameters {
         return propertyMap.keySet();
     }
 
-    private static class Property<T>  {
+    private static class Parameter<T>  {
         private final Class<? extends T> type;
         private final T value;
 
-        public Property(Class<? extends T> type, T value) {
+        public Parameter(Class<? extends T> type, T value) {
             this.type = type;
             this.value = value;
         }

@@ -11,7 +11,6 @@ import com.github.nikitakuchur.puzzlegame.utils.Layer;
 import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 import java.util.EnumMap;
-import java.util.List;
 import java.util.stream.Stream;
 
 public class Level extends Group implements Parameterizable, Disposable {
@@ -147,7 +146,7 @@ public class Level extends Group implements Parameterizable, Disposable {
         Parameters parameters = new Parameters();
         parameters.put("background", Background.class, background);
         parameters.put("map", GameMap.class, map);
-        List<GameObject> gameObjects = manager.getGameObjects();
+        GameObject[] gameObjects = manager.getGameObjects().toArray(new GameObject[0]);
         parameters.put("gameObjects", gameObjects.getClass(), gameObjects);
         return parameters;
     }
@@ -156,13 +155,13 @@ public class Level extends Group implements Parameterizable, Disposable {
     public void setParameters(Parameters parameters) {
         background = parameters.getValue("background");
         map = parameters.getValue("map");
-        List<GameObject> gameObjects = parameters.getValue("gameObjects");
+        GameObject[] gameObjects = parameters.getValue("gameObjects");
 
         clearChildren();
         addActor(background);
         groups.values().forEach(this::addActor);
         addActor(map);
-        gameObjects.forEach(manager::add);
+        Stream.of(gameObjects).forEach(manager::add);
     }
 
     @Override
