@@ -1,11 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -18,14 +13,7 @@ public class GameObjectsManager {
 
     public void add(GameObject gameObject) {
         Set<Class<?>> classes = getAllClasses(gameObject.getClass());
-        classes.forEach(clazz -> {
-            List<GameObject> list = gameObjects.get(clazz.getName());
-            if (list != null) {
-                list.add(gameObject);
-            } else {
-                gameObjects.put(clazz.getName(), new ArrayList<>(Collections.singletonList(gameObject)));
-            }
-        });
+        classes.forEach(clazz -> gameObjects.computeIfAbsent(clazz.getName(), c -> new ArrayList<>()).add(gameObject));
         gameObjectAddListeners.forEach(listener -> listener.accept(gameObject));
     }
 
