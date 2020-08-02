@@ -15,7 +15,7 @@ public class Portal extends GameObject {
 
     private String secondPortalName;
 
-    private boolean isLocked;
+    private boolean locked;
 
     private final Texture texture = new Texture(Gdx.files.internal("game/portal/portal.png"), true);
     private final TextureRegion textureRegion = new TextureRegion(texture);
@@ -57,10 +57,10 @@ public class Portal extends GameObject {
                 .findAny()
                 .orElse(null);
 
-        if (ball != null && !isLocked && !secondPortal.isLocked) {
+        if (ball != null && !locked && !secondPortal.locked) {
             ball.setPosition(secondPortal.getPosition());
-            isLocked = true;
-            secondPortal.isLocked = true;
+            locked = true;
+            secondPortal.locked = true;
 
             effect.position(position)
                     .direction(ball.getPhysicalController().getVelocity().rotate(180))
@@ -71,8 +71,8 @@ public class Portal extends GameObject {
         }
 
         if(ball == null && secondPortal.isFree()) {
-            isLocked = false;
-            secondPortal.isLocked = false;
+            locked = false;
+            secondPortal.locked = false;
         }
 
         effect.update(delta);
@@ -81,12 +81,12 @@ public class Portal extends GameObject {
     private boolean detectCollision() {
         Portal secondPortal = manager.find(Portal.class, secondPortalName);
 
-        boolean isFirstBallDetected = manager.getGameObjects(Ball.class).stream()
+        boolean firstBallDetected = manager.getGameObjects(Ball.class).stream()
                 .anyMatch(b -> getPosition().equals(b.getPosition()));
-        boolean isSecondBallDetected = manager.getGameObjects(Ball.class).stream()
+        boolean secondBallDetected = manager.getGameObjects(Ball.class).stream()
                 .anyMatch(b -> secondPortal.getPosition().equals(b.getPosition()));
 
-        return isFirstBallDetected && isSecondBallDetected;
+        return firstBallDetected && secondBallDetected;
     }
 
     private boolean isFree() {
