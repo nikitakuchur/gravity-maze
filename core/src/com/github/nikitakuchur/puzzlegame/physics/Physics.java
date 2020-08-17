@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.badlogic.gdx.math.Vector2;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectManager;
 
 public class Physics {
 
@@ -17,7 +17,7 @@ public class Physics {
     }
 
     public void update(float delta) {
-        GameObjectsManager manager = level.getGameObjectsManager();
+        GameObjectManager manager = level.getGameObjectManager();
         List<PhysicalController> controllers = manager.getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
                 .collect(Collectors.toList());
@@ -47,7 +47,7 @@ public class Physics {
     }
 
     private static boolean detectPhysicalObject(Level level, int x, int y) {
-        return level.getGameObjectsManager().getGameObjects(PhysicalObject.class).stream()
+        return level.getGameObjectManager().getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
                 .map(PhysicalController::getPrevPosition)
                 .anyMatch(prev -> prev.x == x && prev.y == y);

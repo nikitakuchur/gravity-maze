@@ -20,7 +20,7 @@ import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.function.Consumer;
 public class LevelEditor extends Group implements Disposable {
 
     private Level level;
-    private GameObjectsManager manager;
+    private GameObjectManager manager;
 
     private final List<Consumer<Level>> levelChangeListeners = new ArrayList<>();
     private final List<Consumer<GameObject>> gameObjectSelectListeners = new ArrayList<>();
@@ -72,7 +72,7 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setLevel(Level level) {
         this.level = level;
-        manager = level.getGameObjectsManager();
+        manager = level.getGameObjectManager();
         clearChildren();
         addActor(level);
         level.act(0);

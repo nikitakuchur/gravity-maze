@@ -22,7 +22,7 @@ public class Portal extends GameObject {
 
     private Effect effect;
 
-    private GameObjectsManager manager;
+    private GameObjectManager manager;
 
     /**
      * Creates a new portal
@@ -35,7 +35,7 @@ public class Portal extends GameObject {
     @Override
     public void initialize(Level level) {
         super.initialize(level);
-        manager = level.getGameObjectsManager();
+        manager = level.getGameObjectManager();
         effect = new Effect(level)
                 .color(getColor())
                 .size(5)

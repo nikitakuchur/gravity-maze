@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectManager;
 import com.github.nikitakuchur.puzzlegame.physics.Physics;
 import com.github.nikitakuchur.puzzlegame.utils.Layer;
 import com.github.nikitakuchur.puzzlegame.utils.Parameters;
@@ -20,7 +20,7 @@ public class Level extends Group implements Parameterizable, Disposable {
     private Background background;
     private GameMap map;
 
-    private final GameObjectsManager manager = new GameObjectsManager();
+    private final GameObjectManager manager = new GameObjectManager();
     private final EnumMap<Layer, Group> groups = new EnumMap<>(Layer.class);
 
     private final Physics physics = new Physics(this);
@@ -112,7 +112,7 @@ public class Level extends Group implements Parameterizable, Disposable {
         clearListeners();
     }
 
-    public GameObjectsManager getGameObjectsManager() {
+    public GameObjectManager getGameObjectManager() {
         return manager;
     }
 

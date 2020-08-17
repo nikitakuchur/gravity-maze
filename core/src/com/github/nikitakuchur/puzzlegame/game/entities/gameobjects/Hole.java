@@ -39,7 +39,7 @@ public class Hole extends GameObject {
     public void act(float delta) {
         super.act(delta);
 
-        GameObjectsManager manager = level.getGameObjectsManager();
+        GameObjectManager manager = level.getGameObjectManager();
 
         Ball ball = manager.find(Ball.class, ballName);
         if (ball != null && getPosition().equals(ball.getPosition())) {

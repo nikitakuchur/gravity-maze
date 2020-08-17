@@ -38,7 +38,7 @@ public class Spike extends GameObject {
     @Override
     public void act(float delta) {
         super.act(delta);
-        GameObjectsManager manager = level.getGameObjectsManager();
+        GameObjectManager manager = level.getGameObjectManager();
         manager.getGameObjects(Ball.class).forEach(ball -> {
             if (getPosition().equals(ball.getPosition())) {
                 manager.remove(ball);

@@ -2,18 +2,18 @@ package com.github.nikitakuchur.puzzlegame.editor.commands;
 
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectManager;
 
 public class AddGameObjectCommand implements Command {
 
     private final GameObject gameObject;
     private final LevelEditor editor;
-    private final GameObjectsManager manager;
+    private final GameObjectManager manager;
 
     public AddGameObjectCommand(GameObject gameObject, LevelEditor editor) {
         this.gameObject = gameObject;
         this.editor = editor;
-        this.manager = editor.getLevel().getGameObjectsManager();
+        this.manager = editor.getLevel().getGameObjectManager();
     }
 
     @Override

@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class GameObjectsManager {
+public class GameObjectManager {
 
     private final HashMap<String, List<GameObject>> gameObjects = new HashMap<>();
 
