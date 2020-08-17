@@ -11,6 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.editor.commands.AddGameObjectCommand;
+import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
+import com.github.nikitakuchur.puzzlegame.editor.commands.MoveGameObjectCommand;
 import com.github.nikitakuchur.puzzlegame.editor.utils.GameObjectType;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Option;
 import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
@@ -201,6 +204,10 @@ public class LevelEditor extends Group implements Disposable {
 
     private class GameObjectsEditorInputListener extends InputListener {
 
+        private final CommandHistory commandHistory = CommandHistory.getInstance();
+
+        private MoveGameObjectCommand moveCommand = null;
+
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             Vector2 position = screenToMapCoordinates(x, y);
@@ -222,13 +229,10 @@ public class LevelEditor extends Group implements Disposable {
             }
 
             GameObject gameObject = gameObjectType.getGameObject();
-            if (gameObject == null) return true;
+            if (gameObject == null) throw new IllegalStateException("Can't create this game object.");
             gameObject.setX((int) position.x);
             gameObject.setY((int) position.y);
-            gameObject.initialize(level);
-            gameObject.act(0);
-            manager.add(gameObject);
-            setSelectedGameObject(gameObject);
+            commandHistory.addAndExecute(new AddGameObjectCommand(gameObject, LevelEditor.this));
             return true;
         }
 
@@ -236,15 +240,22 @@ public class LevelEditor extends Group implements Disposable {
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
             Vector2 position = screenToMapCoordinates(x, y);
             if (selectedGameObject != null) {
-                selectedGameObject.setX((int) position.x);
-                selectedGameObject.setY((int) position.y);
+                if (moveCommand == null) {
+                    moveCommand = new MoveGameObjectCommand(selectedGameObject, level);
+                }
+                selectedGameObject.setPosition((int) position.x, (int) position.y);
                 selectedGameObject.initialize(level);
             }
         }
 
         @Override
         public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-            super.touchUp(event, x, y, pointer, button);
+            Vector2 position = screenToMapCoordinates(x, y);
+            if (moveCommand != null) {
+                moveCommand.setTarget((int) position.x, (int) position.y);
+                commandHistory.addAndExecute(moveCommand);
+                moveCommand = null;
+            }
             setSelectedGameObject(selectedGameObject);
         }
 

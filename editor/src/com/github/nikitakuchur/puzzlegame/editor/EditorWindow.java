@@ -2,6 +2,7 @@ package com.github.nikitakuchur.puzzlegame.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
+import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
 import com.github.nikitakuchur.puzzlegame.editor.panels.RightPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
 import com.github.nikitakuchur.puzzlegame.editor.utils.PropertiesUtils;
@@ -120,6 +121,31 @@ public class EditorWindow {
         return fileMenu;
     }
 
+    private Menu createEditMenu() {
+        Menu editMenu = new Menu("Edit");
+
+        CommandHistory commandHistory = CommandHistory.getInstance();
+
+        MenuItem undoItem = new MenuItem("Undo");
+        undoItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
+            if (commandHistory.canUndo()) {
+                commandHistory.undo();
+            }
+        }));
+
+        MenuItem redoItem = new MenuItem("Redo");
+        redoItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
+            if (commandHistory.canRedo()) {
+                commandHistory.redo();
+            }
+        }));
+
+        editMenu.add(undoItem);
+        editMenu.add(redoItem);
+
+        return editMenu;
+    }
+
     private void init() {
         app.getFileController().addPathChangeListener(path -> {
             if (path == null) {
@@ -131,6 +157,7 @@ public class EditorWindow {
         contentPane.add(new TopPanel(app), BorderLayout.NORTH);
         contentPane.add(new RightPanel(app.getLevelEditor()), BorderLayout.EAST);
         menuBar.add(createFileMenu());
+        menuBar.add(createEditMenu());
         window.revalidate();
     }
 }
