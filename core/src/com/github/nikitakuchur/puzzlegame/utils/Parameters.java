@@ -4,16 +4,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class Properties {
+public class Parameters {
 
-    private final Map<String, Property> propertyMap = new LinkedHashMap<>();
+    private final Map<String, Parameter<?>> propertyMap = new LinkedHashMap<>();
 
-    public void put(String name, Class<?> type, Object value) {
-        propertyMap.put(name, new Property(type, value));
+    public <T> void put(String name, Class<? extends T> type, T value) {
+        propertyMap.put(name, new Parameter<>(type, value));
     }
 
-    public Object getValue(String name) {
-        return propertyMap.get(name).value;
+    @SuppressWarnings("unchecked")
+    public <T> T getValue(String name) {
+        return (T) propertyMap.get(name).value;
     }
 
     public Object getValueOrDefault(String name, Object defaultValue) {
@@ -29,11 +30,11 @@ public class Properties {
         return propertyMap.keySet();
     }
 
-    private static class Property {
-        private final Class<?> type;
-        private final Object value;
+    private static class Parameter<T>  {
+        private final Class<? extends T> type;
+        private final T value;
 
-        public Property(Class<?> type, Object value) {
+        public Parameter(Class<? extends T> type, T value) {
             this.type = type;
             this.value = value;
         }

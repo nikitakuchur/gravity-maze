@@ -5,9 +5,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
-public class Background extends Actor implements Entity {
+public class Background extends Actor implements Parameterizable, Disposable {
 
     private Color startColor;
     private Color stopColor;
@@ -88,17 +89,17 @@ public class Background extends Actor implements Entity {
     }
 
     @Override
-    public Properties getProperties() {
-        Properties properties = new Properties();
-        properties.put("startColor", Color.class, startColor);
-        properties.put("stopColor", Color.class, stopColor);
-        return properties;
+    public Parameters getParameters() {
+        Parameters parameters = new Parameters();
+        parameters.put("startColor", Color.class, startColor);
+        parameters.put("stopColor", Color.class, stopColor);
+        return parameters;
     }
 
     @Override
-    public void setProperties(Properties properties) {
-        startColor = (Color) properties.getValue("startColor");
-        stopColor = (Color) properties.getValue("stopColor");
+    public void setParameters(Parameters parameters) {
+        startColor = parameters.getValue("startColor");
+        stopColor = parameters.getValue("stopColor");
         initAnimation();
     }
 

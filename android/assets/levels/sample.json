@@ -1,207 +1,336 @@
 {
-"background": {
-	"startColor": {
-		"r": 0.5764706,
-		"g": 1,
-		"b": 0.75686276,
-		"a": 1
-	},
-	"stopColor": {
-		"r": 0.02745098,
-		"g": 0.65882355,
-		"b": 0.7294118,
-		"a": 1
-	}
-},
-"map": {
-	"color": {
-		"g": 0.30980393,
-		"b": 0.3764706,
-		"a": 1
-	},
-	"cells": [
-		[
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY"
-		],
-		[
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"BLOCK"
-		],
-		[
-			"EMPTY",
-			"EMPTY",
-			"BLOCK",
-			"EMPTY",
-			"EMPTY",
-			"EMPTY",
-			"BLOCK",
-			"BLOCK"
-		]
-	]
-},
-"gameObjects": [
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal",
-		"name": "portal2",
-		"x": 6,
-		"y": 2,
-		"color": {
-			"r": 1,
-			"g": 1,
-			"b": 1,
-			"a": 1
-		},
-		"to": "portal1"
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal",
-		"name": "portal1",
-		"x": 3,
-		"y": 6,
-		"color": {
-			"r": 1,
-			"g": 1,
-			"b": 1,
-			"a": 1
-		},
-		"to": "portal2"
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Hole",
-		"name": null,
-		"x": 6,
-		"y": 6,
-		"color": {
-			"r": 0.35686275,
-			"g": 0.40392157,
-			"b": 0.8,
-			"a": 1
-		},
-		"ball": "blueBall"
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Hole",
-		"name": null,
-		"x": 0,
-		"y": 5,
-		"color": {
-			"r": 0.75686276,
-			"g": 0.3019608,
-			"b": 0.29411766,
-			"a": 1
-		},
-		"ball": "redBall"
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball",
-		"name": "redBall",
-		"x": 7,
-		"y": 3,
-		"color": {
-			"r": 0.75686276,
-			"g": 0.3019608,
-			"b": 0.29411766,
-			"a": 1
-		}
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball",
-		"name": "blueBall",
-		"x": 2,
-		"y": 0,
-		"color": {
-			"r": 0.35686275,
-			"g": 0.40392157,
-			"b": 0.8,
-			"a": 1
-		}
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Spike",
-		"name": null,
-		"x": 7,
-		"y": 0,
-		"color": {
-			"r": 0.75686276,
-			"g": 0.3019608,
-			"b": 0.29411766,
-			"a": 1
-		}
-	},
-	{
-		"class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Spike",
-		"name": null,
-		"x": 0,
-		"y": 7,
-		"color": {
-			"r": 0.75686276,
-			"g": 0.3019608,
-			"b": 0.29411766,
-			"a": 1
-		}
-	}
-]
+  "class": "com.github.nikitakuchur.puzzlegame.game.entities.Level",
+  "background": {
+    "type": "com.github.nikitakuchur.puzzlegame.game.entities.Background",
+    "value": {
+      "class": "com.github.nikitakuchur.puzzlegame.game.entities.Background",
+      "startColor": {
+        "type": "com.badlogic.gdx.graphics.Color",
+        "value": {
+          "r": 0.5764706,
+          "g": 1.0,
+          "b": 0.75686276,
+          "a": 1.0
+        }
+      },
+      "stopColor": {
+        "type": "com.badlogic.gdx.graphics.Color",
+        "value": {
+          "r": 0.02745098,
+          "g": 0.65882355,
+          "b": 0.7294118,
+          "a": 1.0
+        }
+      }
+    }
+  },
+  "map": {
+    "type": "com.github.nikitakuchur.puzzlegame.game.entities.GameMap",
+    "value": {
+      "class": "com.github.nikitakuchur.puzzlegame.game.entities.GameMap",
+      "color": {
+        "type": "com.badlogic.gdx.graphics.Color",
+        "value": {
+          "r": 0.0,
+          "g": 0.30980393,
+          "b": 0.3764706,
+          "a": 1.0
+        }
+      },
+      "cells": {
+        "type": "[[Lcom.github.nikitakuchur.puzzlegame.game.cells.CellType;",
+        "value": [
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "BLOCK",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "BLOCK",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "BLOCK",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "BLOCK",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "BLOCK",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "BLOCK"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "BLOCK",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "BLOCK",
+            "BLOCK"
+          ]
+        ]
+      }
+    }
+  },
+  "gameObjects": {
+    "type": "[Lcom.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;",
+    "value": [
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal",
+        "name": {
+          "type": "java.lang.String",
+          "value": "portal2"
+        },
+        "x": {
+          "type": "java.lang.Integer",
+          "value": 6
+        },
+        "y": {
+          "type": "java.lang.Integer",
+          "value": 2
+        },
+        "color": {
+          "type": "com.badlogic.gdx.graphics.Color",
+          "value": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          }
+        },
+        "to": {
+          "type": "java.lang.String",
+          "value": "portal1"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal",
+        "name": {
+          "type": "java.lang.String",
+          "value": "portal1"
+        },
+        "x": {
+          "type": "java.lang.Integer",
+          "value": 3
+        },
+        "y": {
+          "type": "java.lang.Integer",
+          "value": 6
+        },
+        "color": {
+          "type": "com.badlogic.gdx.graphics.Color",
+          "value": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          }
+        },
+        "to": {
+          "type": "java.lang.String",
+          "value": "portal2"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Hole",
+        "name": {
+          "type": "java.lang.String"
+        },
+        "x": {
+          "type": "java.lang.Integer",
+          "value": 6
+        },
+        "y": {
+          "type": "java.lang.Integer",
+          "value": 6
+        },
+        "color": {
+          "type": "com.badlogic.gdx.graphics.Color",
+          "value": {
+            "r": 0.35686275,
+            "g": 0.40392157,
+            "b": 0.8,
+            "a": 1.0
+          }
+        },
+        "ball": {
+          "type": "java.lang.String",
+          "value": "blueBall"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Hole",
+        "name": {
+          "type": "java.lang.String"
+        },
+        "x": {
+          "type": "java.lang.Integer",
+          "value": 0
+        },
+        "y": {
+          "type": "java.lang.Integer",
+          "value": 5
+        },
+        "color": {
+          "type": "com.badlogic.gdx.graphics.Color",
+          "value": {
+            "r": 0.75686276,
+            "g": 0.3019608,
+            "b": 0.29411766,
+            "a": 1.0
+          }
+        },
+        "ball": {
+          "type": "java.lang.String",
+          "value": "redBall"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball",
+        "name": {
+          "type": "java.lang.String",
+          "value": "redBall"
+        },
+        "x": {
+          "type": "java.lang.Integer",
+          "value": 7
+        },
+        "y": {
+          "type": "java.lang.Integer",
+          "value": 3
+        },
+        "color": {
+          "type": "com.badlogic.gdx.graphics.Color",
+          "value": {
+            "r": 0.75686276,
+            "g": 0.3019608,
+            "b": 0.29411766,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball",
+        "name": {
+          "type": "java.lang.String",
+          "value": "blueBall"
+        },
+        "x": {
+          "type": "java.lang.Integer",
+          "value": 2
+        },
+        "y": {
+          "type": "java.lang.Integer",
+          "value": 0
+        },
+        "color": {
+          "type": "com.badlogic.gdx.graphics.Color",
+          "value": {
+            "r": 0.35686275,
+            "g": 0.40392157,
+            "b": 0.8,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Spike",
+        "name": {
+          "type": "java.lang.String"
+        },
+        "x": {
+          "type": "java.lang.Integer",
+          "value": 7
+        },
+        "y": {
+          "type": "java.lang.Integer",
+          "value": 0
+        },
+        "color": {
+          "type": "com.badlogic.gdx.graphics.Color",
+          "value": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Spike",
+        "name": {
+          "type": "java.lang.String"
+        },
+        "x": {
+          "type": "java.lang.Integer",
+          "value": 0
+        },
+        "y": {
+          "type": "java.lang.Integer",
+          "value": 7
+        },
+        "color": {
+          "type": "com.badlogic.gdx.graphics.Color",
+          "value": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      }
+    ]
+  }
 }

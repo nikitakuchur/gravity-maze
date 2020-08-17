@@ -1,12 +1,9 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter;
 import com.github.nikitakuchur.puzzlegame.editor.EditorApplication;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
 
 import javax.swing.*;
 
@@ -43,13 +40,11 @@ public class TopPanel extends JPanel {
 
     private void save() {
         Level level = app.getLevelEditor().getLevel();
-        levelSave = new Json(JsonWriter.OutputType.json).toJson(level);
+        levelSave = LevelLoader.toJson(level);
     }
 
     private void restore() {
-        JsonReader jsonReader = new JsonReader();
-        JsonValue jsonValue = jsonReader.parse(levelSave);
-        Level level =  new Json().readValue(Level.class, jsonValue);
+        Level level =  LevelLoader.fromJson(levelSave);
         app.getLevelEditor().setLevel(level);
         levelSave = null;
     }

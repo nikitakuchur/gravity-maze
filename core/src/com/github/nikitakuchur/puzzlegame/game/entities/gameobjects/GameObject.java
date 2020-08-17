@@ -5,13 +5,14 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.game.entities.Entity;
 import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
+import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
 import com.github.nikitakuchur.puzzlegame.utils.Layer;
-import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
-public abstract class GameObject extends Actor implements Entity {
+public abstract class GameObject extends Actor implements Parameterizable, Disposable {
 
     protected Level level;
 
@@ -39,6 +40,14 @@ public abstract class GameObject extends Actor implements Entity {
         return Layer.MIDDLE;
     }
 
+    public Vector2 getPosition() {
+        return new Vector2(getX(), getY());
+    }
+
+    public void setPosition(Vector2 position){
+        setPosition(position.x, position.y);
+    }
+
     /**
      * @return the actual position of the gameObject
      */
@@ -48,20 +57,20 @@ public abstract class GameObject extends Actor implements Entity {
     }
 
     @Override
-    public Properties getProperties() {
-        Properties properties = new Properties();
-        properties.put("name", String.class, getName());
-        properties.put("x", int.class, (int) getX());
-        properties.put("y", int.class, (int) getY());
-        properties.put("color", Color.class, getColor());
-        return properties;
+    public Parameters getParameters() {
+        Parameters parameters = new Parameters();
+        parameters.put("name", String.class, getName());
+        parameters.put("x", Integer.class, (int) getX());
+        parameters.put("y", Integer.class, (int) getY());
+        parameters.put("color", Color.class, getColor());
+        return parameters;
     }
 
     @Override
-    public void setProperties(Properties properties) {
-        setName((String) properties.getValue("name"));
-        setX((int) properties.getValue("x"));
-        setY((int) properties.getValue("y"));
-        setColor((Color) properties.getValue("color"));
+    public void setParameters(Parameters parameters) {
+        setName(parameters.getValue("name"));
+        setX(parameters.<Integer>getValue("x"));
+        setY(parameters.<Integer>getValue("y"));
+        setColor(parameters.getValue("color"));
     }
 }

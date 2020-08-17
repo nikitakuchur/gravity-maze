@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.game.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
-import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 public class Hole extends GameObject {
 
@@ -30,7 +30,7 @@ public class Hole extends GameObject {
         super.initialize(level);
         effect = new Effect(level)
                 .color(getColor())
-                .position(new Vector2(getX(), getY()))
+                .position(getPosition())
                 .delay(0.8f)
                 .useGravity();
     }
@@ -42,7 +42,7 @@ public class Hole extends GameObject {
         GameObjectsManager manager = level.getGameObjectsManager();
 
         Ball ball = manager.find(Ball.class, ballName);
-        if (ball != null && getX() == ball.getX() && getY() == ball.getY()) {
+        if (ball != null && getPosition().equals(ball.getPosition())) {
             manager.remove(ball);
             ballName = null;
             effect.start();
@@ -68,16 +68,16 @@ public class Hole extends GameObject {
     }
 
     @Override
-    public Properties getProperties() {
-        Properties properties = super.getProperties();
-        properties.put("ball", String.class, ballName);
-        return properties;
+    public Parameters getParameters() {
+        Parameters parameters = super.getParameters();
+        parameters.put("ball", String.class, ballName);
+        return parameters;
     }
 
     @Override
-    public void setProperties(Properties properties) {
-        super.setProperties(properties);
-        ballName = (String) properties.getValue("ball");
+    public void setParameters(Parameters parameters) {
+        super.setParameters(parameters);
+        ballName = parameters.getValue("ball");
     }
 
     @Override

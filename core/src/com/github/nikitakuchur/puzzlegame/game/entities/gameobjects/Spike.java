@@ -29,7 +29,7 @@ public class Spike extends GameObject {
     public void initialize(Level level) {
         super.initialize(level);
         effect = new Effect(level)
-                .position(new Vector2(getX(), getY()))
+                .position(getPosition())
                 .count(64)
                 .delay(0.8f)
                 .useGravity();
@@ -40,7 +40,7 @@ public class Spike extends GameObject {
         super.act(delta);
         GameObjectsManager manager = level.getGameObjectsManager();
         manager.getGameObjects(Ball.class).forEach(ball -> {
-            if (getX() == ball.getX() && getY() == ball.getY()) {
+            if (getPosition().equals(ball.getPosition())) {
                 manager.remove(ball);
                 effect.color(ball.getColor()).start();
                 level.endGame();

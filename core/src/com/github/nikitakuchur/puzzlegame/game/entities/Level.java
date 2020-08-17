@@ -8,11 +8,12 @@ import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectsManager;
 import com.github.nikitakuchur.puzzlegame.physics.Physics;
 import com.github.nikitakuchur.puzzlegame.utils.Layer;
-import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
-import java.util.List;
+import java.util.EnumMap;
+import java.util.stream.Stream;
 
-public class Level extends Group implements Entity {
+public class Level extends Group implements Parameterizable, Disposable {
 
     private final LevelInputHandler inputController = new LevelInputHandler(this);
 
@@ -20,7 +21,7 @@ public class Level extends Group implements Entity {
     private GameMap map;
 
     private final GameObjectsManager manager = new GameObjectsManager();
-    private final Group[] groups = new Group[Layer.values().length];
+    private final EnumMap<Layer, Group> groups = new EnumMap<>(Layer.class);
 
     private final Physics physics = new Physics(this);
 
@@ -40,20 +41,27 @@ public class Level extends Group implements Entity {
         map.setWidth(100);
         map.setHeight(map.getCellSize() * map.getCellsHeight());
 
-        for (int i = 0; i < groups.length; i++) {
-            groups[i] = new Group();
-            addActor(groups[i]);
-        }
+        Stream.of(Layer.values()).forEach(layer -> {
+            Group group = new Group();
+            groups.put(layer, group);
+            addActor(group);
+        });
+
         addActor(map);
 
         manager.addGameObjectAddListener(gameObject -> {
-            int index = gameObject.getLayer().ordinal();
-            groups[index].addActor(gameObject);
+            Layer layer = gameObject.getLayer();
+            groups.get(layer).addActor(gameObject);
             gameObject.initialize(this);
         });
+
+        groups.values().forEach(this::addActor);
+
+        addActor(map);
+
         manager.addGameObjectRemoveListener(gameObject -> {
-            int index = gameObject.getLayer().ordinal();
-            groups[index].removeActor(gameObject);
+            Layer layer = gameObject.getLayer();
+            groups.get(layer).removeActor(gameObject);
         });
         addListener(inputController.getInputListener());
     }
@@ -94,10 +102,10 @@ public class Level extends Group implements Entity {
         setHeight(w / (float) map.getCellsWidth() * map.getCellsHeight());
         map.setWidth(getWidth());
         map.setHeight(getHeight());
-        for (Group group : groups) {
+        groups.values().forEach(group -> {
             group.setWidth(getWidth());
             group.setHeight(getHeight());
-        }
+        });
     }
 
     public void endGame() {
@@ -134,28 +142,26 @@ public class Level extends Group implements Entity {
     }
 
     @Override
-    public Properties getProperties() {
-        Properties properties = new Properties();
-        properties.put("background", Background.class, background);
-        properties.put("map", GameMap.class, map);
-        List<GameObject> gameObjects = manager.getGameObjects();
-        properties.put("gameObjects", gameObjects.getClass(), gameObjects);
-        return properties;
+    public Parameters getParameters() {
+        Parameters parameters = new Parameters();
+        parameters.put("background", Background.class, background);
+        parameters.put("map", GameMap.class, map);
+        GameObject[] gameObjects = manager.getGameObjects().toArray(new GameObject[0]);
+        parameters.put("gameObjects", gameObjects.getClass(), gameObjects);
+        return parameters;
     }
 
     @Override
-    public void setProperties(Properties properties) {
-        background = (Background) properties.getValue("background");
-        map = (GameMap) properties.getValue("map");
-        List<?> gameObjects = (List<?>) properties.getValue("gameObjects");
+    public void setParameters(Parameters parameters) {
+        background = parameters.getValue("background");
+        map = parameters.getValue("map");
+        GameObject[] gameObjects = parameters.getValue("gameObjects");
 
         clearChildren();
         addActor(background);
-        for (Group group : groups) {
-            addActor(group);
-        }
+        groups.values().forEach(this::addActor);
         addActor(map);
-        gameObjects.forEach(gameObject -> manager.add((GameObject) gameObject));
+        Stream.of(gameObjects).forEach(manager::add);
     }
 
     @Override

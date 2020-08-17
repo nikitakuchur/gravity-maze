@@ -24,7 +24,7 @@ public class Effect {
     private boolean useGravity;
     private Vector2 direction;
 
-    private boolean isPlaying;
+    private boolean playing;
 
     private final Level level;
     private final List<Particle> particles = new ArrayList<>();
@@ -39,7 +39,7 @@ public class Effect {
     }
 
     public void start() {
-        if (isPlaying) return;
+        if (playing) return;
         particles.clear();
         for (int i = 0; i < count; i++) {
             particles.add(new Particle());
@@ -51,21 +51,21 @@ public class Effect {
             if (direction != null) particle.velocity.add(direction);
             particle.size = (1 + random.nextFloat()) * size / 2;
         });
-        isPlaying = true;
+        playing = true;
         currentDelay = delay;
         currentColor = color;
 
         timer.scheduleTask(new Timer.Task() {
             @Override
             public void run() {
-                isPlaying = false;
+                playing = false;
             }
         }, delay);
         timer.start();
     }
 
     public void update(float delta) {
-        if (!isPlaying) return;
+        if (!playing) return;
         particles.forEach(particle -> {
             particle.position.add(particle.velocity.cpy().scl(speed * delta));
             if (useGravity) {
@@ -78,7 +78,7 @@ public class Effect {
     }
 
     public void draw(Batch batch) {
-        if (!isPlaying) return;
+        if (!playing) return;
         batch.end();
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);

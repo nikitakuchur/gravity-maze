@@ -9,18 +9,20 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.game.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
-import com.github.nikitakuchur.puzzlegame.utils.Properties;
+import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 public class Portal extends GameObject {
 
     private String secondPortalName;
 
-    private boolean isLock;
+    private boolean locked;
 
     private final Texture texture = new Texture(Gdx.files.internal("game/portal/portal.png"), true);
     private final TextureRegion textureRegion = new TextureRegion(texture);
 
     private Effect effect;
+
+    private GameObjectsManager manager;
 
     /**
      * Creates a new portal
@@ -33,6 +35,7 @@ public class Portal extends GameObject {
     @Override
     public void initialize(Level level) {
         super.initialize(level);
+        manager = level.getGameObjectsManager();
         effect = new Effect(level)
                 .color(getColor())
                 .size(5)
@@ -44,36 +47,51 @@ public class Portal extends GameObject {
     @Override
     public void act(float delta) {
         super.act(delta);
-        GameObjectsManager manager = level.getGameObjectsManager();
         Portal secondPortal = manager.find(Portal.class, secondPortalName);
-        Vector2 position = new Vector2(getX(), getY());
+        Vector2 position = getPosition();
 
-        if (secondPortal != null && !isLock && !secondPortal.isLock) {
-            for (Ball ball : manager.getGameObjects(Ball.class)) {
-                if (position.x == ball.getX() && position.y == ball.getY()) {
-                    ball.setPosition(secondPortal.getX(), secondPortal.getY());
-                    effect.position(new Vector2(position.x, position.y))
-                            .direction(ball.getPhysicalController().getVelocity().rotate(180))
-                            .start();
-                    secondPortal.effect.position(new Vector2(secondPortal.getX(), secondPortal.getY()))
-                            .direction(ball.getPhysicalController().getVelocity())
-                            .start();
-                    secondPortal.isLock = true;
-                    break;
-                }
-            }
+        if (secondPortal == null || detectCollision()) return;
+
+        Ball ball = manager.getGameObjects(Ball.class).stream()
+                .filter(b -> position.equals(b.getPosition()))
+                .findAny()
+                .orElse(null);
+
+        if (ball != null && !locked && !secondPortal.locked) {
+            ball.setPosition(secondPortal.getPosition());
+            locked = true;
+            secondPortal.locked = true;
+
+            effect.position(position)
+                    .direction(ball.getPhysicalController().getVelocity().rotate(180))
+                    .start();
+            secondPortal.effect.position(secondPortal.getPosition())
+                    .direction(ball.getPhysicalController().getVelocity())
+                    .start();
         }
 
-        if (isFree(manager)) {
-            isLock = false;
+        if(ball == null && secondPortal.isFree()) {
+            locked = false;
+            secondPortal.locked = false;
         }
+
         effect.update(delta);
     }
 
-    private boolean isFree(GameObjectsManager manager) {
-        Vector2 position = new Vector2(getX(), getY());
+    private boolean detectCollision() {
+        Portal secondPortal = manager.find(Portal.class, secondPortalName);
+
+        boolean firstBallDetected = manager.getGameObjects(Ball.class).stream()
+                .anyMatch(b -> getPosition().equals(b.getPosition()));
+        boolean secondBallDetected = manager.getGameObjects(Ball.class).stream()
+                .anyMatch(b -> secondPortal.getPosition().equals(b.getPosition()));
+
+        return firstBallDetected && secondBallDetected;
+    }
+
+    private boolean isFree() {
         for (Ball ball : manager.getGameObjects(Ball.class)) {
-            if (position.x == ball.getX() && position.y == ball.getY()) {
+            if (getPosition().equals(ball.getPosition())) {
                 return false;
             }
         }
@@ -100,16 +118,16 @@ public class Portal extends GameObject {
     }
 
     @Override
-    public Properties getProperties() {
-        Properties properties = super.getProperties();
-        properties.put("to", String.class, secondPortalName);
-        return properties;
+    public Parameters getParameters() {
+        Parameters parameters = super.getParameters();
+        parameters.put("to", String.class, secondPortalName);
+        return parameters;
     }
 
     @Override
-    public void setProperties(Properties properties) {
-        super.setProperties(properties);
-        secondPortalName = (String) properties.getValue("to");
+    public void setParameters(Parameters parameters) {
+        super.setParameters(parameters);
+        secondPortalName = parameters.getValue("to");
     }
 
     @Override
