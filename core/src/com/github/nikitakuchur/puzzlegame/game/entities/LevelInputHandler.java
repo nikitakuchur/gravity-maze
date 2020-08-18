@@ -57,17 +57,17 @@ public class LevelInputHandler {
         if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad))) {
             if (Math.cos(angleRad) < 0) {
                 level.setRotation(angle + (float) Math.sin(angleRad) * speed * delta);
-                level.setGravityDirection(com.github.nikitakuchur.puzzlegame.physics.GravityDirection.TOP);
+                level.setGravityDirection(GravityDirection.TOP);
             } else {
                 level.setRotation(angle - (float) Math.sin(angleRad) * speed * delta);
-                level.setGravityDirection(com.github.nikitakuchur.puzzlegame.physics.GravityDirection.BOTTOM);
+                level.setGravityDirection(GravityDirection.BOTTOM);
             }
         }
 
         if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad))) {
             if (Math.sin(angleRad) > 0) {
                 level.setRotation(angle + (float) Math.cos(angleRad) * speed * delta);
-                level.setGravityDirection(com.github.nikitakuchur.puzzlegame.physics.GravityDirection.LEFT);
+                level.setGravityDirection(GravityDirection.LEFT);
             } else {
                 level.setRotation(angle - (float) Math.cos(angleRad) * speed * delta);
                 level.setGravityDirection(GravityDirection.RIGHT);
