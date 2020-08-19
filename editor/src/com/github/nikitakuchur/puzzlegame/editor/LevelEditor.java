@@ -11,9 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.editor.commands.AddBlocksCommand;
 import com.github.nikitakuchur.puzzlegame.editor.commands.AddGameObjectCommand;
 import com.github.nikitakuchur.puzzlegame.editor.commands.CommandManager;
 import com.github.nikitakuchur.puzzlegame.editor.commands.MoveGameObjectCommand;
+import com.github.nikitakuchur.puzzlegame.editor.commands.RemoveBlocksCommand;
 import com.github.nikitakuchur.puzzlegame.editor.commands.RemoveGameObjectCommand;
 import com.github.nikitakuchur.puzzlegame.editor.utils.GameObjectType;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Option;
@@ -162,17 +164,31 @@ public class LevelEditor extends Group implements Disposable {
 
     private class MapEditorInputListener extends InputListener {
 
+        private final CommandManager commandManager = CommandManager.getInstance();
+        private AddBlocksCommand addCommand;
+        private RemoveBlocksCommand removeCommand;
+
         private boolean emptyCell;
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             GameMap map = level.getMap();
             Vector2 position = screenToMapCoordinates(x, y);
-            if (map.getCellType((int) position.x, (int) position.y) == CellType.EMPTY) {
-                map.setCellType((int) position.x, (int) position.y, CellType.BLOCK);
+            int px = (int) position.x;
+            int py = (int) position.y;
+            if (map.isEmpty(px, py)) {
+                map.setCellType(px, py, CellType.FILLED);
+                if (addCommand == null) {
+                    addCommand = new AddBlocksCommand(map);
+                }
+                addCommand.addBlock(px, py);
                 emptyCell = false;
-            } else {
-                map.setCellType((int) position.x, (int) position.y, CellType.EMPTY);
+            } else if (map.isFilled(px, py)) {
+                map.setCellType(px, py, CellType.EMPTY);
+                if (removeCommand == null) {
+                    removeCommand = new RemoveBlocksCommand(map);
+                }
+                removeCommand.addBlock(px, py);
                 emptyCell = true;
             }
             return true;
@@ -182,27 +198,38 @@ public class LevelEditor extends Group implements Disposable {
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
             GameMap map = level.getMap();
             Vector2 position = screenToMapCoordinates(x, y);
-            if (!emptyCell && map.getCellType((int) position.x, (int) position.y) == CellType.EMPTY) {
-                map.setCellType((int) position.x, (int) position.y, CellType.BLOCK);
-            } else if (emptyCell) {
-                map.setCellType((int) position.x, (int) position.y, CellType.EMPTY);
+            int px = (int) position.x;
+            int py = (int) position.y;
+            if (!emptyCell && map.isEmpty(px, py)) {
+                map.setCellType(px, py, CellType.FILLED);
+                addCommand.addBlock(px, py);
+            } else if (emptyCell && map.isFilled(px, py)) {
+                map.setCellType(px, py, CellType.EMPTY);
+                removeCommand.addBlock(px, py);
             }
+        }
+
+        @Override
+        public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+            commandManager.add(addCommand);
+            commandManager.add(removeCommand);
+            addCommand = null;
+            removeCommand = null;
         }
     }
 
     private class GameObjectsEditorInputListener extends InputListener {
 
         private final CommandManager commandManager = CommandManager.getInstance();
-
-        private MoveGameObjectCommand moveCommand = null;
+        private MoveGameObjectCommand moveCommand;
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             Vector2 position = screenToMapCoordinates(x, y);
 
             GameObject currentGameObject = gameObjectManager.getGameObjects().stream().
-                    filter(object -> (int) object.getX() == (int) position.x &&
-                                     (int) object.getY() == (int) position.y)
+                    filter(object -> (int) object.getX() == (int) position.x
+                            && (int) object.getY() == (int) position.y)
                     .findAny()
                     .orElse(null);
 
@@ -240,7 +267,7 @@ public class LevelEditor extends Group implements Disposable {
             Vector2 position = screenToMapCoordinates(x, y);
             if (moveCommand != null) {
                 moveCommand.setTarget((int) position.x, (int) position.y);
-                commandManager.addAndExecute(moveCommand);
+                commandManager.add(moveCommand);
                 moveCommand = null;
             }
             setSelectedGameObject(selectedGameObject);

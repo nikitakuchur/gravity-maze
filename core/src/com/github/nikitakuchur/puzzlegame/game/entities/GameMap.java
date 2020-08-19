@@ -14,6 +14,10 @@ import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 import java.util.Arrays;
 
+/**
+ * The game map class, that contains a 2d-array of the cells.
+ * The cell can be a filled block or an empty block.
+ */
 public class GameMap extends Actor implements Parameterizable, Disposable {
 
     private CellType[][] cells;
@@ -30,7 +34,7 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
     }
 
     /**
-     * Creates a new map
+     * Creates a new map.
      */
     public GameMap(CellType[][] cells) {
         this.cells = cells;
@@ -38,7 +42,7 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
     }
 
     /**
-     * Creates a new empty map
+     * Creates a new empty map.
      */
     public GameMap(int width, int height) {
         cells = new CellType[width][height];
@@ -72,12 +76,12 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
     }
 
     /**
-     * Draws the cells of the level
+     * Draws the cells of the level.
      */
     private void drawCells() {
         for (int i = 0; i < getCellsWidth() ; i++) {
             for (int j = 0; j < getCellsHeight(); j++) {
-                if (getCellType(i, j) == CellType.BLOCK) {
+                if (getCellType(i, j) == CellType.FILLED) {
                     block.setX(i);
                     block.setY(j);
                     block.draw();
@@ -91,28 +95,28 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
     }
 
     /**
-     * @return the cells width
+     * Returns the cells width.
      */
     public int getCellsWidth() {
         return cells.length;
     }
 
     /**
-     * @return the cells height
+     * Returns the cells height.
      */
     public int getCellsHeight() {
         return cells[0].length;
     }
 
     /**
-     * @return the cell size
+     * Returns the cell size.
      */
     public float getCellSize() {
         return getWidth() / getCellsWidth();
     }
 
     /**
-     * Returns the type of the cell
+     * Returns the type of the cell.
      *
      * @param x the x-component of the cell position
      * @param y the y-component of the cell position
@@ -120,13 +124,13 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
      */
     public CellType getCellType(int x, int y) {
         if (x >= cells.length || x < 0 || y >= cells[0].length || y < 0) {
-            return CellType.BLOCK;
+            return CellType.FILLED;
         }
         return cells[x][y];
     }
 
     /**
-     * Sets the type of the cell
+     * Sets the type of the cell.
      *
      * @param x the x-component of the cell position
      * @param y the y-component of the cell position
@@ -136,6 +140,20 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
         if (x >= 0 && x < cells.length && y >= 0 && y < cells[0].length) {
              cells[x][y] = type;
         }
+    }
+
+    /**
+     * Returns true if the cell is a filled block and false otherwise.
+     */
+    public boolean isFilled(int x, int y) {
+        return getCellType(x, y) == CellType.FILLED;
+    }
+
+    /**
+     * Returns true if the cell is an empty block and false otherwise.
+     */
+    public boolean isEmpty(int x, int y) {
+        return getCellType(x, y) == CellType.EMPTY;
     }
 
     @Override

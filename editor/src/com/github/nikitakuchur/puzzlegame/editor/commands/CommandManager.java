@@ -15,13 +15,19 @@ public class CommandManager {
     }
 
     public void addAndExecute(Command command) {
+        if (command == null) return;
+        add(command);
+        command.execute();
+    }
+
+    public void add(Command command) {
+        if (command == null) return;
         if (history.size() > currentCommand + 1) {
             List<Command> subList = history.subList(currentCommand + 1, history.size());
             subList.forEach(Command::dispose);
             subList.clear();
         }
         history.add(command);
-        command.execute();
         currentCommand++;
     }
 

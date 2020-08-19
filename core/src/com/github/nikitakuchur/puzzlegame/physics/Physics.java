@@ -37,7 +37,7 @@ public class Physics {
 
     public static boolean detectCollision(Level level, int x, int y) {
         Vector2 nextPosition = new Vector2(x, y);
-        while (level.getMap().getCellType((int) nextPosition.x, (int) nextPosition.y) != CellType.BLOCK) {
+        while (level.getMap().getCellType((int) nextPosition.x, (int) nextPosition.y) != CellType.FILLED) {
             if (!detectPhysicalObject(level, (int) nextPosition.x, (int) nextPosition.y)) {
                 return false;
             }
