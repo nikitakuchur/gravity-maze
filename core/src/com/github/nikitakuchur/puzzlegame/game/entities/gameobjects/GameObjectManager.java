@@ -4,16 +4,25 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+
 public class GameObjectManager {
+
+    private final Level level;
 
     private final HashMap<String, List<GameObject>> gameObjects = new HashMap<>();
 
     private final List<Consumer<GameObject>> gameObjectAddListeners = new ArrayList<>();
     private final List<Consumer<GameObject>> gameObjectRemoveListeners = new ArrayList<>();
 
+    public GameObjectManager(Level level) {
+        this.level = level;
+    }
+
     public void add(GameObject gameObject) {
         Set<Class<?>> classes = getAllClasses(gameObject.getClass());
         classes.forEach(clazz -> gameObjects.computeIfAbsent(clazz.getName(), c -> new ArrayList<>()).add(gameObject));
+        gameObject.initialize(level);
         gameObjectAddListeners.forEach(listener -> listener.accept(gameObject));
     }
 
@@ -29,6 +38,14 @@ public class GameObjectManager {
             }
         });
         gameObjectRemoveListeners.forEach(listener -> listener.accept(gameObject));
+    }
+
+    public GameObject find(GameObject gameObject) {
+        if (gameObject == null) return null;
+        return getGameObjects(gameObject.getClass()).stream()
+                .filter(object -> object == gameObject)
+                .findFirst()
+                .orElse(null);
     }
 
     public GameObject find(String name) {
@@ -77,15 +94,7 @@ public class GameObjectManager {
         gameObjectAddListeners.add(consumer);
     }
 
-    public void clearGameObjectAddListeners() {
-        gameObjectAddListeners.clear();
-    }
-
     public void addGameObjectRemoveListener(Consumer<GameObject> consumer) {
         gameObjectRemoveListeners.add(consumer);
-    }
-
-    public void clearGameObjectRemoveListeners() {
-        gameObjectRemoveListeners.clear();
     }
 }

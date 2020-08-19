@@ -3,27 +3,27 @@ package com.github.nikitakuchur.puzzlegame.editor.commands;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectManager;
 
-public class AddGameObjectCommand implements Command {
+public class RemoveGameObjectCommand implements Command {
 
     private final GameObject gameObject;
     private final GameObjectManager gameObjectManager;
-    private boolean removed = true;
+    private boolean removed;
 
-    public AddGameObjectCommand(GameObject gameObject, GameObjectManager gameObjectManager) {
+    public RemoveGameObjectCommand(GameObject gameObject, GameObjectManager gameObjectManager) {
         this.gameObject = gameObject;
         this.gameObjectManager = gameObjectManager;
     }
 
     @Override
     public void execute() {
-        gameObjectManager.add(gameObject);
-        removed = false;
+        gameObjectManager.remove(gameObject);
+        removed = true;
     }
 
     @Override
     public void unexecute() {
-        gameObjectManager.remove(gameObject);
-        removed = true;
+        gameObjectManager.add(gameObject);
+        removed = false;
     }
 
     @Override

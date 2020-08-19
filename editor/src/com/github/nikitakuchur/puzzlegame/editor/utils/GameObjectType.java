@@ -24,7 +24,7 @@ public enum GameObjectType {
         try {
             return clazz.getDeclaredConstructor().newInstance();
         } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
-            return null;
+            throw new IllegalStateException("Can't create a new game object.");
         }
     }
 }

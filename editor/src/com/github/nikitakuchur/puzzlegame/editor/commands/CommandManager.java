@@ -3,20 +3,22 @@ package com.github.nikitakuchur.puzzlegame.editor.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandHistory {
+public class CommandManager {
 
-    private static final CommandHistory INSTANCE = new CommandHistory();
+    private static final CommandManager INSTANCE = new CommandManager();
 
     private final List<Command> history = new ArrayList<>();
 
     private int currentCommand = -1;
 
-    private CommandHistory() {
+    private CommandManager() {
     }
 
     public void addAndExecute(Command command) {
         if (history.size() > currentCommand + 1) {
-            history.subList(currentCommand + 1, history.size()).clear();
+            List<Command> subList = history.subList(currentCommand + 1, history.size());
+            subList.forEach(Command::dispose);
+            subList.clear();
         }
         history.add(command);
         command.execute();
@@ -46,11 +48,12 @@ public class CommandHistory {
     }
 
     public void clear() {
+        history.forEach(Command::dispose);
         history.clear();
         currentCommand = -1;
     }
 
-    public static CommandHistory getInstance() {
+    public static CommandManager getInstance() {
         return INSTANCE;
     }
 }

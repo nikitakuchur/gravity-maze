@@ -12,8 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.editor.commands.AddGameObjectCommand;
-import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
+import com.github.nikitakuchur.puzzlegame.editor.commands.CommandManager;
 import com.github.nikitakuchur.puzzlegame.editor.commands.MoveGameObjectCommand;
+import com.github.nikitakuchur.puzzlegame.editor.commands.RemoveGameObjectCommand;
 import com.github.nikitakuchur.puzzlegame.editor.utils.GameObjectType;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Option;
 import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
@@ -29,7 +30,7 @@ import java.util.function.Consumer;
 public class LevelEditor extends Group implements Disposable {
 
     private Level level;
-    private GameObjectManager manager;
+    private GameObjectManager gameObjectManager;
 
     private final List<Consumer<Level>> levelChangeListeners = new ArrayList<>();
     private final List<Consumer<GameObject>> gameObjectSelectListeners = new ArrayList<>();
@@ -48,7 +49,7 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setLayer(Option option) {
         clearListeners();
-        selectedGameObject = null;
+        resetSelection();
         switch (option) {
             case BACKGROUND:
                 break;
@@ -63,7 +64,6 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setGameObjectType(GameObjectType gameObjectType) {
         this.gameObjectType = gameObjectType;
-        setSelectedGameObject(null);
     }
 
     public Level getLevel() {
@@ -72,60 +72,51 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setLevel(Level level) {
         this.level = level;
-        manager = level.getGameObjectManager();
+        gameObjectManager = level.getGameObjectManager();
         clearChildren();
         addActor(level);
-        level.act(0);
         level.setPause(true);
-        setSelectedGameObject(null);
         levelChangeListeners.forEach(listener -> listener.accept(level));
     }
 
-    public GameObject getSelectedGameObject() {
-        return selectedGameObject;
-    }
-
-    public void setSelectedGameObject(GameObject gameObject) {
+    private void setSelectedGameObject(GameObject gameObject) {
         selectedGameObject = gameObject;
         gameObjectSelectListeners.forEach(listener -> listener.accept(gameObject));
+    }
+
+    private void resetSelection() {
+        setSelectedGameObject(null);
+    }
+
+    private boolean hasSelectedObject() {
+        if (selectedGameObject == null) return false;
+        if (gameObjectManager.find(selectedGameObject) == null) {
+            selectedGameObject = null;
+            return false;
+        }
+        return true;
     }
 
     public void addLevelChangeListener(Consumer<Level> consumer) {
         levelChangeListeners.add(consumer);
     }
 
-    public void clearLevelChangeListeners() {
-        levelChangeListeners.clear();
-    }
-
     public void addGameObjectSelectListener(Consumer<GameObject> consumer) {
         gameObjectSelectListeners.add(consumer);
-    }
-
-    public void clearGameObjectSelectListeners() {
-        gameObjectSelectListeners.clear();
     }
 
     public void addLevelPlayListener(Runnable runnable) {
         levelPlayListeners.add(runnable);
     }
 
-    public void clearLevelPlayListeners() {
-        levelPlayListeners.clear();
-    }
-
     public void addLevelStopListener(Runnable runnable) {
         levelStopListeners.add(runnable);
-    }
-
-    public void clearLevelStopListeners() {
-        levelStopListeners.clear();
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        if (selectedGameObject != null) {
+        if (level.onPause() && hasSelectedObject()) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
             shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
@@ -143,14 +134,11 @@ public class LevelEditor extends Group implements Disposable {
     public void play() {
         level.setPause(false);
         clearListeners();
-        setSelectedGameObject(null);
-        manager.getGameObjects(GameObject.class).forEach(gameObject -> gameObject.initialize(level));
         levelPlayListeners.forEach(Runnable::run);
     }
 
     public void stop() {
         level.setPause(true);
-        manager.getGameObjects(GameObject.class).forEach(gameObject -> gameObject.initialize(level));
         levelStopListeners.forEach(Runnable::run);
     }
 
@@ -204,7 +192,7 @@ public class LevelEditor extends Group implements Disposable {
 
     private class GameObjectsEditorInputListener extends InputListener {
 
-        private final CommandHistory commandHistory = CommandHistory.getInstance();
+        private final CommandManager commandManager = CommandManager.getInstance();
 
         private MoveGameObjectCommand moveCommand = null;
 
@@ -212,7 +200,7 @@ public class LevelEditor extends Group implements Disposable {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             Vector2 position = screenToMapCoordinates(x, y);
 
-            GameObject currentGameObject = manager.getGameObjects().stream().
+            GameObject currentGameObject = gameObjectManager.getGameObjects().stream().
                     filter(object -> (int) object.getX() == (int) position.x &&
                                      (int) object.getY() == (int) position.y)
                     .findAny()
@@ -229,10 +217,10 @@ public class LevelEditor extends Group implements Disposable {
             }
 
             GameObject gameObject = gameObjectType.getGameObject();
-            if (gameObject == null) throw new IllegalStateException("Can't create this game object.");
             gameObject.setX((int) position.x);
             gameObject.setY((int) position.y);
-            commandHistory.addAndExecute(new AddGameObjectCommand(gameObject, LevelEditor.this));
+            commandManager.addAndExecute(new AddGameObjectCommand(gameObject, gameObjectManager));
+            setSelectedGameObject(gameObject);
             return true;
         }
 
@@ -241,10 +229,9 @@ public class LevelEditor extends Group implements Disposable {
             Vector2 position = screenToMapCoordinates(x, y);
             if (selectedGameObject != null) {
                 if (moveCommand == null) {
-                    moveCommand = new MoveGameObjectCommand(selectedGameObject, level);
+                    moveCommand = new MoveGameObjectCommand(selectedGameObject);
                 }
                 selectedGameObject.setPosition((int) position.x, (int) position.y);
-                selectedGameObject.initialize(level);
             }
         }
 
@@ -253,7 +240,7 @@ public class LevelEditor extends Group implements Disposable {
             Vector2 position = screenToMapCoordinates(x, y);
             if (moveCommand != null) {
                 moveCommand.setTarget((int) position.x, (int) position.y);
-                commandHistory.addAndExecute(moveCommand);
+                commandManager.addAndExecute(moveCommand);
                 moveCommand = null;
             }
             setSelectedGameObject(selectedGameObject);
@@ -262,9 +249,8 @@ public class LevelEditor extends Group implements Disposable {
         @Override
         public boolean keyDown(InputEvent event, int keycode) {
             if (selectedGameObject != null && keycode == Input.Keys.FORWARD_DEL) {
-                manager.remove(selectedGameObject);
-                selectedGameObject.dispose();
-                setSelectedGameObject(null);
+                commandManager.addAndExecute(new RemoveGameObjectCommand(selectedGameObject, gameObjectManager));
+                resetSelection();
             }
             return true;
         }

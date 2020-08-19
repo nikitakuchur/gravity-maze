@@ -20,7 +20,7 @@ public class Level extends Group implements Parameterizable, Disposable {
     private Background background;
     private GameMap map;
 
-    private final GameObjectManager manager = new GameObjectManager();
+    private final GameObjectManager manager = new GameObjectManager(this);
     private final EnumMap<Layer, Group> groups = new EnumMap<>(Layer.class);
 
     private final Physics physics = new Physics(this);
@@ -52,7 +52,6 @@ public class Level extends Group implements Parameterizable, Disposable {
         manager.addGameObjectAddListener(gameObject -> {
             Layer layer = gameObject.getLayer();
             groups.get(layer).addActor(gameObject);
-            gameObject.initialize(this);
         });
 
         groups.values().forEach(this::addActor);
@@ -139,6 +138,10 @@ public class Level extends Group implements Parameterizable, Disposable {
         } else {
             addListener(inputController.getInputListener());
         }
+    }
+
+    public boolean onPause() {
+        return pause;
     }
 
     @Override

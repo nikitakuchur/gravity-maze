@@ -2,7 +2,7 @@ package com.github.nikitakuchur.puzzlegame.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
+import com.github.nikitakuchur.puzzlegame.editor.commands.CommandManager;
 import com.github.nikitakuchur.puzzlegame.editor.panels.RightPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
 import com.github.nikitakuchur.puzzlegame.editor.utils.PropertiesUtils;
@@ -11,6 +11,7 @@ import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.io.File;
 
@@ -46,34 +47,34 @@ public class EditorWindow {
         Menu fileMenu = new Menu("File");
 
         MenuItem newItem = new MenuItem("New");
-        newItem.addActionListener(e -> EventQueue.invokeLater(() ->
+        newItem.addActionListener(e -> EventQueue.invokeLater(() -> {
+            LevelEditor editor = app.getLevelEditor();
+            editor.stop();
+
+            JTextField widthField = new JTextField(5);
+            widthField.setText("8");
+            JTextField heightField = new JTextField(5);
+            heightField.setText("8");
+
+            JPanel dialogPanel = new JPanel();
+            dialogPanel.add(new JLabel("Width:"));
+            dialogPanel.add(widthField);
+            dialogPanel.add(new JLabel("Height:"));
+            dialogPanel.add(heightField);
+
+            int option = JOptionPane.showConfirmDialog(null, dialogPanel,
+                    "New Level", JOptionPane.OK_CANCEL_OPTION);
+
+            if (option == JOptionPane.OK_OPTION) {
+                int width = PropertiesUtils.parseIntOrDefault(widthField.getText(), 8);
+                int height = PropertiesUtils.parseIntOrDefault(heightField.getText(), 8);
                 Gdx.app.postRunnable(() -> {
-                    LevelEditor editor = app.getLevelEditor();
-                    editor.stop();
-
-                    JTextField widthField = new JTextField(5);
-                    widthField.setText("8");
-                    JTextField heightField = new JTextField(5);
-                    heightField.setText("8");
-
-                    JPanel dialogPanel = new JPanel();
-                    dialogPanel.add(new JLabel("Width:"));
-                    dialogPanel.add(widthField);
-                    dialogPanel.add(new JLabel("Height:"));
-                    dialogPanel.add(heightField);
-
-                    int option = JOptionPane.showConfirmDialog(null, dialogPanel,
-                            "New Level", JOptionPane.OK_CANCEL_OPTION);
-
-                    if (option == JOptionPane.OK_OPTION) {
-                        int width = PropertiesUtils.parseIntOrDefault(widthField.getText(), 8);
-                        int height = PropertiesUtils.parseIntOrDefault(heightField.getText(), 8);
-                        Gdx.app.postRunnable(() -> {
-                            editor.setLevel(new Level(new Background(), new GameMap(width, height)));
-                            app.getFileController().newFile();
-                        });
-                    }
-                })));
+                    editor.setLevel(new Level(new Background(), new GameMap(width, height)));
+                    app.getFileController().newFile();
+                    CommandManager.getInstance().clear();
+                });
+            }
+        }));
 
         MenuItem openItem = new MenuItem("Open...");
         openItem.addActionListener(e -> EventQueue.invokeLater(() -> {
@@ -84,6 +85,7 @@ public class EditorWindow {
                 Gdx.app.postRunnable(() -> {
                     app.getLevelEditor().stop();
                     app.getFileController().open(file.getPath());
+                    CommandManager.getInstance().clear();
                 });
             }
         }));
@@ -125,19 +127,19 @@ public class EditorWindow {
     private Menu createEditMenu() {
         Menu editMenu = new Menu("Edit");
 
-        CommandHistory commandHistory = CommandHistory.getInstance();
+        CommandManager commandManager = CommandManager.getInstance();
 
         MenuItem undoItem = new MenuItem("Undo");
         undoItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
-            if (commandHistory.canUndo()) {
-                commandHistory.undo();
+            if (commandManager.canUndo()) {
+                commandManager.undo();
             }
         }));
 
         MenuItem redoItem = new MenuItem("Redo");
         redoItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
-            if (commandHistory.canRedo()) {
-                commandHistory.redo();
+            if (commandManager.canRedo()) {
+                commandManager.redo();
             }
         }));
 
