@@ -37,17 +37,11 @@ public class Level extends Group implements Parameterizable, Disposable {
         this.background = background;
         addActor(background);
 
-        this.map = map;
-        map.setWidth(100);
-        map.setHeight(map.getCellSize() * map.getCellsHeight());
-
         Stream.of(Layer.values()).forEach(layer -> {
             Group group = new Group();
             groups.put(layer, group);
             addActor(group);
         });
-
-        addActor(map);
 
         manager.addGameObjectAddListener(gameObject -> {
             Layer layer = gameObject.getLayer();
@@ -56,6 +50,7 @@ public class Level extends Group implements Parameterizable, Disposable {
 
         groups.values().forEach(this::addActor);
 
+        this.map = map;
         addActor(map);
 
         manager.addGameObjectRemoveListener(gameObject -> {
