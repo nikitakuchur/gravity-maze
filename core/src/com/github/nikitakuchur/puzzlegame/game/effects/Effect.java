@@ -66,8 +66,9 @@ public class Effect {
 
     public void update(float delta) {
         if (!playing) return;
+        float speedCorrection = level.getMap().getCellSize() / 100;
         particles.forEach(particle -> {
-            particle.position.add(particle.velocity.cpy().scl(speed * delta));
+            particle.position.add(particle.velocity.cpy().scl(speed * speedCorrection * delta));
             if (useGravity) {
                 particle.velocity.add(level.getGravityDirection().getDirection().scl(2 * delta));
             }
@@ -90,11 +91,12 @@ public class Effect {
         currentColor = color;
         shapeRenderer.setColor(color);
         float cellSize = level.getMap().getCellSize();
+        float speedCorrection = cellSize / 100;
         particles.forEach(particle ->
                 shapeRenderer.rect(
                         position.x * cellSize + particle.position.x + cellSize / 2,
                         position.y * cellSize + particle.position.y + cellSize / 2,
-                        particle.size, particle.size));
+                        particle.size * speedCorrection, particle.size * speedCorrection));
 
         shapeRenderer.identity();
         shapeRenderer.end();
