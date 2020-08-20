@@ -123,7 +123,7 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
      * @return the cell type
      */
     public CellType getCellType(int x, int y) {
-        if (x >= cells.length || x < 0 || y >= cells[0].length || y < 0) {
+        if (isOutside(x, y)) {
             return CellType.FILLED;
         }
         return cells[x][y];
@@ -137,7 +137,7 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
      * @param type the cell type
      */
     public void setCellType(int x, int y, CellType type) {
-        if (x >= 0 && x < cells.length && y >= 0 && y < cells[0].length) {
+        if (!isOutside(x, y)) {
              cells[x][y] = type;
         }
     }
@@ -154,6 +154,13 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
      */
     public boolean isEmpty(int x, int y) {
         return getCellType(x, y) == CellType.EMPTY;
+    }
+
+    /**
+     * Returns true if the position is outside the map and false otherwise.
+     */
+    public boolean isOutside(int x, int y) {
+        return x >= cells.length || x < 0 || y >= cells[0].length || y < 0;
     }
 
     @Override

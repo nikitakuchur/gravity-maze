@@ -176,6 +176,7 @@ public class LevelEditor extends Group implements Disposable {
             Vector2 position = screenToMapCoordinates(x, y);
             int px = (int) position.x;
             int py = (int) position.y;
+            if (map.isOutside(px, py)) return true;
             if (map.isEmpty(px, py)) {
                 map.setCellType(px, py, CellType.FILLED);
                 if (addCommand == null) {
@@ -197,9 +198,13 @@ public class LevelEditor extends Group implements Disposable {
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
             GameMap map = level.getMap();
+
             Vector2 position = screenToMapCoordinates(x, y);
             int px = (int) position.x;
             int py = (int) position.y;
+
+            if (map.isOutside(px, py)) return;
+
             if (!emptyCell && map.isEmpty(px, py)) {
                 map.setCellType(px, py, CellType.FILLED);
                 addCommand.addBlock(px, py);
@@ -225,11 +230,15 @@ public class LevelEditor extends Group implements Disposable {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            GameMap map = level.getMap();
+
             Vector2 position = screenToMapCoordinates(x, y);
+            int px = (int) position.x;
+            int py = (int) position.y;
 
             GameObject currentGameObject = gameObjectManager.getGameObjects().stream().
-                    filter(object -> (int) object.getX() == (int) position.x
-                            && (int) object.getY() == (int) position.y)
+                    filter(object -> (int) object.getX() == px
+                            && (int) object.getY() == py)
                     .findAny()
                     .orElse(null);
 
@@ -243,9 +252,11 @@ public class LevelEditor extends Group implements Disposable {
                 return true;
             }
 
+            if (map.isOutside(px, py)) return true;
+
             GameObject gameObject = gameObjectType.getGameObject();
-            gameObject.setX((int) position.x);
-            gameObject.setY((int) position.y);
+            gameObject.setX(px);
+            gameObject.setY(py);
             commandManager.addAndExecute(new AddGameObjectCommand(gameObject, gameObjectManager));
             setSelectedGameObject(gameObject);
             return true;
@@ -253,12 +264,19 @@ public class LevelEditor extends Group implements Disposable {
 
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
+            GameMap map = level.getMap();
+
             Vector2 position = screenToMapCoordinates(x, y);
+            int px = (int) position.x;
+            int py = (int) position.y;
+
+            if (map.isOutside(px, py)) return;
+
             if (selectedGameObject != null) {
                 if (moveCommand == null) {
                     moveCommand = new MoveGameObjectCommand(selectedGameObject);
                 }
-                selectedGameObject.setPosition((int) position.x, (int) position.y);
+                selectedGameObject.setPosition(px, py);
             }
         }
 
