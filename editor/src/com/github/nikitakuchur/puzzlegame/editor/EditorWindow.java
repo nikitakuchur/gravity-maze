@@ -157,10 +157,21 @@ public class EditorWindow {
                 window.setTitle(TITLE + " - " + path);
             }
         });
+
         contentPane.add(new TopPanel(app), BorderLayout.NORTH);
         contentPane.add(new RightPanel(app.getLevelEditor()), BorderLayout.EAST);
         menuBar.add(createFileMenu());
         menuBar.add(createEditMenu());
+
+        app.getLevelEditor().addLevelPlayListener(() -> setMenuBarEnabled(false));
+        app.getLevelEditor().addLevelStopListener(() -> setMenuBarEnabled(true));
+
         window.revalidate();
+    }
+
+    private void setMenuBarEnabled(boolean b) {
+        for (int i = 0; i < menuBar.getMenuCount(); i++) {
+            menuBar.getMenu(i).setEnabled(b);
+        }
     }
 }
