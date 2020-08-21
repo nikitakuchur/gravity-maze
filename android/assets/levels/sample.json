@@ -45,7 +45,7 @@
             "EMPTY",
             "EMPTY",
             "EMPTY",
-            "BLOCK",
+            "FILLED",
             "EMPTY",
             "EMPTY",
             "EMPTY"
@@ -55,7 +55,7 @@
             "EMPTY",
             "EMPTY",
             "EMPTY",
-            "BLOCK",
+            "FILLED",
             "EMPTY",
             "EMPTY",
             "EMPTY"
@@ -65,24 +65,14 @@
             "EMPTY",
             "EMPTY",
             "EMPTY",
-            "BLOCK",
+            "FILLED",
             "EMPTY",
             "EMPTY",
             "EMPTY"
           ],
           [
             "EMPTY",
-            "BLOCK",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "BLOCK",
+            "FILLED",
             "EMPTY",
             "EMPTY",
             "EMPTY",
@@ -92,7 +82,7 @@
           ],
           [
             "EMPTY",
-            "EMPTY",
+            "FILLED",
             "EMPTY",
             "EMPTY",
             "EMPTY",
@@ -108,17 +98,27 @@
             "EMPTY",
             "EMPTY",
             "EMPTY",
-            "BLOCK"
+            "EMPTY"
           ],
           [
             "EMPTY",
             "EMPTY",
-            "BLOCK",
             "EMPTY",
             "EMPTY",
             "EMPTY",
-            "BLOCK",
-            "BLOCK"
+            "EMPTY",
+            "EMPTY",
+            "FILLED"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "FILLED"
           ]
         ]
       }
