@@ -3,9 +3,9 @@ package com.github.nikitakuchur.puzzlegame.game.cells;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 
-public class BlockRenderer extends CellRenderer {
+public class FilledCellRenderer extends CellRenderer {
 
-    public BlockRenderer(ShapeRenderer shapeRenderer, GameMap map) {
+    public FilledCellRenderer(ShapeRenderer shapeRenderer, GameMap map) {
         super(shapeRenderer, map);
     }
 

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.game.cells.BlockRenderer;
+import com.github.nikitakuchur.puzzlegame.game.cells.FilledCellRenderer;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellRenderer;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.cells.EmptyCellRenderer;
@@ -26,7 +26,7 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private final CellRenderer block = new BlockRenderer(shapeRenderer, this);
+    private final CellRenderer block = new FilledCellRenderer(shapeRenderer, this);
     private final CellRenderer emptyCellRenderer = new EmptyCellRenderer(shapeRenderer, this);
 
     public GameMap() {
@@ -81,7 +81,7 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
     private void drawCells() {
         for (int i = 0; i < getCellsWidth() ; i++) {
             for (int j = 0; j < getCellsHeight(); j++) {
-                if (getCellType(i, j) == CellType.FILLED) {
+                if (isFilled(i, j)) {
                     block.setX(i);
                     block.setY(j);
                     block.draw();
