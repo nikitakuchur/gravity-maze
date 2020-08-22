@@ -69,8 +69,22 @@ public abstract class GameObject extends Actor implements Parameterizable, Dispo
     @Override
     public void setParameters(Parameters parameters) {
         setName(parameters.getValue("name"));
-        setX(parameters.<Integer>getValue("x"));
-        setY(parameters.<Integer>getValue("y"));
+        setX(validateX(parameters.<Integer>getValue("x")));
+        setY(validateY(parameters.<Integer>getValue("y")));
         setColor(parameters.getValue("color"));
+    }
+
+    private int validateX(int x) {
+        if (level != null && level.getMap().isOutside(x, (int) getY())) {
+            return (int) getX();
+        }
+        return x;
+    }
+
+    private int validateY(int y) {
+        if (level != null && level.getMap().isOutside((int) getX(), y)) {
+            return (int) getY();
+        }
+        return y;
     }
 }

@@ -174,10 +174,13 @@ public class LevelEditor extends Group implements Disposable {
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             GameMap map = level.getMap();
+
             Vector2 position = screenToMapCoordinates(x, y);
             int px = (int) position.x;
             int py = (int) position.y;
+
             if (map.isOutside(px, py)) return true;
+
             if (map.isEmpty(px, py)) {
                 map.setCellType(px, py, CellType.FILLED);
                 if (addCommand == null) {
