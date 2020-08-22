@@ -2,7 +2,7 @@ package com.github.nikitakuchur.puzzlegame.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.github.nikitakuchur.puzzlegame.editor.commands.CommandManager;
+import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
 import com.github.nikitakuchur.puzzlegame.editor.panels.RightPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
 import com.github.nikitakuchur.puzzlegame.editor.utils.ParametersUtils;
@@ -71,7 +71,7 @@ public class EditorWindow {
                 Gdx.app.postRunnable(() -> {
                     editor.setLevel(new Level(new Background(), new GameMap(width, height)));
                     app.getFileController().newFile();
-                    CommandManager.getInstance().clear();
+                    CommandHistory.getInstance().clear();
                 });
             }
         }));
@@ -85,7 +85,7 @@ public class EditorWindow {
                 Gdx.app.postRunnable(() -> {
                     app.getLevelEditor().stop();
                     app.getFileController().open(file.getPath());
-                    CommandManager.getInstance().clear();
+                    CommandHistory.getInstance().clear();
                 });
             }
         }));
@@ -127,19 +127,19 @@ public class EditorWindow {
     private Menu createEditMenu() {
         Menu editMenu = new Menu("Edit");
 
-        CommandManager commandManager = CommandManager.getInstance();
+        CommandHistory commandHistory = CommandHistory.getInstance();
 
         MenuItem undoItem = new MenuItem("Undo");
         undoItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
-            if (commandManager.canUndo()) {
-                commandManager.undo();
+            if (commandHistory.canUndo()) {
+                commandHistory.undo();
             }
         }));
 
         MenuItem redoItem = new MenuItem("Redo");
         redoItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
-            if (commandManager.canRedo()) {
-                commandManager.redo();
+            if (commandHistory.canRedo()) {
+                commandHistory.redo();
             }
         }));
 

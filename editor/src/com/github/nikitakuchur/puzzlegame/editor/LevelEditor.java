@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.editor.commands.AddBlocksCommand;
 import com.github.nikitakuchur.puzzlegame.editor.commands.AddGameObjectCommand;
-import com.github.nikitakuchur.puzzlegame.editor.commands.CommandManager;
+import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
 import com.github.nikitakuchur.puzzlegame.editor.commands.MoveGameObjectCommand;
 import com.github.nikitakuchur.puzzlegame.editor.commands.RemoveBlocksCommand;
 import com.github.nikitakuchur.puzzlegame.editor.commands.RemoveGameObjectCommand;
@@ -165,7 +165,7 @@ public class LevelEditor extends Group implements Disposable {
 
     private class MapEditorInputListener extends InputListener {
 
-        private final CommandManager commandManager = CommandManager.getInstance();
+        private final CommandHistory commandHistory = CommandHistory.getInstance();
         private AddBlocksCommand addCommand;
         private RemoveBlocksCommand removeCommand;
 
@@ -217,8 +217,8 @@ public class LevelEditor extends Group implements Disposable {
 
         @Override
         public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-            commandManager.add(addCommand);
-            commandManager.add(removeCommand);
+            commandHistory.add(addCommand);
+            commandHistory.add(removeCommand);
             addCommand = null;
             removeCommand = null;
         }
@@ -226,7 +226,7 @@ public class LevelEditor extends Group implements Disposable {
 
     private class GameObjectsEditorInputListener extends InputListener {
 
-        private final CommandManager commandManager = CommandManager.getInstance();
+        private final CommandHistory commandHistory = CommandHistory.getInstance();
         private MoveGameObjectCommand moveCommand;
 
         @Override
@@ -258,7 +258,7 @@ public class LevelEditor extends Group implements Disposable {
             GameObject gameObject = gameObjectType.getGameObject();
             gameObject.setX(px);
             gameObject.setY(py);
-            commandManager.addAndExecute(new AddGameObjectCommand(gameObject, gameObjectManager));
+            commandHistory.addAndExecute(new AddGameObjectCommand(gameObject, gameObjectManager));
             setSelectedGameObject(gameObject);
             return true;
         }
@@ -286,7 +286,7 @@ public class LevelEditor extends Group implements Disposable {
             Vector2 position = screenToMapCoordinates(x, y);
             if (moveCommand != null) {
                 moveCommand.setTarget((int) position.x, (int) position.y);
-                commandManager.add(moveCommand);
+                commandHistory.add(moveCommand);
                 moveCommand = null;
             }
             setSelectedGameObject(selectedGameObject);
@@ -295,7 +295,7 @@ public class LevelEditor extends Group implements Disposable {
         @Override
         public boolean keyDown(InputEvent event, int keycode) {
             if (selectedGameObject != null && keycode == Input.Keys.FORWARD_DEL) {
-                commandManager.addAndExecute(new RemoveGameObjectCommand(selectedGameObject, gameObjectManager));
+                commandHistory.addAndExecute(new RemoveGameObjectCommand(selectedGameObject, gameObjectManager));
                 resetSelection();
             }
             return true;

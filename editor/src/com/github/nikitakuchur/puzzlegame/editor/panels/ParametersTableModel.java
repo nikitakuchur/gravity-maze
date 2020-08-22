@@ -2,7 +2,7 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.badlogic.gdx.graphics.Color;
 import com.github.nikitakuchur.puzzlegame.editor.commands.ChangeParameterCommand;
-import com.github.nikitakuchur.puzzlegame.editor.commands.CommandManager;
+import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
 import com.github.nikitakuchur.puzzlegame.editor.utils.ParametersUtils;
 import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
 import com.github.nikitakuchur.puzzlegame.utils.Parameters;
@@ -29,8 +29,8 @@ public class ParametersTableModel extends AbstractTableModel {
     private transient Parameters parameters;
 
     public ParametersTableModel() {
-        CommandManager.getInstance().addUndoListener(this::update);
-        CommandManager.getInstance().addRedoListener(this::update);
+        CommandHistory.getInstance().addUndoListener(this::update);
+        CommandHistory.getInstance().addRedoListener(this::update);
     }
 
     public void setParameterizable(Parameterizable parameterizable) {
@@ -106,6 +106,6 @@ public class ParametersTableModel extends AbstractTableModel {
     }
 
     private <T> void setValue(String name, Class<? extends T> type, T value) {
-        CommandManager.getInstance().addAndExecute(new ChangeParameterCommand<>(parameterizable, name, type, value));
+        CommandHistory.getInstance().addAndExecute(new ChangeParameterCommand<>(parameterizable, name, type, value));
     }
 }

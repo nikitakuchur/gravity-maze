@@ -3,9 +3,9 @@ package com.github.nikitakuchur.puzzlegame.editor.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandManager {
+public class CommandHistory {
 
-    private static final CommandManager INSTANCE = new CommandManager();
+    private static final CommandHistory INSTANCE = new CommandHistory();
 
     private final List<Command> history = new ArrayList<>();
 
@@ -14,7 +14,7 @@ public class CommandManager {
     private final List<Runnable> undoListeners = new ArrayList<>();
     private final List<Runnable> redoListeners = new ArrayList<>();
 
-    private CommandManager() {
+    private CommandHistory() {
     }
 
     public void addAndExecute(Command command) {
@@ -64,7 +64,7 @@ public class CommandManager {
         currentCommand = -1;
     }
 
-    public static CommandManager getInstance() {
+    public static CommandHistory getInstance() {
         return INSTANCE;
     }
 
