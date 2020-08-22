@@ -1,28 +1,28 @@
 package com.github.nikitakuchur.puzzlegame.editor.commands;
 
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectManager;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectStore;
 
 public class AddGameObjectCommand implements Command {
 
     private final GameObject gameObject;
-    private final GameObjectManager gameObjectManager;
+    private final GameObjectStore gameObjectStore;
     private boolean removed = true;
 
-    public AddGameObjectCommand(GameObject gameObject, GameObjectManager gameObjectManager) {
+    public AddGameObjectCommand(GameObject gameObject, GameObjectStore gameObjectStore) {
         this.gameObject = gameObject;
-        this.gameObjectManager = gameObjectManager;
+        this.gameObjectStore = gameObjectStore;
     }
 
     @Override
     public void execute() {
-        gameObjectManager.add(gameObject);
+        gameObjectStore.add(gameObject);
         removed = false;
     }
 
     @Override
     public void unexecute() {
-        gameObjectManager.remove(gameObject);
+        gameObjectStore.remove(gameObject);
         removed = true;
     }
 

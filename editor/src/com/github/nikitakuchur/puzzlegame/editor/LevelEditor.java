@@ -23,7 +23,7 @@ import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectManager;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectStore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 public class LevelEditor extends Group implements Disposable {
 
     private Level level;
-    private GameObjectManager gameObjectManager;
+    private GameObjectStore gameObjectStore;
 
     private final List<Consumer<Level>> levelChangeListeners = new ArrayList<>();
     private final List<Consumer<GameObject>> gameObjectSelectListeners = new ArrayList<>();
@@ -74,7 +74,7 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setLevel(Level level) {
         this.level = level;
-        gameObjectManager = level.getGameObjectManager();
+        gameObjectStore = level.getGameObjectManager();
         clearChildren();
         addActor(level);
         level.setPause(true);
@@ -92,7 +92,7 @@ public class LevelEditor extends Group implements Disposable {
 
     private boolean hasSelectedObject() {
         if (selectedGameObject == null) return false;
-        if (gameObjectManager.find(selectedGameObject) == null) {
+        if (gameObjectStore.find(selectedGameObject) == null) {
             selectedGameObject = null;
             return false;
         }
@@ -136,7 +136,7 @@ public class LevelEditor extends Group implements Disposable {
     public void play() {
         level.setPause(false);
         clearListeners();
-        gameObjectManager.getGameObjects().forEach(gameObject -> gameObject.initialize(level));
+        gameObjectStore.getGameObjects().forEach(gameObject -> gameObject.initialize(level));
         levelPlayListeners.forEach(Runnable::run);
     }
 
@@ -237,7 +237,7 @@ public class LevelEditor extends Group implements Disposable {
             int px = (int) position.x;
             int py = (int) position.y;
 
-            GameObject currentGameObject = gameObjectManager.getGameObjects().stream().
+            GameObject currentGameObject = gameObjectStore.getGameObjects().stream().
                     filter(object -> (int) object.getX() == px
                             && (int) object.getY() == py)
                     .findAny()
@@ -258,7 +258,7 @@ public class LevelEditor extends Group implements Disposable {
             GameObject gameObject = gameObjectType.getGameObject();
             gameObject.setX(px);
             gameObject.setY(py);
-            commandHistory.addAndExecute(new AddGameObjectCommand(gameObject, gameObjectManager));
+            commandHistory.addAndExecute(new AddGameObjectCommand(gameObject, gameObjectStore));
             setSelectedGameObject(gameObject);
             return true;
         }
@@ -295,7 +295,7 @@ public class LevelEditor extends Group implements Disposable {
         @Override
         public boolean keyDown(InputEvent event, int keycode) {
             if (selectedGameObject != null && keycode == Input.Keys.FORWARD_DEL) {
-                commandHistory.addAndExecute(new RemoveGameObjectCommand(selectedGameObject, gameObjectManager));
+                commandHistory.addAndExecute(new RemoveGameObjectCommand(selectedGameObject, gameObjectStore));
                 resetSelection();
             }
             return true;

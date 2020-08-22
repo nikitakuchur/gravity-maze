@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.badlogic.gdx.math.Vector2;
 import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectManager;
+import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectStore;
 
 public class Physics {
 
@@ -17,7 +17,7 @@ public class Physics {
     }
 
     public void update(float delta) {
-        GameObjectManager manager = level.getGameObjectManager();
+        GameObjectStore manager = level.getGameObjectManager();
         List<PhysicalController> controllers = manager.getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
                 .collect(Collectors.toList());

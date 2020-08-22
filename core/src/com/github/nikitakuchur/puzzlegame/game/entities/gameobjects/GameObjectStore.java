@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 
-public class GameObjectManager {
+public class GameObjectStore {
 
     private final Level level;
 
@@ -15,7 +15,7 @@ public class GameObjectManager {
     private final List<Consumer<GameObject>> gameObjectAddListeners = new ArrayList<>();
     private final List<Consumer<GameObject>> gameObjectRemoveListeners = new ArrayList<>();
 
-    public GameObjectManager(Level level) {
+    public GameObjectStore(Level level) {
         this.level = level;
     }
 
