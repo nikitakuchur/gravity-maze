@@ -38,10 +38,10 @@ public class Spike extends GameObject {
     @Override
     public void act(float delta) {
         super.act(delta);
-        GameObjectManager manager = level.getGameObjectManager();
-        manager.getGameObjects(Ball.class).forEach(ball -> {
+        GameObjectStore store = level.getGameObjectStore();
+        store.getGameObjects(Ball.class).forEach(ball -> {
             if (getPosition().equals(ball.getPosition())) {
-                manager.remove(ball);
+                store.remove(ball);
                 effect.color(ball.getColor()).start();
                 level.endGame();
             }

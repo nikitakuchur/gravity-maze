@@ -20,7 +20,7 @@ public class Level extends Group implements Parameterizable, Disposable {
     private Background background;
     private GameMap map;
 
-    private final GameObjectStore manager = new GameObjectStore(this);
+    private final GameObjectStore store = new GameObjectStore(this);
     private final EnumMap<Layer, Group> groups = new EnumMap<>(Layer.class);
 
     private final Physics physics = new Physics(this);
@@ -43,7 +43,7 @@ public class Level extends Group implements Parameterizable, Disposable {
             addActor(group);
         });
 
-        manager.addGameObjectAddListener(gameObject -> {
+        store.addGameObjectAddListener(gameObject -> {
             Layer layer = gameObject.getLayer();
             groups.get(layer).addActor(gameObject);
         });
@@ -53,7 +53,7 @@ public class Level extends Group implements Parameterizable, Disposable {
         this.map = map;
         addActor(map);
 
-        manager.addGameObjectRemoveListener(gameObject -> {
+        store.addGameObjectRemoveListener(gameObject -> {
             Layer layer = gameObject.getLayer();
             groups.get(layer).removeActor(gameObject);
         });
@@ -63,7 +63,7 @@ public class Level extends Group implements Parameterizable, Disposable {
     @Override
     public void act(float delta) {
         update();
-        manager.getGameObjects().forEach(GameObject::update);
+        store.getGameObjects().forEach(GameObject::update);
         if (!pause) {
             physics.update(delta);
             super.act(delta);
@@ -106,8 +106,8 @@ public class Level extends Group implements Parameterizable, Disposable {
         clearListeners();
     }
 
-    public GameObjectStore getGameObjectManager() {
-        return manager;
+    public GameObjectStore getGameObjectStore() {
+        return store;
     }
 
     public GravityDirection getGravityDirection() {
@@ -144,7 +144,7 @@ public class Level extends Group implements Parameterizable, Disposable {
         Parameters parameters = new Parameters();
         parameters.put("background", Background.class, background);
         parameters.put("map", GameMap.class, map);
-        GameObject[] gameObjects = manager.getGameObjects().toArray(new GameObject[0]);
+        GameObject[] gameObjects = store.getGameObjects().toArray(new GameObject[0]);
         parameters.put("gameObjects", gameObjects.getClass(), gameObjects);
         return parameters;
     }
@@ -159,13 +159,13 @@ public class Level extends Group implements Parameterizable, Disposable {
         addActor(background);
         groups.values().forEach(this::addActor);
         addActor(map);
-        Stream.of(gameObjects).forEach(manager::add);
+        Stream.of(gameObjects).forEach(store::add);
     }
 
     @Override
     public void dispose() {
         background.dispose();
         map.dispose();
-        manager.getGameObjects(Disposable.class).forEach(Disposable::dispose);
+        store.getGameObjects(Disposable.class).forEach(Disposable::dispose);
     }
 }

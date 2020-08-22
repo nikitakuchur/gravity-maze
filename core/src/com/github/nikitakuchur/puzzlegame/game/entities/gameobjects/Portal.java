@@ -22,7 +22,7 @@ public class Portal extends GameObject {
 
     private Effect effect;
 
-    private GameObjectManager manager;
+    private GameObjectStore store;
 
     /**
      * Creates a new portal
@@ -35,7 +35,7 @@ public class Portal extends GameObject {
     @Override
     public void initialize(Level level) {
         super.initialize(level);
-        manager = level.getGameObjectManager();
+        store = level.getGameObjectStore();
         effect = new Effect(level)
                 .color(getColor())
                 .size(5)
@@ -47,12 +47,12 @@ public class Portal extends GameObject {
     @Override
     public void act(float delta) {
         super.act(delta);
-        Portal secondPortal = manager.find(Portal.class, secondPortalName);
+        Portal secondPortal = store.find(Portal.class, secondPortalName);
         Vector2 position = getPosition();
 
         if (secondPortal == null || detectCollision()) return;
 
-        Ball ball = manager.getGameObjects(Ball.class).stream()
+        Ball ball = store.getGameObjects(Ball.class).stream()
                 .filter(b -> position.equals(b.getPosition()))
                 .findAny()
                 .orElse(null);
@@ -79,18 +79,18 @@ public class Portal extends GameObject {
     }
 
     private boolean detectCollision() {
-        Portal secondPortal = manager.find(Portal.class, secondPortalName);
+        Portal secondPortal = store.find(Portal.class, secondPortalName);
 
-        boolean firstBallDetected = manager.getGameObjects(Ball.class).stream()
+        boolean firstBallDetected = store.getGameObjects(Ball.class).stream()
                 .anyMatch(b -> getPosition().equals(b.getPosition()));
-        boolean secondBallDetected = manager.getGameObjects(Ball.class).stream()
+        boolean secondBallDetected = store.getGameObjects(Ball.class).stream()
                 .anyMatch(b -> secondPortal.getPosition().equals(b.getPosition()));
 
         return firstBallDetected && secondBallDetected;
     }
 
     private boolean isFree() {
-        for (Ball ball : manager.getGameObjects(Ball.class)) {
+        for (Ball ball : store.getGameObjects(Ball.class)) {
             if (getPosition().equals(ball.getPosition())) {
                 return false;
             }

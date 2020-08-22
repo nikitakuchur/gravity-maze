@@ -39,11 +39,11 @@ public class Hole extends GameObject {
     public void act(float delta) {
         super.act(delta);
 
-        GameObjectManager manager = level.getGameObjectManager();
+        GameObjectStore store = level.getGameObjectStore();
 
-        Ball ball = manager.find(Ball.class, ballName);
+        Ball ball = store.find(Ball.class, ballName);
         if (ball != null && getPosition().equals(ball.getPosition())) {
-            manager.remove(ball);
+            store.remove(ball);
             ballName = null;
             effect.start();
         }

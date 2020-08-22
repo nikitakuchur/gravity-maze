@@ -17,7 +17,7 @@ public class Physics {
     }
 
     public void update(float delta) {
-        GameObjectStore manager = level.getGameObjectManager();
+        GameObjectStore manager = level.getGameObjectStore();
         List<PhysicalController> controllers = manager.getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
                 .collect(Collectors.toList());
@@ -47,7 +47,7 @@ public class Physics {
     }
 
     private static boolean detectPhysicalObject(Level level, int x, int y) {
-        return level.getGameObjectManager().getGameObjects(PhysicalObject.class).stream()
+        return level.getGameObjectStore().getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
                 .map(PhysicalController::getPrevPosition)
                 .anyMatch(prev -> prev.x == x && prev.y == y);

@@ -74,7 +74,7 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setLevel(Level level) {
         this.level = level;
-        gameObjectStore = level.getGameObjectManager();
+        gameObjectStore = level.getGameObjectStore();
         clearChildren();
         addActor(level);
         level.setPause(true);

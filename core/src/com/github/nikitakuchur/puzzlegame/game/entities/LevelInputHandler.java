@@ -106,7 +106,7 @@ public class LevelInputHandler {
         }
 
         private boolean areBallsGrounded() {
-            List<Ball> balls = level.getGameObjectManager().getGameObjects(Ball.class);
+            List<Ball> balls = level.getGameObjectStore().getGameObjects(Ball.class);
             if (balls.isEmpty()) return false;
             for (Ball ball : balls) {
                 if (ball.getPhysicalController().isMoving()) {
