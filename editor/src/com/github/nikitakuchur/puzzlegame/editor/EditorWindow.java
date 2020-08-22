@@ -18,9 +18,9 @@ import java.io.File;
 import static javax.swing.JFileChooser.APPROVE_OPTION;
 
 public class EditorWindow {
-    private static final String TITLE = "Editor";
+    private static final String DEFAULT_TITLE = "unnamed";
 
-    private final JFrame window = new JFrame(TITLE);
+    private final JFrame window = new JFrame(DEFAULT_TITLE);
     private final EditorApplication app = new EditorApplication();
 
     private final MenuBar menuBar = new MenuBar();
@@ -150,11 +150,11 @@ public class EditorWindow {
     }
 
     private void init() {
-        app.getFileController().addPathChangeListener(path -> {
-            if (path == null) {
-                window.setTitle(TITLE);
-            } else {
-                window.setTitle(TITLE + " - " + path);
+        app.getFileController().addPathChangeListener(path -> window.setTitle(path != null ? path : DEFAULT_TITLE));
+        CommandHistory.getInstance().addHistoryChangeListener(() -> {
+            String title = window.getTitle();
+            if (title.charAt(0) != '*') {
+                window.setTitle('*' + title);
             }
         });
 

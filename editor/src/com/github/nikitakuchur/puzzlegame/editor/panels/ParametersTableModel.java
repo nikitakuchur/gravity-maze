@@ -29,8 +29,7 @@ public class ParametersTableModel extends AbstractTableModel {
     private transient Parameters parameters;
 
     public ParametersTableModel() {
-        CommandHistory.getInstance().addUndoListener(this::update);
-        CommandHistory.getInstance().addRedoListener(this::update);
+        CommandHistory.getInstance().addHistoryChangeListener(this::update);
     }
 
     public void setParameterizable(Parameterizable parameterizable) {
@@ -101,6 +100,7 @@ public class ParametersTableModel extends AbstractTableModel {
     }
 
     private void update() {
+        if (parameterizable == null) return;
         parameters = parameterizable.getParameters();
         fireTableDataChanged();
     }

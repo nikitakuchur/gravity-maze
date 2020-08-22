@@ -11,8 +11,7 @@ public class CommandHistory {
 
     private int currentCommand = -1;
 
-    private final List<Runnable> undoListeners = new ArrayList<>();
-    private final List<Runnable> redoListeners = new ArrayList<>();
+    private final List<Runnable> historyChangeListeners = new ArrayList<>();
 
     private CommandHistory() {
     }
@@ -32,6 +31,7 @@ public class CommandHistory {
         }
         history.add(command);
         currentCommand++;
+        historyChangeListeners.forEach(Runnable::run);
     }
 
     public boolean canUndo() {
@@ -43,7 +43,7 @@ public class CommandHistory {
         Command command = history.get(currentCommand);
         command.unexecute();
         currentCommand--;
-        undoListeners.forEach(Runnable::run);
+        historyChangeListeners.forEach(Runnable::run);
     }
 
     public boolean canRedo() {
@@ -55,7 +55,7 @@ public class CommandHistory {
         currentCommand++;
         Command command = history.get(currentCommand);
         command.execute();
-        redoListeners.forEach(Runnable::run);
+        historyChangeListeners.forEach(Runnable::run);
     }
 
     public void clear() {
@@ -68,11 +68,7 @@ public class CommandHistory {
         return INSTANCE;
     }
 
-    public void addUndoListener(Runnable runnable) {
-        undoListeners.add(runnable);
-    }
-
-    public void addRedoListener(Runnable runnable) {
-        redoListeners.add(runnable);
+    public void addHistoryChangeListener(Runnable runnable) {
+        historyChangeListeners.add(runnable);
     }
 }
