@@ -136,6 +136,7 @@ public class LevelEditor extends Group implements Disposable {
     public void play() {
         level.setPause(false);
         clearListeners();
+        gameObjectManager.getGameObjects().forEach(gameObject -> gameObject.initialize(level));
         levelPlayListeners.forEach(Runnable::run);
     }
 

@@ -166,8 +166,8 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
     @Override
     public Parameters getParameters() {
         Parameters parameters = new Parameters();
-        parameters.put("color", Color.class, getColor());
-        parameters.put("cells", CellType[][].class, cells);
+        parameters.put("color", Color.class, getColor().cpy());
+        parameters.put("cells", CellType[][].class, cells.clone());
         return parameters;
     }
 

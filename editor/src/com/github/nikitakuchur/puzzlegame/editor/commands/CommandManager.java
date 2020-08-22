@@ -11,6 +11,9 @@ public class CommandManager {
 
     private int currentCommand = -1;
 
+    private final List<Runnable> undoListeners = new ArrayList<>();
+    private final List<Runnable> redoListeners = new ArrayList<>();
+
     private CommandManager() {
     }
 
@@ -40,6 +43,7 @@ public class CommandManager {
         Command command = history.get(currentCommand);
         command.unexecute();
         currentCommand--;
+        undoListeners.forEach(Runnable::run);
     }
 
     public boolean canRedo() {
@@ -51,6 +55,7 @@ public class CommandManager {
         currentCommand++;
         Command command = history.get(currentCommand);
         command.execute();
+        redoListeners.forEach(Runnable::run);
     }
 
     public void clear() {
@@ -61,5 +66,13 @@ public class CommandManager {
 
     public static CommandManager getInstance() {
         return INSTANCE;
+    }
+
+    public void addUndoListener(Runnable runnable) {
+        undoListeners.add(runnable);
+    }
+
+    public void addRedoListener(Runnable runnable) {
+        redoListeners.add(runnable);
     }
 }

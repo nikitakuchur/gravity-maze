@@ -11,7 +11,7 @@ public class GameObjectsPanel extends JPanel {
 
     private final JList<GameObjectType> list = new JList<>(GameObjectType.values());
 
-    private final transient List<Consumer<GameObjectType>> gameObjectSelectListener = new ArrayList<>();
+    private final transient List<Consumer<GameObjectType>> typeSelectListener = new ArrayList<>();
 
     public GameObjectsPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -20,15 +20,11 @@ public class GameObjectsPanel extends JPanel {
         add(new JLabel("Game objects:"));
         add(scrollPane);
         list.addListSelectionListener(e ->
-                gameObjectSelectListener.forEach(listener -> listener.accept(list.getSelectedValue())));
+                typeSelectListener.forEach(listener -> listener.accept(list.getSelectedValue())));
     }
 
-    public void addGameObjectSelectListener(Consumer<GameObjectType> consumer) {
-        gameObjectSelectListener.add(consumer);
-    }
-
-    public void clearGameObjectsSelectionListeners() {
-        gameObjectSelectListener.clear();
+    public void addTypeSelectListener(Consumer<GameObjectType> consumer) {
+        typeSelectListener.add(consumer);
     }
 
     @Override

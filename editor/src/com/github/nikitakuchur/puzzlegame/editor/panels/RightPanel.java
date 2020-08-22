@@ -3,8 +3,6 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Option;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
-import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,15 +14,11 @@ public class RightPanel extends JPanel {
     private final JPanel panel = new JPanel();
     private final JComboBox<Option> comboBox = new JComboBox<>(Option.values());
 
-    private final ParametersPanel parametersPanel = new ParametersPanel();
+    private final ParametersPanel parametersPanel;
     private final GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
-
-    private transient Parameterizable parameterizable;
 
     public RightPanel(LevelEditor levelEditor) {
         this.levelEditor = levelEditor;
-        Level level = levelEditor.getLevel();
-        parameterizable = level.getBackground();
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setVisible(true);
@@ -39,7 +33,7 @@ public class RightPanel extends JPanel {
         });
 
         gameObjectsPanel.setVisible(false);
-        gameObjectsPanel.addGameObjectSelectListener(levelEditor::setGameObjectType);
+        gameObjectsPanel.addTypeSelectListener(levelEditor::setGameObjectType);
 
         comboBox.addActionListener(actionEvent -> {
             Option option = (Option) comboBox.getSelectedItem();
@@ -51,15 +45,13 @@ public class RightPanel extends JPanel {
             }
 
             levelEditor.setLayer(option);
-            initProperties();
+            initParameterizable();
         });
 
-        initProperties();
-        levelEditor.addLevelChangeListener(lev -> initProperties());
-        levelEditor.addGameObjectSelectListener(gameObject -> {
-            parameterizable = gameObject;
-            updateProperties();
-        });
+        parametersPanel = new ParametersPanel(levelEditor.getLevel().getBackground());
+
+        levelEditor.addLevelChangeListener(lev -> initParameterizable());
+        levelEditor.addGameObjectSelectListener(parametersPanel::setParameterizable);
 
         panel.add(comboBox);
         panel.add(gameObjectsPanel);
@@ -74,32 +66,20 @@ public class RightPanel extends JPanel {
         }
     }
 
-    private void initProperties() {
+    private void initParameterizable() {
         Level level = levelEditor.getLevel();
         Option option = (Option) comboBox.getSelectedItem();
         if (option == null) return;
         switch (option) {
             case BACKGROUND:
-                parameterizable = level.getBackground();
+                parametersPanel.setParameterizable(level.getBackground());
                 break;
             case MAP:
-                parameterizable = level.getMap();
+                parametersPanel.setParameterizable(level.getMap());
                 break;
-            case GAME_OBJECTS:
-                parametersPanel.setParameters(new Parameters());
-                return;
             default:
+                parametersPanel.clear();
                 break;
         }
-        updateProperties();
-    }
-
-    private void updateProperties() {
-        if (parameterizable == null) {
-            parametersPanel.setParameters(new Parameters());
-            return;
-        }
-        parametersPanel.setParameters(parameterizable.getParameters());
-        parametersPanel.addPropertiesChangeListener(properties -> parameterizable.setParameters(properties));
     }
 }

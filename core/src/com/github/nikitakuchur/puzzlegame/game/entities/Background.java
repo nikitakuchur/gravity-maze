@@ -91,8 +91,8 @@ public class Background extends Actor implements Parameterizable, Disposable {
     @Override
     public Parameters getParameters() {
         Parameters parameters = new Parameters();
-        parameters.put("startColor", Color.class, startColor);
-        parameters.put("stopColor", Color.class, stopColor);
+        parameters.put("startColor", Color.class, startColor.cpy());
+        parameters.put("stopColor", Color.class, stopColor.cpy());
         return parameters;
     }
 

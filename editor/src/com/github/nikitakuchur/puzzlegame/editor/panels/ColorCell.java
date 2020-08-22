@@ -1,7 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.badlogic.gdx.graphics.Color;
-import com.github.nikitakuchur.puzzlegame.editor.utils.PropertiesUtils;
+import com.github.nikitakuchur.puzzlegame.editor.utils.ParametersUtils;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
@@ -42,7 +42,7 @@ class ColorCell extends AbstractCellEditor implements TableCellEditor {
 
     @Override
     public Object getCellEditorValue() {
-        return PropertiesUtils.parseColorOrDefault(textField.getText(), Color.WHITE);
+        return ParametersUtils.parseColorOrDefault(textField.getText(), Color.WHITE);
     }
 
     @Override

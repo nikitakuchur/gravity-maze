@@ -2,9 +2,9 @@ package com.github.nikitakuchur.puzzlegame.editor.utils;
 
 import com.badlogic.gdx.graphics.Color;
 
-public class PropertiesUtils {
+public class ParametersUtils {
 
-    private PropertiesUtils() {
+    private ParametersUtils() {
         throw new IllegalStateException("Utility class");
     }
 

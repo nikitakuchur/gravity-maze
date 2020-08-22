@@ -62,7 +62,7 @@ public abstract class GameObject extends Actor implements Parameterizable, Dispo
         parameters.put("name", String.class, getName());
         parameters.put("x", Integer.class, (int) getX());
         parameters.put("y", Integer.class, (int) getY());
-        parameters.put("color", Color.class, getColor());
+        parameters.put("color", Color.class, getColor().cpy());
         return parameters;
     }
 

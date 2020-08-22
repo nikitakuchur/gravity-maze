@@ -5,7 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.github.nikitakuchur.puzzlegame.editor.commands.CommandManager;
 import com.github.nikitakuchur.puzzlegame.editor.panels.RightPanel;
 import com.github.nikitakuchur.puzzlegame.editor.panels.TopPanel;
-import com.github.nikitakuchur.puzzlegame.editor.utils.PropertiesUtils;
+import com.github.nikitakuchur.puzzlegame.editor.utils.ParametersUtils;
 import com.github.nikitakuchur.puzzlegame.game.entities.Background;
 import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
@@ -66,8 +66,8 @@ public class EditorWindow {
                     "New Level", JOptionPane.OK_CANCEL_OPTION);
 
             if (option == JOptionPane.OK_OPTION) {
-                int width = PropertiesUtils.parseIntOrDefault(widthField.getText(), 8);
-                int height = PropertiesUtils.parseIntOrDefault(heightField.getText(), 8);
+                int width = ParametersUtils.parseIntOrDefault(widthField.getText(), 8);
+                int height = ParametersUtils.parseIntOrDefault(heightField.getText(), 8);
                 Gdx.app.postRunnable(() -> {
                     editor.setLevel(new Level(new Background(), new GameMap(width, height)));
                     app.getFileController().newFile();

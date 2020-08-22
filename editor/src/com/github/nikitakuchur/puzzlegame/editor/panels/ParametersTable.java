@@ -6,9 +6,9 @@ import javax.swing.*;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
 
-public class PropertiesTable extends JTable {
+public class ParametersTable extends JTable {
 
-    public PropertiesTable(TableModel tableModel) {
+    public ParametersTable(TableModel tableModel) {
         super(tableModel);
     }
 
