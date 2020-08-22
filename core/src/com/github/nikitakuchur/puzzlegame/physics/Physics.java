@@ -17,8 +17,8 @@ public class Physics {
     }
 
     public void update(float delta) {
-        GameObjectStore manager = level.getGameObjectStore();
-        List<PhysicalController> controllers = manager.getGameObjects(PhysicalObject.class).stream()
+        GameObjectStore store = level.getGameObjectStore();
+        List<PhysicalController> controllers = store.getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
                 .collect(Collectors.toList());
         controllers.forEach(this::doGravity);
