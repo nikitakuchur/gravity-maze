@@ -9,18 +9,16 @@ import javax.swing.*;
 
 public class TopPanel extends JPanel {
 
-    private final transient EditorApplication app;
-
-    private String levelSave;
+    private transient Level level;
 
     public TopPanel(EditorApplication app) {
-        this.app = app;
-
         JButton playButton = new JButton("Play");
         JButton stopButton = new JButton("Stop");
 
         playButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
-            save();
+            level = app.getLevelEditor().getLevel();
+            Level copy = copyLevel(level);
+            app.getLevelEditor().setLevel(copy);
             app.getLevelEditor().play();
             playButton.setEnabled(false);
             stopButton.setEnabled(true);
@@ -28,7 +26,7 @@ public class TopPanel extends JPanel {
 
         stopButton.setEnabled(false);
         stopButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
-            restore();
+            app.getLevelEditor().setLevel(level);
             app.getLevelEditor().stop();
             playButton.setEnabled(true);
             stopButton.setEnabled(false);
@@ -38,14 +36,8 @@ public class TopPanel extends JPanel {
         add(stopButton);
     }
 
-    private void save() {
-        Level level = app.getLevelEditor().getLevel();
-        levelSave = LevelLoader.toJson(level);
-    }
-
-    private void restore() {
-        Level level =  LevelLoader.fromJson(levelSave);
-        app.getLevelEditor().setLevel(level);
-        levelSave = null;
+    private Level copyLevel(Level level) {
+        String json = LevelLoader.toJson(level);
+        return LevelLoader.fromJson(json);
     }
 }
