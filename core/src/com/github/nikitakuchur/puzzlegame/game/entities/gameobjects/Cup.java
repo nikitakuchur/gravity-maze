@@ -11,16 +11,16 @@ import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
-public class Hole extends GameObject {
+public class Cup extends GameObject {
 
     private String ballName;
 
-    private final Texture texture = new Texture(Gdx.files.internal("game/hole/hole.png"), true);
+    private final Texture texture = new Texture(Gdx.files.internal("game/cup/cup.png"), true);
     private final TextureRegion textureRegion = new TextureRegion(texture);
 
     private Effect effect;
 
-    public Hole() {
+    public Cup() {
         texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
         addAction(Actions.forever(Actions.timeScale(0.4f, GameActions.bounceAndRotate())));
     }
@@ -61,7 +61,7 @@ public class Hole extends GameObject {
     }
 
     /**
-     * Adds a ball that can interact with this hole
+     * Adds a ball that can interact with this cup
      */
     public void setBall(String name) {
         ballName = name;

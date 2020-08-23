@@ -184,7 +184,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Hole",
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Cup",
         "name": {
           "type": "java.lang.String"
         },
@@ -211,7 +211,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Hole",
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Cup",
         "name": {
           "type": "java.lang.String"
         },
