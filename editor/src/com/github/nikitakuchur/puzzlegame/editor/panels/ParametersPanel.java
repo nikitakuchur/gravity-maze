@@ -1,5 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
+import java.awt.*;
+
 import com.badlogic.gdx.graphics.Color;
 import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
 
@@ -14,10 +16,13 @@ public class ParametersPanel extends JPanel {
         tableModel.setParameterizable(parameterizable);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        table.setRowHeight(28);
         table.setDefaultEditor(Color.class, new ColorCell());
 
         add(new JLabel("Parameters:"));
-        add(new JScrollPane(table));
+        JScrollPane pane = new JScrollPane(table);
+        pane.setAlignmentX(Component.LEFT_ALIGNMENT);
+        add(pane);
     }
 
     public void clear() {

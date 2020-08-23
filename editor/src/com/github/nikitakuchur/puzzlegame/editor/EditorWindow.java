@@ -1,5 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.editor;
 
+import com.alee.laf.WebLookAndFeel;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
@@ -27,6 +28,8 @@ public class EditorWindow {
     private final JPanel contentPane = new JPanel();
 
     public EditorWindow() {
+        WebLookAndFeel.install();
+
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         LwjglAWTCanvas canvas = new LwjglAWTCanvas(app);

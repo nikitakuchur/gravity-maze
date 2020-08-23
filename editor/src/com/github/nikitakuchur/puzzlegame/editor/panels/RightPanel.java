@@ -34,7 +34,9 @@ public class RightPanel extends JPanel {
 
         gameObjectsPanel.setVisible(false);
         gameObjectsPanel.addTypeSelectListener(levelEditor::setGameObjectType);
+        gameObjectsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+        comboBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         comboBox.addActionListener(actionEvent -> {
             Option option = (Option) comboBox.getSelectedItem();
             if (option == null) return;
@@ -49,6 +51,7 @@ public class RightPanel extends JPanel {
         });
 
         parametersPanel = new ParametersPanel(levelEditor.getLevel().getBackground());
+        parametersPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         levelEditor.addLevelChangeListener(lev -> initParameterizable());
         levelEditor.addGameObjectSelectListener(parametersPanel::setParameterizable);

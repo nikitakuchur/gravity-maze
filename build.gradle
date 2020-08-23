@@ -60,6 +60,7 @@ project(":editor") {
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+        implementation "com.weblookandfeel:weblaf-ui:1.2.13"
 
     }
 }

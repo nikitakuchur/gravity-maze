@@ -18,7 +18,7 @@ class ColorCell extends AbstractCellEditor implements TableCellEditor {
         panel.add(textField);
 
         JButton button = new JButton("...");
-        button.setPreferredSize(new Dimension(16, 16));
+        button.setPreferredSize(new Dimension(28, 28));
         button.addActionListener(e -> {
             if (e.getSource() instanceof JButton) {
                 String hex = "0x" + textField.getText().substring(0, 6);
