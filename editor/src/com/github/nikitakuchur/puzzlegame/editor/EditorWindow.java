@@ -82,7 +82,7 @@ public class EditorWindow {
         MenuItem openItem = new MenuItem("Open...");
         openItem.addActionListener(e -> EventQueue.invokeLater(() -> {
             JFileChooser fileChooser = new JFileChooser();
-            int option = fileChooser.showDialog(null, "Open");
+            int option = fileChooser.showOpenDialog(null);
             if (option == APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 Gdx.app.postRunnable(() -> {
@@ -104,7 +104,7 @@ public class EditorWindow {
         MenuItem saveAsItem = new MenuItem("Save As...");
         saveAsItem.addActionListener(e -> EventQueue.invokeLater(() -> {
             JFileChooser fileChooser = new JFileChooser();
-            int option = fileChooser.showDialog(null, "Save");
+            int option = fileChooser.showSaveDialog(null);
             if (option == APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 Gdx.app.postRunnable(() -> {
