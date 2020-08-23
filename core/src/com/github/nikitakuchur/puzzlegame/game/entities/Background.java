@@ -10,8 +10,8 @@ import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 
 public class Background extends Actor implements Parameterizable, Disposable {
 
-    private Color startColor;
-    private Color stopColor;
+    private Color firstColor;
+    private Color secondColor;
 
     private boolean[] dirs;
     private float[] ts;
@@ -20,17 +20,17 @@ public class Background extends Actor implements Parameterizable, Disposable {
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     public Background() {
-        this.startColor = Color.WHITE;
-        this.stopColor = Color.WHITE;
+        this.firstColor = Color.WHITE;
+        this.secondColor = Color.WHITE;
         initAnimation();
     }
 
     /**
      * Creates a gradient background
      */
-    public Background(Color startColor, Color stopColor) {
-        this.startColor = startColor;
-        this.stopColor = stopColor;
+    public Background(Color firstColor, Color secondColor) {
+        this.firstColor = firstColor;
+        this.secondColor = secondColor;
         initAnimation();
     }
 
@@ -38,7 +38,7 @@ public class Background extends Actor implements Parameterizable, Disposable {
         dirs = new boolean[]{false, false, true, true};
         ts = new float[]{0.5f, 1, 0.5f, 0};
         for (int i = 0; i < colors.length; i++) {
-            colors[i] = startColor.cpy().lerp(stopColor, ts[i]);
+            colors[i] = firstColor.cpy().lerp(secondColor, ts[i]);
         }
     }
 
@@ -51,7 +51,7 @@ public class Background extends Actor implements Parameterizable, Disposable {
             if (ts[i] <= 0) dirs[i] = true;
             if (dirs[i]) ts[i] += speed * delta;
             else ts[i] -= speed * delta;
-            colors[i] = startColor.cpy().lerp(stopColor, ts[i]);
+            colors[i] = firstColor.cpy().lerp(secondColor, ts[i]);
         }
     }
 
@@ -67,39 +67,39 @@ public class Background extends Actor implements Parameterizable, Disposable {
         batch.begin();
     }
 
-    public Color getStartColor() {
-        return startColor;
+    public Color getFirstColor() {
+        return firstColor;
     }
 
-    public void setStartColor(Color startColor) {
-        this.startColor = startColor;
+    public void setFirstColor(Color firstColor) {
+        this.firstColor = firstColor;
     }
 
-    public Color getStopColor() {
-        return stopColor;
+    public Color getSecondColor() {
+        return secondColor;
     }
 
-    public void setStopColor(Color stopColor) {
-        this.stopColor = stopColor;
+    public void setSecondColor(Color secondColor) {
+        this.secondColor = secondColor;
     }
 
     @Override
     public Color getColor() {
-        return startColor.cpy().lerp(stopColor, 0.5f);
+        return firstColor.cpy().lerp(secondColor, 0.5f);
     }
 
     @Override
     public Parameters getParameters() {
         Parameters parameters = new Parameters();
-        parameters.put("startColor", Color.class, startColor.cpy());
-        parameters.put("stopColor", Color.class, stopColor.cpy());
+        parameters.put("firstColor", Color.class, firstColor.cpy());
+        parameters.put("secondColor", Color.class, secondColor.cpy());
         return parameters;
     }
 
     @Override
     public void setParameters(Parameters parameters) {
-        startColor = parameters.getValue("startColor");
-        stopColor = parameters.getValue("stopColor");
+        firstColor = parameters.getValue("firstColor");
+        secondColor = parameters.getValue("secondColor");
         initAnimation();
     }
 

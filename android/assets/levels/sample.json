@@ -4,7 +4,7 @@
     "type": "com.github.nikitakuchur.puzzlegame.game.entities.Background",
     "value": {
       "class": "com.github.nikitakuchur.puzzlegame.game.entities.Background",
-      "startColor": {
+      "firstColor": {
         "type": "com.badlogic.gdx.graphics.Color",
         "value": {
           "r": 0.5764706,
@@ -13,7 +13,7 @@
           "a": 1.0
         }
       },
-      "stopColor": {
+      "secondColor": {
         "type": "com.badlogic.gdx.graphics.Color",
         "value": {
           "r": 0.02745098,
