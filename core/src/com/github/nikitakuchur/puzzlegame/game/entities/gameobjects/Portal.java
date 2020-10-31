@@ -25,7 +25,7 @@ public class Portal extends GameObject {
     private GameObjectStore store;
 
     /**
-     * Creates a new portal
+     * Creates a new portal.
      */
     public Portal() {
         texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
@@ -109,7 +109,7 @@ public class Portal extends GameObject {
     }
 
     /**
-     * Sets the second portal
+     * Sets the second portal.
      *
      * @param name the second portal name
      */

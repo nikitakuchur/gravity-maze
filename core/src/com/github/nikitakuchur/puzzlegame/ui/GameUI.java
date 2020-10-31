@@ -28,7 +28,7 @@ public class GameUI extends Group implements Disposable {
     private final TextButton resetButton;
 
     /**
-     * Create a new ui for the game screen
+     * Creates a new ui for the game screen.
      *
      * @param gameScreen the game screen
      */

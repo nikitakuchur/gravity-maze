@@ -18,7 +18,7 @@ public class GameScreen extends ScreenAdapter {
     private final GameUI gameUI = new GameUI(this);
 
     /**
-     * Creates a new game screen
+     * Creates a new game screen.
      */
     public GameScreen() {
         stage.getCamera().position.set(Vector3.Zero);
@@ -28,14 +28,14 @@ public class GameScreen extends ScreenAdapter {
     }
 
     /**
-     * @return the level
+     * Returns the level.
      */
     public Level getLevel() {
         return level;
     }
 
     /**
-     * Sets the level
+     * Sets the level.
      *
      * @param level the level
      */

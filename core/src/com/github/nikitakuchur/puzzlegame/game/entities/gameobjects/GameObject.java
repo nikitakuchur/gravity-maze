@@ -26,7 +26,7 @@ public abstract class GameObject extends Actor implements Parameterizable, Dispo
     }
 
     /**
-     * Updates width and height
+     * Updates width and height.
      */
     public void update() {
         GameMap map = level.getMap();
@@ -49,7 +49,7 @@ public abstract class GameObject extends Actor implements Parameterizable, Dispo
     }
 
     /**
-     * @return the actual position of the gameObject
+     * Returns the actual position of the gameObject.
      */
     public Vector2 getActualPosition() {
         return new Vector2(getX() * getWidth() - getParent().getWidth() / 2,

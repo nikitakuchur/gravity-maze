@@ -61,7 +61,7 @@ public class Cup extends GameObject {
     }
 
     /**
-     * Adds a ball that can interact with this cup
+     * Adds a ball that can interact with this cup.
      */
     public void setBall(String name) {
         ballName = name;
