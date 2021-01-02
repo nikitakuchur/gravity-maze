@@ -1,8 +1,8 @@
 {
-  "class": "com.github.nikitakuchur.puzzlegame.game.entities.Level",
+  "class": "com.github.nikitakuchur.puzzlegame.level.Level",
   "value": {
     "background": {
-      "class": "com.github.nikitakuchur.puzzlegame.game.entities.Background",
+      "class": "com.github.nikitakuchur.puzzlegame.actors.Background",
       "value": {
         "firstColor": {
           "r": 0.5764706,
@@ -19,7 +19,7 @@
       }
     },
     "map": {
-      "class": "com.github.nikitakuchur.puzzlegame.game.entities.GameMap",
+      "class": "com.github.nikitakuchur.puzzlegame.actors.GameMap",
       "value": {
         "color": {
           "r": 0.0,
@@ -113,7 +113,7 @@
     },
     "gameObjects": [
       {
-        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal",
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
           "name": "portal2",
           "x": 6,
@@ -128,7 +128,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal",
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
           "name": "portal1",
           "x": 3,
@@ -143,7 +143,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Cup",
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
         "value": {
           "x": 6,
           "y": 6,
@@ -157,7 +157,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Cup",
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
         "value": {
           "x": 0,
           "y": 5,
@@ -171,7 +171,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball",
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
         "value": {
           "name": "redBall",
           "x": 7,
@@ -185,7 +185,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball",
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
         "value": {
           "name": "blueBall",
           "x": 2,
@@ -199,7 +199,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Spike",
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
         "value": {
           "x": 7,
           "y": 0,
@@ -212,7 +212,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Spike",
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
         "value": {
           "x": 0,
           "y": 7,

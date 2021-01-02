@@ -1,14 +1,16 @@
-package com.github.nikitakuchur.puzzlegame.game.entities;
+package com.github.nikitakuchur.puzzlegame.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.actors.Background;
+import com.github.nikitakuchur.puzzlegame.actors.GameMap;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
 import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectStore;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObjectStore;
 import com.github.nikitakuchur.puzzlegame.physics.Physics;
-import com.github.nikitakuchur.puzzlegame.utils.Layer;
-import com.github.nikitakuchur.puzzlegame.utils.Parameters;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
 import java.util.EnumMap;
 import java.util.stream.Stream;

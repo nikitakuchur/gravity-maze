@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.game.entities;
+package com.github.nikitakuchur.puzzlegame.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.utils.Parameters;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
 public class Background extends Actor implements Parameterizable, Disposable {
 

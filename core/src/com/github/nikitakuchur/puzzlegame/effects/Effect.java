@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.game.effects;
+package com.github.nikitakuchur.puzzlegame.effects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+import com.github.nikitakuchur.puzzlegame.level.Level;
 
 public class Effect {
 

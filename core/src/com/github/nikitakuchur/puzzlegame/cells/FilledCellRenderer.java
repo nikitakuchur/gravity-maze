@@ -1,7 +1,7 @@
-package com.github.nikitakuchur.puzzlegame.game.cells;
+package com.github.nikitakuchur.puzzlegame.cells;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
+import com.github.nikitakuchur.puzzlegame.actors.GameMap;
 
 public class FilledCellRenderer extends CellRenderer {
 

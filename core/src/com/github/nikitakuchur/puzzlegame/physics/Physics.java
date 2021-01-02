@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.badlogic.gdx.math.Vector2;
-import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectStore;
+import com.github.nikitakuchur.puzzlegame.cells.CellType;
+import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObjectStore;
 
 public class Physics {
 

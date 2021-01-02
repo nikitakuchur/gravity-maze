@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
+package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
 import java.util.Random;
 
@@ -6,17 +6,17 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
-import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
-import com.github.nikitakuchur.puzzlegame.utils.Layer;
-import com.github.nikitakuchur.puzzlegame.utils.Parameters;
+import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.actors.GameMap;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
+import com.github.nikitakuchur.puzzlegame.level.Layer;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
 public abstract class GameObject extends Actor implements Parameterizable, Disposable {
 
     protected Level level;
 
-    public GameObject() {
+    protected GameObject() {
         Random rand = new Random();
         setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1));
     }

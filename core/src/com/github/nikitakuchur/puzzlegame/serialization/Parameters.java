@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.utils;
+package com.github.nikitakuchur.puzzlegame.serialization;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.game.entities;
+package com.github.nikitakuchur.puzzlegame.level;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
 
 public class LevelInputHandler {
@@ -96,7 +96,7 @@ public class LevelInputHandler {
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
             if (!areBallsGrounded()) {
                 lockRotation = true;
-                return true;
+                return false;
             }
 
             lockRotation = false;

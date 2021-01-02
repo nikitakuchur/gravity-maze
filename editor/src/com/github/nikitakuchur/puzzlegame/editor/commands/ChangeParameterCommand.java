@@ -1,7 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.editor.commands;
 
-import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
-import com.github.nikitakuchur.puzzlegame.utils.Parameters;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
 public class ChangeParameterCommand<T> implements Command {
 

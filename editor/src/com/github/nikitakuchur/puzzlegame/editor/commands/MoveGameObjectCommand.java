@@ -1,6 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.editor.commands;
 
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
 
 public class MoveGameObjectCommand implements Command {
 

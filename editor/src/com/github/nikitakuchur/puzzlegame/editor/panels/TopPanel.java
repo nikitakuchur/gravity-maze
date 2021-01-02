@@ -2,8 +2,8 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.badlogic.gdx.Gdx;
 import com.github.nikitakuchur.puzzlegame.editor.EditorApplication;
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
+import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
 
 import javax.swing.*;
 

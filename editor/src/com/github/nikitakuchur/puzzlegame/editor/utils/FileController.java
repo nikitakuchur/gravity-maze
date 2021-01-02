@@ -2,12 +2,9 @@ package com.github.nikitakuchur.puzzlegame.editor.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
-import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
+import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

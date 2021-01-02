@@ -1,7 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.editor.commands;
 
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectStore;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObjectStore;
 
 public class RemoveGameObjectCommand implements Command {
 

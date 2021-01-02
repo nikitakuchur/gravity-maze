@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.game.entities;
+package com.github.nikitakuchur.puzzlegame.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -6,11 +6,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.game.cells.FilledCellRenderer;
-import com.github.nikitakuchur.puzzlegame.game.cells.CellRenderer;
-import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
-import com.github.nikitakuchur.puzzlegame.game.cells.EmptyCellRenderer;
-import com.github.nikitakuchur.puzzlegame.utils.Parameters;
+import com.github.nikitakuchur.puzzlegame.cells.FilledCellRenderer;
+import com.github.nikitakuchur.puzzlegame.cells.CellRenderer;
+import com.github.nikitakuchur.puzzlegame.cells.CellType;
+import com.github.nikitakuchur.puzzlegame.cells.EmptyCellRenderer;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
 import java.util.Arrays;
 

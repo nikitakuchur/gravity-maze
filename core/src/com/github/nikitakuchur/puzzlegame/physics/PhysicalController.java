@@ -1,7 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.physics;
 
 import com.badlogic.gdx.math.Vector2;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
 
 public class PhysicalController {
 

@@ -1,10 +1,10 @@
-package com.github.nikitakuchur.puzzlegame.game.entities.gameobjects;
+package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+import com.github.nikitakuchur.puzzlegame.level.Level;
 
 public class GameObjectStore {
 

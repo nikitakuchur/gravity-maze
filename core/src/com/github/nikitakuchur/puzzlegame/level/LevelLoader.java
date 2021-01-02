@@ -1,8 +1,7 @@
-package com.github.nikitakuchur.puzzlegame.utils;
+package com.github.nikitakuchur.puzzlegame.level;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;

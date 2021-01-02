@@ -1,10 +1,10 @@
 package com.github.nikitakuchur.puzzlegame.editor.utils;
 
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Ball;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Cup;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Spike;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike;
 
 import java.lang.reflect.InvocationTargetException;
 

@@ -1,7 +1,7 @@
-package com.github.nikitakuchur.puzzlegame.game.cells;
+package com.github.nikitakuchur.puzzlegame.cells;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
+import com.github.nikitakuchur.puzzlegame.actors.GameMap;
 
 public abstract class CellRenderer {
 
@@ -18,7 +18,7 @@ public abstract class CellRenderer {
     private int x;
     private int y;
 
-    public CellRenderer(ShapeRenderer shapeRenderer, GameMap map) {
+    protected CellRenderer(ShapeRenderer shapeRenderer, GameMap map) {
         this.shapeRenderer = shapeRenderer;
         this.map = map;
     }

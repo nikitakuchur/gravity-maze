@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.github.nikitakuchur.puzzlegame.editor.commands.ChangeParameterCommand;
 import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
 import com.github.nikitakuchur.puzzlegame.editor.utils.ParametersUtils;
-import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
-import com.github.nikitakuchur.puzzlegame.utils.Parameters;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.HashSet;

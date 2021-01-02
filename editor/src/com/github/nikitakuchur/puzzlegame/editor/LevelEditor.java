@@ -19,11 +19,11 @@ import com.github.nikitakuchur.puzzlegame.editor.commands.RemoveBlocksCommand;
 import com.github.nikitakuchur.puzzlegame.editor.commands.RemoveGameObjectCommand;
 import com.github.nikitakuchur.puzzlegame.editor.utils.GameObjectType;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Option;
-import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
-import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObject;
-import com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.GameObjectStore;
+import com.github.nikitakuchur.puzzlegame.actors.GameMap;
+import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.cells.CellType;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObjectStore;
 
 import java.util.ArrayList;
 import java.util.List;

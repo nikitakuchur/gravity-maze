@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.github.nikitakuchur.puzzlegame.screens.GameScreen;
 import com.badlogic.gdx.Game;
 
+/**
+ * This is the main game class.
+ */
 public class PuzzleGame extends Game {
 	
 	@Override

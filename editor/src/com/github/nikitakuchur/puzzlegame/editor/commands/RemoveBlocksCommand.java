@@ -3,8 +3,8 @@ package com.github.nikitakuchur.puzzlegame.editor.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.nikitakuchur.puzzlegame.game.cells.CellType;
-import com.github.nikitakuchur.puzzlegame.game.entities.GameMap;
+import com.github.nikitakuchur.puzzlegame.cells.CellType;
+import com.github.nikitakuchur.puzzlegame.actors.GameMap;
 
 public class RemoveBlocksCommand implements Command {
 

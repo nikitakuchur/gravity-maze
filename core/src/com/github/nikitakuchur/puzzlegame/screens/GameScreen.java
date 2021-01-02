@@ -3,12 +3,12 @@ package com.github.nikitakuchur.puzzlegame.screens;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.github.nikitakuchur.puzzlegame.game.entities.Level;
+import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.ui.GameUI;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.*;
-import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
+import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
 
 import java.io.IOException;
 

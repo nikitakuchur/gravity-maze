@@ -1,7 +1,6 @@
-package com.github.nikitakuchur.puzzlegame.game.entities;
+package com.github.nikitakuchur.puzzlegame.serialization;
 
 import com.badlogic.gdx.Gdx;
-import com.github.nikitakuchur.puzzlegame.utils.Parameters;
 import com.google.gson.*;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +14,7 @@ import java.lang.reflect.Type;
 public interface Parameterizable {
 
     /**
-     * Creates a new parameters and returns them.
+     * Creates new parameters and returns them.
      *
      * @return parameters
      */

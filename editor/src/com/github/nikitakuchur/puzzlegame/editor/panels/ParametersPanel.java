@@ -3,7 +3,7 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 import java.awt.*;
 
 import com.badlogic.gdx.graphics.Color;
-import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
+import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
 
 import javax.swing.*;
 
