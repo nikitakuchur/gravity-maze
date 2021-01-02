@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
+import java.io.IOException;
+
 public class GameUI extends Group implements Disposable {
 
     private final GameScreen gameScreen;
@@ -77,8 +79,12 @@ public class GameUI extends Group implements Disposable {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // Restart the level
-                Level level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
-                gameScreen.setLevel(level);
+                try {
+                    Level level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
+                    gameScreen.setLevel(level);
+                } catch (IOException e) {
+                    Gdx.app.error("GameUI", e.getMessage());
+                }
             }
         });
         this.addActor(resetButton);

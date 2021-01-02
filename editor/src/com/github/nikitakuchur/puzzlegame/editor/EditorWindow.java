@@ -15,6 +15,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 import static javax.swing.JFileChooser.APPROVE_OPTION;
 
@@ -50,7 +51,7 @@ public class EditorWindow {
         Menu fileMenu = new Menu("File");
 
         MenuItem newItem = new MenuItem("New");
-        newItem.addActionListener(e -> EventQueue.invokeLater(() -> {
+        newItem.addActionListener(event -> EventQueue.invokeLater(() -> {
             LevelEditor editor = app.getLevelEditor();
             editor.stop();
 
@@ -80,15 +81,20 @@ public class EditorWindow {
         }));
 
         MenuItem openItem = new MenuItem("Open...");
-        openItem.addActionListener(e -> EventQueue.invokeLater(() -> {
+        openItem.addActionListener(event -> EventQueue.invokeLater(() -> {
             JFileChooser fileChooser = new JFileChooser();
             int option = fileChooser.showOpenDialog(null);
             if (option == APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
                 Gdx.app.postRunnable(() -> {
-                    app.getLevelEditor().stop();
-                    app.getFileController().open(file.getPath());
-                    CommandHistory.getInstance().clear();
+                    try {
+                        app.getFileController().open(file.getPath());
+                        CommandHistory.getInstance().clear();
+                    } catch (IOException e) {
+                        EventQueue.invokeLater(() ->
+                                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE)
+                        );
+                    }
                 });
             }
         }));
@@ -96,10 +102,9 @@ public class EditorWindow {
         MenuItem saveItem = new MenuItem("Save");
         saveItem.setEnabled(false);
         app.getFileController().addPathChangeListener(path -> saveItem.setEnabled(path != null));
-        saveItem.addActionListener(e -> Gdx.app.postRunnable(() -> {
-            app.getLevelEditor().stop();
-            app.getFileController().save();
-        }));
+        saveItem.addActionListener(e ->
+                Gdx.app.postRunnable(() -> app.getFileController().save())
+        );
 
         MenuItem saveAsItem = new MenuItem("Save As...");
         saveAsItem.addActionListener(e -> EventQueue.invokeLater(() -> {
@@ -107,10 +112,7 @@ public class EditorWindow {
             int option = fileChooser.showSaveDialog(null);
             if (option == APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                Gdx.app.postRunnable(() -> {
-                    app.getLevelEditor().stop();
-                    app.getFileController().saveAs(file.getPath());
-                });
+                Gdx.app.postRunnable(() -> app.getFileController().saveAs(file.getPath()));
             }
         }));
 

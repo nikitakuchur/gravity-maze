@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
 
+import java.io.IOException;
+
 public class GameScreen extends ScreenAdapter {
 
     private final Stage stage = new Stage(new ScreenViewport());
@@ -22,8 +24,12 @@ public class GameScreen extends ScreenAdapter {
      */
     public GameScreen() {
         stage.getCamera().position.set(Vector3.Zero);
-        level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
-        stage.addActor(level);
+        try {
+            level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
+            stage.addActor(level);
+        } catch (IOException e) {
+            Gdx.app.error("GameUI", e.getMessage());
+        }
         stage.addActor(gameUI);
     }
 

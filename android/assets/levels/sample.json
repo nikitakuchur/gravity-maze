@@ -5,7 +5,7 @@
       "class": "com.github.nikitakuchur.puzzlegame.game.entities.Background",
       "value": {
         "firstColor": {
-         "r": 0.5764706,
+          "r": 0.5764706,
           "g": 1.0,
           "b": 0.75686276,
           "a": 1.0
@@ -128,7 +128,7 @@
         }
       },
       {
-       "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal",
+        "class": "com.github.nikitakuchur.puzzlegame.game.entities.gameobjects.Portal",
         "value": {
           "name": "portal1",
           "x": 3,

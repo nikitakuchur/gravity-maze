@@ -5,6 +5,9 @@ import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.game.entities.Parameterizable;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+
+import java.io.IOException;
 
 public class LevelLoader {
 
@@ -17,8 +20,12 @@ public class LevelLoader {
         throw new IllegalStateException("Utility class");
     }
 
-    public static Level load(FileHandle handle) {
-        return GSON.fromJson(handle.readString(), Level.class);
+    public static Level load(FileHandle handle) throws IOException {
+        try {
+            return GSON.fromJson(handle.readString(), Level.class);
+        } catch (JsonSyntaxException e) {
+            throw new IOException("Cannot load this file.", e);
+        }
     }
 
     public static void save(FileHandle handle, Level level) {

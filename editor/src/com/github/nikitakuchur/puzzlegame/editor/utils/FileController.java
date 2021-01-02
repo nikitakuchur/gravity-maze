@@ -2,9 +2,13 @@ package com.github.nikitakuchur.puzzlegame.editor.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
+import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
 import com.github.nikitakuchur.puzzlegame.game.entities.Level;
 import com.github.nikitakuchur.puzzlegame.utils.LevelLoader;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -26,7 +30,7 @@ public class FileController {
         pathChangeListeners.forEach(listener -> listener.accept(path));
     }
 
-    public void open(String path) {
+    public void open(String path) throws IOException {
         Level level = LevelLoader.load(Gdx.files.absolute(path));
         editor.setLevel(level);
         this.path = path;
