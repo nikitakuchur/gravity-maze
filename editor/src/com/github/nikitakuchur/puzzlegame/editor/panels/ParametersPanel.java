@@ -30,6 +30,7 @@ public class ParametersPanel extends JPanel {
     }
 
     public void setParameterizable(Parameterizable parameterizable) {
+        table.removeEditor();
         tableModel.setParameterizable(parameterizable);
     }
 
