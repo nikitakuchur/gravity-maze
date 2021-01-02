@@ -7,10 +7,25 @@ import com.google.gson.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 
+/**
+ * Every serializable class must implement this interface if it needs to save and load some fields.
+ *
+ * This interface is also used in the level editor. The user can edit fields obtained from parameters.
+ */
 public interface Parameterizable {
 
+    /**
+     * Creates a new parameters and returns them.
+     *
+     * @return parameters
+     */
     Parameters getParameters();
 
+    /**
+     * Sets the given parameters to the object.
+     *
+     * @param parameters the parameters
+     */
     void setParameters(Parameters parameters);
 
     class Serializer implements JsonSerializer<Parameterizable>, JsonDeserializer<Parameterizable> {
