@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
@@ -52,25 +53,26 @@ public class Portal extends GameObject {
 
         if (secondPortal == null || detectCollision()) return;
 
-        Ball ball = store.getGameObjects(Ball.class).stream()
-                .filter(b -> position.equals(b.getPosition()))
+        GameObject physicalObject = store.getGameObjects(PhysicalObject.class).stream()
+                .map(GameObject.class::cast) // We can cast because GameObjectStore stores only game objects
+                .filter(p -> position.equals(p.getPosition()))
                 .findAny()
                 .orElse(null);
 
-        if (ball != null && !locked && !secondPortal.locked) {
-            ball.setPosition(secondPortal.getPosition());
+        if (physicalObject != null && !locked && !secondPortal.locked) {
+            physicalObject.setPosition(secondPortal.getPosition());
             locked = true;
             secondPortal.locked = true;
 
             effect.position(position)
-                    .direction(ball.getPhysicalController().getVelocity().rotate(180))
+                    .direction(((PhysicalObject) physicalObject).getPhysicalController().getVelocity().rotate(180))
                     .start();
             secondPortal.effect.position(secondPortal.getPosition())
-                    .direction(ball.getPhysicalController().getVelocity())
+                    .direction(((PhysicalObject) physicalObject).getPhysicalController().getVelocity())
                     .start();
         }
 
-        if(ball == null && secondPortal.isFree()) {
+        if (physicalObject == null && secondPortal.isFree()) {
             locked = false;
             secondPortal.locked = false;
         }

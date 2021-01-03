@@ -1,6 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.editor.utils;
 
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal;
@@ -12,7 +13,8 @@ public enum GameObjectType {
     BALL(Ball.class),
     CUP(Cup.class),
     PORTAL(Portal.class),
-    SPIKE(Spike.class);
+    SPIKE(Spike.class),
+    BOX(Box.class);
 
     private final Class<? extends GameObject> clazz;
 
