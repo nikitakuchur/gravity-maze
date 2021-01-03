@@ -20,4 +20,8 @@ public class GameActions {
                         Actions.scaleTo(1, 1, 1, Interpolation.smooth)
                 ));
     }
+
+    public static Action shrink() {
+        return Actions.scaleTo(0f, 0f, 0.25f, Interpolation.smooth);
+    }
 }
