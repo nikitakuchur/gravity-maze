@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
+import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 
 public class LevelInputHandler {
 
@@ -94,7 +95,7 @@ public class LevelInputHandler {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (!areBallsGrounded()) {
+            if (!areObjectsGrounded()) {
                 lockRotation = true;
                 return false;
             }
@@ -105,11 +106,11 @@ public class LevelInputHandler {
             return true;
         }
 
-        private boolean areBallsGrounded() {
-            List<Ball> balls = level.getGameObjectStore().getGameObjects(Ball.class);
-            if (balls.isEmpty()) return false;
-            for (Ball ball : balls) {
-                if (ball.getPhysicalController().isMoving()) {
+        private boolean areObjectsGrounded() {
+            List<PhysicalObject> physicalObjects = level.getGameObjectStore().getGameObjects(PhysicalObject.class);
+            if (physicalObjects.isEmpty()) return false;
+            for (PhysicalObject physicalObject : physicalObjects) {
+                if (physicalObject.getPhysicalController().isMoving()) {
                     return false;
                 }
             }

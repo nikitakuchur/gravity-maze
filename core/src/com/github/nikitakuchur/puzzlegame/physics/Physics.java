@@ -37,7 +37,11 @@ public class Physics {
 
     public static boolean detectCollision(Level level, int x, int y) {
         Vector2 nextPosition = new Vector2(x, y);
-        while (level.getMap().getCellType((int) nextPosition.x, (int) nextPosition.y) != CellType.FILLED) {
+
+        boolean isFrozenObj =  level.getGameObjectStore().getGameObjects(PhysicalObject.class).stream()
+                .anyMatch(p -> nextPosition.equals(p.getPhysicalController().getPosition()) && p.getPhysicalController().isFrozen());
+
+        while (!isFrozenObj && level.getMap().getCellType((int) nextPosition.x, (int) nextPosition.y) != CellType.FILLED) {
             if (!detectPhysicalObject(level, (int) nextPosition.x, (int) nextPosition.y)) {
                 return false;
             }

@@ -13,6 +13,8 @@ public class PhysicalController {
     private Vector2 prevPosition;
     private Vector2 nextPosition;
 
+    private boolean frozen;
+
     public PhysicalController(GameObject gameObject) {
         this.gameObject = gameObject;
         prevPosition = getPosition();
@@ -20,6 +22,8 @@ public class PhysicalController {
     }
 
     public void update(float delta) {
+        if (frozen) return;
+
         Vector2 position = getPosition();
         Vector2 direction = nextPosition.cpy().sub(prevPosition).nor();
 
@@ -73,5 +77,18 @@ public class PhysicalController {
 
     public void setNextPosition(Vector2 nextPosition) {
         this.nextPosition = nextPosition.cpy();
+    }
+
+    public void freeze() {
+        frozen = true;
+        velocity = Vector2.Zero.cpy();
+    }
+
+    public void unfreeze() {
+        frozen = false;
+    }
+
+    public boolean isFrozen() {
+        return frozen;
     }
 }

@@ -1,11 +1,13 @@
 package com.github.nikitakuchur.puzzlegame.editor.utils;
 
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Battery;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.BatteryHolder;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -14,7 +16,9 @@ public enum GameObjectType {
     CUP(Cup.class),
     PORTAL(Portal.class),
     SPIKE(Spike.class),
-    BOX(Box.class);
+    BOX(Box.class),
+    BATTERY(Battery.class),
+    BATTERY_HOLDER(BatteryHolder.class);
 
     private final Class<? extends GameObject> clazz;
 
