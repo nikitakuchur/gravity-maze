@@ -15,52 +15,23 @@ import com.github.nikitakuchur.puzzlegame.ui.MenuType;
 
 import java.io.IOException;
 
-public class GameScreen extends ScreenAdapter {
+public class MainMenuScreen extends ScreenAdapter {
 
-    private final Stage stage = new Stage(new ScreenViewport());
+    private final Stage stage;
+    private final GameUIActors gameUIActors;
     private final Game game;
 
-    private Level level;
-
-    private final GameUIActors gameUIActors = new GameUIActors(this, stage);
-
-    /**
-     * Creates a new game screen.
-     */
-    public GameScreen(Game game) {
+    public MainMenuScreen(Game game, Stage stage) {
         this.game = game;
         stage.getCamera().position.set(Vector3.Zero);
-        try {
-            level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
-            stage.addActor(level);
-        } catch (IOException e) {
-            Gdx.app.error("GameUI", e.getMessage());
-        }
+        this.stage = stage;
+        this.gameUIActors = new GameUIActors(this, stage);
 
-        gameUIActors.openMenu(MenuType.InGameDefault);
+        gameUIActors.openMenu(MenuType.Main);
     }
 
-    public void setMainMenuScreen() {
-        game.setScreen(new MainMenuScreen(game, new Stage(new ScreenViewport())));
-    }
-
-    /**
-     * Returns the level.
-     */
-    public Level getLevel() {
-        return level;
-    }
-
-    /**
-     * Sets the level.
-     *
-     * @param level the level
-     */
-    public void setLevel(Level level) {
-        int index = stage.getActors().indexOf(this.level, true);
-        stage.getActors().set(index, level);
-        this.level.dispose();
-        this.level = level;
+    public void setGameScreen() {
+        this.game.setScreen(new GameScreen(game));
     }
 
     @Override
@@ -91,7 +62,6 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         Gdx.input.setInputProcessor(null);
         stage.dispose();
-        level.dispose();
         gameUIActors.dispose();
     }
 }
