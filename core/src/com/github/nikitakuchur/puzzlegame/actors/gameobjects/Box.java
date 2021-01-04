@@ -1,7 +1,10 @@
 package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.github.nikitakuchur.puzzlegame.level.Layer;
 import com.github.nikitakuchur.puzzlegame.level.Level;
@@ -10,8 +13,15 @@ import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 
 public class Box extends GameObject implements PhysicalObject {
 
-    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final Texture texture = new Texture(Gdx.files.internal("game/box/box.png"), true);
+
+    private final TextureRegion textureRegion = new TextureRegion(texture);
+
     private PhysicalController physicalController;
+
+    public Box() {
+        texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+    }
 
     @Override
     public void initialize(Level level) {
@@ -22,18 +32,10 @@ public class Box extends GameObject implements PhysicalObject {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.end();
-        shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-
         Vector2 position = getActualPosition();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(getColor());
-        shapeRenderer.rect(position.x, position.y, getWidth(), getHeight());
-
-        shapeRenderer.identity();
-        shapeRenderer.end();
-        batch.begin();
+        batch.setColor(getColor());
+        batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
+                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }
 
     @Override
@@ -43,7 +45,7 @@ public class Box extends GameObject implements PhysicalObject {
 
     @Override
     public void dispose() {
-        shapeRenderer.dispose();
+        texture.dispose();
     }
 
     @Override

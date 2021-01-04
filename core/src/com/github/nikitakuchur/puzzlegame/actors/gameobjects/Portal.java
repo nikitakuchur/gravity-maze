@@ -66,7 +66,7 @@ public class Portal extends GameObject {
             secondPortal.locked = true;
 
             effect.position(position)
-                    .direction(physicalController.getVelocity().rotate(180))
+                    .direction(physicalController.getVelocity().rotateDeg(180))
                     .start();
             secondPortal.effect.position(secondPortal.getPosition())
                     .direction(physicalController.getVelocity())

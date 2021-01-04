@@ -58,7 +58,7 @@ public class Spike extends GameObject {
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         batch.setColor(getColor());
         batch.draw(centerTextureRegion, position.x, position.y, getOriginX(), getOriginY(),
-                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
+               getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         effect.draw(batch);
     }
 
