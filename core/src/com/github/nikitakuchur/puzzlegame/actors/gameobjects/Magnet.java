@@ -3,13 +3,18 @@ package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.level.Layer;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
+import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 
-public class BatteryHolder extends GameObject {
+public class Magnet extends GameObject {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+
+    private Action bounceAction;
 
     private GameObjectStore store;
 
@@ -24,24 +29,38 @@ public class BatteryHolder extends GameObject {
         super.act(delta);
         Vector2 position = getPosition();
 
-        Battery battery = store.getGameObjects(Battery.class).stream()
-                .filter(b -> position.equals(b.getPosition()))
+        PhysicalObject pickedUpObject = store.getGameObjects(PhysicalObject.class).stream()
+                .filter(p -> position.equals(p.getPhysicalController().getPosition()))
                 .findAny()
                 .orElse(null);
 
-        if (battery != null) {
+        if (pickedUpObject != null) {
             PhysicalObject physicalObject = store.getGameObjects(PhysicalObject.class).stream()
                     .filter(p -> {
                         Vector2 nextPosition = p.getPhysicalController().getPosition().add(level.getGravityDirection().getDirection());
-                        return p != battery && position.equals(nextPosition) && !p.getPhysicalController().isMoving();
+                        return p != pickedUpObject && position.equals(nextPosition) && !p.getPhysicalController().isMoving();
                     }).findAny()
                     .orElse(null);
-            if (physicalObject == null && !battery.getPhysicalController().isFrozen()) {
-                battery.getPhysicalController().freeze();
+            if (physicalObject == null && !pickedUpObject.getPhysicalController().isFrozen()) {
+                pickedUpObject.getPhysicalController().freeze();
+                addBounceAction(pickedUpObject);
             }
-            if (physicalObject != null && battery.getPhysicalController().isFrozen()) {
-                battery.getPhysicalController().unfreeze();
+            if (physicalObject != null && pickedUpObject.getPhysicalController().isFrozen()) {
+                pickedUpObject.getPhysicalController().unfreeze();
+                removeBounceAction(pickedUpObject);
             }
+        }
+    }
+
+    private void addBounceAction(PhysicalObject physicalObject) {
+        bounceAction = Actions.forever(GameActions.bounce());
+        ((GameObject) physicalObject).addAction(bounceAction);
+    }
+
+    private void removeBounceAction(PhysicalObject physicalObject) {
+        if (bounceAction != null) {
+            ((GameObject) physicalObject).removeAction(bounceAction);
+            ((GameObject) physicalObject).setScale(1.f);
         }
     }
 
