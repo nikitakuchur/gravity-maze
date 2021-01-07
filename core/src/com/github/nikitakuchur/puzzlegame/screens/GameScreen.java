@@ -1,8 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
@@ -10,25 +8,25 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
-import com.github.nikitakuchur.puzzlegame.ui.GameUIActors;
-import com.github.nikitakuchur.puzzlegame.ui.MenuType;
+import com.github.nikitakuchur.puzzlegame.ui.actors.LevelGroup;
+import com.github.nikitakuchur.puzzlegame.ui.commands.SetActorCommand;
+import com.github.nikitakuchur.puzzlegame.ui.commands.SetLevelCommand;
+import com.github.nikitakuchur.puzzlegame.ui.commands.SetScreenCommand;
 
 import java.io.IOException;
 
 public class GameScreen extends ScreenAdapter {
 
     private final Stage stage = new Stage(new ScreenViewport());
-    private final Game game;
-
     private Level level;
-
-    private final GameUIActors gameUIActors = new GameUIActors(this, stage);
 
     /**
      * Creates a new game screen.
      */
-    public GameScreen(Game game) {
-        this.game = game;
+    public GameScreen(SetScreenCommand setScreenCommand) {
+        SetActorCommand setActorCommand = new SetActorCommand(stage);
+        SetLevelCommand setLevelCommand = new SetLevelCommand((level) -> setLevel(level));
+
         stage.getCamera().position.set(Vector3.Zero);
         try {
             level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
@@ -37,11 +35,8 @@ public class GameScreen extends ScreenAdapter {
             Gdx.app.error("GameUI", e.getMessage());
         }
 
-        gameUIActors.openMenu(MenuType.InGameDefault);
-    }
-
-    public void setMainMenuScreen() {
-        game.setScreen(new MainMenuScreen(game, new Stage(new ScreenViewport())));
+        setActorCommand.add(new LevelGroup(setScreenCommand, setActorCommand, setLevelCommand, () -> level.getScore()));
+        setActorCommand.execute();
     }
 
     /**
@@ -92,6 +87,5 @@ public class GameScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(null);
         stage.dispose();
         level.dispose();
-        gameUIActors.dispose();
     }
 }

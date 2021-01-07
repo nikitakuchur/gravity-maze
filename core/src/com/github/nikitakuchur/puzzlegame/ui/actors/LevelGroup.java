@@ -1,42 +1,48 @@
 package com.github.nikitakuchur.puzzlegame.ui.actors;
 
-import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.level.Level;
-import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
-import com.github.nikitakuchur.puzzlegame.screens.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.ui.FontGenerator;
-import com.github.nikitakuchur.puzzlegame.ui.actors.buttons.Copyable;
+import com.github.nikitakuchur.puzzlegame.ui.commands.SetActorCommand;
+import com.github.nikitakuchur.puzzlegame.ui.commands.SetLevelCommand;
+import com.github.nikitakuchur.puzzlegame.ui.commands.SetScreenCommand;
 
-import java.io.IOException;
+import java.util.function.Supplier;
 
-public class GameLabels extends Group implements Disposable, Copyable {
-
-    private final GameScreen gameScreen;
-
+public class LevelGroup extends Group implements Disposable {
     private final BitmapFont font;
+    private final TextButton settingsMenuButton;
 
     private final Label fpsLabel;
     private final Label scoreLabel;
+    private final Supplier<Integer> getScore;
 
-    /**
-     * Creates a new ui for the game screen.
-     *
-     * @param gameScreen the game screen
-     */
-    public GameLabels(GameScreen gameScreen) {
-        this.gameScreen = gameScreen;
-
+    public LevelGroup(SetScreenCommand setScreenCommand, SetActorCommand setActorCommand, SetLevelCommand setLevelCommand, Supplier<Integer> getScore) {
+        this.getScore = getScore;
         font = FontGenerator.getFont(Gdx.graphics.getWidth() / 16);
+
+        // Button style
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.font = font;
+
+        // SettingsMenu button
+        settingsMenuButton = new TextButton("#", textButtonStyle);
+        settingsMenuButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                setActorCommand.add(new InGameSettingsGroup(setScreenCommand, setActorCommand, setLevelCommand));
+                setActorCommand.execute();
+            }
+        });
+        this.addActor(settingsMenuButton);
 
         // Label style
         Label.LabelStyle labelStyle = new Label.LabelStyle();
@@ -56,21 +62,20 @@ public class GameLabels extends Group implements Disposable, Copyable {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+
+        settingsMenuButton.setPosition((float) Gdx.graphics.getWidth() / 2 - (float) 2 * settingsMenuButton.getWidth() - 20,
+                (float) Gdx.graphics.getHeight() / 2 - (float) 1.5 * settingsMenuButton.getHeight());
+
         fpsLabel.setPosition(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getHeight() / 2);
         scoreLabel.setPosition(0, (float) Gdx.graphics.getHeight() / 2 - (float) Gdx.graphics.getHeight() / 20);
 
         fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
-        scoreLabel.setText(gameScreen.getLevel().getScore());
-        super.draw(batch, parentAlpha);
+        scoreLabel.setText(this.getScore.get());
     }
 
     @Override
     public void dispose() {
         font.dispose();
-    }
-
-    @Override
-    public GameLabels copy() {
-        return new GameLabels(gameScreen);
     }
 }
