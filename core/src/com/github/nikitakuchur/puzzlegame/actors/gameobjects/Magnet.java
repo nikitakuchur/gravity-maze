@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.level.Layer;
 import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 
@@ -35,17 +36,18 @@ public class Magnet extends GameObject {
                 .orElse(null);
 
         if (pickedUpObject != null) {
-            PhysicalObject physicalObject = store.getGameObjects(PhysicalObject.class).stream()
-                    .filter(p -> {
-                        Vector2 nextPosition = p.getPhysicalController().getPosition().add(level.getGravityDirection().getDirection());
-                        return p != pickedUpObject && position.equals(nextPosition) && !p.getPhysicalController().isMoving();
-                    }).findAny()
-                    .orElse(null);
-            if (physicalObject == null && !pickedUpObject.getPhysicalController().isFrozen()) {
+            boolean hasUpperObject = store.getGameObjects(PhysicalObject.class).stream()
+                    .anyMatch(p -> {
+                        PhysicalController controller = p.getPhysicalController();
+                        Vector2 nextPosition = controller.getPosition().add(level.getGravityDirection().getDirection());
+                        return p != pickedUpObject && position.equals(nextPosition) && !controller.isMoving() && !controller.isFrozen();
+                    });
+            if (!hasUpperObject && !pickedUpObject.getPhysicalController().isFrozen()) {
                 pickedUpObject.getPhysicalController().freeze();
+                pickedUpObject.getPhysicalController().setVelocity(Vector2.Zero);
                 addBounceAction(pickedUpObject);
             }
-            if (physicalObject != null && pickedUpObject.getPhysicalController().isFrozen()) {
+            if (hasUpperObject && pickedUpObject.getPhysicalController().isFrozen()) {
                 pickedUpObject.getPhysicalController().unfreeze();
                 removeBounceAction(pickedUpObject);
             }

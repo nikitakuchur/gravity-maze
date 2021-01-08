@@ -17,8 +17,9 @@ public class Parameters {
         return (T) propertyMap.get(name).value;
     }
 
-    public Object getValueOrDefault(String name, Object defaultValue) {
-        Object value = propertyMap.get(name).value;
+    @SuppressWarnings("unchecked")
+    public <T> T getValueOrDefault(String name, T defaultValue) {
+        T value = (T) propertyMap.get(name).value;
         return value != null ? value : defaultValue;
     }
 

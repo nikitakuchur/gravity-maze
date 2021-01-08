@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 
@@ -58,20 +57,20 @@ public class LevelInputHandler {
         if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad))) {
             if (Math.cos(angleRad) < 0) {
                 level.setRotation(angle + (float) Math.sin(angleRad) * speed * delta);
-                level.setGravityDirection(GravityDirection.TOP);
+                changeGravityDirection(GravityDirection.TOP);
             } else {
                 level.setRotation(angle - (float) Math.sin(angleRad) * speed * delta);
-                level.setGravityDirection(GravityDirection.BOTTOM);
+                changeGravityDirection(GravityDirection.BOTTOM);
             }
         }
 
         if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad))) {
             if (Math.sin(angleRad) > 0) {
                 level.setRotation(angle + (float) Math.cos(angleRad) * speed * delta);
-                level.setGravityDirection(GravityDirection.LEFT);
+                changeGravityDirection(GravityDirection.LEFT);
             } else {
                 level.setRotation(angle - (float) Math.cos(angleRad) * speed * delta);
-                level.setGravityDirection(GravityDirection.RIGHT);
+                changeGravityDirection(GravityDirection.RIGHT);
             }
         }
 
@@ -81,6 +80,12 @@ public class LevelInputHandler {
         }
 
         lastAngle = level.getRotation();
+    }
+
+    private void changeGravityDirection(GravityDirection gravityDirection) {
+        if (level.getGravityDirection() != gravityDirection) {
+            level.setGravityDirection(gravityDirection);
+        }
     }
 
     private float scaleAnimation(float t) {
@@ -129,7 +134,7 @@ public class LevelInputHandler {
             Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
             Vector2 touchPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 
-            float angle = lastAngle + touchPosition.sub(center).angle(lastTouchPosition.cpy().sub(center));
+            float angle = lastAngle - touchPosition.sub(center).angleDeg(lastTouchPosition.cpy().sub(center));
 
             float max = 600 * Gdx.graphics.getDeltaTime();
             float delta = angleDifference(level.getRotation(), angle);

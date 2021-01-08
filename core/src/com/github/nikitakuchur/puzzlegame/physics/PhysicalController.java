@@ -10,6 +10,8 @@ public class PhysicalController {
 
     private final GameObject gameObject;
 
+    private Collider collider = FullCollider.INSTANCE;
+
     private Vector2 prevPosition;
     private Vector2 nextPosition;
 
@@ -22,8 +24,6 @@ public class PhysicalController {
     }
 
     public void update(float delta) {
-        if (frozen) return;
-
         Vector2 position = getPosition();
         Vector2 direction = nextPosition.cpy().sub(prevPosition).nor();
 
@@ -81,7 +81,6 @@ public class PhysicalController {
 
     public void freeze() {
         frozen = true;
-        velocity = Vector2.Zero.cpy();
     }
 
     public void unfreeze() {
@@ -90,5 +89,13 @@ public class PhysicalController {
 
     public boolean isFrozen() {
         return frozen;
+    }
+
+    public Collider getCollider() {
+        return collider;
+    }
+
+    public void setCollider(Collider collider) {
+        this.collider = collider;
     }
 }

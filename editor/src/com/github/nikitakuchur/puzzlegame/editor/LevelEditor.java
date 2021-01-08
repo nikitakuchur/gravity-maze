@@ -92,7 +92,7 @@ public class LevelEditor extends Group implements Disposable {
 
     private boolean hasSelectedObject() {
         if (selectedGameObject == null) return false;
-        if (gameObjectStore.find(selectedGameObject) == null) {
+        if (!gameObjectStore.contains(selectedGameObject)) {
             selectedGameObject = null;
             return false;
         }

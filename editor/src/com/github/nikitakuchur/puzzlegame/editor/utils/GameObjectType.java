@@ -4,6 +4,7 @@ import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet;
@@ -16,7 +17,8 @@ public enum GameObjectType {
     PORTAL(Portal.class),
     SPIKE(Spike.class),
     BOX(Box.class),
-    MAGNET(Magnet.class);
+    MAGNET(Magnet.class),
+    CONVEYOR(Conveyor.class);
 
     private final Class<? extends GameObject> clazz;
 
