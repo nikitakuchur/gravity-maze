@@ -20,7 +20,7 @@ public class LevelScreen extends GameScreen {
     private Level level;
 
     /**
-     * Creates a new game screen.
+     * Creates a new level screen.
      */
     public LevelScreen(Game game) {
         super(game);
