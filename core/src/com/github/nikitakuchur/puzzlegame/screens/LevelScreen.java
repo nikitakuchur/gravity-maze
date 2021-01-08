@@ -6,20 +6,54 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
-import com.github.nikitakuchur.puzzlegame.ui.menus.MainMenu;
+import com.github.nikitakuchur.puzzlegame.ui.menus.GameUI;
 
-public class MainMenuScreen extends GameScreen {
+import java.io.IOException;
+
+public class LevelScreen extends GameScreen {
 
     private final Stage stage = new Stage(new ScreenViewport());
 
-    public MainMenuScreen(Game game) {
+    private Level level;
+
+    /**
+     * Creates a new game screen.
+     */
+    public LevelScreen(Game game) {
         super(game);
         stage.getCamera().position.set(Vector3.Zero);
+        try {
+            level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
+            stage.addActor(level);
+        } catch (IOException e) {
+            Gdx.app.error("GameUI", e.getMessage());
+        }
 
         MenuStack menuStack = new MenuStack();
-        menuStack.push(new MainMenu(menuStack, this));
+        menuStack.push(new GameUI(menuStack, this));
         stage.addActor(menuStack);
+    }
+
+    /**
+     * Returns the level.
+     */
+    public Level getLevel() {
+        return level;
+    }
+
+    /**
+     * Sets the level.
+     *
+     * @param level the level
+     */
+    public void setLevel(Level level) {
+        int index = stage.getActors().indexOf(this.level, true);
+        stage.getActors().set(index, level);
+        this.level.dispose();
+        this.level = level;
     }
 
     @Override
@@ -50,5 +84,6 @@ public class MainMenuScreen extends GameScreen {
     public void dispose() {
         Gdx.input.setInputProcessor(null);
         stage.dispose();
+        level.dispose();
     }
 }
