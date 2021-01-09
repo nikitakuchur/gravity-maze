@@ -3,7 +3,6 @@ package com.github.nikitakuchur.puzzlegame.ui.menus;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,10 +17,9 @@ import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
 public class MainMenu extends Menu<MainMenuScreen> implements Disposable {
     private final BitmapFont font;
 
-    private final Texture menuBg = new Texture(Gdx.files.internal("game/menu/bg1.png"), true);
-
     public MainMenu(MenuStack menuStack, MainMenuScreen mainMenuScreen) {
-        super(menuStack, mainMenuScreen);
+        super(menuStack, mainMenuScreen, "bg1.png");
+
         font = FontGenerator.getFont(Gdx.graphics.getWidth() / 16);
 
         // Button style
@@ -45,12 +43,6 @@ public class MainMenu extends Menu<MainMenuScreen> implements Disposable {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.setColor(Color.WHITE);
-        batch.draw(menuBg,
-                -(float) Gdx.graphics.getWidth() / 4,
-                -(float) Gdx.graphics.getHeight() / 4,
-                (float) Gdx.graphics.getWidth() / 2,
-                (float) Gdx.graphics.getHeight() / 2
-        );
 
         super.draw(batch, parentAlpha);
     }
