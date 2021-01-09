@@ -30,7 +30,6 @@ www-test/
 *.iml
 /android/out/
 com_crashlytics_export_strings.xml
-local.properties
 
 ## Eclipse
 
@@ -42,7 +41,6 @@ local.properties
 /desktop/bin/
 /html/bin/
 /ios/bin/
-/ios-moe/bin/
 *.tmp
 *.bak
 *.swp
@@ -60,15 +58,12 @@ local.properties
 /desktop/nbproject/private/
 /html/nbproject/private/
 /ios/nbproject/private/
-/ios-moe/nbproject/private/
 
 /build/
 /android/build/
 /core/build/
 /desktop/build/
-/html/build/
-/ios/build/
-/ios-moe/build/
+/editor/build/
 
 /nbbuild/
 /android/nbbuild/
@@ -76,7 +71,6 @@ local.properties
 /desktop/nbbuild/
 /html/nbbuild/
 /ios/nbbuild/
-/ios-moe/nbbuild/
 
 /dist/
 /android/dist/
@@ -84,7 +78,6 @@ local.properties
 /desktop/dist/
 /html/dist/
 /ios/dist/
-/ios-moe/dist/
 
 /nbdist/
 /android/nbdist/
@@ -92,24 +85,21 @@ local.properties
 /desktop/nbdist/
 /html/nbdist/
 /ios/nbdist/
-/ios-moe/nbdist/
 
 nbactions.xml
 nb-configuration.xml
 
 ## Gradle
 
-/local.parameters
+/local.properties
 .gradle/
 gradle-app.setting
 /build/
 /android/build/
 /core/build/
 /desktop/build/
-/editor/build/
 /html/build/
 /ios/build/
-/ios-moe/build/
 
 ## OS Specific
 .DS_Store
@@ -122,8 +112,3 @@ Thumbs.db
 /ios/xcode/native/
 /ios/IOSLauncher.app
 /ios/IOSLauncher.app.dSYM
-
-/ios-moe/xcode/*.xcodeproj/*
-!/ios-moe/xcode/*.xcodeproj/xcshareddata
-!/ios-moe/xcode/*.xcodeproj/project.pbxproj
-/ios-moe/xcode/native/

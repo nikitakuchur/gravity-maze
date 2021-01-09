@@ -144,6 +144,10 @@ public class Effect {
         return this;
     }
 
+    public boolean isPlaying() {
+        return playing;
+    }
+
     private static class Particle {
         private final Vector2 position = Vector2.Zero.cpy();
         private final Vector2 velocity = Vector2.Zero.cpy();

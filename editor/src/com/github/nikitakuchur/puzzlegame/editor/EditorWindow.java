@@ -22,7 +22,7 @@ import static javax.swing.JFileChooser.APPROVE_OPTION;
 public class EditorWindow {
     private static final String DEFAULT_TITLE = "unnamed";
 
-    private final JFrame window = new JFrame(DEFAULT_TITLE);
+    private final JFrame window = new JFrame('*' + DEFAULT_TITLE);
     private final EditorApplication app = new EditorApplication();
 
     private final MenuBar menuBar = new MenuBar();

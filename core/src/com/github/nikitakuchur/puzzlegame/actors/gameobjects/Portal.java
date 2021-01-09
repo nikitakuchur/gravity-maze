@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
+import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
@@ -52,25 +54,26 @@ public class Portal extends GameObject {
 
         if (secondPortal == null || detectCollision()) return;
 
-        Ball ball = store.getGameObjects(Ball.class).stream()
-                .filter(b -> position.equals(b.getPosition()))
+        PhysicalObject physicalObject = store.getGameObjects(PhysicalObject.class).stream()
+                .filter(obj -> position.equals(obj.getPhysicalController().getPosition()))
                 .findAny()
                 .orElse(null);
 
-        if (ball != null && !locked && !secondPortal.locked) {
-            ball.setPosition(secondPortal.getPosition());
+        if (physicalObject != null && !locked && !secondPortal.locked) {
+            PhysicalController physicalController = physicalObject.getPhysicalController();
+            physicalController.setPosition(secondPortal.getPosition());
             locked = true;
             secondPortal.locked = true;
 
             effect.position(position)
-                    .direction(ball.getPhysicalController().getVelocity().rotate(180))
+                    .direction(physicalController.getVelocity().rotateDeg(180))
                     .start();
             secondPortal.effect.position(secondPortal.getPosition())
-                    .direction(ball.getPhysicalController().getVelocity())
+                    .direction(physicalController.getVelocity())
                     .start();
         }
 
-        if(ball == null && secondPortal.isFree()) {
+        if (physicalObject == null && secondPortal.isFree()) {
             locked = false;
             secondPortal.locked = false;
         }
@@ -81,17 +84,17 @@ public class Portal extends GameObject {
     private boolean detectCollision() {
         Portal secondPortal = store.find(Portal.class, secondPortalName);
 
-        boolean firstBallDetected = store.getGameObjects(Ball.class).stream()
-                .anyMatch(b -> getPosition().equals(b.getPosition()));
-        boolean secondBallDetected = store.getGameObjects(Ball.class).stream()
-                .anyMatch(b -> secondPortal.getPosition().equals(b.getPosition()));
+        boolean firstObjectDetected = store.getGameObjects(PhysicalObject.class).stream()
+                .anyMatch(p -> getPosition().equals(p.getPhysicalController().getPosition()));
+        boolean secondObjectDetected = store.getGameObjects(PhysicalObject.class).stream()
+                .anyMatch(p -> secondPortal.getPosition().equals(p.getPhysicalController().getPosition()));
 
-        return firstBallDetected && secondBallDetected;
+        return firstObjectDetected && secondObjectDetected;
     }
 
     private boolean isFree() {
-        for (Ball ball : store.getGameObjects(Ball.class)) {
-            if (getPosition().equals(ball.getPosition())) {
+        for (PhysicalObject physicalObject : store.getGameObjects(PhysicalObject.class)) {
+            if (getPosition().equals(physicalObject.getPhysicalController().getPosition())) {
                 return false;
             }
         }

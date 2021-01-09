@@ -20,6 +20,8 @@ public class Cup extends GameObject {
 
     private Effect effect;
 
+    private boolean destroy;
+
     public Cup() {
         texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
         addAction(Actions.forever(Actions.timeScale(0.4f, GameActions.bounceAndRotate())));
@@ -45,9 +47,15 @@ public class Cup extends GameObject {
         if (ball != null && getPosition().equals(ball.getPosition())) {
             store.remove(ball);
             ballName = null;
+            destroy = true;
+            clearActions();
+            addAction(GameActions.shrink());
             effect.start();
         }
         effect.update(delta);
+        if (destroy && !effect.isPlaying()) {
+            store.remove(this);
+        }
     }
 
     @Override

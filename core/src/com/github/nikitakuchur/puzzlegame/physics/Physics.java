@@ -20,6 +20,7 @@ public class Physics {
         GameObjectStore store = level.getGameObjectStore();
         List<PhysicalController> controllers = store.getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
+                .filter(physicalController -> !physicalController.isFrozen())
                 .collect(Collectors.toList());
         controllers.forEach(this::doGravity);
         controllers.forEach(controller -> controller.update(delta));
@@ -29,27 +30,35 @@ public class Physics {
         Vector2 gravityDirection = level.getGravityDirection().getDirection();
         Vector2 nextPosition = controller.getPrevPosition().add(gravityDirection);
         nextPosition = new Vector2((int) nextPosition.x, (int) nextPosition.y);
-        if (detectCollision(level, (int) nextPosition.x, (int) nextPosition.y)) {
+        if (detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, level.getGravityDirection())) {
             nextPosition = controller.getPrevPosition();
         }
         controller.setNextPosition(nextPosition);
     }
 
-    public static boolean detectCollision(Level level, int x, int y) {
+    public static boolean detectCollision(Level level, int x, int y, GravityDirection direction) {
         Vector2 nextPosition = new Vector2(x, y);
-        while (level.getMap().getCellType((int) nextPosition.x, (int) nextPosition.y) != CellType.FILLED) {
-            if (!detectPhysicalObject(level, (int) nextPosition.x, (int) nextPosition.y)) {
+
+        while (!detectFrozenObject(level, (int) nextPosition.x, (int) nextPosition.y, direction)
+                && level.getMap().getCellType((int) nextPosition.x, (int) nextPosition.y) != CellType.FILLED) {
+            if (!detectPhysicalObject(level, (int) nextPosition.x, (int) nextPosition.y, direction)) {
                 return false;
             }
-            nextPosition.add(level.getGravityDirection().getDirection());
+            nextPosition.add(direction.getDirection());
         }
         return true;
     }
 
-    private static boolean detectPhysicalObject(Level level, int x, int y) {
+    private static boolean detectFrozenObject(Level level, int x, int y, GravityDirection direction) {
         return level.getGameObjectStore().getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
-                .map(PhysicalController::getPrevPosition)
-                .anyMatch(prev -> prev.x == x && prev.y == y);
+                .filter(PhysicalController::isFrozen)
+                .anyMatch(controller -> controller.getCollider().checkCollision(controller, x, y, direction));
+    }
+
+    private static boolean detectPhysicalObject(Level level, int x, int y, GravityDirection direction) {
+        return level.getGameObjectStore().getGameObjects(PhysicalObject.class).stream()
+                .map(PhysicalObject::getPhysicalController)
+                .anyMatch(controller -> controller.getCollider().checkCollision(controller, x, y, direction));
     }
 }
