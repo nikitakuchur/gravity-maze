@@ -3,11 +3,11 @@ package com.github.nikitakuchur.puzzlegame.ui.menus;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
@@ -23,10 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LevelMenu extends Menu<LevelScreen> implements Disposable {
+
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+
     private final BitmapFont font;
 
     public LevelMenu(MenuStack menuStack, LevelScreen levelScreen) {
-        super(menuStack, levelScreen, "bg1.png");
+        super(menuStack, levelScreen);
 
         font = FontGenerator.getFont(Gdx.graphics.getWidth() / 16);
 
@@ -98,13 +101,30 @@ public class LevelMenu extends Menu<LevelScreen> implements Disposable {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.setColor(Color.WHITE);
+        batch.end();
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0.f, 0.f, 0.f, 0.5f));
+        shapeRenderer.rect(
+                -(float) Gdx.graphics.getWidth() / 2.f,
+                -(float) Gdx.graphics.getHeight() / 2.f,
+                Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight()
+        );
+        shapeRenderer.identity();
+        shapeRenderer.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
+        batch.begin();
         super.draw(batch, parentAlpha);
     }
 
     @Override
     public void dispose() {
+        shapeRenderer.dispose();
         font.dispose();
     }
 }
