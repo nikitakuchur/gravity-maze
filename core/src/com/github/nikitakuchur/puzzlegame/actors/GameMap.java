@@ -70,8 +70,9 @@ public class GameMap extends Actor implements Parameterizable, Disposable {
 
     private void drawBorders() {
         float max = Math.max(Gdx.graphics.getHeight(), Gdx.graphics.getWidth());
-        shapeRenderer.rect(getX(), getY(), -max, getHeight()); // Left
-        shapeRenderer.rect(getX() + getWidth() , getY(), max, getHeight()); // Right
+        float offset = 0.1f; // We need this offset to avoid graphical artifacts without MSAA
+        shapeRenderer.rect(getX(), getY() - offset, -max, getHeight() + 2 * offset); // Left
+        shapeRenderer.rect(getX() + getWidth() , getY() - offset, max, getHeight() + 2 * offset); // Right
         shapeRenderer.rect(getX() - max, getY() + getHeight(), max * 2 + getWidth(), max); // Top
         shapeRenderer.rect(getX() - max, getY(), max * 2 + getWidth(), -max); // Bottom
     }
