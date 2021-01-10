@@ -2,16 +2,26 @@ package com.github.nikitakuchur.puzzlegame;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.github.nikitakuchur.puzzlegame.screens.MainMenuScreen;
-import com.github.nikitakuchur.puzzlegame.ui.FontGenerator;
+import com.github.nikitakuchur.puzzlegame.utils.AssetLoader;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 /**
  * This is the main game class.
  */
 public class PuzzleGame extends Game {
 
+    private Context context;
+
     public void create() {
-        setScreen(new MainMenuScreen(this));
+        AssetManager assetManager = new AssetManager();
+        AssetLoader.load(assetManager);
+        context = Context.builder()
+                .game(this)
+                .assetManager(assetManager)
+                .build();
+        setScreen(new MainMenuScreen(context));
     }
 
     @Override
@@ -24,6 +34,6 @@ public class PuzzleGame extends Game {
     @Override
     public void dispose() {
         super.dispose();
-        FontGenerator.dispose();
+        context.getAssetManager().dispose();
     }
 }

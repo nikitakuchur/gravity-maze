@@ -1,6 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,17 +9,17 @@ import com.github.nikitakuchur.puzzlegame.level.Layer;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 public class Box extends GameObject implements PhysicalObject {
 
-    private final Texture texture = new Texture(Gdx.files.internal("game/box/box.png"), true);
-
-    private final TextureRegion textureRegion = new TextureRegion(texture);
+    private final TextureRegion textureRegion;
 
     private PhysicalController physicalController;
 
-    public Box() {
-        texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+    public Box(Context context) {
+        AssetManager assetManager = context.getAssetManager();
+        textureRegion = new TextureRegion(assetManager.get("textures/box/box.png", Texture.class));
     }
 
     @Override
@@ -40,11 +40,6 @@ public class Box extends GameObject implements PhysicalObject {
     @Override
     public Layer getLayer() {
         return Layer.FRONT;
-    }
-
-    @Override
-    public void dispose() {
-        texture.dispose();
     }
 
     @Override

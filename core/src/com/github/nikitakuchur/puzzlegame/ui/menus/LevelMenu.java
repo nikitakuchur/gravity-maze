@@ -2,6 +2,7 @@ package com.github.nikitakuchur.puzzlegame.ui.menus;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -15,23 +16,27 @@ import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
 import com.github.nikitakuchur.puzzlegame.screens.LevelScreen;
 import com.github.nikitakuchur.puzzlegame.screens.MainMenuScreen;
-import com.github.nikitakuchur.puzzlegame.ui.FontGenerator;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelMenu extends Menu<LevelScreen> implements Disposable {
+public class LevelMenu extends Menu implements Disposable {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     private final BitmapFont font;
 
-    public LevelMenu(MenuStack menuStack, LevelScreen levelScreen) {
-        super(menuStack, levelScreen);
+    private final LevelLoader levelLoader;
 
-        font = FontGenerator.getFont(Gdx.graphics.getWidth() / 16);
+    public LevelMenu(Context context, MenuStack menuStack) {
+        super(context, menuStack);
+        levelLoader = new LevelLoader(Context.builder().fill(context).build());
+
+        AssetManager assetManager = context.getAssetManager();
+        font = assetManager.get("ui/fonts/Roboto.ttf", BitmapFont.class);
 
         // Button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -43,6 +48,7 @@ public class LevelMenu extends Menu<LevelScreen> implements Disposable {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 getMenuStack().pop();
+                ((LevelScreen) context.getGameScreen()).getLevel().setPause(false);
             }
         });
         this.addActor(backButton);
@@ -53,8 +59,11 @@ public class LevelMenu extends Menu<LevelScreen> implements Disposable {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // Back to the main menu
-                Game game = getGameScreen().getGame();
-                game.setScreen(new MainMenuScreen(game));
+                Game game = context.getGame();
+                game.setScreen(new MainMenuScreen(Context.builder()
+                        .game(context.getGame())
+                        .assetManager(context.getAssetManager())
+                        .build()));
             }
         });
         this.addActor(returnButton);
@@ -76,10 +85,11 @@ public class LevelMenu extends Menu<LevelScreen> implements Disposable {
             public void clicked(InputEvent event, float x, float y) {
                 // Restart the level
                 try {
-                    Level level = LevelLoader.load(Gdx.files.internal("levels/sample.json"));
-                    getGameScreen().setLevel(level);
+                    Level level = levelLoader.load(Gdx.files.internal("levels/sample.json"));
+                    ((LevelScreen) context.getGameScreen()).setLevel(level);
+                    getMenuStack().pop();
                 } catch (IOException e) {
-                    Gdx.app.error("GameMenu", e.getMessage());
+                    Gdx.app.error(getClass().getName(), e.getMessage(), e);
                 }
             }
         });

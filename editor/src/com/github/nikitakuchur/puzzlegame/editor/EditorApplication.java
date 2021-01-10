@@ -2,13 +2,18 @@ package com.github.nikitakuchur.puzzlegame.editor;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.nikitakuchur.puzzlegame.editor.utils.FileController;
+import com.github.nikitakuchur.puzzlegame.utils.AssetLoader;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 public class EditorApplication extends ApplicationAdapter {
+
+    private Context context;
 
     private Stage stage;
 
@@ -18,14 +23,18 @@ public class EditorApplication extends ApplicationAdapter {
 
     @Override
     public void create() {
+        AssetManager assetManager = new AssetManager();
+        AssetLoader.load(assetManager);
+        context = Context.builder().assetManager(assetManager).build();
+
         stage = new Stage(new ScreenViewport());
         stage.getCamera().position.set(Vector3.Zero);
 
-        levelEditor = new LevelEditor();
+        levelEditor = new LevelEditor(context);
         stage.addActor(levelEditor);
         stage.setKeyboardFocus(levelEditor);
 
-        fileController = new FileController(levelEditor);
+        fileController = new FileController(context, levelEditor);
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -53,10 +62,15 @@ public class EditorApplication extends ApplicationAdapter {
         return fileController;
     }
 
+    public Context getContext() {
+        return context;
+    }
+
     @Override
     public void dispose() {
         Gdx.input.setInputProcessor(null);
         stage.dispose();
         levelEditor.dispose();
+        context.getAssetManager().dispose();
     }
 }

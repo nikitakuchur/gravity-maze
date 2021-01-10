@@ -1,6 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,17 +10,17 @@ import com.github.nikitakuchur.puzzlegame.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
 public class Portal extends GameObject {
 
+    private final TextureRegion textureRegion;
+
     private String secondPortalName;
 
     private boolean locked;
-
-    private final Texture texture = new Texture(Gdx.files.internal("game/portal/portal.png"), true);
-    private final TextureRegion textureRegion = new TextureRegion(texture);
 
     private Effect effect;
 
@@ -29,8 +29,9 @@ public class Portal extends GameObject {
     /**
      * Creates a new portal.
      */
-    public Portal() {
-        texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+    public Portal(Context context) {
+        AssetManager assetManager = context.getAssetManager();
+        textureRegion = new TextureRegion(assetManager.get("textures/portal/portal.png", Texture.class));
         addAction(Actions.forever(GameActions.bounceAndRotate()));
     }
 
@@ -131,10 +132,5 @@ public class Portal extends GameObject {
     public void setParameters(Parameters parameters) {
         super.setParameters(parameters);
         secondPortalName = parameters.getValue("to");
-    }
-
-    @Override
-    public void dispose() {
-        texture.dispose();
     }
 }

@@ -5,14 +5,13 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.actors.GameMap;
 import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
 import com.github.nikitakuchur.puzzlegame.level.Layer;
 import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
-public abstract class GameObject extends Actor implements Parameterizable, Disposable {
+public abstract class GameObject extends Actor implements Parameterizable {
 
     protected Level level;
 

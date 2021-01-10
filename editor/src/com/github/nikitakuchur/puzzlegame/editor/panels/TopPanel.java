@@ -9,11 +9,14 @@ import javax.swing.*;
 
 public class TopPanel extends JPanel {
 
+    private LevelLoader levelLoader;
     private transient Level level;
 
     public TopPanel(EditorApplication app) {
         JButton playButton = new JButton("Play");
         JButton stopButton = new JButton("Stop");
+
+        levelLoader = new LevelLoader(app.getContext());
 
         playButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
             level = app.getLevelEditor().getLevel();
@@ -37,7 +40,7 @@ public class TopPanel extends JPanel {
     }
 
     private Level copyLevel(Level level) {
-        String json = LevelLoader.toJson(level);
-        return LevelLoader.fromJson(json);
+        String json = levelLoader.toJson(level);
+        return levelLoader.fromJson(json);
     }
 }

@@ -5,13 +5,14 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.level.Layer;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 
-public class Magnet extends GameObject {
+public class Magnet extends GameObject implements Disposable {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 

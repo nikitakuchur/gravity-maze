@@ -1,6 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,11 +13,11 @@ import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 import com.github.nikitakuchur.puzzlegame.physics.Physics;
 import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 public class Conveyor extends GameObject implements PhysicalObject {
 
-    private final Texture texture = new Texture(Gdx.files.internal("game/conveyor/conveyor.png"), true);
-    private final TextureRegion textureRegion = new TextureRegion(texture);
+    private final TextureRegion textureRegion;
 
     private GravityDirection direction = GravityDirection.TOP;
 
@@ -25,8 +25,9 @@ public class Conveyor extends GameObject implements PhysicalObject {
 
     private GameObjectStore store;
 
-    public Conveyor() {
-        texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+    public Conveyor(Context context) {
+        AssetManager assetManager = context.getAssetManager();
+        textureRegion = new TextureRegion(assetManager.get("textures/conveyor/conveyor.png", Texture.class));
     }
 
     @Override
@@ -51,6 +52,7 @@ public class Conveyor extends GameObject implements PhysicalObject {
         return false;
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     private boolean isCloseObject(Vector2 conveyorPosition, Vector2 objectPosition) {
         Vector2 delta = conveyorPosition.cpy().sub(objectPosition);
         Vector2 dir = direction.getDirection();
@@ -127,11 +129,6 @@ public class Conveyor extends GameObject implements PhysicalObject {
     public void setParameters(Parameters parameters) {
         super.setParameters(parameters);
         direction = GravityDirection.valueOf(parameters.getValueOrDefault("direction", "TOP"));
-    }
-
-    @Override
-    public void dispose() {
-        texture.dispose();
     }
 
     @Override

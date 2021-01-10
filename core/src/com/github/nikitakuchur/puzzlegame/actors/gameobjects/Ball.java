@@ -1,6 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -10,20 +10,19 @@ import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 import com.github.nikitakuchur.puzzlegame.level.Layer;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 public class Ball extends GameObject implements PhysicalObject {
 
-    private final Texture outlineTexture = new Texture(Gdx.files.internal("game/ball/outline.png"), true);
-    private final Texture ballTexture = new Texture(Gdx.files.internal("game/ball/ball.png"), true);
-
-    private final TextureRegion outlineTextureRegion = new TextureRegion(outlineTexture);
-    private final TextureRegion ballTextureRegion = new TextureRegion(ballTexture);
+    private final TextureRegion outlineTextureRegion;
+    private final TextureRegion ballTextureRegion;
 
     private PhysicalController physicalController;
 
-    public Ball() {
-        outlineTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
-        ballTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+    public Ball(Context context) {
+        AssetManager assetManager = context.getAssetManager();
+        outlineTextureRegion = new TextureRegion(assetManager.get("textures/ball/outline.png", Texture.class));
+        ballTextureRegion = new TextureRegion(assetManager.get("textures/ball/ball.png", Texture.class));
     }
 
     @Override
@@ -52,11 +51,5 @@ public class Ball extends GameObject implements PhysicalObject {
     @Override
     public PhysicalController getPhysicalController() {
         return physicalController;
-    }
-
-    @Override
-    public void dispose() {
-        outlineTexture.dispose();
-        ballTexture.dispose();
     }
 }

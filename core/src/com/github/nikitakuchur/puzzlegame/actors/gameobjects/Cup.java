@@ -1,6 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,22 +8,23 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
 public class Cup extends GameObject {
 
-    private String ballName;
+    private final TextureRegion textureRegion;
 
-    private final Texture texture = new Texture(Gdx.files.internal("game/cup/cup.png"), true);
-    private final TextureRegion textureRegion = new TextureRegion(texture);
+    private String ballName;
 
     private Effect effect;
 
     private boolean destroy;
 
-    public Cup() {
-        texture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+    public Cup(Context context) {
+        AssetManager assetManager = context.getAssetManager();
+        textureRegion = new TextureRegion(assetManager.get("textures/cup/cup.png", Texture.class));
         addAction(Actions.forever(Actions.timeScale(0.4f, GameActions.bounceAndRotate())));
     }
 
@@ -86,10 +87,5 @@ public class Cup extends GameObject {
     public void setParameters(Parameters parameters) {
         super.setParameters(parameters);
         ballName = parameters.getValue("ball");
-    }
-
-    @Override
-    public void dispose() {
-        texture.dispose();
     }
 }

@@ -1,6 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.ui.menus;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -9,11 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.screens.LevelScreen;
-import com.github.nikitakuchur.puzzlegame.ui.FontGenerator;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
-public class GameUI extends Menu<LevelScreen> implements Disposable {
+public class LevelUI extends Menu implements Disposable {
 
     private final BitmapFont font;
     private final TextButton levelMenuButton;
@@ -21,10 +23,11 @@ public class GameUI extends Menu<LevelScreen> implements Disposable {
     private final Label fpsLabel;
     private final Label scoreLabel;
 
-    public GameUI(MenuStack menuStack, LevelScreen levelScreen) {
-        super(menuStack, levelScreen);
+    public LevelUI(Context context, MenuStack menuStack) {
+        super(context, menuStack);
 
-        font = FontGenerator.getFont(Gdx.graphics.getWidth() / 16);
+        AssetManager assetManager = context.getAssetManager();
+        font = assetManager.get("ui/fonts/Roboto.ttf", BitmapFont.class);
 
         // Button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -35,7 +38,8 @@ public class GameUI extends Menu<LevelScreen> implements Disposable {
         levelMenuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                getMenuStack().push(new LevelMenu(getMenuStack(), getGameScreen()));
+                ((LevelScreen) context.getGameScreen()).getLevel().setPause(true);
+                getMenuStack().push(new LevelMenu(context, getMenuStack()));
             }
         });
         this.addActor(levelMenuButton);
@@ -67,7 +71,8 @@ public class GameUI extends Menu<LevelScreen> implements Disposable {
         scoreLabel.setPosition(0, (float) Gdx.graphics.getHeight() / 2 - (float) Gdx.graphics.getHeight() / 20);
 
         fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
-        scoreLabel.setText(getGameScreen().getLevel().getScore());
+        Level level = ((LevelScreen) getContext().getGameScreen()).getLevel();
+        scoreLabel.setText(level.getScore());
     }
 
     @Override

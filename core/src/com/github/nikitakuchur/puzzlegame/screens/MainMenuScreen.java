@@ -1,6 +1,5 @@
 package com.github.nikitakuchur.puzzlegame.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
@@ -8,17 +7,22 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
 import com.github.nikitakuchur.puzzlegame.ui.menus.MainMenu;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 public class MainMenuScreen extends GameScreen {
 
     private final Stage stage = new Stage(new ScreenViewport());
 
-    public MainMenuScreen(Game game) {
-        super(game);
+    public MainMenuScreen(Context context) {
+        super(context);
         stage.getCamera().position.set(Vector3.Zero);
 
+        Context mainMenuContext = Context.builder()
+                .fill(context)
+                .gameScreen(this)
+                .build();
         MenuStack menuStack = new MenuStack();
-        menuStack.push(new MainMenu(menuStack, this));
+        menuStack.push(new MainMenu(mainMenuContext, menuStack));
         stage.addActor(menuStack);
     }
 

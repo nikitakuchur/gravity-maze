@@ -1,27 +1,27 @@
 package com.github.nikitakuchur.puzzlegame.ui.menus;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.github.nikitakuchur.puzzlegame.screens.GameScreen;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
-public abstract class Menu<T extends GameScreen> extends Group {
+/**
+ * This is an abstract menu class.
+ */
+public abstract class Menu extends Group {
 
+    private final Context context;
     private final MenuStack menuStack;
-    private final T gameScreen;
 
-    protected Menu(MenuStack menuStack, T gameScreen) {
+    protected Menu(Context context, MenuStack menuStack) {
+        this.context = context;
         this.menuStack = menuStack;
-        this.gameScreen = gameScreen;
+    }
+
+    public Context getContext() {
+        return context;
     }
 
     public MenuStack getMenuStack() {
         return menuStack;
-    }
-
-    public T getGameScreen() {
-        return gameScreen;
     }
 }

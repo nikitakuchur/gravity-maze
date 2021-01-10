@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,11 +15,13 @@ public class FileController {
 
     private String path;
 
+    private final LevelLoader levelLoader;
     private final LevelEditor editor;
 
     private final List<Consumer<String>> pathChangeListeners = new ArrayList<>();
 
-    public FileController(LevelEditor editor) {
+    public FileController(Context context, LevelEditor editor) {
+        levelLoader = new LevelLoader(context);
         this.editor = editor;
     }
 
@@ -28,7 +31,7 @@ public class FileController {
     }
 
     public void open(String path) throws IOException {
-        Level level = LevelLoader.load(Gdx.files.absolute(path));
+        Level level = levelLoader.load(Gdx.files.absolute(path));
         editor.setLevel(level);
         this.path = path;
         pathChangeListeners.forEach(listener -> listener.accept(path));
@@ -40,7 +43,7 @@ public class FileController {
     }
 
     public void saveAs(String path) {
-        LevelLoader.save(Gdx.files.absolute(path), editor.getLevel());
+        levelLoader.save(Gdx.files.absolute(path), editor.getLevel());
         this.path = path;
         pathChangeListeners.forEach(listener -> listener.accept(path));
     }

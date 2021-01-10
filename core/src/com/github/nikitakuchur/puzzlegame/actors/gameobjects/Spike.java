@@ -1,6 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -8,20 +8,19 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.github.nikitakuchur.puzzlegame.effects.Effect;
 import com.github.nikitakuchur.puzzlegame.level.Level;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 public class Spike extends GameObject {
 
-    private final Texture spikeTexture = new Texture(Gdx.files.internal("game/spike/spike.png"), true);
-    private final Texture centerTexture = new Texture(Gdx.files.internal("game/spike/center.png"), true);
-
-    private final TextureRegion spikeTextureRegion = new TextureRegion(spikeTexture);
-    private final TextureRegion centerTextureRegion = new TextureRegion(centerTexture);
+    private final TextureRegion spikeTextureRegion;
+    private final TextureRegion centerTextureRegion;
 
     private Effect effect;
 
-    public Spike() {
-        spikeTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
-        centerTexture.setFilter(Texture.TextureFilter.MipMapLinearLinear, Texture.TextureFilter.MipMapLinearLinear);
+    public Spike(Context context) {
+        AssetManager assetManager = context.getAssetManager();
+        spikeTextureRegion = new TextureRegion(assetManager.get("textures/spike/spike.png", Texture.class));
+        centerTextureRegion = new TextureRegion(assetManager.get("textures/spike/center.png", Texture.class));
         setColor(Color.RED.cpy());
     }
 
@@ -60,11 +59,5 @@ public class Spike extends GameObject {
         batch.draw(centerTextureRegion, position.x, position.y, getOriginX(), getOriginY(),
                getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         effect.draw(batch);
-    }
-
-    @Override
-    public void dispose() {
-        spikeTexture.dispose();
-        centerTexture.dispose();
     }
 }

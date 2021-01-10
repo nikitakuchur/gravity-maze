@@ -8,13 +8,13 @@ import java.util.Deque;
 import java.util.Optional;
 
 public class MenuStack extends Group {
-    private final Deque<Menu<?>> stack;
+    private final Deque<Menu> stack;
 
     public MenuStack() {
         stack = new ArrayDeque<>();
     }
 
-    public void push(Menu<?> menu) {
+    public void push(Menu menu) {
         stack.push(menu);
         addActor(menu);
     }

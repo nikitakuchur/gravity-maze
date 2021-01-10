@@ -24,12 +24,15 @@ import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObjectStore;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class LevelEditor extends Group implements Disposable {
+
+    private final Context context;
 
     private Level level;
     private GameObjectStore gameObjectStore;
@@ -44,8 +47,9 @@ public class LevelEditor extends Group implements Disposable {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    public LevelEditor() {
+    public LevelEditor(Context context) {
         super();
+        this.context = context;
         setLevel(new Level());
     }
 
@@ -179,7 +183,7 @@ public class LevelEditor extends Group implements Disposable {
             int px = (int) position.x;
             int py = (int) position.y;
 
-            if (map.isOutside(px, py)) return true;
+            if (map.isOutside(px, py)) return false;
 
             if (map.isEmpty(px, py)) {
                 map.setCellType(px, py, CellType.FILLED);
@@ -256,9 +260,9 @@ public class LevelEditor extends Group implements Disposable {
                 return true;
             }
 
-            if (map.isOutside(px, py)) return true;
+            if (map.isOutside(px, py)) return false;
 
-            GameObject gameObject = gameObjectType.getGameObject();
+            GameObject gameObject = gameObjectType.newInstance(context);
             gameObject.setX(px);
             gameObject.setY(py);
             commandHistory.addAndExecute(new AddGameObjectCommand(gameObject, gameObjectStore));
