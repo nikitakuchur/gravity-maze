@@ -23,6 +23,7 @@ public class ParametersTableModel extends AbstractTableModel {
         ALLOWED_TYPES.add(String.class);
         ALLOWED_TYPES.add(Integer.class);
         ALLOWED_TYPES.add(Color.class);
+        ALLOWED_TYPES.add(Enum.class);
     }
 
     private transient Parameterizable parameterizable;
@@ -52,8 +53,12 @@ public class ParametersTableModel extends AbstractTableModel {
 
     private List<String> getNames() {
         return parameters.nameSet().stream()
-                .filter(name -> ALLOWED_TYPES.contains(parameters.getType(name)))
+                .filter(name -> isAllowedType(parameters.getType(name)))
                 .collect(Collectors.toList());
+    }
+
+    private boolean isAllowedType(Class<?> type) {
+        return ALLOWED_TYPES.stream().anyMatch(clazz -> clazz.isAssignableFrom(type));
     }
 
     @Override

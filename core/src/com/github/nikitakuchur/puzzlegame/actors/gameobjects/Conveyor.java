@@ -121,14 +121,14 @@ public class Conveyor extends GameObject implements PhysicalObject {
     @Override
     public Parameters getParameters() {
         Parameters parameters =  super.getParameters();
-        parameters.put("direction", String.class, direction.toString());
+        parameters.put("direction", GravityDirection.class, direction);
         return parameters;
     }
 
     @Override
     public void setParameters(Parameters parameters) {
         super.setParameters(parameters);
-        direction = GravityDirection.valueOf(parameters.getValueOrDefault("direction", "TOP"));
+        direction = parameters.getValueOrDefault("direction", GravityDirection.TOP);
     }
 
     @Override
