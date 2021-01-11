@@ -58,17 +58,17 @@ public class LevelUI extends Menu implements Disposable {
         scoreLabel = new Label("", labelStyle);
         scoreLabel.setAlignment(Align.center);
         this.addActor(scoreLabel);
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
 
         levelMenuButton.setPosition((float) Gdx.graphics.getWidth() / 2 - 2 * levelMenuButton.getWidth() - 20,
                 (float) Gdx.graphics.getHeight() / 2 - 1.5f * levelMenuButton.getHeight());
 
         fpsLabel.setPosition(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getHeight() / 2);
         scoreLabel.setPosition(0, (float) Gdx.graphics.getHeight() / 2 - (float) Gdx.graphics.getHeight() / 20);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
 
         fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
         Level level = ((LevelScreen) getContext().getGameScreen()).getLevel();
