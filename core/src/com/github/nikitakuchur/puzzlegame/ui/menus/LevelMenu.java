@@ -85,7 +85,7 @@ public class LevelMenu extends Menu implements Disposable {
             public void clicked(InputEvent event, float x, float y) {
                 // Restart the level
                 try {
-                    Level level = levelLoader.load(Gdx.files.internal("levels/sample.json"));
+                    Level level = levelLoader.load(Gdx.files.internal("levels/sample.lvl"));
                     ((LevelScreen) context.getGameScreen()).setLevel(level);
                     getMenuStack().pop();
                 } catch (IOException e) {

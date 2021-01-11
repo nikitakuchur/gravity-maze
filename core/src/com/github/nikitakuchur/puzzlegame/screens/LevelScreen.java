@@ -30,7 +30,7 @@ public class LevelScreen extends GameScreen {
                 .build());
         stage.getCamera().position.set(Vector3.Zero);
         try {
-            level = levelLoader.load(Gdx.files.internal("levels/sample.json"));
+            level = levelLoader.load(Gdx.files.internal("levels/sample.lvl"));
             stage.addActor(level);
         } catch (IOException e) {
             Gdx.app.error(getClass().getName(), e.getMessage(), e);
