@@ -18,7 +18,6 @@ import com.github.nikitakuchur.puzzlegame.utils.Context;
 public class LevelUI extends Menu implements Disposable {
 
     private final BitmapFont font;
-    private final TextButton levelMenuButton;
 
     private final Label fpsLabel;
     private final Label scoreLabel;
@@ -34,7 +33,9 @@ public class LevelUI extends Menu implements Disposable {
         textButtonStyle.font = font;
 
         // Level menu button
-        levelMenuButton = new TextButton("#", textButtonStyle);
+        TextButton levelMenuButton = new TextButton("#", textButtonStyle);
+        levelMenuButton.setPosition((float) Gdx.graphics.getWidth() / 2 - 2 * levelMenuButton.getWidth() - 20,
+                (float) Gdx.graphics.getHeight() / 2 - 1.5f * levelMenuButton.getHeight());
         levelMenuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -52,18 +53,14 @@ public class LevelUI extends Menu implements Disposable {
         fpsLabel = new Label("FPS: 0", labelStyle);
         fpsLabel.setFontScale(0.5f);
         fpsLabel.setAlignment(Align.bottomLeft);
+        fpsLabel.setPosition(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getHeight() / 2);
         this.addActor(fpsLabel);
 
         // Score label
         scoreLabel = new Label("", labelStyle);
         scoreLabel.setAlignment(Align.center);
-        this.addActor(scoreLabel);
-
-        levelMenuButton.setPosition((float) Gdx.graphics.getWidth() / 2 - 2 * levelMenuButton.getWidth() - 20,
-                (float) Gdx.graphics.getHeight() / 2 - 1.5f * levelMenuButton.getHeight());
-
-        fpsLabel.setPosition(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getHeight() / 2);
         scoreLabel.setPosition(0, (float) Gdx.graphics.getHeight() / 2 - (float) Gdx.graphics.getHeight() / 20);
+        this.addActor(scoreLabel);
     }
 
     @Override
