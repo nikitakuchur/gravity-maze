@@ -22,6 +22,7 @@ public class ParametersTableModel extends AbstractTableModel {
     static {
         ALLOWED_TYPES.add(String.class);
         ALLOWED_TYPES.add(Integer.class);
+        ALLOWED_TYPES.add(Boolean.class);
         ALLOWED_TYPES.add(Color.class);
         ALLOWED_TYPES.add(Enum.class);
     }
@@ -85,6 +86,9 @@ public class ParametersTableModel extends AbstractTableModel {
         }
         if (parameters.getType(name) == String.class) {
             return parameters.getValueOrDefault(name, "");
+        }
+        if (parameters.getType(name) == Boolean.class) {
+            return parameters.getValueOrDefault(name, false);
         }
         return parameters.getValue(name);
     }

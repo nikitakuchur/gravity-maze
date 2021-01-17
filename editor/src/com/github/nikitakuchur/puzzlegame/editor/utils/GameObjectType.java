@@ -2,9 +2,11 @@ package com.github.nikitakuchur.puzzlegame.editor.utils;
 
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Barrier;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Switch;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet;
@@ -20,7 +22,9 @@ public enum GameObjectType {
     SPIKE(Spike.class),
     BOX(Box.class),
     MAGNET(Magnet.class),
-    CONVEYOR(Conveyor.class);
+    CONVEYOR(Conveyor.class),
+    BARRIER(Barrier.class),
+    SWITCH(Switch.class);
 
     private final Class<? extends GameObject> clazz;
 

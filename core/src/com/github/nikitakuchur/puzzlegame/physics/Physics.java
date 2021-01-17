@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.github.nikitakuchur.puzzlegame.cells.CellType;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObjectStore;
+import com.github.nikitakuchur.puzzlegame.utils.Direction;
 
 public class Physics {
 
@@ -36,7 +37,7 @@ public class Physics {
         controller.setNextPosition(nextPosition);
     }
 
-    public static boolean detectCollision(Level level, int x, int y, GravityDirection direction) {
+    public static boolean detectCollision(Level level, int x, int y, Direction direction) {
         Vector2 nextPosition = new Vector2(x, y);
 
         while (!detectFrozenObject(level, (int) nextPosition.x, (int) nextPosition.y, direction)
@@ -49,14 +50,14 @@ public class Physics {
         return true;
     }
 
-    private static boolean detectFrozenObject(Level level, int x, int y, GravityDirection direction) {
+    private static boolean detectFrozenObject(Level level, int x, int y, Direction direction) {
         return level.getGameObjectStore().getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
                 .filter(PhysicalController::isFrozen)
                 .anyMatch(controller -> controller.getCollider().checkCollision(controller, x, y, direction));
     }
 
-    private static boolean detectPhysicalObject(Level level, int x, int y, GravityDirection direction) {
+    private static boolean detectPhysicalObject(Level level, int x, int y, Direction direction) {
         return level.getGameObjectStore().getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
                 .anyMatch(controller -> controller.getCollider().checkCollision(controller, x, y, direction));

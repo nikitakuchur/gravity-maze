@@ -39,7 +39,7 @@ public class Box extends GameObject implements PhysicalObject {
 
     @Override
     public Layer getLayer() {
-        return Layer.FRONT;
+        return Layer.LAYER_2;
     }
 
     @Override

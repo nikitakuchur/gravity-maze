@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.actors.Background;
 import com.github.nikitakuchur.puzzlegame.actors.GameMap;
 import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
-import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
+import com.github.nikitakuchur.puzzlegame.utils.Direction;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObjectStore;
 import com.github.nikitakuchur.puzzlegame.physics.Physics;
@@ -27,7 +27,7 @@ public class Level extends Group implements Parameterizable, Disposable {
 
     private final Physics physics = new Physics(this);
 
-    private GravityDirection gravityDirection = GravityDirection.BOTTOM;
+    private Direction gravityDirection = Direction.BOTTOM;
     private int score;
     private boolean pause;
 
@@ -112,11 +112,11 @@ public class Level extends Group implements Parameterizable, Disposable {
         return store;
     }
 
-    public GravityDirection getGravityDirection() {
+    public Direction getGravityDirection() {
         return gravityDirection;
     }
 
-    public void setGravityDirection(GravityDirection gravityDirection) {
+    public void setGravityDirection(Direction gravityDirection) {
         this.gravityDirection = gravityDirection;
     }
 

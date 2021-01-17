@@ -86,7 +86,7 @@ public class Magnet extends GameObject implements Disposable {
 
     @Override
     public Layer getLayer() {
-        return Layer.BACK;
+        return Layer.LAYER_0;
     }
 
     @Override

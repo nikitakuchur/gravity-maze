@@ -6,14 +6,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
+import com.github.nikitakuchur.puzzlegame.utils.Direction;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 
 public class LevelInputHandler {
 
     private final Level level;
 
-    private GravityDirection lastGravityDirection = GravityDirection.BOTTOM;
+    private Direction lastGravityDirection = Direction.BOTTOM;
 
     private float lastAngle;
     private final Vector2 lastTouchPosition = new Vector2();
@@ -57,20 +57,20 @@ public class LevelInputHandler {
         if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad))) {
             if (Math.cos(angleRad) < 0) {
                 level.setRotation(angle + (float) Math.sin(angleRad) * speed * delta);
-                changeGravityDirection(GravityDirection.TOP);
+                changeGravityDirection(Direction.TOP);
             } else {
                 level.setRotation(angle - (float) Math.sin(angleRad) * speed * delta);
-                changeGravityDirection(GravityDirection.BOTTOM);
+                changeGravityDirection(Direction.BOTTOM);
             }
         }
 
         if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad))) {
             if (Math.sin(angleRad) > 0) {
                 level.setRotation(angle + (float) Math.cos(angleRad) * speed * delta);
-                changeGravityDirection(GravityDirection.LEFT);
+                changeGravityDirection(Direction.LEFT);
             } else {
                 level.setRotation(angle - (float) Math.cos(angleRad) * speed * delta);
-                changeGravityDirection(GravityDirection.RIGHT);
+                changeGravityDirection(Direction.RIGHT);
             }
         }
 
@@ -82,7 +82,7 @@ public class LevelInputHandler {
         lastAngle = level.getRotation();
     }
 
-    private void changeGravityDirection(GravityDirection gravityDirection) {
+    private void changeGravityDirection(Direction gravityDirection) {
         if (level.getGravityDirection() != gravityDirection) {
             level.setGravityDirection(gravityDirection);
         }

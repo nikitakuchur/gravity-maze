@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.physics.FullCollider;
-import com.github.nikitakuchur.puzzlegame.physics.GravityDirection;
+import com.github.nikitakuchur.puzzlegame.utils.Direction;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
 import com.github.nikitakuchur.puzzlegame.physics.Physics;
@@ -19,7 +19,7 @@ public class Conveyor extends GameObject implements PhysicalObject {
 
     private final TextureRegion textureRegion;
 
-    private GravityDirection direction = GravityDirection.TOP;
+    private Direction direction = Direction.TOP;
 
     private PhysicalController physicalController;
 
@@ -39,7 +39,7 @@ public class Conveyor extends GameObject implements PhysicalObject {
         physicalController.setCollider(this::collider);
     }
 
-    private boolean collider(PhysicalController controller, int x, int y, GravityDirection dir) {
+    private boolean collider(PhysicalController controller, int x, int y, Direction dir) {
         if (dir.getDirection().cpy().add(direction.getDirection()).equals(Vector2.Zero)) {
             return FullCollider.INSTANCE.checkCollision(controller, x, y, dir);
         }
@@ -84,8 +84,11 @@ public class Conveyor extends GameObject implements PhysicalObject {
 
     private void movePhysicalObject(PhysicalObject physicalObject) {
         Vector2 nextPosition = physicalObject.getPhysicalController().getPosition().add(direction.getDirection());
+        boolean hasNextObject = store.getGameObjects(PhysicalObject.class).stream()
+                .filter(p -> !p.getPhysicalController().isMoving() && !p.getPhysicalController().isFrozen())
+                .anyMatch(p -> p.getPhysicalController().getPosition().equals(nextPosition));
 
-        if (!Physics.detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, direction)) {
+        if (!hasNextObject && !Physics.detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, direction)) {
             ((GameObject) physicalObject).addAction(
                     Actions.sequence(
                             Actions.moveTo(nextPosition.x, nextPosition.y, 0.3f),
@@ -121,14 +124,14 @@ public class Conveyor extends GameObject implements PhysicalObject {
     @Override
     public Parameters getParameters() {
         Parameters parameters =  super.getParameters();
-        parameters.put("direction", GravityDirection.class, direction);
+        parameters.put("direction", Direction.class, direction);
         return parameters;
     }
 
     @Override
     public void setParameters(Parameters parameters) {
         super.setParameters(parameters);
-        direction = parameters.getValueOrDefault("direction", GravityDirection.TOP);
+        direction = parameters.getValueOrDefault("direction", Direction.TOP);
     }
 
     @Override

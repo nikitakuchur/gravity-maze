@@ -1,5 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.physics;
 
+import com.github.nikitakuchur.puzzlegame.utils.Direction;
+
 public class EmptyCollider implements Collider {
 
     public static final Collider INSTANCE = new EmptyCollider();
@@ -8,7 +10,7 @@ public class EmptyCollider implements Collider {
     }
 
     @Override
-    public boolean checkCollision(PhysicalController physicalController, int x, int y, GravityDirection gravityDirection) {
+    public boolean checkCollision(PhysicalController physicalController, int x, int y, Direction gravityDirection) {
         return false;
     }
 }

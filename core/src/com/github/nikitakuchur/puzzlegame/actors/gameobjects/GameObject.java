@@ -36,7 +36,7 @@ public abstract class GameObject extends Actor implements Parameterizable {
     }
 
     public Layer getLayer() {
-        return Layer.MIDDLE;
+        return Layer.LAYER_1;
     }
 
     public Vector2 getPosition() {
