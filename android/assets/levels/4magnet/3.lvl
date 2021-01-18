@@ -1,0 +1,602 @@
+{
+  "class": "com.github.nikitakuchur.puzzlegame.level.Level",
+  "value": {
+    "background": {
+      "class": "com.github.nikitakuchur.puzzlegame.actors.Background",
+      "value": {
+        "firstColor": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "a": 1.0
+        },
+        "secondColor": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "a": 1.0
+        }
+      }
+    },
+    "map": {
+      "class": "com.github.nikitakuchur.puzzlegame.actors.GameMap",
+      "value": {
+        "color": {
+          "r": 0.007843138,
+          "g": 0.30980393,
+          "b": 0.44705883,
+          "a": 1.0
+        },
+        "cells": [
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY"
+          ]
+        ]
+      }
+    },
+    "gameObjects": [
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 5,
+          "y": 9,
+          "color": {
+            "r": 0.14536375,
+            "g": 0.72270215,
+            "b": 0.64652264,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 5,
+          "y": 8,
+          "color": {
+            "r": 0.8276514,
+            "g": 0.8929739,
+            "b": 0.46319675,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 4,
+          "y": 8,
+          "color": {
+            "r": 0.06727898,
+            "g": 0.9019522,
+            "b": 0.70373636,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 6,
+          "y": 8,
+          "color": {
+            "r": 0.54366577,
+            "g": 0.8350696,
+            "b": 0.0491696,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 5,
+          "y": 7,
+          "color": {
+            "r": 0.05542034,
+            "g": 0.96584976,
+            "b": 0.6208056,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 3,
+          "y": 4,
+          "color": {
+            "r": 0.25879306,
+            "g": 0.92147034,
+            "b": 0.91262275,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 4,
+          "y": 6,
+          "color": {
+            "r": 0.5474996,
+            "g": 0.25794405,
+            "b": 0.43038583,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 3,
+          "y": 6,
+          "color": {
+            "r": 0.33725291,
+            "g": 0.26573676,
+            "b": 0.64334536,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 6,
+          "y": 6,
+          "color": {
+            "r": 0.4929474,
+            "g": 0.026121974,
+            "b": 0.7142467,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 7,
+          "y": 6,
+          "color": {
+            "r": 0.4718364,
+            "g": 0.0054025054,
+            "b": 0.802059,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 5,
+          "y": 5,
+          "color": {
+            "r": 0.39421785,
+            "g": 0.8596637,
+            "b": 0.6348027,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 4,
+          "y": 4,
+          "color": {
+            "r": 0.0047386885,
+            "g": 0.3326295,
+            "b": 0.82001394,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 6,
+          "y": 4,
+          "color": {
+            "r": 0.33449012,
+            "g": 0.49483585,
+            "b": 0.26125884,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 7,
+          "y": 4,
+          "color": {
+            "r": 0.11681056,
+            "g": 0.8754322,
+            "b": 0.31967592,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 8,
+          "y": 4,
+          "color": {
+            "r": 0.34067792,
+            "g": 0.4070071,
+            "b": 0.29708517,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 2,
+          "y": 4,
+          "color": {
+            "r": 0.6263929,
+            "g": 0.9589931,
+            "b": 0.61202425,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 5,
+          "y": 3,
+          "color": {
+            "r": 0.9603847,
+            "g": 0.9301144,
+            "b": 0.42694914,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 5,
+          "y": 2,
+          "color": {
+            "r": 0.79394925,
+            "g": 0.59589416,
+            "b": 0.038083732,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 5,
+          "y": 1,
+          "color": {
+            "r": 0.640317,
+            "g": 0.38861352,
+            "b": 0.5426559,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
+        "value": {
+          "x": 5,
+          "y": 0,
+          "color": {
+            "r": 0.078431375,
+            "g": 0.25882354,
+            "b": 0.7607843,
+            "a": 1.0
+          },
+          "ball": "b1"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
+        "value": {
+          "name": "b1",
+          "x": 5,
+          "y": 4,
+          "color": {
+            "r": 0.08217001,
+            "g": 0.25938296,
+            "b": 0.76414055,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
+        "value": {
+          "name": "p2",
+          "x": 5,
+          "y": 6,
+          "color": {
+            "r": 0.4862745,
+            "g": 0.09803922,
+            "b": 0.4392157,
+            "a": 1.0
+          },
+          "to": "p1"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
+        "value": {
+          "name": "p1",
+          "x": 9,
+          "y": 1,
+          "color": {
+            "r": 0.48646158,
+            "g": 0.10154235,
+            "b": 0.43989015,
+            "a": 1.0
+          },
+          "to": "p2"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 0,
+          "y": 0,
+          "color": {
+            "r": 0.47273737,
+            "g": 0.5565666,
+            "b": 0.16075605,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 1,
+          "y": 0,
+          "color": {
+            "r": 0.97904176,
+            "g": 0.123541474,
+            "b": 0.13578409,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 3,
+          "y": 7,
+          "color": {
+            "r": 0.47331488,
+            "g": 0.041947365,
+            "b": 0.5655207,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 4,
+          "y": 7,
+          "color": {
+            "r": 0.6836049,
+            "g": 0.12806553,
+            "b": 0.0951156,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 6,
+          "y": 7,
+          "color": {
+            "r": 0.727525,
+            "g": 0.06592238,
+            "b": 0.8656909,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 7,
+          "y": 7,
+          "color": {
+            "r": 0.36904418,
+            "g": 0.20852101,
+            "b": 0.058393657,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "value": {
+          "x": 5,
+          "y": 10,
+          "color": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 2,
+          "y": 0,
+          "color": {
+            "r": 0.08593857,
+            "g": 0.35913223,
+            "b": 0.3603227,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 3,
+          "y": 0,
+          "color": {
+            "r": 0.71985364,
+            "g": 0.51158,
+            "b": 0.0050926805,
+            "a": 1.0
+          }
+        }
+      }
+    ]
+  }
+}

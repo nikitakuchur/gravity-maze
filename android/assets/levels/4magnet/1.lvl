@@ -1,0 +1,197 @@
+{
+  "class": "com.github.nikitakuchur.puzzlegame.level.Level",
+  "value": {
+    "background": {
+      "class": "com.github.nikitakuchur.puzzlegame.actors.Background",
+      "value": {
+        "firstColor": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "a": 1.0
+        },
+        "secondColor": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "a": 1.0
+        }
+      }
+    },
+    "map": {
+      "class": "com.github.nikitakuchur.puzzlegame.actors.GameMap",
+      "value": {
+        "color": {
+          "r": 0.007843138,
+          "g": 0.30980393,
+          "b": 0.44705883,
+          "a": 1.0
+        },
+        "cells": [
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "EMPTY",
+            "FILLED"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ]
+        ]
+      }
+    },
+    "gameObjects": [
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
+        "value": {
+          "name": "b1",
+          "x": 5,
+          "y": 2,
+          "color": {
+            "r": 0.96207607,
+            "g": 0.6825678,
+            "b": 0.9565849,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 2,
+          "y": 2,
+          "color": {
+            "r": 0.78692734,
+            "g": 0.39500922,
+            "b": 0.87868464,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 0,
+          "y": 3,
+          "color": {
+            "r": 0.4705239,
+            "g": 0.5139645,
+            "b": 0.6742397,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 4,
+          "y": 0,
+          "color": {
+            "r": 0.2343598,
+            "g": 0.18665004,
+            "b": 0.53523886,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 0,
+          "y": 2,
+          "color": {
+            "r": 0.1973362,
+            "g": 0.5907015,
+            "b": 0.2188291,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
+        "value": {
+          "x": 7,
+          "y": 7,
+          "color": {
+            "r": 0.9607843,
+            "g": 0.68235296,
+            "b": 0.9529412,
+            "a": 1.0
+          },
+          "ball": "b1"
+        }
+      }
+    ]
+  }
+}
