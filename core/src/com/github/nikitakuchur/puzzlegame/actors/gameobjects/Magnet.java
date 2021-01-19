@@ -10,6 +10,7 @@ import com.github.nikitakuchur.puzzlegame.level.Layer;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
+import com.github.nikitakuchur.puzzlegame.physics.Physics;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 
 public class Magnet extends GameObject implements Disposable {
@@ -43,12 +44,15 @@ public class Magnet extends GameObject implements Disposable {
                         Vector2 nextPosition = controller.getPosition().add(level.getGravityDirection().getDirection());
                         return p != pickedUpObject && position.equals(nextPosition) && !controller.isMoving() && !controller.isFrozen();
                     });
-            if (!hasUpperObject && !pickedUpObject.getPhysicalController().isFrozen()) {
+            Vector2 nextPosition = getPosition().add(level.getGravityDirection().getDirection());
+            boolean throwObject = hasUpperObject
+                    && !Physics.detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, level.getGravityDirection());
+            if (!throwObject && !pickedUpObject.getPhysicalController().isFrozen()) {
                 pickedUpObject.getPhysicalController().freeze();
                 pickedUpObject.getPhysicalController().setVelocity(Vector2.Zero);
                 addBounceAction(pickedUpObject);
             }
-            if (hasUpperObject && pickedUpObject.getPhysicalController().isFrozen()) {
+            if (throwObject && pickedUpObject.getPhysicalController().isFrozen()) {
                 pickedUpObject.getPhysicalController().unfreeze();
                 removeBounceAction(pickedUpObject);
             }
