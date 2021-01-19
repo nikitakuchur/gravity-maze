@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.ui.menus;
+package com.github.nikitakuchur.puzzlegame.ui.level;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -9,13 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.screens.LevelScreen;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
+import com.github.nikitakuchur.puzzlegame.ui.Menu;
 import com.github.nikitakuchur.puzzlegame.utils.Context;
 
-public class LevelUI extends Menu implements Disposable {
+public class LevelUI extends Menu {
 
     private final BitmapFont font;
 

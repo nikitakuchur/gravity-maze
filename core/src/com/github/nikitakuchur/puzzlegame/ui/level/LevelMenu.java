@@ -1,4 +1,4 @@
-package com.github.nikitakuchur.puzzlegame.ui.menus;
+package com.github.nikitakuchur.puzzlegame.ui.level;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -17,6 +17,7 @@ import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
 import com.github.nikitakuchur.puzzlegame.screens.LevelScreen;
 import com.github.nikitakuchur.puzzlegame.screens.MainMenuScreen;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
+import com.github.nikitakuchur.puzzlegame.ui.Menu;
 import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 import java.io.IOException;
@@ -27,16 +28,14 @@ public class LevelMenu extends Menu implements Disposable {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private final BitmapFont font;
-
     private final LevelLoader levelLoader;
 
     public LevelMenu(Context context, MenuStack menuStack) {
         super(context, menuStack);
-        levelLoader = new LevelLoader(Context.builder().fill(context).build());
+        levelLoader = new LevelLoader(Context.from(context).build());
 
         AssetManager assetManager = context.getAssetManager();
-        font = assetManager.get("ui/fonts/Roboto.ttf", BitmapFont.class);
+        BitmapFont font = assetManager.get("ui/fonts/Roboto.ttf", BitmapFont.class);
 
         // Button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -104,7 +103,7 @@ public class LevelMenu extends Menu implements Disposable {
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setPosition(
                     -buttons.get(i).getWidth() / 2,
-                    0 + buttons.get(0).getHeight() * ((float) buttons.size() / 2) - buttons.get(0).getHeight() * i - 10 * i
+                    buttons.get(0).getHeight() * ((float) buttons.size() / 2) - buttons.get(0).getHeight() * i - 10 * i
             );
         }
     }
@@ -135,6 +134,5 @@ public class LevelMenu extends Menu implements Disposable {
     @Override
     public void dispose() {
         shapeRenderer.dispose();
-        font.dispose();
     }
 }
