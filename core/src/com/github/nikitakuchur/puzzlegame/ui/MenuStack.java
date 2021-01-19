@@ -1,7 +1,6 @@
 package com.github.nikitakuchur.puzzlegame.ui;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.github.nikitakuchur.puzzlegame.ui.menus.Menu;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -16,11 +15,12 @@ public class MenuStack extends Group {
 
     public void push(Menu menu) {
         stack.push(menu);
+        clearChildren();
         addActor(menu);
     }
 
     public void pop() {
-        stack.pop();
+        stack.pop().dispose();
         clearChildren();
         Optional.ofNullable(stack.peek()).ifPresent(this::addActor);
     }

@@ -6,12 +6,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.nikitakuchur.puzzlegame.level.Level;
-import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
-import com.github.nikitakuchur.puzzlegame.ui.menus.LevelUI;
+import com.github.nikitakuchur.puzzlegame.ui.level.LevelUI;
 import com.github.nikitakuchur.puzzlegame.utils.Context;
-
-import java.io.IOException;
 
 public class LevelScreen extends GameScreen {
 
@@ -22,22 +19,14 @@ public class LevelScreen extends GameScreen {
     /**
      * Creates a new level screen.
      */
-    public LevelScreen(Context context) {
+    public LevelScreen(Context context, Level level) {
         super(context);
-        LevelLoader levelLoader = new LevelLoader(Context.builder()
-                .fill(context)
-                .gameScreen(this)
-                .build());
         stage.getCamera().position.set(Vector3.Zero);
-        try {
-            level = levelLoader.load(Gdx.files.internal("levels/sample.lvl"));
-            stage.addActor(level);
-        } catch (IOException e) {
-            Gdx.app.error(getClass().getName(), e.getMessage(), e);
-        }
 
-        Context gameUiContext = Context.builder()
-                .fill(context)
+        this.level = level;
+        stage.addActor(level);
+
+        Context gameUiContext = Context.from(context)
                 .gameScreen(this)
                 .build();
         MenuStack menuStack = new MenuStack();

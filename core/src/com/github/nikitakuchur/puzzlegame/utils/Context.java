@@ -32,17 +32,18 @@ public class Context {
         return new Builder();
     }
 
+    public static Builder from(Context context) {
+        Builder builder = new Builder();
+        builder.game = context.game;
+        builder.assetManager = context.assetManager;
+        builder.gameScreen = context.gameScreen;
+        return builder;
+    }
+
     public static class Builder {
         private Game game;
         private AssetManager assetManager;
         private GameScreen gameScreen;
-
-        public Builder fill(Context context) {
-            this.game = context.game;
-            this.assetManager = context.assetManager;
-            this.gameScreen = context.gameScreen;
-            return this;
-        }
 
         public Builder game(Game game) {
             this.game = game;
