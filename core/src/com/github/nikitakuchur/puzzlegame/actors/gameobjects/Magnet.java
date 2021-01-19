@@ -10,7 +10,6 @@ import com.github.nikitakuchur.puzzlegame.level.Layer;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
-import com.github.nikitakuchur.puzzlegame.physics.Physics;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 
 public class Magnet extends GameObject implements Disposable {
