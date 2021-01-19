@@ -44,15 +44,12 @@ public class Magnet extends GameObject implements Disposable {
                         Vector2 nextPosition = controller.getPosition().add(level.getGravityDirection().getDirection());
                         return p != pickedUpObject && position.equals(nextPosition) && !controller.isMoving() && !controller.isFrozen();
                     });
-            Vector2 nextPosition = getPosition().add(level.getGravityDirection().getDirection());
-            boolean throwObject = hasUpperObject
-                    && !Physics.detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, level.getGravityDirection());
-            if (!throwObject && !pickedUpObject.getPhysicalController().isFrozen()) {
+            if (!hasUpperObject && !pickedUpObject.getPhysicalController().isFrozen()) {
                 pickedUpObject.getPhysicalController().freeze();
                 pickedUpObject.getPhysicalController().setVelocity(Vector2.Zero);
                 addBounceAction(pickedUpObject);
             }
-            if (throwObject && pickedUpObject.getPhysicalController().isFrozen()) {
+            if (hasUpperObject && pickedUpObject.getPhysicalController().isFrozen()) {
                 pickedUpObject.getPhysicalController().unfreeze();
                 removeBounceAction(pickedUpObject);
             }
