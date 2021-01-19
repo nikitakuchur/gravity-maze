@@ -67,8 +67,8 @@ public class Level extends Group implements Parameterizable, Disposable {
         update();
         store.getGameObjects().forEach(GameObject::update);
         if (!pause) {
-            physics.update(delta);
             super.act(delta);
+            physics.update(delta);
             inputController.act(delta);
         }
     }
