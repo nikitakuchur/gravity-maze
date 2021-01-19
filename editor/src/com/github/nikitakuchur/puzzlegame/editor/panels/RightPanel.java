@@ -22,7 +22,7 @@ public class RightPanel extends JPanel {
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setVisible(true);
-        panel.setPreferredSize(new Dimension(200, 400));
+        panel.setPreferredSize(new Dimension(200, 500));
         add(panel);
 
         levelEditor.addLevelPlayListener(() -> setEnabled(false));

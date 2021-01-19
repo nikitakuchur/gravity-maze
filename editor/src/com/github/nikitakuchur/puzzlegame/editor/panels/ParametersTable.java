@@ -3,7 +3,6 @@ package com.github.nikitakuchur.puzzlegame.editor.panels;
 import com.badlogic.gdx.graphics.Color;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;

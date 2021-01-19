@@ -21,6 +21,7 @@ public class ParametersPanel extends JPanel {
 
         add(new JLabel("Parameters:"));
         JScrollPane pane = new JScrollPane(table);
+        pane.setPreferredSize(new Dimension(200, 800));
         pane.setAlignmentX(Component.LEFT_ALIGNMENT);
         add(pane);
     }

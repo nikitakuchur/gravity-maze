@@ -20,6 +20,7 @@ public class GameObjectsPanel extends JPanel {
         list.setSelectedIndex(0);
         JScrollPane scrollPane = new JScrollPane(list);
         scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+        scrollPane.setPreferredSize(new Dimension(200, 500));
         add(new JLabel("Game objects:"));
         add(scrollPane);
         list.addListSelectionListener(e ->
