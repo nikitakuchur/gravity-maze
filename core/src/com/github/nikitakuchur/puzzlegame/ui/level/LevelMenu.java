@@ -12,15 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
-import com.github.nikitakuchur.puzzlegame.level.Level;
-import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
 import com.github.nikitakuchur.puzzlegame.screens.LevelScreen;
-import com.github.nikitakuchur.puzzlegame.screens.MainMenuScreen;
+import com.github.nikitakuchur.puzzlegame.screens.MenuScreen;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
 import com.github.nikitakuchur.puzzlegame.ui.Menu;
 import com.github.nikitakuchur.puzzlegame.utils.Context;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +25,8 @@ public class LevelMenu extends Menu implements Disposable {
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
-    private final LevelLoader levelLoader;
-
     public LevelMenu(Context context, MenuStack menuStack) {
         super(context, menuStack);
-        levelLoader = new LevelLoader(Context.from(context).build());
 
         AssetManager assetManager = context.getAssetManager();
         BitmapFont font = assetManager.get("ui/fonts/Roboto.ttf", BitmapFont.class);
@@ -59,7 +53,7 @@ public class LevelMenu extends Menu implements Disposable {
             public void clicked(InputEvent event, float x, float y) {
                 // Back to the main menu
                 Game game = context.getGame();
-                game.setScreen(new MainMenuScreen(Context.builder()
+                game.setScreen(new MenuScreen(Context.builder()
                         .game(context.getGame())
                         .assetManager(context.getAssetManager())
                         .build()));
@@ -82,14 +76,9 @@ public class LevelMenu extends Menu implements Disposable {
         resetButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // Restart the level
-                try {
-                    Level level = levelLoader.load(Gdx.files.internal("levels/sample.lvl"));
-                    ((LevelScreen) context.getGameScreen()).setLevel(level);
-                    getMenuStack().pop();
-                } catch (IOException e) {
-                    Gdx.app.error(getClass().getName(), e.getMessage(), e);
-                }
+                // Reset the level
+                ((LevelScreen) context.getGameScreen()).resetLevel();
+                getMenuStack().pop();
             }
         });
         this.addActor(resetButton);
