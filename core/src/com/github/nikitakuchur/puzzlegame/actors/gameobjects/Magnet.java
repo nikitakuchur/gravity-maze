@@ -1,24 +1,36 @@
 package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.level.Layer;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalController;
 import com.github.nikitakuchur.puzzlegame.physics.PhysicalObject;
+import com.github.nikitakuchur.puzzlegame.utils.Context;
 import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 
-public class Magnet extends GameObject implements Disposable {
+public class Magnet extends GameObject {
 
-    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private static final float ANIMATION_SPEED = 15.f;
+    private static final int FRAMES_NUMBER = 9;
+
+    private final TextureRegion textureRegion;
 
     private Action bounceAction;
 
     private GameObjectStore store;
+
+    private float frame;
+
+    public Magnet(Context context) {
+        AssetManager assetManager = context.getAssetManager();
+        textureRegion = new TextureRegion(assetManager.get("textures/magnet/magnet.png", Texture.class));
+    }
 
     @Override
     public void initialize(Level level) {
@@ -53,6 +65,9 @@ public class Magnet extends GameObject implements Disposable {
                 removeBounceAction(pickedUpObject);
             }
         }
+
+        frame += ANIMATION_SPEED * delta;
+        if (frame >= FRAMES_NUMBER) frame = 0;
     }
 
     private void addBounceAction(PhysicalObject physicalObject) {
@@ -70,27 +85,15 @@ public class Magnet extends GameObject implements Disposable {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.end();
-        shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-        shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-
+        batch.setColor(getColor());
         Vector2 position = getActualPosition();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(getColor());
-        shapeRenderer.ellipse(position.x, position.y, getWidth(), getHeight(), 4);
-
-        shapeRenderer.identity();
-        shapeRenderer.end();
-        batch.begin();
+        textureRegion.setRegion((int) frame * 512, 0, 512, 512);
+        batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
+                getWidth(), getHeight(), getScaleX() * 1.2f, getScaleY() * 1.2f, getRotation());
     }
 
     @Override
     public Layer getLayer() {
         return Layer.LAYER_0;
-    }
-
-    @Override
-    public void dispose() {
-        shapeRenderer.dispose();
     }
 }
