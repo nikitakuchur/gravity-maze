@@ -54,7 +54,7 @@
             "EMPTY",
             "FILLED",
             "EMPTY",
-            "FILLED",
+            "EMPTY",
             "EMPTY",
             "EMPTY"
           ],
@@ -63,9 +63,9 @@
             "FILLED",
             "EMPTY",
             "FILLED",
-            "EMPTY",
-            "EMPTY",
             "FILLED",
+            "EMPTY",
+            "EMPTY",
             "EMPTY"
           ],
           [
@@ -74,7 +74,7 @@
             "EMPTY",
             "EMPTY",
             "FILLED",
-            "EMPTY",
+            "FILLED",
             "EMPTY",
             "EMPTY"
           ],
@@ -156,7 +156,7 @@
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
         "value": {
-          "x": 3,
+          "x": 2,
           "y": 4,
           "color": {
             "r": 0.39862037,
@@ -169,6 +169,7 @@
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
+          "name": "in",
           "x": 7,
           "y": 6,
           "color": {
@@ -191,7 +192,8 @@
             "g": 0.7344891,
             "b": 0.87709445,
             "a": 1.0
-          }
+          },
+          "to": "in"
         }
       }
     ]

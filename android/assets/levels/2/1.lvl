@@ -39,52 +39,12 @@
             "EMPTY"
           ],
           [
-            "FILLED",
-            "FILLED",
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "FILLED"
-          ],
-          [
-            "FILLED",
-            "FILLED",
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY"
-          ],
-          [
-            "FILLED",
-            "FILLED",
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "FILLED",
             "EMPTY",
             "EMPTY",
             "EMPTY",
             "FILLED",
             "EMPTY",
             "EMPTY",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
             "EMPTY",
             "FILLED"
           ],
@@ -101,10 +61,50 @@
           [
             "EMPTY",
             "EMPTY",
+            "EMPTY",
             "FILLED",
             "EMPTY",
             "EMPTY",
             "FILLED",
+            "EMPTY"
+          ],
+          [
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "FILLED"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
             "EMPTY",
             "EMPTY"
           ]
@@ -143,8 +143,9 @@
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
-          "x": 0,
-          "y": 3,
+          "name": "in",
+          "x": 4,
+          "y": 7,
           "color": {
             "r": 0.09411765,
             "g": 0.73333335,
@@ -164,6 +165,33 @@
             "r": 0.09411765,
             "g": 0.73333335,
             "b": 0.8745098,
+            "a": 1.0
+          },
+          "to": "in"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "value": {
+          "x": 2,
+          "y": 2,
+          "color": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "value": {
+          "x": 0,
+          "y": 4,
+          "color": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
             "a": 1.0
           }
         }

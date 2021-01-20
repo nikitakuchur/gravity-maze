@@ -81,8 +81,8 @@
           [
             "EMPTY",
             "FILLED",
-            "EMPTY",
-            "EMPTY",
+            "FILLED",
+            "FILLED",
             "EMPTY",
             "EMPTY",
             "EMPTY",
@@ -112,19 +112,6 @@
       }
     },
     "gameObjects": [
-      {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
-        "value": {
-          "x": 5,
-          "y": 2,
-          "color": {
-            "r": 1.0,
-            "g": 0.0,
-            "b": 0.0,
-            "a": 1.0
-          }
-        }
-      },
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
         "value": {
