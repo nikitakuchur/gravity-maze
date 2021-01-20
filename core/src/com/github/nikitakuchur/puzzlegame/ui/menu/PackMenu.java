@@ -11,14 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.github.nikitakuchur.puzzlegame.level.Level;
-import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
 import com.github.nikitakuchur.puzzlegame.screens.LevelScreen;
 import com.github.nikitakuchur.puzzlegame.ui.Menu;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
 import com.github.nikitakuchur.puzzlegame.utils.Context;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -54,14 +51,8 @@ public class PackMenu extends Menu {
             button.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    LevelLoader levelLoader = new LevelLoader(context);
-                    try {
-                        Level level = levelLoader.load(levelFile);
-                        Game game = context.getGame();
-                        game.setScreen(new LevelScreen(context, level));
-                    } catch (IOException e) {
-                        Gdx.app.error(getClass().getName(), e.getMessage(), e);
-                    }
+                    Game game = context.getGame();
+                    game.setScreen(new LevelScreen(context, levelFile));
                 }
             });
             addActor(button);

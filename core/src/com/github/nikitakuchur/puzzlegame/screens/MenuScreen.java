@@ -9,11 +9,11 @@ import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
 import com.github.nikitakuchur.puzzlegame.ui.menu.MainMenu;
 import com.github.nikitakuchur.puzzlegame.utils.Context;
 
-public class MainMenuScreen extends GameScreen {
+public class MenuScreen extends GameScreen {
 
     private final Stage stage = new Stage(new ScreenViewport());
 
-    public MainMenuScreen(Context context) {
+    public MenuScreen(Context context) {
         super(context);
         stage.getCamera().position.set(Vector3.Zero);
 

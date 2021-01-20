@@ -3,7 +3,7 @@ package com.github.nikitakuchur.puzzlegame;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.github.nikitakuchur.puzzlegame.screens.MainMenuScreen;
+import com.github.nikitakuchur.puzzlegame.screens.MenuScreen;
 import com.github.nikitakuchur.puzzlegame.utils.AssetLoader;
 import com.github.nikitakuchur.puzzlegame.utils.Context;
 
@@ -21,7 +21,7 @@ public class PuzzleGame extends Game {
                 .game(this)
                 .assetManager(assetManager)
                 .build();
-        setScreen(new MainMenuScreen(context));
+        setScreen(new MenuScreen(context));
     }
 
     @Override
