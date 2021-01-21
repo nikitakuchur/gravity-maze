@@ -34,6 +34,19 @@
             "EMPTY",
             "FILLED",
             "FILLED",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
             "EMPTY",
             "EMPTY",
             "EMPTY",
@@ -43,19 +56,6 @@
           ],
           [
             "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "FILLED",
             "EMPTY",
             "FILLED",
             "FILLED",
@@ -303,32 +303,6 @@
             "r": 0.38780832,
             "g": 0.7627016,
             "b": 0.051190317,
-            "a": 1.0
-          }
-        }
-      },
-      {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
-        "value": {
-          "x": 1,
-          "y": 10,
-          "color": {
-            "r": 0.88433313,
-            "g": 0.08445126,
-            "b": 0.17966592,
-            "a": 1.0
-          }
-        }
-      },
-      {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
-        "value": {
-          "x": 7,
-          "y": 9,
-          "color": {
-            "r": 0.4537477,
-            "g": 0.77558225,
-            "b": 0.8570759,
             "a": 1.0
           }
         }

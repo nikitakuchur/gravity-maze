@@ -33,19 +33,9 @@
             "FILLED",
             "EMPTY",
             "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "EMPTY",
             "FILLED",
             "EMPTY",
             "FILLED",
-            "EMPTY",
-            "EMPTY",
             "EMPTY"
           ],
           [
@@ -56,7 +46,7 @@
             "EMPTY",
             "EMPTY",
             "EMPTY",
-            "FILLED"
+            "EMPTY"
           ],
           [
             "FILLED",
@@ -72,16 +62,26 @@
             "EMPTY",
             "EMPTY",
             "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
             "FILLED",
             "EMPTY",
+            "FILLED",
             "FILLED",
             "FILLED",
             "EMPTY"
           ],
           [
             "EMPTY",
-            "EMPTY",
             "FILLED",
+            "EMPTY",
             "EMPTY",
             "EMPTY",
             "EMPTY",
@@ -93,8 +93,8 @@
             "FILLED",
             "EMPTY",
             "EMPTY",
-            "EMPTY",
             "FILLED",
+            "EMPTY",
             "EMPTY",
             "EMPTY"
           ],
@@ -102,8 +102,8 @@
             "EMPTY",
             "EMPTY",
             "EMPTY",
-            "EMPTY",
-            "EMPTY",
+            "FILLED",
+            "FILLED",
             "FILLED",
             "EMPTY",
             "EMPTY"

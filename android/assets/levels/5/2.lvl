@@ -157,6 +157,7 @@
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
+          "name": "in1",
           "x": 7,
           "y": 2,
           "color": {
@@ -179,13 +180,15 @@
             "g": 0.7102518,
             "b": 0.10768592,
             "a": 1.0
-          }
+          },
+          "to": "in2"
         }
       },
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
-          "x": 7,
+          "name": "in2",
+          "x": 1,
           "y": 7,
           "color": {
             "r": 0.3019608,
@@ -199,7 +202,8 @@
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
-          "x": 1,
+          "name": "in3",
+          "x": 7,
           "y": 7,
           "color": {
             "r": 0.32228005,
@@ -221,39 +225,29 @@
             "g": 0.043137256,
             "b": 0.12156863,
             "a": 1.0
-          }
+          },
+          "to": "in1"
         }
       },
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
           "name": "out3",
-          "x": 5,
-          "y": 0,
+          "x": 7,
+          "y": 1,
           "color": {
             "r": 0.32156864,
             "g": 0.4,
             "b": 0.93333334,
             "a": 1.0
-          }
-        }
-      },
-      {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
-        "value": {
-          "x": 7,
-          "y": 3,
-          "color": {
-            "r": 1.0,
-            "g": 0.0,
-            "b": 0.0,
-            "a": 1.0
-          }
+          },
+          "to": "in3"
         }
       },
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
+          "name": "in4",
           "x": 6,
           "y": 3,
           "color": {
@@ -276,7 +270,8 @@
             "g": 0.7548724,
             "b": 0.5856029,
             "a": 1.0
-          }
+          },
+          "to": "in4"
         }
       },
       {

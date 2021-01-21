@@ -46,36 +46,56 @@
             "EMPTY",
             "EMPTY",
             "FILLED",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "FILLED",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
             "FILLED"
           ],
           [
             "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
             "FILLED",
-            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
             "EMPTY"
           ],
           [
             "EMPTY",
             "FILLED",
             "EMPTY",
-            "FILLED",
             "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "FILLED",
-            "FILLED",
             "EMPTY",
             "EMPTY",
             "FILLED",
-            "EMPTY",
-            "EMPTY",
             "EMPTY"
           ],
           [
@@ -83,26 +103,6 @@
             "EMPTY",
             "EMPTY",
             "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
             "EMPTY",
             "EMPTY",
             "EMPTY",
@@ -115,7 +115,7 @@
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
         "value": {
-          "x": 7,
+          "x": 3,
           "y": 2,
           "color": {
             "r": 0.3707356,
@@ -143,7 +143,7 @@
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
         "value": {
-          "x": 4,
+          "x": 3,
           "y": 7,
           "color": {
             "r": 1.0,
@@ -171,6 +171,19 @@
         "value": {
           "x": 4,
           "y": 3,
+          "color": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "value": {
+          "x": 6,
+          "y": 5,
           "color": {
             "r": 1.0,
             "g": 0.0,
