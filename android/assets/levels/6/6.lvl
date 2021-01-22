@@ -1,0 +1,317 @@
+{
+  "class": "com.github.nikitakuchur.puzzlegame.level.Level",
+  "value": {
+    "background": {
+      "class": "com.github.nikitakuchur.puzzlegame.actors.Background",
+      "value": {
+        "firstColor": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "a": 1.0
+        },
+        "secondColor": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "a": 1.0
+        }
+      }
+    },
+    "map": {
+      "class": "com.github.nikitakuchur.puzzlegame.actors.GameMap",
+      "value": {
+        "color": {
+          "r": 0.007843138,
+          "g": 0.30980393,
+          "b": 0.44705883,
+          "a": 1.0
+        },
+        "cells": [
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED"
+          ],
+          [
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "EMPTY"
+          ],
+          [
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ]
+        ]
+      }
+    },
+    "gameObjects": [
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Barrier",
+        "value": {
+          "x": 2,
+          "y": 1,
+          "color": {
+            "r": 0.49803922,
+            "g": 0.49803922,
+            "b": 0.9098039,
+            "a": 1.0
+          },
+          "opened": false,
+          "switch": "s1"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Barrier",
+        "value": {
+          "x": 7,
+          "y": 1,
+          "color": {
+            "r": 0.96862745,
+            "g": 0.53333336,
+            "b": 0.7019608,
+            "a": 1.0
+          },
+          "opened": false,
+          "switch": "s2"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 0,
+          "y": 0,
+          "color": {
+            "r": 0.91187435,
+            "g": 0.60313046,
+            "b": 0.121353924,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 8,
+          "y": 1,
+          "color": {
+            "r": 0.2583936,
+            "g": 0.08844113,
+            "b": 0.008476973,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Switch",
+        "value": {
+          "name": "s1",
+          "x": 7,
+          "y": 2,
+          "color": {
+            "r": 0.49803922,
+            "g": 0.49803922,
+            "b": 0.9098039,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
+        "value": {
+          "name": "b1",
+          "x": 3,
+          "y": 1,
+          "color": {
+            "r": 0.5548648,
+            "g": 0.012043595,
+            "b": 0.17945403,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Switch",
+        "value": {
+          "name": "s2",
+          "x": 5,
+          "y": 4,
+          "color": {
+            "r": 0.96862745,
+            "g": 0.53333336,
+            "b": 0.7019608,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Barrier",
+        "value": {
+          "x": 1,
+          "y": 5,
+          "color": {
+            "r": 0.96862745,
+            "g": 0.53333336,
+            "b": 0.7019608,
+            "a": 1.0
+          },
+          "opened": false,
+          "switch": "s2"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Barrier",
+        "value": {
+          "x": 1,
+          "y": 4,
+          "color": {
+            "r": 0.49803922,
+            "g": 0.49803922,
+            "b": 0.9098039,
+            "a": 1.0
+          },
+          "opened": false,
+          "switch": "s1"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "value": {
+          "x": 2,
+          "y": 8,
+          "color": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "value": {
+          "x": 7,
+          "y": 8,
+          "color": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 4,
+          "y": 0,
+          "color": {
+            "r": 0.6679982,
+            "g": 0.8977206,
+            "b": 0.60269946,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
+        "value": {
+          "x": 2,
+          "y": 6,
+          "color": {
+            "r": 0.23487043,
+            "g": 0.50912076,
+            "b": 0.2581972,
+            "a": 1.0
+          },
+          "ball": "b1"
+        }
+      }
+    ]
+  }
+}
