@@ -80,11 +80,11 @@ public class Conveyor extends GameObject implements PhysicalObject {
             // In the first time we freeze the physical object
             if (!physicalObject.getPhysicalController().isFrozen()) {
                 physicalObject.getPhysicalController().freeze();
-                // We need this return statement for correct collision detection between objects in conveyors
-                return;
+                // We need to skip move method for correct collision detection between objects in conveyors
+            } else {
+                // Move the object to the next cell
+                movePhysicalObject(physicalObject);
             }
-            // Move the object to the next cell
-            movePhysicalObject(physicalObject);
         }
 
         frame += ANIMATION_SPEED * delta;
