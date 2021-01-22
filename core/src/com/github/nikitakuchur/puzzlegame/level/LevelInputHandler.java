@@ -76,7 +76,7 @@ public class LevelInputHandler {
 
         if (lastGravityDirection != level.getGravityDirection()) {
             lastGravityDirection = level.getGravityDirection();
-            level.setScore(level.getScore() + 1);
+            level.setMoves(level.getMoves() + 1);
         }
 
         lastAngle = level.getRotation();

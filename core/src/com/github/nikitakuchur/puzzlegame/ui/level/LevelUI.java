@@ -69,7 +69,7 @@ public class LevelUI extends Menu {
 
         fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
         Level level = ((LevelScreen) getContext().getGameScreen()).getLevel();
-        scoreLabel.setText(level.getScore());
+        scoreLabel.setText(level.getMoves());
     }
 
     @Override

@@ -28,7 +28,9 @@ public class Level extends Group implements Parameterizable, Disposable {
     private final Physics physics = new Physics(this);
 
     private Direction gravityDirection = Direction.BOTTOM;
-    private int score;
+
+    private int maxMoves;
+    private int moves;
     private boolean pause;
 
     public Level() {
@@ -120,12 +122,20 @@ public class Level extends Group implements Parameterizable, Disposable {
         this.gravityDirection = gravityDirection;
     }
 
-    public int getScore() {
-        return score;
+    public int getMaxMoves() {
+        return maxMoves;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setMaxMoves(int maxMoves) {
+        this.maxMoves = maxMoves;
+    }
+
+    public int getMoves() {
+        return moves;
+    }
+
+    public void setMoves(int moves) {
+        this.moves = moves;
     }
 
     public void setPause(boolean pause) {
@@ -144,6 +154,7 @@ public class Level extends Group implements Parameterizable, Disposable {
     @Override
     public Parameters getParameters() {
         Parameters parameters = new Parameters();
+        parameters.put("maxMoves", Integer.class, maxMoves);
         parameters.put("background", Background.class, background);
         parameters.put("map", GameMap.class, map);
         GameObject[] gameObjects = store.getGameObjects().toArray(new GameObject[0]);
@@ -153,6 +164,7 @@ public class Level extends Group implements Parameterizable, Disposable {
 
     @Override
     public void setParameters(Parameters parameters) {
+        maxMoves = parameters.getValueOrDefault("maxMoves", 0);
         background = parameters.getValue("background");
         map = parameters.getValue("map");
         GameObject[] gameObjects = parameters.getValue("gameObjects");

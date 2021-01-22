@@ -1,6 +1,8 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
+import com.github.nikitakuchur.puzzlegame.editor.commands.ChangeMaxMovesCommand;
+import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Option;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 
@@ -53,12 +55,32 @@ public class RightPanel extends JPanel {
         parametersPanel = new ParametersPanel(levelEditor.getLevel().getBackground());
         parametersPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        levelEditor.addLevelChangeListener(lev -> initParameterizable());
+        JLabel label = new JLabel("Max moves:");
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 32, 1);
+        JSpinner spinner = new JSpinner(spinnerModel);
+        spinner.setPreferredSize(new Dimension(60, 30));
+        spinner.addChangeListener(event ->
+                CommandHistory.getInstance().addAndExecute(new ChangeMaxMovesCommand(levelEditor.getLevel(), (int) spinner.getValue()))
+        );
+
+        levelEditor.addLevelChangeListener(lev -> {
+            initParameterizable();
+            spinner.setValue(levelEditor.getLevel().getMaxMoves());
+        });
         levelEditor.addGameObjectSelectListener(parametersPanel::setParameterizable);
+
+        JPanel levelPanel = new JPanel();
+        levelPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        levelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        levelPanel.add(label);
+        levelPanel.add(spinner);
 
         panel.add(comboBox);
         panel.add(gameObjectsPanel);
         panel.add(parametersPanel);
+        panel.add(levelPanel);
     }
 
     @Override
