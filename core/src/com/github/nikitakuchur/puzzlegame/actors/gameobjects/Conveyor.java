@@ -1,6 +1,7 @@
 package com.github.nikitakuchur.puzzlegame.actors.gameobjects;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,6 +18,9 @@ import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 public class Conveyor extends GameObject implements PhysicalObject {
 
+    private static final float ANIMATION_SPEED = 20.f;
+    private static final int FRAMES_NUMBER = 16;
+
     private final TextureRegion textureRegion;
 
     private Direction direction = Direction.TOP;
@@ -24,6 +28,8 @@ public class Conveyor extends GameObject implements PhysicalObject {
     private PhysicalController physicalController;
 
     private GameObjectStore store;
+
+    private float frame;
 
     public Conveyor(Context context) {
         AssetManager assetManager = context.getAssetManager();
@@ -80,6 +86,9 @@ public class Conveyor extends GameObject implements PhysicalObject {
             // Move the object to the next cell
             movePhysicalObject(physicalObject);
         }
+
+        frame += ANIMATION_SPEED * delta;
+        if (frame >= FRAMES_NUMBER) frame = 0;
     }
 
     private void movePhysicalObject(PhysicalObject physicalObject) {
@@ -117,8 +126,10 @@ public class Conveyor extends GameObject implements PhysicalObject {
         batch.setColor(getColor());
         Vector2 dir = direction.getDirection();
         double degrees = -Math.atan2(dir.x, dir.y) * 180.0 / Math.PI;
+        textureRegion.setRegion(0, (int) frame * 16, 512, 512);
         batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), (float) degrees);
+        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
     }
 
     @Override
