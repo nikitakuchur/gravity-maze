@@ -27,8 +27,8 @@ public class CommandHistory {
      */
     public void addAndExecute(Command command) {
         if (command == null) return;
-        add(command);
         command.execute();
+        add(command);
     }
 
     /**

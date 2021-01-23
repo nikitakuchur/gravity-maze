@@ -1,7 +1,8 @@
 package com.github.nikitakuchur.puzzlegame.editor.panels;
 
 import com.github.nikitakuchur.puzzlegame.editor.LevelEditor;
-import com.github.nikitakuchur.puzzlegame.editor.commands.ChangeMaxMovesCommand;
+import com.github.nikitakuchur.puzzlegame.editor.commands.ChangeParameterCommand;
+import com.github.nikitakuchur.puzzlegame.editor.commands.Command;
 import com.github.nikitakuchur.puzzlegame.editor.commands.CommandHistory;
 import com.github.nikitakuchur.puzzlegame.editor.utils.Option;
 import com.github.nikitakuchur.puzzlegame.level.Level;
@@ -61,9 +62,18 @@ public class RightPanel extends JPanel {
         SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 32, 1);
         JSpinner spinner = new JSpinner(spinnerModel);
         spinner.setPreferredSize(new Dimension(60, 30));
-        spinner.addChangeListener(event ->
-                CommandHistory.getInstance().addAndExecute(new ChangeMaxMovesCommand(levelEditor.getLevel(), (int) spinner.getValue()))
-        );
+        spinner.addChangeListener(event -> {
+            int maxMoves = levelEditor.getLevel().getMaxMoves();
+            int value = (int) spinner.getValue();
+            if (maxMoves != value) {
+                Command command = new ChangeParameterCommand<>(levelEditor.getLevel(), "maxMoves", Integer.class, spinner.getValue());
+                CommandHistory.getInstance().addAndExecute(command);
+            }
+        });
+        CommandHistory.getInstance().addHistoryChangeListener(() -> {
+            int newValue = levelEditor.getLevel().getMaxMoves();
+            spinnerModel.setValue(newValue);
+        });
 
         levelEditor.addLevelChangeListener(lev -> {
             initParameterizable();
