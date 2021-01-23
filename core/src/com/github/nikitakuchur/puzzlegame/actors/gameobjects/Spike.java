@@ -42,7 +42,7 @@ public class Spike extends GameObject {
             if (getPosition().equals(ball.getPosition())) {
                 store.remove(ball);
                 effect.color(ball.getColor()).start();
-                level.endGame();
+                level.endGame(true);
             }
         });
         effect.update(delta);

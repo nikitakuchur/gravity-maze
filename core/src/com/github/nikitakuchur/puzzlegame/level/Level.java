@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.actors.Background;
 import com.github.nikitakuchur.puzzlegame.actors.GameMap;
+import com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball;
 import com.github.nikitakuchur.puzzlegame.serialization.Parameterizable;
 import com.github.nikitakuchur.puzzlegame.utils.Direction;
 import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObject;
@@ -12,7 +13,10 @@ import com.github.nikitakuchur.puzzlegame.actors.gameobjects.GameObjectStore;
 import com.github.nikitakuchur.puzzlegame.physics.Physics;
 import com.github.nikitakuchur.puzzlegame.serialization.Parameters;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
+import java.util.function.IntConsumer;
 import java.util.stream.Stream;
 
 public class Level extends Group implements Parameterizable, Disposable {
@@ -31,7 +35,11 @@ public class Level extends Group implements Parameterizable, Disposable {
 
     private int maxMoves;
     private int moves;
+
     private boolean pause;
+    private boolean failed;
+
+    private final List<IntConsumer> gameEndListeners = new ArrayList<>();
 
     public Level() {
         this(new Background(), new GameMap());
@@ -73,6 +81,9 @@ public class Level extends Group implements Parameterizable, Disposable {
             physics.update(delta);
             inputController.act(delta);
         }
+        if (!failed && store.getGameObjects(Ball.class).isEmpty()) {
+            endGame(false);
+        }
     }
 
     @Override
@@ -89,7 +100,7 @@ public class Level extends Group implements Parameterizable, Disposable {
     }
 
     /**
-     * Updates width and height
+     * Updates width and height.
      */
     public void update() {
         float w = Gdx.graphics.getWidth();
@@ -106,8 +117,19 @@ public class Level extends Group implements Parameterizable, Disposable {
         });
     }
 
-    public void endGame() {
+    public void endGame(boolean failed) {
         clearListeners();
+        this.failed = failed;
+        int stars = 1;
+        if (failed) {
+            stars = 0;
+        } else if (maxMoves >= moves) {
+            stars = 3;
+        } else if (maxMoves * 1.3f >= moves) {
+            stars = 2;
+        }
+        int finalStars = stars;
+        gameEndListeners.forEach(c -> c.accept(finalStars));
     }
 
     public GameObjectStore getGameObjectStore() {
@@ -124,10 +146,6 @@ public class Level extends Group implements Parameterizable, Disposable {
 
     public int getMaxMoves() {
         return maxMoves;
-    }
-
-    public void setMaxMoves(int maxMoves) {
-        this.maxMoves = maxMoves;
     }
 
     public int getMoves() {
@@ -174,6 +192,10 @@ public class Level extends Group implements Parameterizable, Disposable {
         groups.values().forEach(this::addActor);
         addActor(map);
         Stream.of(gameObjects).forEach(store::add);
+    }
+
+    public void addGameEndListener(IntConsumer consumer) {
+        gameEndListeners.add(consumer);
     }
 
     @Override

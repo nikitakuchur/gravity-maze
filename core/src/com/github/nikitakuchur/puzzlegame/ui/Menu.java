@@ -12,7 +12,7 @@ public abstract class Menu extends Group implements Disposable {
     private final Context context;
     private final MenuStack menuStack;
 
-    protected Menu(Context context, MenuStack menuStack) {
+    public Menu(Context context, MenuStack menuStack) {
         this.context = context;
         this.menuStack = menuStack;
     }

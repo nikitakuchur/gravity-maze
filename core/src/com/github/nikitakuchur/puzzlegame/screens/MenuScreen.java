@@ -17,11 +17,8 @@ public class MenuScreen extends GameScreen {
         super(context);
         stage.getCamera().position.set(Vector3.Zero);
 
-        Context mainMenuContext = Context.from(context)
-                .gameScreen(this)
-                .build();
         MenuStack menuStack = new MenuStack();
-        menuStack.push(new MainMenu(mainMenuContext, menuStack));
+        menuStack.push(new MainMenu(getContext(), menuStack));
         stage.addActor(menuStack);
     }
 

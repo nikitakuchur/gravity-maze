@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.github.nikitakuchur.puzzlegame.level.Level;
 import com.github.nikitakuchur.puzzlegame.level.LevelLoader;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
+import com.github.nikitakuchur.puzzlegame.ui.level.LevelResult;
 import com.github.nikitakuchur.puzzlegame.ui.level.LevelUI;
 import com.github.nikitakuchur.puzzlegame.utils.Context;
 
@@ -23,6 +24,8 @@ public class LevelScreen extends GameScreen {
     private final LevelLoader levelLoader;
     private Level level;
 
+    private final MenuStack menuStack;
+
     /**
      * Creates a new level screen.
      */
@@ -34,17 +37,15 @@ public class LevelScreen extends GameScreen {
         stage.getCamera().position.set(Vector3.Zero);
 
         try {
-            this.level = levelLoader.load(levelFile);
+            level = levelLoader.load(levelFile);
+            level.addGameEndListener(this::showResultMenu);
             stage.addActor(level);
         } catch (IOException e) {
             Gdx.app.error(getClass().getName(), e.getMessage(), e);
         }
 
-        Context gameUiContext = Context.from(context)
-                .gameScreen(this)
-                .build();
-        MenuStack menuStack = new MenuStack();
-        menuStack.push(new LevelUI(gameUiContext, menuStack));
+        menuStack = new MenuStack();
+        menuStack.push(new LevelUI(getContext(), menuStack));
         stage.addActor(menuStack);
     }
 
@@ -60,14 +61,20 @@ public class LevelScreen extends GameScreen {
      */
     public void resetLevel() {
         try {
-            int index = stage.getActors().indexOf(this.level, true);
+            int index = stage.getActors().indexOf(level, true);
             Level loadedLevel = levelLoader.load(levelFile);
+            loadedLevel.addGameEndListener(this::showResultMenu);
             stage.getActors().set(index, loadedLevel);
-            this.level.dispose();
-            this.level = loadedLevel;
+            level.dispose();
+            level = loadedLevel;
         } catch (IOException e) {
             Gdx.app.error(getClass().getName(), e.getMessage(), e);
         }
+    }
+
+    public void showResultMenu(int stars) {
+        LevelResult resultMenu = new LevelResult(getContext(), menuStack, stars);
+        menuStack.push(resultMenu);
     }
 
     @Override

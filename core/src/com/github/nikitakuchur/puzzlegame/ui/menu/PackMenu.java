@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class PackMenu extends Menu {
 
-    protected PackMenu(Context context, MenuStack menuStack, FileHandle pack) {
+    public PackMenu(Context context, MenuStack menuStack, FileHandle pack) {
         super(context, menuStack);
 
         Image background = new Image((Texture) context.getAssetManager().get("ui/menu/bg1.png"));

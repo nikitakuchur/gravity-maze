@@ -8,7 +8,9 @@ public abstract class GameScreen extends ScreenAdapter {
     private final Context context;
 
     protected GameScreen(Context context) {
-        this.context = context;
+        this.context = Context.from(context)
+                .gameScreen(this)
+                .build();
     }
 
     /**
