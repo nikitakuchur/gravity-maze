@@ -25,7 +25,7 @@ public class LevelResult extends Menu {
         super(context, menuStack);
 
         AssetManager assetManager = context.getAssetManager();
-        BitmapFont font = assetManager.get("ui/fonts/Roboto.ttf", BitmapFont.class);
+        BitmapFont font = assetManager.get("ui/fonts/ReemKufi.ttf", BitmapFont.class);
 
         // Label style
         Label.LabelStyle labelStyle = new Label.LabelStyle();

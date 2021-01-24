@@ -69,7 +69,7 @@ public class AssetLoader {
     private static void loadFont(AssetManager manager, FileHandle file) {
         FreetypeFontLoader.FreeTypeFontLoaderParameter param = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         param.fontFileName = file.path();
-        param.fontParameters.size = Gdx.graphics.getWidth() / 16;
+        param.fontParameters.size = Gdx.graphics.getWidth() / 14;
         manager.load(param.fontFileName, BitmapFont.class, param);
     }
 

@@ -16,30 +16,30 @@ public class MainMenu extends Menu {
     public MainMenu(Context context, MenuStack menuStack) {
         super(context, menuStack);
 
-        Image background = new Image((Texture) context.getAssetManager().get("ui/menu/bg1.png"));
-        background.setPosition(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getHeight() / 2);
-        background.setWidth(Gdx.graphics.getWidth());
-        background.setHeight(Gdx.graphics.getHeight());
-
-        this.addActor(background);
-
         AssetManager assetManager = context.getAssetManager();
-        BitmapFont font = assetManager.get("ui/fonts/Roboto.ttf", BitmapFont.class);
+        BitmapFont font = assetManager.get("ui/fonts/ReemKufi.ttf", BitmapFont.class);
+
+        Image caption = new Image((Texture) assetManager.get("ui/menu/caption.png"));
+        float captionWidth = caption.getWidth();
+        caption.setWidth((float) Gdx.graphics.getWidth() / 1.3f);
+        caption.setHeight(caption.getWidth() / captionWidth * caption.getHeight());
+        caption.setPosition(-caption.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2 - caption.getHeight());
 
         // Button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
 
         // Start button
-        TextButton startButton = new TextButton("Start", textButtonStyle);
-        startButton.addListener(new ClickListener() {
+        TextButton playButton = new TextButton("Play", textButtonStyle);
+        playButton.setPosition(-playButton.getWidth() / 2, -playButton.getHeight() / 2);
+        playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 menuStack.push(new PacksMenu(context, menuStack));
             }
         });
-        this.addActor(startButton);
 
-        startButton.setPosition(-startButton.getWidth() / 2, 0);
+        addActor(caption);
+        addActor(playButton);
     }
 }

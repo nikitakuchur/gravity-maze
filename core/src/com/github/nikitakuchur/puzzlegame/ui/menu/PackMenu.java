@@ -1,14 +1,11 @@
 package com.github.nikitakuchur.puzzlegame.ui.menu;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.github.nikitakuchur.puzzlegame.screens.LevelScreen;
@@ -27,15 +24,8 @@ public class PackMenu extends Menu {
     public PackMenu(Context context, MenuStack menuStack, FileHandle pack) {
         super(context, menuStack);
 
-        Image background = new Image((Texture) context.getAssetManager().get("ui/menu/bg1.png"));
-        background.setPosition(-(float) Gdx.graphics.getWidth() / 2, -(float) Gdx.graphics.getHeight() / 2);
-        background.setWidth(Gdx.graphics.getWidth());
-        background.setHeight(Gdx.graphics.getHeight());
-
-        this.addActor(background);
-
         AssetManager assetManager = context.getAssetManager();
-        BitmapFont font = assetManager.get("ui/fonts/Roboto.ttf", BitmapFont.class);
+        BitmapFont font = assetManager.get("ui/fonts/ReemKufi.ttf", BitmapFont.class);
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;

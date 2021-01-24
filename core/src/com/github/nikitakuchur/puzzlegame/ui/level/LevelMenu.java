@@ -29,7 +29,7 @@ public class LevelMenu extends Menu implements Disposable {
         super(context, menuStack);
 
         AssetManager assetManager = context.getAssetManager();
-        BitmapFont font = assetManager.get("ui/fonts/Roboto.ttf", BitmapFont.class);
+        BitmapFont font = assetManager.get("ui/fonts/ReemKufi.ttf", BitmapFont.class);
 
         // Button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();

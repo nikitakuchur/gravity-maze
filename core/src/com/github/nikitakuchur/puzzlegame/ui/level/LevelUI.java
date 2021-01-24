@@ -26,7 +26,7 @@ public class LevelUI extends Menu {
         super(context, menuStack);
 
         AssetManager assetManager = context.getAssetManager();
-        font = assetManager.get("ui/fonts/Roboto.ttf", BitmapFont.class);
+        font = assetManager.get("ui/fonts/ReemKufi.ttf", BitmapFont.class);
 
         // Button style
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
