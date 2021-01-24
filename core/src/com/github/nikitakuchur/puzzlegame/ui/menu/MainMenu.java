@@ -14,7 +14,7 @@ import com.github.nikitakuchur.puzzlegame.ui.Menu;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
 import com.github.nikitakuchur.puzzlegame.utils.Context;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public class MainMenu extends Menu {
 
@@ -60,7 +60,8 @@ public class MainMenu extends Menu {
         });
 
         Background[] backgrounds = {GREEN_BACKGROUND, ORANGE_BACKGROUND, PINK_BACKGROUND};
-        int index = ThreadLocalRandom.current().nextInt(0, backgrounds.length);
+        Random random = new Random();
+        int index = Math.abs(random.nextInt() % backgrounds.length);
         addActor(backgrounds[index]);
         addActor(caption);
         addActor(playButton);
