@@ -137,6 +137,13 @@ public class GameObjectStore {
     }
 
     /**
+     * Clears the store.
+     */
+    public void clear() {
+        gameObjects.clear();
+    }
+
+    /**
      * Adds the listener to execute when a new game object is added to the store.
      *
      * @param consumer the listener

@@ -191,6 +191,8 @@ public class Level extends Group implements Parameterizable, Disposable {
         addActor(background);
         groups.values().forEach(this::addActor);
         addActor(map);
+
+        store.clear();
         Stream.of(gameObjects).forEach(store::add);
     }
 
