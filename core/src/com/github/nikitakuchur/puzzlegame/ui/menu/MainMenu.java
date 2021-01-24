@@ -29,7 +29,7 @@ public class MainMenu extends Menu {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
 
-        // Start button
+        // Play button
         TextButton playButton = new TextButton("Play", textButtonStyle);
         playButton.setPosition(-playButton.getWidth() / 2, -playButton.getHeight() / 2);
         playButton.addListener(new ClickListener() {

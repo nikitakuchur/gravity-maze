@@ -37,7 +37,7 @@ public class PackMenu extends Menu {
         List<Button> buttons = new ArrayList<>();
 
         for (FileHandle levelFile : levels) {
-            TextButton button = new TextButton(levelFile.name(), textButtonStyle);
+            TextButton button = new TextButton(pack.name() + "-" + levelFile.name().split("\\.")[0], textButtonStyle);
             button.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
