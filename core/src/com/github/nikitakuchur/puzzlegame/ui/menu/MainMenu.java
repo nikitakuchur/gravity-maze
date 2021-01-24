@@ -21,7 +21,7 @@ public class MainMenu extends Menu {
 
         Image caption = new Image((Texture) assetManager.get("ui/menu/caption.png"));
         float captionWidth = caption.getWidth();
-        caption.setWidth((float) Gdx.graphics.getWidth() / 1.3f);
+        caption.setWidth((float) Gdx.graphics.getWidth() / 1.5f);
         caption.setHeight(caption.getWidth() / captionWidth * caption.getHeight());
         caption.setPosition(-caption.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2 - caption.getHeight());
 
