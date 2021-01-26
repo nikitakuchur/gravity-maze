@@ -36,10 +36,10 @@ public class LevelResult extends Menu {
         textButtonStyle.font = font;
 
         Label label = new Label("Stars: " + stars, labelStyle);
-        label.setPosition(-label.getWidth() / 2, 20);
+        label.setPosition(-label.getWidth() / 2, label.getHeight() / 2);
 
         Button button = new TextButton("Back to menu", textButtonStyle);
-        button.setPosition(-button.getWidth() / 2, -20);
+        button.setPosition(-button.getWidth() / 2, -button.getHeight() / 2);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
