@@ -21,6 +21,8 @@ public class RightPanel extends JPanel {
     private final ParametersPanel parametersPanel;
     private final GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
 
+    private final JSpinner maxMovesSpinner;
+
     public RightPanel(LevelEditor levelEditor) {
         this.levelEditor = levelEditor;
 
@@ -61,14 +63,15 @@ public class RightPanel extends JPanel {
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 32, 1);
-        JSpinner spinner = new JSpinner(spinnerModel);
-        spinner.setPreferredSize(new Dimension(60, 30));
-        spinner.addChangeListener(event ->
+        maxMovesSpinner = new JSpinner(spinnerModel);
+        maxMovesSpinner.setPreferredSize(new Dimension(60, 30));
+        maxMovesSpinner.addChangeListener(event ->
                 Gdx.app.postRunnable(() -> {
                     int maxMoves = levelEditor.getLevel().getMaxMoves();
-                    int value = (int) spinner.getValue();
+                    int value = (int) maxMovesSpinner.getValue();
                     if (maxMoves != value) {
-                        Command command = new ChangeParameterCommand<>(levelEditor.getLevel(), "maxMoves", Integer.class, spinner.getValue());
+                        Command command = new ChangeParameterCommand<>(levelEditor.getLevel(), "maxMoves",
+                                Integer.class, maxMovesSpinner.getValue());
                         CommandHistory.getInstance().addAndExecute(command);
                     }
                 }));
@@ -79,7 +82,7 @@ public class RightPanel extends JPanel {
 
         levelEditor.addLevelChangeListener(lev -> {
             initParameterizable();
-            spinner.setValue(levelEditor.getLevel().getMaxMoves());
+            maxMovesSpinner.setValue(levelEditor.getLevel().getMaxMoves());
         });
         levelEditor.addGameObjectSelectListener(parametersPanel::setParameterizable);
 
@@ -87,7 +90,7 @@ public class RightPanel extends JPanel {
         levelPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         levelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         levelPanel.add(label);
-        levelPanel.add(spinner);
+        levelPanel.add(maxMovesSpinner);
 
         panel.add(comboBox);
         panel.add(gameObjectsPanel);
@@ -101,6 +104,7 @@ public class RightPanel extends JPanel {
         for (Component component : panel.getComponents()) {
             component.setEnabled(b);
         }
+        maxMovesSpinner.setEnabled(b);
     }
 
     private void initParameterizable() {
