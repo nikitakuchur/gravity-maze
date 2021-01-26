@@ -1,0 +1,441 @@
+{
+  "class": "com.github.nikitakuchur.puzzlegame.level.Level",
+  "value": {
+    "maxMoves": 11,
+    "background": {
+      "class": "com.github.nikitakuchur.puzzlegame.actors.Background",
+      "value": {
+        "firstColor": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "a": 1.0
+        },
+        "secondColor": {
+          "r": 1.0,
+          "g": 1.0,
+          "b": 1.0,
+          "a": 1.0
+        }
+      }
+    },
+    "map": {
+      "class": "com.github.nikitakuchur.puzzlegame.actors.GameMap",
+      "value": {
+        "color": {
+          "r": 0.007843138,
+          "g": 0.30980393,
+          "b": 0.44705883,
+          "a": 1.0
+        },
+        "cells": [
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ]
+        ]
+      }
+    },
+    "gameObjects": [
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 0,
+          "y": 6,
+          "color": {
+            "r": 0.8538912,
+            "g": 0.9323767,
+            "b": 0.283666,
+            "a": 1.0
+          },
+          "direction": "RIGHT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 2,
+          "y": 6,
+          "color": {
+            "r": 0.995317,
+            "g": 0.051138103,
+            "b": 0.114485204,
+            "a": 1.0
+          },
+          "direction": "RIGHT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 2,
+          "y": 2,
+          "color": {
+            "r": 0.7855823,
+            "g": 0.6812409,
+            "b": 0.37414342,
+            "a": 1.0
+          },
+          "direction": "RIGHT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 0,
+          "y": 2,
+          "color": {
+            "r": 0.8310632,
+            "g": 0.01079917,
+            "b": 0.77554494,
+            "a": 1.0
+          },
+          "direction": "LEFT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 6,
+          "y": 2,
+          "color": {
+            "r": 0.5955767,
+            "g": 0.5945116,
+            "b": 0.48737013,
+            "a": 1.0
+          },
+          "direction": "LEFT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 8,
+          "y": 2,
+          "color": {
+            "r": 0.8835799,
+            "g": 0.3666852,
+            "b": 0.88414216,
+            "a": 1.0
+          },
+          "direction": "RIGHT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 3,
+          "y": 0,
+          "color": {
+            "r": 0.19185251,
+            "g": 0.7617177,
+            "b": 0.4599591,
+            "a": 1.0
+          },
+          "direction": "LEFT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 5,
+          "y": 0,
+          "color": {
+            "r": 0.17985183,
+            "g": 0.1267469,
+            "b": 0.7419205,
+            "a": 1.0
+          },
+          "direction": "RIGHT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 8,
+          "y": 6,
+          "color": {
+            "r": 0.8439129,
+            "g": 0.30532032,
+            "b": 0.40292418,
+            "a": 1.0
+          },
+          "direction": "LEFT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 6,
+          "y": 6,
+          "color": {
+            "r": 0.3564862,
+            "g": 0.2688803,
+            "b": 0.2731924,
+            "a": 1.0
+          },
+          "direction": "LEFT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
+        "value": {
+          "name": "b1",
+          "x": 4,
+          "y": 8,
+          "color": {
+            "r": 0.7060033,
+            "g": 0.66931224,
+            "b": 0.6332503,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
+        "value": {
+          "x": 4,
+          "y": 4,
+          "color": {
+            "r": 0.15327936,
+            "g": 0.02279365,
+            "b": 0.07774353,
+            "a": 1.0
+          },
+          "ball": "b1"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 3,
+          "y": 5,
+          "color": {
+            "r": 0.26700044,
+            "g": 0.46800905,
+            "b": 0.3621335,
+            "a": 1.0
+          },
+          "direction": "RIGHT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 5,
+          "y": 5,
+          "color": {
+            "r": 0.6427076,
+            "g": 0.7266852,
+            "b": 0.11458725,
+            "a": 1.0
+          },
+          "direction": "RIGHT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 8,
+          "y": 1,
+          "color": {
+            "r": 0.15853065,
+            "g": 0.13740212,
+            "b": 0.8196516,
+            "a": 1.0
+          },
+          "direction": "LEFT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 0,
+          "y": 1,
+          "color": {
+            "r": 0.91927415,
+            "g": 0.16911185,
+            "b": 0.89314395,
+            "a": 1.0
+          },
+          "direction": "RIGHT"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 5,
+          "y": 3,
+          "color": {
+            "r": 0.8399227,
+            "g": 0.12447417,
+            "b": 0.67524356,
+            "a": 1.0
+          },
+          "direction": "BOTTOM"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "value": {
+          "x": 3,
+          "y": 3,
+          "color": {
+            "r": 0.12955469,
+            "g": 0.358077,
+            "b": 0.7085845,
+            "a": 1.0
+          },
+          "direction": "TOP"
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "value": {
+          "x": 6,
+          "y": 1,
+          "color": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "value": {
+          "x": 2,
+          "y": 1,
+          "color": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "value": {
+          "x": 7,
+          "y": 7,
+          "color": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "value": {
+          "x": 1,
+          "y": 7,
+          "color": {
+            "r": 1.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 1.0
+          }
+        }
+      }
+    ]
+  }
+}

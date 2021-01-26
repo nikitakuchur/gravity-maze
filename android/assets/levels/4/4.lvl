@@ -1,6 +1,7 @@
 {
   "class": "com.github.nikitakuchur.puzzlegame.level.Level",
   "value": {
+    "maxMoves": 18,
     "background": {
       "class": "com.github.nikitakuchur.puzzlegame.actors.Background",
       "value": {
@@ -192,8 +193,8 @@
       {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
         "value": {
-          "x": 9,
-          "y": 7,
+          "x": 10,
+          "y": 8,
           "color": {
             "r": 0.59607846,
             "g": 0.011764706,
@@ -201,32 +202,6 @@
             "a": 1.0
           },
           "ball": "b1"
-        }
-      },
-      {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
-        "value": {
-          "x": 6,
-          "y": 10,
-          "color": {
-            "r": 0.72699755,
-            "g": 0.2957123,
-            "b": 0.32708687,
-            "a": 1.0
-          }
-        }
-      },
-      {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
-        "value": {
-          "x": 7,
-          "y": 10,
-          "color": {
-            "r": 0.73199666,
-            "g": 0.4110763,
-            "b": 0.59625274,
-            "a": 1.0
-          }
         }
       },
       {
@@ -295,32 +270,6 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
-        "value": {
-          "x": 2,
-          "y": 10,
-          "color": {
-            "r": 0.38780832,
-            "g": 0.7627016,
-            "b": 0.051190317,
-            "a": 1.0
-          }
-        }
-      },
-      {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
-        "value": {
-          "x": 7,
-          "y": 8,
-          "color": {
-            "r": 0.6447907,
-            "g": 0.29525518,
-            "b": 0.6067608,
-            "a": 1.0
-          }
-        }
-      },
-      {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
         "value": {
           "x": 7,
@@ -342,6 +291,45 @@
             "r": 0.54119945,
             "g": 0.7713505,
             "b": 0.20354211,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Magnet",
+        "value": {
+          "x": 7,
+          "y": 8,
+          "color": {
+            "r": 0.10209578,
+            "g": 0.64233285,
+            "b": 0.8678388,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 2,
+          "y": 10,
+          "color": {
+            "r": 0.6605174,
+            "g": 0.106390774,
+            "b": 0.8496638,
+            "a": 1.0
+          }
+        }
+      },
+      {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "value": {
+          "x": 6,
+          "y": 10,
+          "color": {
+            "r": 0.39534986,
+            "g": 0.2740096,
+            "b": 0.20492208,
             "a": 1.0
           }
         }

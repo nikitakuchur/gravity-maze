@@ -34,44 +34,6 @@
             "EMPTY",
             "EMPTY",
             "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "FILLED",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY"
-          ],
-          [
-            "FILLED",
-            "FILLED",
             "EMPTY",
             "EMPTY",
             "EMPTY",
@@ -80,7 +42,9 @@
             "FILLED"
           ],
           [
-            "EMPTY",
+            "FILLED",
+            "FILLED",
+            "FILLED",
             "FILLED",
             "EMPTY",
             "EMPTY",
@@ -91,12 +55,26 @@
           ],
           [
             "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED"
+          ],
+          [
+            "FILLED",
             "FILLED",
             "EMPTY",
             "EMPTY",
             "EMPTY",
             "EMPTY",
-            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
             "EMPTY"
           ],
           [
@@ -107,90 +85,130 @@
             "EMPTY",
             "EMPTY",
             "EMPTY",
+            "EMPTY",
+            "EMPTY",
             "EMPTY"
+          ],
+          [
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY"
+          ],
+          [
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "FILLED",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "EMPTY",
+            "FILLED"
           ]
         ]
       }
     },
     "gameObjects": [
       {
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
+        "value": {
+          "name": "b1",
+          "x": 0,
+          "y": 0,
+          "color": {
+            "r": 0.77114695,
+            "g": 0.19642305,
+            "b": 0.80580026,
+            "a": 1.0
+          }
+        }
+      },
+      {
         "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
         "value": {
-          "x": 3,
-          "y": 2,
+          "x": 5,
+          "y": 1,
           "color": {
-            "r": 0.3707356,
-            "g": 0.9490153,
-            "b": 0.3343233,
+            "r": 0.5223341,
+            "g": 0.16277605,
+            "b": 0.310188,
             "a": 1.0
           },
           "ball": "b1"
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
-          "name": "b1",
-          "x": 0,
-          "y": 7,
-          "color": {
-            "r": 0.36862746,
-            "g": 0.94509804,
-            "b": 0.33333334,
-            "a": 1.0
-          }
-        }
-      },
-      {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
-        "value": {
-          "x": 3,
-          "y": 7,
-          "color": {
-            "r": 1.0,
-            "g": 0.0,
-            "b": 0.0,
-            "a": 1.0
-          }
-        }
-      },
-      {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
-        "value": {
+          "name": "p1",
           "x": 5,
-          "y": 0,
+          "y": 6,
           "color": {
-            "r": 1.0,
-            "g": 0.0,
-            "b": 0.0,
+            "r": 0.49052924,
+            "g": 0.2212382,
+            "b": 0.2985351,
             "a": 1.0
-          }
+          },
+          "to": "p2"
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
         "value": {
-          "x": 4,
-          "y": 3,
+          "name": "p2",
+          "x": 3,
+          "y": 2,
           "color": {
-            "r": 1.0,
-            "g": 0.0,
-            "b": 0.0,
+            "r": 0.46630728,
+            "g": 0.17148656,
+            "b": 0.9559217,
             "a": 1.0
-          }
-        }
-      },
-      {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
-        "value": {
-          "x": 6,
-          "y": 5,
-          "color": {
-            "r": 1.0,
-            "g": 0.0,
-            "b": 0.0,
-            "a": 1.0
-          }
+          },
+          "to": "p1"
         }
       }
     ]
