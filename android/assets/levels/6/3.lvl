@@ -1,6 +1,7 @@
 {
   "class": "com.github.nikitakuchur.puzzlegame.level.Level",
   "value": {
+    "maxMoves": 15,
     "background": {
       "class": "com.github.nikitakuchur.puzzlegame.actors.Background",
       "value": {
