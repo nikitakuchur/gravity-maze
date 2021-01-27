@@ -5,14 +5,20 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.github.nikitakuchur.puzzlegame.actors.Background;
 import com.github.nikitakuchur.puzzlegame.ui.Menu;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
 import com.github.nikitakuchur.puzzlegame.utils.Context;
+import com.github.nikitakuchur.puzzlegame.utils.GameActions;
 
 import java.util.Random;
 
@@ -50,8 +56,13 @@ public class MainMenu extends Menu {
         textButtonStyle.font = font;
 
         // Play button
-        TextButton playButton = new TextButton("Play", textButtonStyle);
+        Drawable playDrawable = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get("ui/menu/play.png")));
+        ImageButton playButton = new ImageButton(playDrawable);
+        playButton.setSize((float) Gdx.graphics.getWidth() / 4, (float) Gdx.graphics.getHeight() / 4);
         playButton.setPosition(-playButton.getWidth() / 2, -playButton.getHeight() / 2);
+        playButton.setOrigin(playButton.getWidth() / 2, playButton.getHeight() / 2);
+        playButton.setTransform(true);
+        playButton.addAction(Actions.forever(GameActions.bounce()));
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
