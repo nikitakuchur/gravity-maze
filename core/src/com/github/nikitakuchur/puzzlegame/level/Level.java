@@ -37,6 +37,7 @@ public class Level extends Group implements Parameterizable, Disposable {
     private int moves;
 
     private boolean pause;
+    private boolean gameEnded;
     private boolean failed;
 
     private final List<IntConsumer> gameEndListeners = new ArrayList<>();
@@ -81,8 +82,9 @@ public class Level extends Group implements Parameterizable, Disposable {
             physics.update(delta);
             inputController.act(delta);
         }
-        if (!failed && store.getGameObjects(Ball.class).isEmpty()) {
+        if (!gameEnded && !failed && store.getGameObjects(Ball.class).isEmpty()) {
             endGame(false);
+            gameEnded = true;
         }
     }
 

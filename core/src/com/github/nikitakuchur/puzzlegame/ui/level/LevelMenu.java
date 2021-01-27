@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Disposable;
 import com.github.nikitakuchur.puzzlegame.screens.LevelScreen;
 import com.github.nikitakuchur.puzzlegame.screens.MenuScreen;
 import com.github.nikitakuchur.puzzlegame.ui.MenuStack;
@@ -21,7 +20,9 @@ import com.github.nikitakuchur.puzzlegame.utils.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LevelMenu extends Menu implements Disposable {
+public class LevelMenu extends Menu {
+
+    private static final Color BACKGROUND_COLOR = new Color(0.f, 0.f, 0.f, 0.5f);
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -106,7 +107,7 @@ public class LevelMenu extends Menu implements Disposable {
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0.f, 0.f, 0.f, 0.5f));
+        shapeRenderer.setColor(BACKGROUND_COLOR);
         shapeRenderer.rect(
                 -(float) Gdx.graphics.getWidth() / 2.f,
                 -(float) Gdx.graphics.getHeight() / 2.f,

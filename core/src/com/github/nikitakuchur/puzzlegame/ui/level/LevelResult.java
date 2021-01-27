@@ -19,6 +19,8 @@ import com.github.nikitakuchur.puzzlegame.utils.Context;
 
 public class LevelResult extends Menu {
 
+    private static final Color BACKGROUND_COLOR = new Color(0.f, 0.f, 0.f, 0.5f);
+
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     public LevelResult(Context context, MenuStack menuStack, int stars) {
@@ -60,7 +62,7 @@ public class LevelResult extends Menu {
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(new Color(0.f, 0.f, 0.f, 0.5f));
+        shapeRenderer.setColor(BACKGROUND_COLOR);
         shapeRenderer.rect(
                 -(float) Gdx.graphics.getWidth() / 2.f,
                 -(float) Gdx.graphics.getHeight() / 2.f,
