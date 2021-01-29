@@ -49,12 +49,7 @@ public class Magnet extends GameObject {
                 .orElse(null);
 
         if (pickedUpObject != null) {
-            boolean hasUpperObject = store.getGameObjects(PhysicalObject.class).stream()
-                    .anyMatch(p -> {
-                        PhysicalController controller = p.getPhysicalController();
-                        Vector2 nextPosition = controller.getPosition().add(level.getGravityDirection().getDirection());
-                        return p != pickedUpObject && position.equals(nextPosition) && !controller.isMoving() && !controller.isFrozen();
-                    });
+            boolean hasUpperObject = hasUpperObject(position);
             if (!hasUpperObject && !pickedUpObject.getPhysicalController().isFrozen()) {
                 pickedUpObject.getPhysicalController().freeze();
                 pickedUpObject.getPhysicalController().setVelocity(Vector2.Zero);
@@ -68,6 +63,25 @@ public class Magnet extends GameObject {
 
         frame += ANIMATION_SPEED * delta;
         if (frame >= FRAMES_NUMBER) frame = 0;
+    }
+
+    private boolean hasUpperObject(Vector2 position) {
+        Vector2 dir = level.getGravityDirection().getDirection();
+        Vector2 upperPos = position.cpy().sub(dir);
+
+        boolean hasObject = store.getGameObjects(PhysicalObject.class).stream()
+                .anyMatch(p -> {
+                    PhysicalController controller = p.getPhysicalController();
+                    return controller.getPosition().equals(upperPos) && !controller.isMoving() && !controller.isFrozen();
+                });
+
+        boolean hasMagnet = store.getGameObjects(Magnet.class).stream()
+                .anyMatch(m -> m.getPosition().equals(upperPos));
+
+        if (hasObject && hasMagnet) {
+            return hasUpperObject(upperPos);
+        }
+        return hasObject;
     }
 
     private void addBounceAction(PhysicalObject physicalObject) {
