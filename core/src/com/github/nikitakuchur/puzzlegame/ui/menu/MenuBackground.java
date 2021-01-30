@@ -5,13 +5,17 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.github.nikitakuchur.puzzlegame.actors.Background;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class MenuBackground extends Background {
+
+    private static final Random random = new Random();
 
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
 
@@ -21,7 +25,7 @@ public class MenuBackground extends Background {
 
     public MenuBackground(Color firstColor, Color secondColor) {
         super(firstColor, secondColor);
-        figures.add(Figure.randomFigure(getColor()));
+        IntStream.range(0, 16).forEach(i -> figures.add(createRandomFigure(getColor())));
     }
 
     @Override
@@ -29,8 +33,8 @@ public class MenuBackground extends Background {
         super.act(delta);
         figures.forEach(figure -> figure.update(delta));
 
-        if (timer > 0.1f) {
-            figures.add(Figure.randomFigure(getColor()));
+        if (timer > 0.15f) {
+            figures.add(createRandomFigure(getColor()));
             timer = 0.f;
         }
         timer += delta;
@@ -53,6 +57,41 @@ public class MenuBackground extends Background {
         batch.begin();
     }
 
+    private Figure createRandomFigure(Color color) {
+        float x;
+        float y;
+        float size;
+
+        do {
+            x = randomX();
+            y = randomY();
+            size = randomSize();
+        } while (checkIntersection(x, y, size));
+
+        float c = (0.5f - random.nextFloat()) / 16;
+        return new Figure(x, y,
+                (float) Gdx.graphics.getWidth() / 32 + random.nextFloat() * Gdx.graphics.getWidth() / 10,
+                random.nextFloat() * 360.f,
+                3 + Math.abs(random.nextInt() % 4), color.cpy().add(c, c, c, 0.f));
+    }
+
+    private boolean checkIntersection(float x, float y, float size) {
+        return figures.stream()
+                .anyMatch(figure -> new Vector2(figure.x, figure.y).sub(x, y).len() < figure.size + size);
+    }
+
+    private float randomX() {
+        return random.nextFloat() * Gdx.graphics.getWidth() - (float) Gdx.graphics.getWidth() / 2;
+    }
+
+    private float randomY() {
+        return random.nextFloat() * Gdx.graphics.getHeight() - (float) Gdx.graphics.getHeight() / 2;
+    }
+
+    private float randomSize() {
+        return (float) Gdx.graphics.getWidth() / 42 + random.nextFloat() * Gdx.graphics.getWidth() / 8;
+    }
+
     private static class Figure {
 
         private static final Random random = new Random();
@@ -65,9 +104,10 @@ public class MenuBackground extends Background {
         protected final int segments;
         protected final Color color;
 
-        protected float timer = 0;
-
         private final float rotationFactor;
+
+        private final float dyingRate;
+        private boolean fadeOut;
 
         public Figure(float x, float y, float size, float rotation, int segments, Color color) {
             this.x = x;
@@ -76,18 +116,23 @@ public class MenuBackground extends Background {
             this.rotation = rotation;
             this.segments = segments;
             this.color = color.cpy();
+            this.color.a = 0.f;
 
             rotationFactor = 1 - (random.nextFloat() * 2);
+            dyingRate = 1 + (random.nextFloat() * 2);
         }
 
         public void update(float delta) {
-            timer += delta;
-
-            color.a -= timer / 300;
+            if (fadeOut) {
+                color.a -= 0.1f * delta;
+            } else {
+                color.a += dyingRate * delta;
+                if (color.a >= 1f) {
+                    color.a = 1f;
+                    fadeOut = true;
+                }
+            }
             if (color.a < 0) color.a = 0;
-
-            size -= (float) Gdx.graphics.getWidth() / 64 * delta;
-            if (size < 0) size = 0;
 
             y -= (float) Gdx.graphics.getWidth() / 32 * delta;
             rotation += 15 * rotationFactor * delta;
@@ -99,17 +144,7 @@ public class MenuBackground extends Background {
         }
 
         public boolean isDead() {
-            return color.a == 0;
-        }
-
-        public static Figure randomFigure(Color color) {
-            float c = (0.5f - random.nextFloat()) / 16;
-            return new Figure(
-                    random.nextFloat() * Gdx.graphics.getWidth() - (float) Gdx.graphics.getWidth() / 2,
-                    random.nextFloat() * Gdx.graphics.getHeight() - (float) Gdx.graphics.getHeight() / 2,
-                    (float) Gdx.graphics.getWidth() / 24 + random.nextFloat() * Gdx.graphics.getWidth() / 8,
-                    random.nextFloat() * 360.f,
-                    3 + Math.abs(random.nextInt() % 4), color.cpy().add(c, c, c, 0.8f));
+            return fadeOut && color.a == 0;
         }
     }
 }
