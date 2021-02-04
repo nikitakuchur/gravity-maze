@@ -25,7 +25,7 @@ public class MenuBackground extends Background {
 
     public MenuBackground(Color firstColor, Color secondColor) {
         super(firstColor, secondColor);
-        IntStream.range(0, 16).forEach(i -> figures.add(createRandomFigure(getColor())));
+        IntStream.range(0, 16).forEach(i -> addRandomFigure(getColor()));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class MenuBackground extends Background {
         figures.forEach(figure -> figure.update(delta));
 
         if (timer > 0.15f) {
-            figures.add(createRandomFigure(getColor()));
+            addRandomFigure(getColor());
             timer = 0.f;
         }
         timer += delta;
@@ -57,7 +57,9 @@ public class MenuBackground extends Background {
         batch.begin();
     }
 
-    private Figure createRandomFigure(Color color) {
+    private void addRandomFigure(Color color) {
+        int attempts = 10;
+
         float x;
         float y;
         float size;
@@ -66,13 +68,17 @@ public class MenuBackground extends Background {
             x = randomX();
             y = randomY();
             size = randomSize();
+            attempts--;
+            if (attempts <= 0) {
+                return;
+            }
         } while (checkIntersection(x, y, size));
 
         float c = (0.5f - random.nextFloat()) / 16;
-        return new Figure(x, y,
+        figures.add(new Figure(x, y,
                 (float) Gdx.graphics.getWidth() / 32 + random.nextFloat() * Gdx.graphics.getWidth() / 10,
                 random.nextFloat() * 360.f,
-                3 + Math.abs(random.nextInt() % 4), color.cpy().add(c, c, c, 0.f));
+                3 + Math.abs(random.nextInt() % 4), color.cpy().add(c, c, c, 0.f)));
     }
 
     private boolean checkIntersection(float x, float y, float size) {
