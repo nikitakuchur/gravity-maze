@@ -28,6 +28,8 @@ public class PacksMenu extends Menu {
         AssetManager assetManager = context.getAssetManager();
         BitmapFont font = assetManager.get("ui/fonts/ReemKufi.ttf", BitmapFont.class);
 
+        this.addActor(MenuUtils.createBackButton(assetManager, menuStack));
+
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = font;
 
@@ -50,15 +52,6 @@ public class PacksMenu extends Menu {
             addActor(button);
             buttons.add(button);
         }
-        TextButton backButton = new TextButton("Back", textButtonStyle);
-        backButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                menuStack.pop();
-            }
-        });
-        this.addActor(backButton);
-        buttons.add(backButton);
 
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).setPosition(
