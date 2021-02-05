@@ -1,9 +1,9 @@
 {
-  "class": "com.github.nikitakuchur.puzzlegame.level.Level",
+  "class": "com.triateq.gravitymaze.level.Level",
   "value": {
     "maxMoves": 12,
     "background": {
-      "class": "com.github.nikitakuchur.puzzlegame.actors.Background",
+      "class": "com.triateq.gravitymaze.actors.Background",
       "value": {
         "firstColor": {
           "r": 1.0,
@@ -20,7 +20,7 @@
       }
     },
     "map": {
-      "class": "com.github.nikitakuchur.puzzlegame.actors.GameMap",
+      "class": "com.triateq.gravitymaze.actors.GameMap",
       "value": {
         "color": {
           "r": 0.007843138,
@@ -97,7 +97,7 @@
     },
     "gameObjects": [
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Cup",
         "value": {
           "x": 2,
           "y": 4,
@@ -111,7 +111,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Ball",
         "value": {
           "name": "b1",
           "x": 1,
@@ -125,7 +125,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Box",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Box",
         "value": {
           "x": 6,
           "y": 6,
@@ -138,7 +138,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Barrier",
         "value": {
           "x": 4,
           "y": 6,
@@ -153,7 +153,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Switch",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Switch",
         "value": {
           "name": "s1",
           "x": 0,
@@ -167,7 +167,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Barrier",
         "value": {
           "x": 2,
           "y": 6,
@@ -182,7 +182,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Switch",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Switch",
         "value": {
           "name": "s2",
           "x": 1,
@@ -196,7 +196,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Switch",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Switch",
         "value": {
           "name": "s1",
           "x": 5,
@@ -210,7 +210,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Barrier",
         "value": {
           "x": 4,
           "y": 4,

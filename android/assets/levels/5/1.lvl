@@ -1,9 +1,9 @@
 {
-  "class": "com.github.nikitakuchur.puzzlegame.level.Level",
+  "class": "com.triateq.gravitymaze.level.Level",
   "value": {
     "maxMoves": 7,
     "background": {
-      "class": "com.github.nikitakuchur.puzzlegame.actors.Background",
+      "class": "com.triateq.gravitymaze.actors.Background",
       "value": {
         "firstColor": {
           "r": 1.0,
@@ -20,7 +20,7 @@
       }
     },
     "map": {
-      "class": "com.github.nikitakuchur.puzzlegame.actors.GameMap",
+      "class": "com.triateq.gravitymaze.actors.GameMap",
       "value": {
         "color": {
           "r": 0.007843138,
@@ -114,7 +114,7 @@
     },
     "gameObjects": [
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Ball",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Ball",
         "value": {
           "name": "b1",
           "x": 0,
@@ -128,7 +128,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Portal",
         "value": {
           "x": 4,
           "y": 2,
@@ -142,7 +142,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Portal",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Portal",
         "value": {
           "name": "out",
           "x": 7,
@@ -156,7 +156,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
         "value": {
           "x": 3,
           "y": 4,
@@ -170,7 +170,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Spike",
         "value": {
           "x": 3,
           "y": 2,
@@ -183,7 +183,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Spike",
         "value": {
           "x": 6,
           "y": 5,
@@ -196,7 +196,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
         "value": {
           "x": 3,
           "y": 6,
@@ -210,7 +210,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Cup",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Cup",
         "value": {
           "x": 2,
           "y": 1,
@@ -224,7 +224,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
         "value": {
           "x": 6,
           "y": 0,
@@ -238,7 +238,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
         "value": {
           "x": 5,
           "y": 3,
@@ -252,7 +252,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
         "value": {
           "x": 4,
           "y": 3,
@@ -266,7 +266,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
         "value": {
           "x": 3,
           "y": 3,
@@ -280,7 +280,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
         "value": {
           "x": 4,
           "y": 6,
@@ -294,7 +294,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Spike",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Spike",
         "value": {
           "x": 2,
           "y": 6,
@@ -307,7 +307,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
         "value": {
           "x": 2,
           "y": 7,
@@ -321,7 +321,7 @@
         }
       },
       {
-        "class": "com.github.nikitakuchur.puzzlegame.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
         "value": {
           "x": 2,
           "y": 5,

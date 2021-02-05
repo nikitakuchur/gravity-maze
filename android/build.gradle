@@ -17,7 +17,7 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.github.nikitakuchur.puzzlegame"
+        applicationId "com.triateq.puzzlegame"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
@@ -90,7 +90,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.github.nikitakuchur.puzzlegame/com.github.nikitakuchur.puzzlegame.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.triateq.puzzlegame/com.triateq.puzzlegame.AndroidLauncher'
 }
 
 eclipse.project.name = appName + "-android"
