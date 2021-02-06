@@ -46,7 +46,7 @@ public class LevelResult extends Menu {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                context.getGame().setScreen(new MenuScreen(getContext()));
+                back();
             }
         });
 
