@@ -14,20 +14,29 @@ import com.triateq.gravitymaze.ui.MenuStack;
 
 public class MenuUtils {
 
+    private MenuUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static Button createBackButton(AssetManager assetManager, MenuStack menuStack) {
-        Drawable backDrawable = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get("ui/menu/back.png")));
-        ImageButton backButton = new ImageButton(backDrawable);
+        Button backButton = createButton(assetManager.get("ui/menu/back.png"));
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                menuStack.pop();
+                menuStack.peek().back();
             }
         });
-        backButton.setSize((float) Gdx.graphics.getWidth() / 12, (float) Gdx.graphics.getWidth() / 12);
         backButton.setPosition(
                 -(float) Gdx.graphics.getWidth() / 2 + backButton.getWidth() / 3,
                 (float) Gdx.graphics.getHeight() / 2 - 1.4f * backButton.getHeight()
         );
         return backButton;
     }
-}
+
+    public static Button createButton(Texture texture) {
+        Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
+        ImageButton button = new ImageButton(drawable);
+        button.setSize((float) Gdx.graphics.getWidth() / 12, (float) Gdx.graphics.getWidth() / 12);
+        return button;
+    }
+ }
