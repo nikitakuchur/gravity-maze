@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.triateq.gravitymaze.GravityMaze;
 import com.triateq.gravitymaze.screens.LevelScreen;
 import com.triateq.gravitymaze.screens.MenuScreen;
 import com.triateq.gravitymaze.ui.MenuStack;
@@ -52,11 +53,8 @@ public class LevelMenu extends Menu {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 // Back to the main menu
-                Game game = context.getGame();
-                game.setScreen(new MenuScreen(Context.builder()
-                        .game(context.getGame())
-                        .assetManager(context.getAssetManager())
-                        .build()));
+                GravityMaze game = context.getGame();
+                game.toMenu();
             }
         });
         this.addActor(returnButton);
