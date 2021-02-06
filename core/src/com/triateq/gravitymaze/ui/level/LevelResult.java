@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.triateq.gravitymaze.GravityMaze;
-import com.triateq.gravitymaze.screens.MenuScreen;
 import com.triateq.gravitymaze.ui.Menu;
 import com.triateq.gravitymaze.ui.MenuStack;
 import com.triateq.gravitymaze.utils.Context;
