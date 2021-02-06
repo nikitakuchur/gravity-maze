@@ -41,8 +41,7 @@ public class LevelMenu extends Menu {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                getMenuStack().pop();
-                ((LevelScreen) context.getGameScreen()).getLevel().setPause(false);
+                back();
             }
         });
         this.addActor(backButton);
@@ -119,6 +118,12 @@ public class LevelMenu extends Menu {
         Gdx.gl.glDisable(GL20.GL_BLEND);
         batch.begin();
         super.draw(batch, parentAlpha);
+    }
+
+    @Override
+    public void back() {
+        super.back();
+        ((LevelScreen) getContext().getGameScreen()).getLevel().setPause(false);
     }
 
     @Override

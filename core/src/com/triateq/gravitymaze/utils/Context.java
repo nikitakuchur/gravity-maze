@@ -1,12 +1,12 @@
 package com.triateq.gravitymaze.utils;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
+import com.triateq.gravitymaze.GravityMaze;
 import com.triateq.gravitymaze.screens.GameScreen;
 
 public class Context {
 
-    private final Game game;
+    private final GravityMaze game;
     private final AssetManager assetManager;
     private final GameScreen gameScreen;
 
@@ -16,7 +16,7 @@ public class Context {
         this.gameScreen = builder.gameScreen;
     }
 
-    public Game getGame() {
+    public GravityMaze getGame() {
         return game;
     }
 
@@ -41,11 +41,11 @@ public class Context {
     }
 
     public static class Builder {
-        private Game game;
+        private GravityMaze game;
         private AssetManager assetManager;
         private GameScreen gameScreen;
 
-        public Builder game(Game game) {
+        public Builder game(GravityMaze game) {
             this.game = game;
             return this;
         }

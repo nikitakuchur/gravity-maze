@@ -25,6 +25,12 @@ public abstract class Menu extends Group implements Disposable {
         return menuStack;
     }
 
+    public void back() {
+        if (menuStack.size() > 1) {
+            menuStack.pop();
+        }
+    }
+
     @Override
     public void dispose() {
     }

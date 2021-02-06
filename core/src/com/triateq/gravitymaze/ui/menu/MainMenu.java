@@ -79,6 +79,12 @@ public class MainMenu extends Menu {
     }
 
     @Override
+    public void back() {
+        // TODO: Are you sure you want to exit?
+        Gdx.app.exit();
+    }
+
+    @Override
     public void dispose() {
         greenBackground.dispose();
         orangeBackground.dispose();

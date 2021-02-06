@@ -1,8 +1,12 @@
 package com.triateq.gravitymaze.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.triateq.gravitymaze.ui.MenuStack;
@@ -20,6 +24,15 @@ public class MenuScreen extends GameScreen {
         MenuStack menuStack = new MenuStack();
         menuStack.push(new MainMenu(getContext(), menuStack));
         stage.addActor(menuStack);
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.BACK) {
+                    menuStack.peek().back();
+                }
+                return false;
+            }
+        });
     }
 
     @Override

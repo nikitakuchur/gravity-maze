@@ -2,6 +2,7 @@ package com.triateq.gravitymaze;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.triateq.gravitymaze.screens.MenuScreen;
 import com.triateq.gravitymaze.utils.AssetLoader;
@@ -13,6 +14,7 @@ import com.triateq.gravitymaze.utils.Context;
 public class GravityMaze extends Game {
 
     private Context context;
+    private MenuScreen menuScreen;
 
     public void create() {
         AssetManager assetManager = new AssetManager();
@@ -21,7 +23,13 @@ public class GravityMaze extends Game {
                 .game(this)
                 .assetManager(assetManager)
                 .build();
-        setScreen(new MenuScreen(context));
+        menuScreen = new MenuScreen(context);
+        setScreen(menuScreen);
+        Gdx.input.setCatchKey(Input.Keys.BACK, true);
+    }
+
+    public void toMenu() {
+        setScreen(menuScreen);
     }
 
     @Override

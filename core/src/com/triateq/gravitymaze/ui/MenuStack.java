@@ -20,8 +20,18 @@ public class MenuStack extends Group {
     }
 
     public void pop() {
-        stack.pop().dispose();
-        clearChildren();
-        Optional.ofNullable(stack.peek()).ifPresent(this::addActor);
+        if (!stack.isEmpty()) {
+            stack.pop().dispose();
+            clearChildren();
+            Optional.ofNullable(stack.peek()).ifPresent(this::addActor);
+        }
+    }
+
+    public Menu peek() {
+        return stack.peek();
+    }
+
+    public int size() {
+        return stack.size();
     }
 }

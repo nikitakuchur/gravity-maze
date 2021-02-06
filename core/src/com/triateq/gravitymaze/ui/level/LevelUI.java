@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.triateq.gravitymaze.GravityMaze;
 import com.triateq.gravitymaze.level.Level;
 import com.triateq.gravitymaze.screens.LevelScreen;
 import com.triateq.gravitymaze.ui.MenuStack;
@@ -70,6 +71,13 @@ public class LevelUI extends Menu {
         fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
         Level level = ((LevelScreen) getContext().getGameScreen()).getLevel();
         scoreLabel.setText(level.getMoves());
+    }
+
+    @Override
+    public void back() {
+        // Back to the main menu
+        GravityMaze game = getContext().getGame();
+        game.toMenu();
     }
 
     @Override
