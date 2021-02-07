@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.triateq.gravitymaze.ui.Menu;
 import com.triateq.gravitymaze.ui.MenuStack;
+import com.triateq.gravitymaze.ui.utils.MenuUtils;
 import com.triateq.gravitymaze.utils.Context;
 
 import java.util.ArrayList;

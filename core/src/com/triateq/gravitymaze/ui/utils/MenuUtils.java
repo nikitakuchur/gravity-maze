@@ -1,7 +1,8 @@
-package com.triateq.gravitymaze.ui.menu;
+package com.triateq.gravitymaze.ui.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,7 +20,7 @@ public class MenuUtils {
     }
 
     public static Button createBackButton(AssetManager assetManager, MenuStack menuStack) {
-        Button backButton = createButton(assetManager.get("ui/menu/back.png"));
+        Button backButton = createButton(assetManager.get("ui/menu/back.png"), assetManager.get("ui/menu/back_down.png"));
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -36,6 +37,14 @@ public class MenuUtils {
     public static Button createButton(Texture texture) {
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
         ImageButton button = new ImageButton(drawable);
+        button.setSize((float) Gdx.graphics.getWidth() / 12, (float) Gdx.graphics.getWidth() / 12);
+        return button;
+    }
+
+    public static Button createButton(Texture textureUp, Texture textureDown) {
+        Drawable drawableUp = new TextureRegionDrawable(new TextureRegion(textureUp));
+        Drawable drawableDown = new TextureRegionDrawable(new TextureRegion(textureDown));
+        ImageButton button = new ImageButton(drawableUp, drawableDown);
         button.setSize((float) Gdx.graphics.getWidth() / 12, (float) Gdx.graphics.getWidth() / 12);
         return button;
     }

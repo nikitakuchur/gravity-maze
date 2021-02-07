@@ -15,7 +15,7 @@ import com.triateq.gravitymaze.level.Level;
 import com.triateq.gravitymaze.screens.LevelScreen;
 import com.triateq.gravitymaze.ui.MenuStack;
 import com.triateq.gravitymaze.ui.Menu;
-import com.triateq.gravitymaze.ui.menu.MenuUtils;
+import com.triateq.gravitymaze.ui.utils.MenuUtils;
 import com.triateq.gravitymaze.utils.Context;
 
 public class LevelUI extends Menu {
@@ -33,7 +33,7 @@ public class LevelUI extends Menu {
 
         addActor(MenuUtils.createBackButton(assetManager, menuStack));
 
-        Button resetButton = MenuUtils.createButton(assetManager.get("ui/menu/reset.png"));
+        Button resetButton = MenuUtils.createButton(assetManager.get("ui/menu/reset.png"), assetManager.get("ui/menu/reset_down.png"));
         resetButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

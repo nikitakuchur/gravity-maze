@@ -56,8 +56,9 @@ public class MainMenu extends Menu {
         textButtonStyle.font = font;
 
         // Play button
-        Drawable playDrawable = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get("ui/menu/play.png")));
-        ImageButton playButton = new ImageButton(playDrawable);
+        Drawable playUpDrawable = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get("ui/menu/play.png")));
+        Drawable playDownDrawable = new TextureRegionDrawable(new TextureRegion((Texture) assetManager.get("ui/menu/play_down.png")));
+        ImageButton playButton = new ImageButton(playUpDrawable, playDownDrawable);
         playButton.setSize((float) Gdx.graphics.getWidth() / 4, (float) Gdx.graphics.getHeight() / 4);
         playButton.setPosition(-playButton.getWidth() / 2, -playButton.getHeight() / 2);
         playButton.setOrigin(playButton.getWidth() / 2, playButton.getHeight() / 2);

@@ -1,7 +1,6 @@
 package com.triateq.gravitymaze.ui.menu;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -12,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.triateq.gravitymaze.screens.LevelScreen;
 import com.triateq.gravitymaze.ui.Menu;
 import com.triateq.gravitymaze.ui.MenuStack;
+import com.triateq.gravitymaze.ui.utils.MenuUtils;
 import com.triateq.gravitymaze.utils.Context;
 
 import java.util.ArrayList;
