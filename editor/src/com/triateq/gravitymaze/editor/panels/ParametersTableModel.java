@@ -23,7 +23,9 @@ public class ParametersTableModel extends AbstractTableModel {
     static {
         ALLOWED_TYPES.add(String.class);
         ALLOWED_TYPES.add(Integer.class);
+        ALLOWED_TYPES.add(int.class);
         ALLOWED_TYPES.add(Boolean.class);
+        ALLOWED_TYPES.add(boolean.class);
         ALLOWED_TYPES.add(Color.class);
         ALLOWED_TYPES.add(Enum.class);
     }
@@ -85,10 +87,12 @@ public class ParametersTableModel extends AbstractTableModel {
         if (columnIndex == 0) {
             return name;
         }
-        if (parameters.getType(name) == String.class) {
+        Class<?> type = parameters.getType(name);
+        // TODO: Field accessors
+        if (type == String.class) {
             return parameters.getValueOrDefault(name, "");
         }
-        if (parameters.getType(name) == Boolean.class) {
+        if (type == Boolean.class || type == boolean.class) {
             return parameters.getValueOrDefault(name, false);
         }
         return parameters.getValue(name);
@@ -101,7 +105,7 @@ public class ParametersTableModel extends AbstractTableModel {
         Class<?> type = parameters.getType(name);
         if (type == String.class) {
             setValue(name, String.class, "".equals(value) ? null : value);
-        } else if (type == Integer.class) {
+        } else if (type == Integer.class || type == int.class) {
             setValue(name, Integer.class, ParametersUtils.parseIntOrDefault((String) value, 0));
         } else {
             setValue(name, value.getClass(), value);

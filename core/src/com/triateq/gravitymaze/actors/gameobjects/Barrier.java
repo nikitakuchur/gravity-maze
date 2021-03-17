@@ -1,6 +1,7 @@
 package com.triateq.gravitymaze.actors.gameobjects;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,7 +14,6 @@ import com.triateq.gravitymaze.physics.FullCollider;
 import com.triateq.gravitymaze.physics.PhysicalController;
 import com.triateq.gravitymaze.physics.PhysicalObject;
 import com.triateq.gravitymaze.serialization.Parameter;
-import com.triateq.gravitymaze.serialization.Parameters;
 import com.triateq.gravitymaze.utils.Context;
 
 public class Barrier extends GameObject implements Switchable, PhysicalObject {
@@ -66,13 +66,9 @@ public class Barrier extends GameObject implements Switchable, PhysicalObject {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.setColor(getColor());
+        Color color = opened ? getColor().mul(1, 1, 1, 0) : getColor().add(1, 1, 1, 1);
+        batch.setColor(color);
         Vector2 position = getActualPosition();
-        if (opened) {
-            getColor().a = 0.f;
-        } else {
-            getColor().a = 1.f;
-        }
         batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),

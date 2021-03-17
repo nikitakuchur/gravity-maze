@@ -68,8 +68,8 @@ public abstract class GameObject extends Actor implements Parameterizable {
     @Override
     public void setParameters(Parameters parameters) {
         setName(parameters.getValue("name"));
-        setX(validateX(parameters.<Integer>getValue("x")));
-        setY(validateY(parameters.<Integer>getValue("y")));
+        setX(validateX(parameters.getValue("x")));
+        setY(validateY(parameters.getValue("y")));
         setColor(parameters.getValue("color"));
     }
 

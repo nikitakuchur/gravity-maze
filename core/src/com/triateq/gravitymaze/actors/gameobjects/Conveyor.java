@@ -14,8 +14,9 @@ import com.triateq.gravitymaze.utils.Direction;
 import com.triateq.gravitymaze.physics.PhysicalController;
 import com.triateq.gravitymaze.physics.PhysicalObject;
 import com.triateq.gravitymaze.physics.Physics;
-import com.triateq.gravitymaze.serialization.Parameters;
 import com.triateq.gravitymaze.utils.Context;
+
+import java.util.Optional;
 
 public class Conveyor extends GameObject implements PhysicalObject {
 
@@ -24,7 +25,6 @@ public class Conveyor extends GameObject implements PhysicalObject {
 
     private final TextureRegion textureRegion;
 
-    @Parameter
     private Direction direction = Direction.TOP;
 
     private PhysicalController physicalController;
@@ -119,6 +119,16 @@ public class Conveyor extends GameObject implements PhysicalObject {
             physicalObject.getPhysicalController().unfreeze();
             physicalObject.getPhysicalController().setVelocity(Vector2.Zero);
         }
+    }
+
+    @Parameter
+    public Direction getDirection() {
+        return direction;
+    }
+
+    @Parameter
+    public void setDirection(Direction direction) {
+        this.direction = Optional.ofNullable(direction).orElse(Direction.TOP);
     }
 
     @Override

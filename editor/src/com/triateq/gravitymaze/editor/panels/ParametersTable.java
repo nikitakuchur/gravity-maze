@@ -18,7 +18,7 @@ public class ParametersTable extends JTable {
     @Override
     public TableCellRenderer getCellRenderer(int r, int c) {
         Class<?> type = getValueAt(r, c).getClass();
-        if (type == Boolean.class) {
+        if (type == Boolean.class || type == boolean.class) {
             return getDefaultRenderer(Boolean.class);
         }
         return super.getCellRenderer(r, c);
@@ -29,7 +29,7 @@ public class ParametersTable extends JTable {
         Class<?> type = getValueAt(r, c).getClass();
         if (type == Color.class) {
             return new ColorCell();
-        } else if (type == Boolean.class) {
+        } else if (type == Boolean.class || type == boolean.class) {
             JCheckBox checkBox = new JCheckBox();
             checkBox.setHorizontalAlignment(SwingConstants.CENTER);
             return new DefaultCellEditor(checkBox);

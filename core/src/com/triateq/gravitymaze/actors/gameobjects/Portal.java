@@ -13,7 +13,6 @@ import com.triateq.gravitymaze.physics.PhysicalObject;
 import com.triateq.gravitymaze.serialization.Parameter;
 import com.triateq.gravitymaze.utils.Context;
 import com.triateq.gravitymaze.utils.GameActions;
-import com.triateq.gravitymaze.serialization.Parameters;
 
 public class Portal extends GameObject {
 

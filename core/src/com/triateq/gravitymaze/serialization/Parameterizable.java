@@ -1,9 +1,11 @@
 package com.triateq.gravitymaze.serialization;
 
 /**
- * Every serializable class must implement this interface if it needs to save and load something.
+ * Every serializable game class must implement this interface if it needs to save and load something.
  *
  * This interface is also used in the level editor. User can edit fields obtained from parameters.
+ * If your class implements this interface, you can use {@link com.triateq.gravitymaze.serialization.Parameter} instead
+ * of methods {@link #getParameters()} and {@link #setParameters(Parameters)}.
  */
 public interface Parameterizable {
 
