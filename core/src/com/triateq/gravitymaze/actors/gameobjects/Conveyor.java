@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.triateq.gravitymaze.level.Level;
 import com.triateq.gravitymaze.physics.FullCollider;
+import com.triateq.gravitymaze.serialization.Parameter;
 import com.triateq.gravitymaze.utils.Direction;
 import com.triateq.gravitymaze.physics.PhysicalController;
 import com.triateq.gravitymaze.physics.PhysicalObject;
@@ -23,6 +24,7 @@ public class Conveyor extends GameObject implements PhysicalObject {
 
     private final TextureRegion textureRegion;
 
+    @Parameter
     private Direction direction = Direction.TOP;
 
     private PhysicalController physicalController;
@@ -130,19 +132,6 @@ public class Conveyor extends GameObject implements PhysicalObject {
         batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), (float) degrees);
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-    }
-
-    @Override
-    public Parameters getParameters() {
-        Parameters parameters =  super.getParameters();
-        parameters.put("direction", Direction.class, direction);
-        return parameters;
-    }
-
-    @Override
-    public void setParameters(Parameters parameters) {
-        super.setParameters(parameters);
-        direction = parameters.getValueOrDefault("direction", Direction.TOP);
     }
 
     @Override

@@ -12,6 +12,10 @@ public class Parameters {
         propertyMap.put(name, new Parameter<>(type, value));
     }
 
+    public void putAll(Parameters parameters) {
+        propertyMap.putAll(parameters.propertyMap);
+    }
+
     @SuppressWarnings("unchecked")
     public <T> T getValue(String name) {
         return (T) propertyMap.get(name).value;

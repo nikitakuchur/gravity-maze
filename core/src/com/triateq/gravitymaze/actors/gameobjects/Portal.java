@@ -10,6 +10,7 @@ import com.triateq.gravitymaze.effects.Effect;
 import com.triateq.gravitymaze.level.Level;
 import com.triateq.gravitymaze.physics.PhysicalController;
 import com.triateq.gravitymaze.physics.PhysicalObject;
+import com.triateq.gravitymaze.serialization.Parameter;
 import com.triateq.gravitymaze.utils.Context;
 import com.triateq.gravitymaze.utils.GameActions;
 import com.triateq.gravitymaze.serialization.Parameters;
@@ -18,6 +19,7 @@ public class Portal extends GameObject {
 
     private final TextureRegion textureRegion;
 
+    @Parameter(name = "to")
     private String secondPortalName;
 
     private boolean locked;
@@ -119,18 +121,5 @@ public class Portal extends GameObject {
      */
     public void to(String name) {
         this.secondPortalName = name;
-    }
-
-    @Override
-    public Parameters getParameters() {
-        Parameters parameters = super.getParameters();
-        parameters.put("to", String.class, secondPortalName);
-        return parameters;
-    }
-
-    @Override
-    public void setParameters(Parameters parameters) {
-        super.setParameters(parameters);
-        secondPortalName = parameters.getValue("to");
     }
 }

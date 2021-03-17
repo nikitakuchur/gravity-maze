@@ -12,12 +12,15 @@ public interface Parameterizable {
      *
      * @return parameters
      */
-    Parameters getParameters();
+    default Parameters getParameters() {
+        return new Parameters();
+    }
 
     /**
      * Sets the given parameters to the object.
      *
      * @param parameters the parameters
      */
-    void setParameters(Parameters parameters);
+    default void setParameters(Parameters parameters) {
+    }
 }

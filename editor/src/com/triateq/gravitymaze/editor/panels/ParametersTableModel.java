@@ -6,6 +6,7 @@ import com.triateq.gravitymaze.editor.commands.CommandHistory;
 import com.triateq.gravitymaze.editor.utils.ParametersUtils;
 import com.triateq.gravitymaze.serialization.Parameterizable;
 import com.triateq.gravitymaze.serialization.Parameters;
+import com.triateq.gravitymaze.serialization.Serializer;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.HashSet;
@@ -36,7 +37,7 @@ public class ParametersTableModel extends AbstractTableModel {
 
     public void setParameterizable(Parameterizable parameterizable) {
         this.parameterizable = parameterizable;
-        this.parameters = parameterizable != null ? parameterizable.getParameters() : new Parameters();
+        this.parameters = parameterizable != null ? Serializer.getParameters(parameterizable) : new Parameters();
         fireTableRowsDeleted(0, getRowCount() == 0 ? 0 : getRowCount() - 1);
     }
 
@@ -110,7 +111,7 @@ public class ParametersTableModel extends AbstractTableModel {
 
     private void update() {
         if (parameterizable == null) return;
-        parameters = parameterizable.getParameters();
+        parameters = Serializer.getParameters(parameterizable);
         fireTableDataChanged();
     }
 

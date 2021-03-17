@@ -6,12 +6,15 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
+import com.triateq.gravitymaze.serialization.Parameter;
 import com.triateq.gravitymaze.serialization.Parameterizable;
 import com.triateq.gravitymaze.serialization.Parameters;
 
 public class Background extends Actor implements Parameterizable, Disposable {
 
+    @Parameter
     private Color firstColor;
+    @Parameter
     private Color secondColor;
 
     private boolean[] dirs;
@@ -90,17 +93,7 @@ public class Background extends Actor implements Parameterizable, Disposable {
     }
 
     @Override
-    public Parameters getParameters() {
-        Parameters parameters = new Parameters();
-        parameters.put("firstColor", Color.class, firstColor.cpy());
-        parameters.put("secondColor", Color.class, secondColor.cpy());
-        return parameters;
-    }
-
-    @Override
     public void setParameters(Parameters parameters) {
-        firstColor = parameters.getValue("firstColor");
-        secondColor = parameters.getValue("secondColor");
         initAnimation();
     }
 

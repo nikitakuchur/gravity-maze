@@ -10,6 +10,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 
@@ -26,7 +27,7 @@ public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserial
 
     @Override
     public JsonElement serialize(Parameterizable parameterizable, Type typeOfSrc, JsonSerializationContext context) {
-        Parameters parameters = parameterizable.getParameters();
+        Parameters parameters = getParameters(parameterizable);
         JsonObject root = new JsonObject();
         root.addProperty(CLASS_FIELD, parameterizable.getClass().getName());
         JsonObject valueObject = new JsonObject();
@@ -54,14 +55,57 @@ public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserial
     private Parameterizable deserializeValue(JsonObject valueObject, Class<?> clazz, JsonDeserializationContext context)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Parameterizable parameterizable = createParameterizable(clazz);
-        Parameters parameters = parameterizable.getParameters();
+        Parameters parameters = getParameters(parameterizable);
         for (String name : parameters.nameSet()) {
             Class<?> type = parameters.getType(name);
             Object obj = context.deserialize(valueObject.get(name), type);
             parameters.put(name, type, obj);
         }
-        parameterizable.setParameters(parameters);
+        setParameters(parameterizable, parameters);
         return parameterizable;
+    }
+
+    public static Parameters getParameters(Parameterizable parameterizable) {
+        Parameters parameters = parameterizable.getParameters();
+        parameters.putAll(getAnnotatedParameters(parameterizable));
+        return parameters;
+    }
+
+    private static Parameters getAnnotatedParameters(Object obj) {
+        Parameters parameters = new Parameters();
+        for (Field field : obj.getClass().getDeclaredFields()) {
+            Parameter parameter = field.getDeclaredAnnotation(Parameter.class);
+            if (parameter == null) continue;
+            try {
+                field.setAccessible(true);
+                Object value = field.get(obj);
+                Class<?> type = field.getType();
+                String name = parameter.name().isEmpty() ? field.getName() : parameter.name();
+                parameters.put(name, type, value);
+            } catch (IllegalAccessException e) {
+                Gdx.app.error(Serializer.class.getName(), e.toString(), e);
+            }
+        }
+        return parameters;
+    }
+
+    public static void setParameters(Parameterizable parameterizable, Parameters parameters) {
+        setAnnotatedParameters(parameterizable, parameters);
+        parameterizable.setParameters(parameters);
+    }
+
+    private static void setAnnotatedParameters(Parameterizable parameterizable, Parameters parameters) {
+        for (Field field : parameterizable.getClass().getDeclaredFields()) {
+            Parameter parameter = field.getDeclaredAnnotation(Parameter.class);
+            if (parameter == null) continue;
+            try {
+                field.setAccessible(true);
+                String name = parameter.name().isEmpty() ? field.getName() : parameter.name();
+                field.set(parameterizable, parameters.getValue(name));
+            } catch (IllegalAccessException e) {
+                Gdx.app.error(Serializer.class.getName(), e.toString(), e);
+            }
+        }
     }
 
     private Parameterizable createParameterizable(Class<?> clazz) throws NoSuchMethodException, IllegalAccessException,

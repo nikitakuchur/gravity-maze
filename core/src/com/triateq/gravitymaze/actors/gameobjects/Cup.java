@@ -8,14 +8,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.triateq.gravitymaze.effects.Effect;
 import com.triateq.gravitymaze.level.Level;
+import com.triateq.gravitymaze.serialization.Parameter;
 import com.triateq.gravitymaze.utils.Context;
 import com.triateq.gravitymaze.utils.GameActions;
-import com.triateq.gravitymaze.serialization.Parameters;
 
 public class Cup extends GameObject {
 
     private final TextureRegion textureRegion;
 
+    @Parameter(name = "ball")
     private String ballName;
 
     private Effect effect;
@@ -74,18 +75,5 @@ public class Cup extends GameObject {
      */
     public void setBall(String name) {
         ballName = name;
-    }
-
-    @Override
-    public Parameters getParameters() {
-        Parameters parameters = super.getParameters();
-        parameters.put("ball", String.class, ballName);
-        return parameters;
-    }
-
-    @Override
-    public void setParameters(Parameters parameters) {
-        super.setParameters(parameters);
-        ballName = parameters.getValue("ball");
     }
 }

@@ -2,6 +2,7 @@ package com.triateq.gravitymaze.editor.commands;
 
 import com.triateq.gravitymaze.serialization.Parameterizable;
 import com.triateq.gravitymaze.serialization.Parameters;
+import com.triateq.gravitymaze.serialization.Serializer;
 
 public class ChangeParameterCommand<T> implements Command {
 
@@ -15,21 +16,21 @@ public class ChangeParameterCommand<T> implements Command {
         this.parameterizable = parameterizable;
         this.name = name;
         this.type = type;
-        this.oldValue = parameterizable.getParameters().getValue(name);
+        this.oldValue = Serializer.getParameters(parameterizable).getValue(name);
         this.newValue = value;
     }
 
     @Override
     public void execute() {
-        Parameters parameters = parameterizable.getParameters();
+        Parameters parameters = Serializer.getParameters(parameterizable);
         parameters.put(name, type, newValue);
-        parameterizable.setParameters(parameters);
+        Serializer.setParameters(parameterizable, parameters);
     }
 
     @Override
     public void unexecute() {
-        Parameters parameters = parameterizable.getParameters();
+        Parameters parameters = Serializer.getParameters(parameterizable);
         parameters.put(name, type, oldValue);
-        parameterizable.setParameters(parameters);
+        Serializer.setParameters(parameterizable, parameters);
     }
 }
