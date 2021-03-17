@@ -94,14 +94,14 @@ public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserial
         parameterizable.setParameters(parameters);
     }
 
-    private static void setAnnotatedParameters(Parameterizable parameterizable, Parameters parameters) {
-        for (Field field : parameterizable.getClass().getDeclaredFields()) {
+    private static void setAnnotatedParameters(Object obj, Parameters parameters) {
+        for (Field field : obj.getClass().getDeclaredFields()) {
             Parameter parameter = field.getDeclaredAnnotation(Parameter.class);
             if (parameter == null) continue;
             try {
                 field.setAccessible(true);
                 String name = parameter.name().isEmpty() ? field.getName() : parameter.name();
-                field.set(parameterizable, parameters.getValue(name));
+                field.set(obj, parameters.getValue(name));
             } catch (IllegalAccessException e) {
                 Gdx.app.error(Serializer.class.getName(), e.toString(), e);
             }
