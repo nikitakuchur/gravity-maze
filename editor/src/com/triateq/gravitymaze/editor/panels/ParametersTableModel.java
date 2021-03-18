@@ -3,31 +3,31 @@ package com.triateq.gravitymaze.editor.panels;
 import com.badlogic.gdx.graphics.Color;
 import com.triateq.gravitymaze.editor.commands.ChangeParameterCommand;
 import com.triateq.gravitymaze.editor.commands.CommandHistory;
+import com.triateq.gravitymaze.editor.panels.accessors.*;
 import com.triateq.gravitymaze.editor.utils.ParametersUtils;
 import com.triateq.gravitymaze.serialization.Parameterizable;
 import com.triateq.gravitymaze.serialization.Parameters;
 import com.triateq.gravitymaze.serialization.Serializer;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ParametersTableModel extends AbstractTableModel {
 
     private final String[] columnsHeader = new String[]{"Name", "Value"};
 
-    private static final Set<Class<?>> ALLOWED_TYPES = new HashSet<>();
+    private static final HashMap<Class<?>, FieldAccessor<?>> FIELD_ACCESSORS = new HashMap<>();
 
     static {
-        ALLOWED_TYPES.add(String.class);
-        ALLOWED_TYPES.add(Integer.class);
-        ALLOWED_TYPES.add(int.class);
-        ALLOWED_TYPES.add(Boolean.class);
-        ALLOWED_TYPES.add(boolean.class);
-        ALLOWED_TYPES.add(Color.class);
-        ALLOWED_TYPES.add(Enum.class);
+        FIELD_ACCESSORS.put(String.class, new StringFieldAccessor());
+        FIELD_ACCESSORS.put(Integer.class, new IntegerFieldAccessor());
+        FIELD_ACCESSORS.put(int.class, new IntegerFieldAccessor());
+        FIELD_ACCESSORS.put(Boolean.class, new BooleanFieldAccessor());
+        FIELD_ACCESSORS.put(boolean.class, new BooleanFieldAccessor());
+        FIELD_ACCESSORS.put(Color.class, new ColorFieldAccessor());
+        FIELD_ACCESSORS.put(Enum.class, new DefaultFieldAccessor<>());
     }
 
     private transient Parameterizable parameterizable;
@@ -62,7 +62,7 @@ public class ParametersTableModel extends AbstractTableModel {
     }
 
     private boolean isAllowedType(Class<?> type) {
-        return ALLOWED_TYPES.stream().anyMatch(clazz -> clazz.isAssignableFrom(type));
+        return FIELD_ACCESSORS.keySet().stream().anyMatch(clazz -> clazz.isAssignableFrom(type));
     }
 
     @Override
@@ -88,14 +88,12 @@ public class ParametersTableModel extends AbstractTableModel {
             return name;
         }
         Class<?> type = parameters.getType(name);
-        // TODO: Field accessors
-        if (type == String.class) {
-            return parameters.getValueOrDefault(name, "");
+
+        FieldAccessor<?> accessor = getAccessor(type);
+        if (accessor != null) {
+            return accessor.getValue(parameters, name);
         }
-        if (type == Boolean.class || type == boolean.class) {
-            return parameters.getValueOrDefault(name, false);
-        }
-        return parameters.getValue(name);
+        throw new IllegalStateException("Cannot find an accessor for field named " + name);
     }
 
     @Override
@@ -103,12 +101,12 @@ public class ParametersTableModel extends AbstractTableModel {
         if (parameterizable == null) return;
         String name = getNames().get(rowIndex);
         Class<?> type = parameters.getType(name);
-        if (type == String.class) {
-            setValue(name, String.class, "".equals(value) ? null : value);
-        } else if (type == Integer.class || type == int.class) {
-            setValue(name, Integer.class, ParametersUtils.parseIntOrDefault((String) value, 0));
+
+        FieldAccessor<?> accessor = getAccessor(type);
+        if (accessor != null) {
+            accessor.setValue(parameterizable, name, value);
         } else {
-            setValue(name, value.getClass(), value);
+            throw new IllegalStateException("Cannot find an accessor for field named " + name);
         }
         update();
     }
@@ -119,7 +117,12 @@ public class ParametersTableModel extends AbstractTableModel {
         fireTableDataChanged();
     }
 
-    private <T> void setValue(String name, Class<? extends T> type, T value) {
-        CommandHistory.getInstance().addAndExecute(new ChangeParameterCommand<>(parameterizable, name, type, value));
+    private FieldAccessor<?> getAccessor(Class<?> type) {
+        for (Class<?> clazz : FIELD_ACCESSORS.keySet()) {
+            if (clazz.isAssignableFrom(type)) {
+                return FIELD_ACCESSORS.get(clazz);
+            }
+        }
+        return null;
     }
 }

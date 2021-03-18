@@ -1,0 +1,19 @@
+package com.triateq.gravitymaze.editor.panels.accessors;
+
+import com.triateq.gravitymaze.editor.commands.ChangeParameterCommand;
+import com.triateq.gravitymaze.editor.commands.CommandHistory;
+import com.triateq.gravitymaze.serialization.Parameterizable;
+import com.triateq.gravitymaze.serialization.Parameters;
+
+public class DefaultFieldAccessor<T> implements FieldAccessor<T> {
+
+    public T getValue(Parameters parameters, String name) {
+        return parameters.getValue(name);
+    }
+
+    public void setValue(Parameterizable parameterizable, String name, Object value) {
+        CommandHistory.getInstance().addAndExecute(
+                new ChangeParameterCommand<>(parameterizable, name, Object.class, value)
+        );
+    }
+}
