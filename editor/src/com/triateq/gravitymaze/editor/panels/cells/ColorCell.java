@@ -1,4 +1,4 @@
-package com.triateq.gravitymaze.editor.panels;
+package com.triateq.gravitymaze.editor.panels.cells;
 
 import com.badlogic.gdx.graphics.Color;
 import com.triateq.gravitymaze.editor.utils.ParametersUtils;
@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.table.TableCellEditor;
 import java.awt.*;
 
-class ColorCell extends AbstractCellEditor implements TableCellEditor {
+public class ColorCell extends AbstractCellEditor implements TableCellEditor {
 
     private final JPanel panel = new JPanel();
     private final JTextField textField = new JTextField();

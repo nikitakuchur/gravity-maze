@@ -1,6 +1,9 @@
 package com.triateq.gravitymaze.editor.panels;
 
 import com.badlogic.gdx.graphics.Color;
+import com.triateq.gravitymaze.editor.panels.accessors.FieldAccessor;
+import com.triateq.gravitymaze.editor.panels.accessors.FieldAccessors;
+import com.triateq.gravitymaze.editor.panels.cells.ColorCell;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
@@ -18,29 +21,24 @@ public class ParametersTable extends JTable {
     @Override
     public TableCellRenderer getCellRenderer(int r, int c) {
         Class<?> type = getValueAt(r, c).getClass();
-        if (type == Boolean.class || type == boolean.class) {
-            return getDefaultRenderer(Boolean.class);
-        }
-        return super.getCellRenderer(r, c);
+        return getDefaultRenderer(type);
     }
 
     @Override
     public TableCellEditor getCellEditor(int r, int c) {
         Class<?> type = getValueAt(r, c).getClass();
-        if (type == Color.class) {
-            return new ColorCell();
-        } else if (type == Boolean.class || type == boolean.class) {
-            JCheckBox checkBox = new JCheckBox();
-            checkBox.setHorizontalAlignment(SwingConstants.CENTER);
-            return new DefaultCellEditor(checkBox);
-        } else if (type.isEnum()) {
-            try {
-                Method method = type.getDeclaredMethod("values");
-                return new DefaultCellEditor(new JComboBox<>((Object[]) method.invoke(null)));
-            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
+        TableCellEditor editor = getAccessorCellEditor(type);
+        if (editor != null) {
+            return editor;
         }
         return super.getCellEditor(r, c);
+    }
+
+    private <T> TableCellEditor getAccessorCellEditor(Class<T> type) {
+        FieldAccessor<T> accessor = FieldAccessors.getAccessor(type);
+        if (accessor != null) {
+            return accessor.getCellEditor(type);
+        }
+        return null;
     }
 }

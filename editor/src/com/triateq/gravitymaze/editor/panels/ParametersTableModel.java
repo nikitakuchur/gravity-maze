@@ -18,18 +18,6 @@ public class ParametersTableModel extends AbstractTableModel {
 
     private final String[] columnsHeader = new String[]{"Name", "Value"};
 
-    private static final HashMap<Class<?>, FieldAccessor<?>> FIELD_ACCESSORS = new HashMap<>();
-
-    static {
-        FIELD_ACCESSORS.put(String.class, new StringFieldAccessor());
-        FIELD_ACCESSORS.put(Integer.class, new IntegerFieldAccessor());
-        FIELD_ACCESSORS.put(int.class, new IntegerFieldAccessor());
-        FIELD_ACCESSORS.put(Boolean.class, new BooleanFieldAccessor());
-        FIELD_ACCESSORS.put(boolean.class, new BooleanFieldAccessor());
-        FIELD_ACCESSORS.put(Color.class, new ColorFieldAccessor());
-        FIELD_ACCESSORS.put(Enum.class, new DefaultFieldAccessor<>());
-    }
-
     private transient Parameterizable parameterizable;
     private transient Parameters parameters;
 
@@ -57,12 +45,8 @@ public class ParametersTableModel extends AbstractTableModel {
 
     private List<String> getNames() {
         return parameters.nameSet().stream()
-                .filter(name -> isAllowedType(parameters.getType(name)))
+                .filter(name -> FieldAccessors.isAllowedType(parameters.getType(name)))
                 .collect(Collectors.toList());
-    }
-
-    private boolean isAllowedType(Class<?> type) {
-        return FIELD_ACCESSORS.keySet().stream().anyMatch(clazz -> clazz.isAssignableFrom(type));
     }
 
     @Override
@@ -89,7 +73,7 @@ public class ParametersTableModel extends AbstractTableModel {
         }
         Class<?> type = parameters.getType(name);
 
-        FieldAccessor<?> accessor = getAccessor(type);
+        FieldAccessor<?> accessor = FieldAccessors.getAccessor(type);
         if (accessor != null) {
             return accessor.getValue(parameters, name);
         }
@@ -102,7 +86,7 @@ public class ParametersTableModel extends AbstractTableModel {
         String name = getNames().get(rowIndex);
         Class<?> type = parameters.getType(name);
 
-        FieldAccessor<?> accessor = getAccessor(type);
+        FieldAccessor<?> accessor = FieldAccessors.getAccessor(type);
         if (accessor != null) {
             accessor.setValue(parameterizable, name, value);
         } else {
@@ -115,14 +99,5 @@ public class ParametersTableModel extends AbstractTableModel {
         if (parameterizable == null) return;
         parameters = Serializer.getParameters(parameterizable);
         fireTableDataChanged();
-    }
-
-    private FieldAccessor<?> getAccessor(Class<?> type) {
-        for (Class<?> clazz : FIELD_ACCESSORS.keySet()) {
-            if (clazz.isAssignableFrom(type)) {
-                return FIELD_ACCESSORS.get(clazz);
-            }
-        }
-        return null;
     }
 }

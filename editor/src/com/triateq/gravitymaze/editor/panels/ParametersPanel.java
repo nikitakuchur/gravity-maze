@@ -3,6 +3,7 @@ package com.triateq.gravitymaze.editor.panels;
 import java.awt.*;
 
 import com.badlogic.gdx.graphics.Color;
+import com.triateq.gravitymaze.editor.panels.cells.ColorCell;
 import com.triateq.gravitymaze.serialization.Parameterizable;
 
 import javax.swing.*;

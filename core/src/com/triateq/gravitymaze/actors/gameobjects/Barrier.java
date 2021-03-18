@@ -66,7 +66,7 @@ public class Barrier extends GameObject implements Switchable, PhysicalObject {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        Color color = opened ? getColor().mul(1, 1, 1, 0) : getColor().add(1, 1, 1, 1);
+        Color color = opened ? getColor().cpy().mul(1, 1, 1, 0) : getColor().cpy().add(0, 0, 0, 1);
         batch.setColor(color);
         Vector2 position = getActualPosition();
         batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
