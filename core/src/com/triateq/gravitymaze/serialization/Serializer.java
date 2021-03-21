@@ -121,7 +121,10 @@ public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserial
             try {
                 field.setAccessible(true);
                 String name = parameter.name().isEmpty() ? field.getName() : parameter.name();
-                field.set(obj, parameters.getValue(name));
+                Object value = parameters.getValue(name);
+                if (value != null) {
+                    field.set(obj, value);
+                }
             } catch (IllegalAccessException e) {
                 Gdx.app.error(Serializer.class.getName(), e.toString(), e);
             }
@@ -135,7 +138,10 @@ public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserial
             try {
                 method.setAccessible(true);
                 String name = parameter.name().isEmpty() ? convertMethodName(method.getName()) : parameter.name();
-                method.invoke(obj, parameters.<Object>getValue(name));
+                Object value = parameters.getValue(name);
+                if (value != null) {
+                    method.invoke(obj, value);
+                }
             } catch (IllegalAccessException | InvocationTargetException e) {
                 Gdx.app.error(Serializer.class.getName(), e.toString(), e);
             }
