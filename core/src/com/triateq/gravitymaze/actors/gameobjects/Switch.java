@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.triateq.gravitymaze.serialization.Parameter;
 import com.triateq.gravitymaze.utils.Context;
 
 public class Switch extends GameObject {
@@ -14,6 +15,8 @@ public class Switch extends GameObject {
     private final TextureRegion glowTextureRegion;
 
     private Ball lastBall;
+
+    @Parameter
     private boolean activated;
 
     public Switch(Context context) {
