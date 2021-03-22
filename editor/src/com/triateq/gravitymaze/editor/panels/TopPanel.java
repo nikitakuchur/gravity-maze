@@ -2,8 +2,8 @@ package com.triateq.gravitymaze.editor.panels;
 
 import com.badlogic.gdx.Gdx;
 import com.triateq.gravitymaze.editor.EditorApplication;
-import com.triateq.gravitymaze.level.Level;
-import com.triateq.gravitymaze.level.LevelLoader;
+import com.triateq.gravitymaze.game.level.Level;
+import com.triateq.gravitymaze.game.level.LevelLoader;
 
 import javax.swing.*;
 

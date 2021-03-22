@@ -4,7 +4,7 @@ import java.awt.*;
 
 import com.badlogic.gdx.graphics.Color;
 import com.triateq.gravitymaze.editor.panels.cells.ColorCell;
-import com.triateq.puzzlecore.serialization.Parameterizable;
+import com.triateq.gravitymaze.core.serialization.Parameterizable;
 
 import javax.swing.*;
 

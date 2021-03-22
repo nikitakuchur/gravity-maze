@@ -19,12 +19,12 @@ import com.triateq.gravitymaze.editor.commands.RemoveBlocksCommand;
 import com.triateq.gravitymaze.editor.commands.RemoveGameObjectCommand;
 import com.triateq.gravitymaze.editor.utils.GameObjectType;
 import com.triateq.gravitymaze.editor.utils.Option;
-import com.triateq.gravitymaze.actors.GameMap;
-import com.triateq.gravitymaze.level.Level;
-import com.triateq.gravitymaze.cells.CellType;
-import com.triateq.gravitymaze.actors.gameobjects.GameObject;
-import com.triateq.gravitymaze.actors.gameobjects.GameObjectStore;
-import com.triateq.puzzlecore.game.Context;
+import com.triateq.gravitymaze.game.actors.GameMap;
+import com.triateq.gravitymaze.game.level.Level;
+import com.triateq.gravitymaze.game.cells.CellType;
+import com.triateq.gravitymaze.game.actors.gameobjects.GameObject;
+import com.triateq.gravitymaze.game.actors.gameobjects.GameObjectStore;
+import com.triateq.gravitymaze.core.game.Context;
 
 import java.util.ArrayList;
 import java.util.List;

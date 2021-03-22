@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.triateq.gravitymaze.editor.utils.FileController;
-import com.triateq.puzzlecore.assets.AssetLoader;
-import com.triateq.puzzlecore.game.Context;
+import com.triateq.gravitymaze.core.assets.AssetLoader;
+import com.triateq.gravitymaze.core.game.Context;
 
 public class EditorApplication extends ApplicationAdapter {
 

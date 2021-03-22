@@ -1,9 +1,9 @@
 {
-  "class": "com.triateq.gravitymaze.level.Level",
+  "class": "com.triateq.gravitymaze.game.level.Level",
   "value": {
     "maxMoves": 10,
     "background": {
-      "class": "com.triateq.gravitymaze.actors.Background",
+      "class": "com.triateq.gravitymaze.game.actors.Background",
       "value": {
         "firstColor": {
           "r": 1.0,
@@ -20,7 +20,7 @@
       }
     },
     "map": {
-      "class": "com.triateq.gravitymaze.actors.GameMap",
+      "class": "com.triateq.gravitymaze.game.actors.GameMap",
       "value": {
         "color": {
           "r": 0.007843138,
@@ -114,7 +114,7 @@
     },
     "gameObjects": [
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Barrier",
         "value": {
           "x": 7,
           "y": 4,
@@ -129,7 +129,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Switch",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Switch",
         "value": {
           "name": "s1",
           "x": 3,
@@ -143,7 +143,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Conveyor",
         "value": {
           "x": 2,
           "y": 5,
@@ -157,7 +157,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Conveyor",
         "value": {
           "x": 1,
           "y": 5,
@@ -171,7 +171,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Conveyor",
         "value": {
           "x": 3,
           "y": 3,
@@ -185,7 +185,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Conveyor",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Conveyor",
         "value": {
           "x": 4,
           "y": 3,
@@ -199,7 +199,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Barrier",
         "value": {
           "x": 2,
           "y": 7,
@@ -214,7 +214,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Switch",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Switch",
         "value": {
           "name": "s2",
           "x": 7,
@@ -228,7 +228,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Cup",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Cup",
         "value": {
           "x": 6,
           "y": 6,
@@ -242,7 +242,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Ball",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Ball",
         "value": {
           "name": "b1",
           "x": 1,
@@ -256,7 +256,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Portal",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Portal",
         "value": {
           "name": "p12",
           "x": 1,
@@ -271,7 +271,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Portal",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Portal",
         "value": {
           "name": "p11",
           "x": 7,
@@ -286,7 +286,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Spike",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Spike",
         "value": {
           "x": 4,
           "y": 0,
@@ -299,7 +299,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Barrier",
         "value": {
           "x": 7,
           "y": 7,
@@ -314,7 +314,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Spike",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Spike",
         "value": {
           "x": 6,
           "y": 7,

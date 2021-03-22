@@ -2,9 +2,9 @@ package com.triateq.gravitymaze.editor.panels;
 
 import com.triateq.gravitymaze.editor.commands.CommandHistory;
 import com.triateq.gravitymaze.editor.panels.accessors.*;
-import com.triateq.puzzlecore.serialization.Parameterizable;
-import com.triateq.puzzlecore.serialization.Parameters;
-import com.triateq.puzzlecore.serialization.Serializer;
+import com.triateq.gravitymaze.core.serialization.Parameterizable;
+import com.triateq.gravitymaze.core.serialization.Parameters;
+import com.triateq.gravitymaze.core.serialization.Serializer;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;

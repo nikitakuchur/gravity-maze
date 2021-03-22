@@ -2,9 +2,9 @@ package com.triateq.gravitymaze.editor.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.triateq.gravitymaze.editor.LevelEditor;
-import com.triateq.gravitymaze.level.Level;
-import com.triateq.gravitymaze.level.LevelLoader;
-import com.triateq.puzzlecore.game.Context;
+import com.triateq.gravitymaze.game.level.Level;
+import com.triateq.gravitymaze.game.level.LevelLoader;
+import com.triateq.gravitymaze.core.game.Context;
 
 import java.io.IOException;
 import java.util.ArrayList;

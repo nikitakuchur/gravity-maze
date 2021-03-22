@@ -1,16 +1,12 @@
 package com.triateq.gravitymaze.editor.panels;
 
-import com.badlogic.gdx.graphics.Color;
 import com.triateq.gravitymaze.editor.panels.accessors.FieldAccessor;
 import com.triateq.gravitymaze.editor.panels.accessors.FieldAccessors;
-import com.triateq.gravitymaze.editor.panels.cells.ColorCell;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public class ParametersTable extends JTable {
 

@@ -1,9 +1,9 @@
 {
-  "class": "com.triateq.gravitymaze.level.Level",
+  "class": "com.triateq.gravitymaze.game.level.Level",
   "value": {
     "maxMoves": 14,
     "background": {
-      "class": "com.triateq.gravitymaze.actors.Background",
+      "class": "com.triateq.gravitymaze.game.actors.Background",
       "value": {
         "firstColor": {
           "r": 1.0,
@@ -20,7 +20,7 @@
       }
     },
     "map": {
-      "class": "com.triateq.gravitymaze.actors.GameMap",
+      "class": "com.triateq.gravitymaze.game.actors.GameMap",
       "value": {
         "color": {
           "r": 0.007843138,
@@ -155,7 +155,7 @@
     },
     "gameObjects": [
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Cup",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Cup",
         "value": {
           "x": 5,
           "y": 4,
@@ -169,7 +169,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Magnet",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Magnet",
         "value": {
           "x": 5,
           "y": 5,
@@ -182,7 +182,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Magnet",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Magnet",
         "value": {
           "x": 6,
           "y": 5,
@@ -195,7 +195,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Magnet",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Magnet",
         "value": {
           "x": 6,
           "y": 4,
@@ -208,7 +208,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Magnet",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Magnet",
         "value": {
           "x": 6,
           "y": 3,
@@ -221,7 +221,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Magnet",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Magnet",
         "value": {
           "x": 5,
           "y": 3,
@@ -234,7 +234,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Magnet",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Magnet",
         "value": {
           "x": 4,
           "y": 3,
@@ -247,7 +247,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Magnet",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Magnet",
         "value": {
           "x": 4,
           "y": 4,
@@ -260,7 +260,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Magnet",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Magnet",
         "value": {
           "x": 4,
           "y": 5,
@@ -273,7 +273,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Box",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Box",
         "value": {
           "x": 3,
           "y": 2,
@@ -286,7 +286,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Box",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Box",
         "value": {
           "x": 4,
           "y": 1,
@@ -299,7 +299,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Box",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Box",
         "value": {
           "x": 8,
           "y": 7,
@@ -312,7 +312,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Box",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Box",
         "value": {
           "x": 9,
           "y": 6,
@@ -325,7 +325,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Box",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Box",
         "value": {
           "x": 7,
           "y": 2,
@@ -338,7 +338,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.actors.gameobjects.Ball",
+        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Ball",
         "value": {
           "name": "b1",
           "x": 5,

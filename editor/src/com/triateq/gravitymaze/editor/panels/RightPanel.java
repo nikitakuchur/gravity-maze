@@ -6,7 +6,7 @@ import com.triateq.gravitymaze.editor.commands.ChangeParameterCommand;
 import com.triateq.gravitymaze.editor.commands.Command;
 import com.triateq.gravitymaze.editor.commands.CommandHistory;
 import com.triateq.gravitymaze.editor.utils.Option;
-import com.triateq.gravitymaze.level.Level;
+import com.triateq.gravitymaze.game.level.Level;
 
 import javax.swing.*;
 import java.awt.*;

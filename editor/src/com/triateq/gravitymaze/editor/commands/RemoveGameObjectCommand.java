@@ -1,8 +1,8 @@
 package com.triateq.gravitymaze.editor.commands;
 
 import com.badlogic.gdx.utils.Disposable;
-import com.triateq.gravitymaze.actors.gameobjects.GameObject;
-import com.triateq.gravitymaze.actors.gameobjects.GameObjectStore;
+import com.triateq.gravitymaze.game.actors.gameobjects.GameObject;
+import com.triateq.gravitymaze.game.actors.gameobjects.GameObjectStore;
 
 public class RemoveGameObjectCommand implements Command {
 

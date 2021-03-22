@@ -7,9 +7,9 @@ import com.triateq.gravitymaze.editor.commands.CommandHistory;
 import com.triateq.gravitymaze.editor.panels.RightPanel;
 import com.triateq.gravitymaze.editor.panels.TopPanel;
 import com.triateq.gravitymaze.editor.utils.ParametersUtils;
-import com.triateq.gravitymaze.actors.Background;
-import com.triateq.gravitymaze.actors.GameMap;
-import com.triateq.gravitymaze.level.Level;
+import com.triateq.gravitymaze.game.actors.Background;
+import com.triateq.gravitymaze.game.actors.GameMap;
+import com.triateq.gravitymaze.game.level.Level;
 
 import javax.swing.*;
 

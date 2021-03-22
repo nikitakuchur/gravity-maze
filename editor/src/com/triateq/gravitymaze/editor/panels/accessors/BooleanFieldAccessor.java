@@ -1,6 +1,6 @@
 package com.triateq.gravitymaze.editor.panels.accessors;
 
-import com.triateq.puzzlecore.serialization.Parameters;
+import com.triateq.gravitymaze.core.serialization.Parameters;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;

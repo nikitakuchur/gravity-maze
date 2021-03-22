@@ -1,16 +1,16 @@
 package com.triateq.gravitymaze.editor.utils;
 
-import com.triateq.gravitymaze.actors.gameobjects.Ball;
-import com.triateq.gravitymaze.actors.gameobjects.Box;
-import com.triateq.gravitymaze.actors.gameobjects.Barrier;
-import com.triateq.gravitymaze.actors.gameobjects.GameObject;
-import com.triateq.gravitymaze.actors.gameobjects.Cup;
-import com.triateq.gravitymaze.actors.gameobjects.Conveyor;
-import com.triateq.gravitymaze.actors.gameobjects.Switch;
-import com.triateq.gravitymaze.actors.gameobjects.Portal;
-import com.triateq.gravitymaze.actors.gameobjects.Spike;
-import com.triateq.gravitymaze.actors.gameobjects.Magnet;
-import com.triateq.puzzlecore.game.Context;
+import com.triateq.gravitymaze.game.actors.gameobjects.Ball;
+import com.triateq.gravitymaze.game.actors.gameobjects.Box;
+import com.triateq.gravitymaze.game.actors.gameobjects.Barrier;
+import com.triateq.gravitymaze.game.actors.gameobjects.GameObject;
+import com.triateq.gravitymaze.game.actors.gameobjects.Cup;
+import com.triateq.gravitymaze.game.actors.gameobjects.Conveyor;
+import com.triateq.gravitymaze.game.actors.gameobjects.Switch;
+import com.triateq.gravitymaze.game.actors.gameobjects.Portal;
+import com.triateq.gravitymaze.game.actors.gameobjects.Spike;
+import com.triateq.gravitymaze.game.actors.gameobjects.Magnet;
+import com.triateq.gravitymaze.core.game.Context;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

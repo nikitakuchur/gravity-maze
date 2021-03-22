@@ -3,8 +3,8 @@ package com.triateq.gravitymaze.editor.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.triateq.gravitymaze.cells.CellType;
-import com.triateq.gravitymaze.actors.GameMap;
+import com.triateq.gravitymaze.game.cells.CellType;
+import com.triateq.gravitymaze.game.actors.GameMap;
 
 public class RemoveBlocksCommand implements Command {
 
