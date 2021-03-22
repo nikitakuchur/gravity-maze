@@ -1,8 +1,8 @@
 package com.triateq.gravitymaze.editor.commands;
 
-import com.triateq.gravitymaze.serialization.Parameterizable;
-import com.triateq.gravitymaze.serialization.Parameters;
-import com.triateq.gravitymaze.serialization.Serializer;
+import com.triateq.puzzlecore.serialization.Parameterizable;
+import com.triateq.puzzlecore.serialization.Parameters;
+import com.triateq.puzzlecore.serialization.Serializer;
 
 public class ChangeParameterCommand<T> implements Command {
 

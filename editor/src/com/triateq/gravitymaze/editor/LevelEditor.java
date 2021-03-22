@@ -24,7 +24,7 @@ import com.triateq.gravitymaze.level.Level;
 import com.triateq.gravitymaze.cells.CellType;
 import com.triateq.gravitymaze.actors.gameobjects.GameObject;
 import com.triateq.gravitymaze.actors.gameobjects.GameObjectStore;
-import com.triateq.gravitymaze.utils.Context;
+import com.triateq.puzzlecore.game.Context;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package com.triateq.gravitymaze.editor.panels.accessors;
 
 import com.badlogic.gdx.graphics.Color;
 import com.triateq.gravitymaze.editor.panels.cells.ColorCell;
-import com.triateq.gravitymaze.serialization.Parameters;
+import com.triateq.puzzlecore.serialization.Parameters;
 
 import javax.swing.table.TableCellEditor;
 

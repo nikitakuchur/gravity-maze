@@ -1,16 +1,12 @@
 package com.triateq.gravitymaze.editor.panels;
 
-import com.badlogic.gdx.graphics.Color;
-import com.triateq.gravitymaze.editor.commands.ChangeParameterCommand;
 import com.triateq.gravitymaze.editor.commands.CommandHistory;
 import com.triateq.gravitymaze.editor.panels.accessors.*;
-import com.triateq.gravitymaze.editor.utils.ParametersUtils;
-import com.triateq.gravitymaze.serialization.Parameterizable;
-import com.triateq.gravitymaze.serialization.Parameters;
-import com.triateq.gravitymaze.serialization.Serializer;
+import com.triateq.puzzlecore.serialization.Parameterizable;
+import com.triateq.puzzlecore.serialization.Parameters;
+import com.triateq.puzzlecore.serialization.Serializer;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 

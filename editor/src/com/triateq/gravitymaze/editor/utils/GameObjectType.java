@@ -10,7 +10,7 @@ import com.triateq.gravitymaze.actors.gameobjects.Switch;
 import com.triateq.gravitymaze.actors.gameobjects.Portal;
 import com.triateq.gravitymaze.actors.gameobjects.Spike;
 import com.triateq.gravitymaze.actors.gameobjects.Magnet;
-import com.triateq.gravitymaze.utils.Context;
+import com.triateq.puzzlecore.game.Context;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

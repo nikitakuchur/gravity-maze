@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.triateq.gravitymaze.editor.LevelEditor;
 import com.triateq.gravitymaze.level.Level;
 import com.triateq.gravitymaze.level.LevelLoader;
-import com.triateq.gravitymaze.utils.Context;
+import com.triateq.puzzlecore.game.Context;
 
 import java.io.IOException;
 import java.util.ArrayList;
