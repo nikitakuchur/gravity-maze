@@ -1,6 +1,6 @@
 package com.triateq.gravitymaze.editor.commands;
 
-import com.triateq.gravitymaze.game.actors.gameobjects.GameObject;
+import com.triateq.gravitymaze.core.game.GameObject;
 
 public class MoveGameObjectCommand implements Command {
 

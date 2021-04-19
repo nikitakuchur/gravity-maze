@@ -11,7 +11,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
-import com.triateq.gravitymaze.game.level.Level;
+import com.triateq.gravitymaze.core.game.GameObjectStore;
+import com.triateq.gravitymaze.core.game.Level;
+import com.triateq.gravitymaze.game.gameobjects.Maze;
+import com.triateq.gravitymaze.game.gameobjects.Gravity;
 
 public class Effect {
 
@@ -26,16 +29,21 @@ public class Effect {
 
     private boolean playing;
 
-    private final Level level;
+    private final Maze maze;
+    private final Gravity gravity;
+
     private final List<Particle> particles = new ArrayList<>();
     private final Random random = new Random();
     private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private final Timer timer = new Timer();
+
     private float currentDelay;
     private Color currentColor;
 
     public Effect(Level level) {
-        this.level = level;
+        GameObjectStore store = level.getGameObjectStore();
+        maze = store.getAnyGameObjectOrThrow(Maze.class, () -> new IllegalStateException("Cannot find the maze object"));
+        gravity = store.getAnyGameObjectOrThrow(Gravity.class, () -> new IllegalStateException("Cannot find the gravity object"));
     }
 
     public void start() {
@@ -46,7 +54,7 @@ public class Effect {
         }
         particles.forEach(particle -> {
             Vector2 randVector = Vector2.Y.cpy().setToRandomDirection().scl(random.nextFloat());
-            particle.position.add(randVector.cpy().scl(level.getMap().getCellSize() / 2));
+            particle.position.add(randVector.cpy().scl(maze.getCellSize() / 2));
             particle.velocity.add(randVector);
             if (direction != null) particle.velocity.add(direction);
             particle.size = (1 + random.nextFloat()) * size / 2;
@@ -66,11 +74,11 @@ public class Effect {
 
     public void update(float delta) {
         if (!playing) return;
-        float speedCorrection = level.getMap().getCellSize() / 100;
+        float speedCorrection = maze.getCellSize() / 100;
         particles.forEach(particle -> {
             particle.position.add(particle.velocity.cpy().scl(speed * speedCorrection * delta));
             if (useGravity) {
-                particle.velocity.add(level.getGravityDirection().getDirection().scl(2 * delta));
+                particle.velocity.add(gravity.getGravityDirection().getDirection().scl(2 * delta));
             }
         });
         currentDelay = currentDelay - delta;
@@ -85,12 +93,12 @@ public class Effect {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-        shapeRenderer.translate(-level.getWidth() / 2, -level.getHeight() / 2, 0);
+        shapeRenderer.translate(-maze.getWidth() / 2, -maze.getHeight() / 2, 0);
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         currentColor = color;
         shapeRenderer.setColor(color);
-        float cellSize = level.getMap().getCellSize();
+        float cellSize = maze.getCellSize();
         float speedCorrection = cellSize / 100;
         particles.forEach(particle ->
                 shapeRenderer.rect(

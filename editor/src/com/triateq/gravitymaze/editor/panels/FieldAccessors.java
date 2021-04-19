@@ -1,6 +1,7 @@
-package com.triateq.gravitymaze.editor.panels.accessors;
+package com.triateq.gravitymaze.editor.panels;
 
 import com.badlogic.gdx.graphics.Color;
+import com.triateq.gravitymaze.editor.panels.accessors.*;
 
 import java.util.HashMap;
 

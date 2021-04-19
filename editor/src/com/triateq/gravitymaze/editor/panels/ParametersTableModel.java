@@ -1,10 +1,10 @@
 package com.triateq.gravitymaze.editor.panels;
 
+import com.triateq.gravitymaze.core.game.GameObject;
 import com.triateq.gravitymaze.editor.commands.CommandHistory;
 import com.triateq.gravitymaze.editor.panels.accessors.*;
-import com.triateq.gravitymaze.core.serialization.Parameterizable;
 import com.triateq.gravitymaze.core.serialization.Parameters;
-import com.triateq.gravitymaze.core.serialization.Serializer;
+import com.triateq.gravitymaze.core.serialization.annotations.Serializer;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
@@ -14,28 +14,28 @@ public class ParametersTableModel extends AbstractTableModel {
 
     private final String[] columnsHeader = new String[]{"Name", "Value"};
 
-    private transient Parameterizable parameterizable;
+    private transient GameObject gameObject;
     private transient Parameters parameters;
 
     public ParametersTableModel() {
         CommandHistory.getInstance().addHistoryChangeListener(this::update);
     }
 
-    public void setParameterizable(Parameterizable parameterizable) {
-        this.parameterizable = parameterizable;
-        this.parameters = parameterizable != null ? Serializer.getParameters(parameterizable) : new Parameters();
+    public void setParameterizable(GameObject gameObject) {
+        this.gameObject = gameObject;
+        this.parameters = gameObject != null ? Serializer.getParameters(gameObject) : new Parameters();
         fireTableRowsDeleted(0, getRowCount() == 0 ? 0 : getRowCount() - 1);
     }
 
     public void clear() {
-        parameterizable = null;
+        gameObject = null;
         parameters = new Parameters();
         fireTableRowsDeleted(0, getRowCount() == 0 ? 0 : getRowCount() - 1);
     }
 
     @Override
     public int getRowCount() {
-        if (parameterizable == null) return 0;
+        if (gameObject == null) return 0;
         return getNames().size();
     }
 
@@ -62,7 +62,7 @@ public class ParametersTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        if (parameterizable == null) return null;
+        if (gameObject == null) return null;
         String name = getNames().get(rowIndex);
         if (columnIndex == 0) {
             return name;
@@ -78,13 +78,13 @@ public class ParametersTableModel extends AbstractTableModel {
 
     @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        if (parameterizable == null) return;
+        if (gameObject == null) return;
         String name = getNames().get(rowIndex);
         Class<?> type = parameters.getType(name);
 
         FieldAccessor<?> accessor = FieldAccessors.getAccessor(type);
         if (accessor != null) {
-            accessor.setValue(parameterizable, name, value);
+            accessor.setValue(gameObject, name, value);
         } else {
             throw new IllegalStateException("Cannot find an accessor for field named " + name);
         }
@@ -92,8 +92,8 @@ public class ParametersTableModel extends AbstractTableModel {
     }
 
     private void update() {
-        if (parameterizable == null) return;
-        parameters = Serializer.getParameters(parameterizable);
+        if (gameObject == null) return;
+        parameters = Serializer.getParameters(gameObject);
         fireTableDataChanged();
     }
 }

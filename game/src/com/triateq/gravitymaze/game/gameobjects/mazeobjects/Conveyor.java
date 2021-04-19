@@ -1,53 +1,48 @@
-package com.triateq.gravitymaze.game.actors.gameobjects;
+package com.triateq.gravitymaze.game.gameobjects.mazeobjects;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.triateq.gravitymaze.game.level.Level;
+import com.triateq.gravitymaze.core.game.GameObjectStore;
+import com.triateq.gravitymaze.core.game.Level;
 import com.triateq.gravitymaze.game.physics.FullCollider;
-import com.triateq.gravitymaze.core.serialization.Parameter;
+import com.triateq.gravitymaze.core.serialization.annotations.Parameter;
 import com.triateq.gravitymaze.game.utils.Direction;
 import com.triateq.gravitymaze.game.physics.PhysicalController;
 import com.triateq.gravitymaze.game.physics.PhysicalObject;
 import com.triateq.gravitymaze.game.physics.Physics;
-import com.triateq.gravitymaze.core.game.Context;
 
 import java.util.Optional;
 
-public class Conveyor extends GameObject implements PhysicalObject {
+public class Conveyor extends MazeObject implements PhysicalObject {
 
     private static final float ANIMATION_SPEED = 20.f;
     private static final int FRAMES_NUMBER = 16;
 
-    private final TextureRegion textureRegion;
+    private TextureRegion textureRegion;
 
     private Direction direction = Direction.TOP;
 
-    private PhysicalController physicalController;
+    private PhysicalController<Conveyor> physicalController;
 
     private GameObjectStore store;
 
     private float frame;
 
-    public Conveyor(Context context) {
-        AssetManager assetManager = context.getAssetManager();
-        textureRegion = new TextureRegion(assetManager.get("textures/conveyor/conveyor.png", Texture.class));
-    }
-
     @Override
     public void initialize(Level level) {
         super.initialize(level);
+        textureRegion = new TextureRegion(assetManager.get("textures/conveyor/conveyor.png", Texture.class));
         store = level.getGameObjectStore();
-        physicalController = new PhysicalController(this);
+        physicalController = new PhysicalController<>(this);
         physicalController.freeze();
         physicalController.setCollider(this::collider);
     }
 
-    private boolean collider(PhysicalController controller, int x, int y, Direction dir) {
+    private boolean collider(PhysicalController<?> controller, int x, int y, Direction dir) {
         if (dir.getDirection().cpy().add(direction.getDirection()).equals(Vector2.Zero)) {
             return FullCollider.INSTANCE.checkCollision(controller, x, y, dir);
         }
@@ -100,7 +95,7 @@ public class Conveyor extends GameObject implements PhysicalObject {
                 .anyMatch(p -> p.getPhysicalController().getPosition().equals(nextPosition));
 
         if (!hasNextObject && !Physics.detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, direction)) {
-            ((GameObject) physicalObject).addAction(
+            ((MazeObject) physicalObject).addAction(
                     Actions.sequence(
                             Actions.moveTo(nextPosition.x, nextPosition.y, 0.3f),
                             Actions.run(() -> unfreezeAction(physicalObject))
@@ -134,7 +129,7 @@ public class Conveyor extends GameObject implements PhysicalObject {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        Vector2 position = getActualPosition();
+        Vector2 position = maze.getActualCoords(getX(), getY());
         batch.setColor(getColor());
         Vector2 dir = direction.getDirection();
         double degrees = -Math.atan2(dir.x, dir.y) * 180.0 / Math.PI;
@@ -145,7 +140,7 @@ public class Conveyor extends GameObject implements PhysicalObject {
     }
 
     @Override
-    public PhysicalController getPhysicalController() {
+    public PhysicalController<Conveyor> getPhysicalController() {
         return physicalController;
     }
 }

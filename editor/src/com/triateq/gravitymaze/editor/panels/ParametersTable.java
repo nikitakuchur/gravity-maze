@@ -1,7 +1,6 @@
 package com.triateq.gravitymaze.editor.panels;
 
 import com.triateq.gravitymaze.editor.panels.accessors.FieldAccessor;
-import com.triateq.gravitymaze.editor.panels.accessors.FieldAccessors;
 
 import javax.swing.*;
 import javax.swing.table.TableCellEditor;

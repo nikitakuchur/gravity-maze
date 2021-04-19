@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.triateq.gravitymaze.game.actors.Background;
+import com.triateq.gravitymaze.game.gameobjects.Background;
 
 import java.util.ArrayList;
 import java.util.List;

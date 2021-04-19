@@ -1,12 +1,7 @@
 package com.triateq.gravitymaze.editor.panels;
 
-import com.badlogic.gdx.Gdx;
 import com.triateq.gravitymaze.editor.LevelEditor;
-import com.triateq.gravitymaze.editor.commands.ChangeParameterCommand;
-import com.triateq.gravitymaze.editor.commands.Command;
-import com.triateq.gravitymaze.editor.commands.CommandHistory;
 import com.triateq.gravitymaze.editor.utils.Option;
-import com.triateq.gravitymaze.game.level.Level;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +16,7 @@ public class RightPanel extends JPanel {
     private final ParametersPanel parametersPanel;
     private final GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
 
-    private final JSpinner maxMovesSpinner;
+    //private final JSpinner maxMovesSpinner;
 
     public RightPanel(LevelEditor levelEditor) {
         this.levelEditor = levelEditor;
@@ -56,10 +51,10 @@ public class RightPanel extends JPanel {
             initParameterizable();
         });
 
-        parametersPanel = new ParametersPanel(levelEditor.getLevel().getBackground());
+        parametersPanel = new ParametersPanel(levelEditor.getBackground());
         parametersPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel label = new JLabel("Max moves:");
+        /*JLabel label = new JLabel("Max moves:");
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 32, 1);
@@ -78,19 +73,19 @@ public class RightPanel extends JPanel {
         CommandHistory.getInstance().addHistoryChangeListener(() -> {
             int newValue = levelEditor.getLevel().getMaxMoves();
             spinnerModel.setValue(newValue);
-        });
+        });*/
 
         levelEditor.addLevelChangeListener(lev -> {
             initParameterizable();
-            maxMovesSpinner.setValue(levelEditor.getLevel().getMaxMoves());
+            //maxMovesSpinner.setValue(levelEditor.getLevel().getMaxMoves());
         });
         levelEditor.addGameObjectSelectListener(parametersPanel::setParameterizable);
 
         JPanel levelPanel = new JPanel();
         levelPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         levelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        levelPanel.add(label);
-        levelPanel.add(maxMovesSpinner);
+        //levelPanel.add(label);
+        //levelPanel.add(maxMovesSpinner);
 
         panel.add(comboBox);
         panel.add(gameObjectsPanel);
@@ -104,19 +99,18 @@ public class RightPanel extends JPanel {
         for (Component component : panel.getComponents()) {
             component.setEnabled(b);
         }
-        maxMovesSpinner.setEnabled(b);
+        //maxMovesSpinner.setEnabled(b);
     }
 
     private void initParameterizable() {
-        Level level = levelEditor.getLevel();
         Option option = (Option) comboBox.getSelectedItem();
         if (option == null) return;
         switch (option) {
             case BACKGROUND:
-                parametersPanel.setParameterizable(level.getBackground());
+                parametersPanel.setParameterizable(levelEditor.getBackground());
                 break;
             case MAP:
-                parametersPanel.setParameterizable(level.getMap());
+                parametersPanel.setParameterizable(levelEditor.getMaze());
                 break;
             default:
                 parametersPanel.clear();

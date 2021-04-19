@@ -1,17 +1,29 @@
-package com.triateq.gravitymaze.game.level;
+package com.triateq.gravitymaze.game.gameobjects;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.IntConsumer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.triateq.gravitymaze.core.game.GameObject;
+import com.triateq.gravitymaze.core.game.GameObjectStore;
+import com.triateq.gravitymaze.core.game.Level;
+import com.triateq.gravitymaze.core.serialization.annotations.Transient;
+import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Ball;
 import com.triateq.gravitymaze.game.utils.Direction;
 import com.triateq.gravitymaze.game.physics.PhysicalObject;
 
-public class LevelInputHandler {
+@Transient
+public class LevelController extends GameObject {
 
-    private final Level level;
+    private Level level;
+
+    private GameObjectStore store;
+    private Gravity gravity;
+    private LevelProperties properties;
 
     private Direction lastGravityDirection = Direction.BOTTOM;
 
@@ -23,10 +35,22 @@ public class LevelInputHandler {
 
     private float t;
 
-    public LevelInputHandler(Level level) {
+    private boolean gameEnded;
+    private boolean failed;
+
+    private final ArrayList<IntConsumer> gameEndListeners = new ArrayList<>();
+
+    @Override
+    public void initialize(Level level) {
         this.level = level;
+        level.addListener(new LevelInputListener());
+
+        store = level.getGameObjectStore();
+        gravity = store.getAnyGameObjectOrThrow(Gravity.class, () -> new IllegalStateException("Cannot find the gravity object"));
+        properties = store.getAnyGameObjectOrThrow(LevelProperties.class, () -> new IllegalStateException("Cannot find the properties object"));
     }
 
+    @Override
     public void act(float delta) {
         // Zoom out
         if (zoom && t < 1) {
@@ -46,6 +70,11 @@ public class LevelInputHandler {
 
         if (!zoom) {
             rotateToClosestEdge(delta);
+        }
+
+        if (!gameEnded && !failed && store.getGameObjects(Ball.class).isEmpty()) {
+            endGame(false);
+            gameEnded = true;
         }
     }
 
@@ -74,33 +103,48 @@ public class LevelInputHandler {
             }
         }
 
-        if (lastGravityDirection != level.getGravityDirection()) {
-            lastGravityDirection = level.getGravityDirection();
-            level.setMoves(level.getMoves() + 1);
+        if (lastGravityDirection != gravity.getGravityDirection()) {
+            lastGravityDirection = gravity.getGravityDirection();
+            properties.setMoves(properties.getMoves() + 1);
         }
 
         lastAngle = level.getRotation();
     }
 
     private void changeGravityDirection(Direction gravityDirection) {
-        if (level.getGravityDirection() != gravityDirection) {
-            level.setGravityDirection(gravityDirection);
+        if (gravity.getGravityDirection() != gravityDirection) {
+            gravity.setGravityDirection(gravityDirection);
         }
+    }
+
+    public void endGame(boolean failed) {
+        //clearListeners();
+        this.failed = failed;
+        int stars = 1;
+        if (failed) {
+            stars = 0;
+        } else if (properties.getMaxMoves() >= properties.getMoves()) {
+            stars = 3;
+        } else if (properties.getMaxMoves() * 1.3f >= properties.getMoves()) {
+            stars = 2;
+        }
+        int finalStars = stars;
+        gameEndListeners.forEach(c -> c.accept(finalStars));
     }
 
     private float scaleAnimation(float t) {
         return 0.294f * ((float) Math.cos((float) Math.PI * t) - 1) / 2 + 1;
     }
 
-    public InputListener getInputListener() {
-        return new LevelInputListener();
+    public void addGameEndListener(IntConsumer listener) {
+        gameEndListeners.add(listener);
     }
 
     private class LevelInputListener extends InputListener {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (!areObjectsGrounded()) {
+            if (!areObjectsGrounded() || level.onPause()) {
                 lockRotation = true;
                 return false;
             }

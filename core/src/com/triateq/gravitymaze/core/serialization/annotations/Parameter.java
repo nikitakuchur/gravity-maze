@@ -1,4 +1,7 @@
-package com.triateq.gravitymaze.core.serialization;
+package com.triateq.gravitymaze.core.serialization.annotations;
+
+import com.triateq.gravitymaze.core.game.GameObject;
+import com.triateq.gravitymaze.core.serialization.Parameters;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,7 +11,7 @@ import java.lang.annotation.Target;
 /**
  * The parameter annotation. You can mark some field or getter/setter method of a class that implements
  * Parameterizable interface and they will serialize/deserialize automatically. You can use it instead of overriding
- * {@link Parameterizable#getParameters()} and {@link Parameterizable#setParameters(Parameters)}.
+ * {@link GameObject#getParameters()} and {@link GameObject#setParameters(Parameters)}.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})

@@ -10,7 +10,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.2'
+        classpath 'com.android.tools.build:gradle:4.1.3'
         
 
     }
@@ -89,16 +89,6 @@ project(":android") {
     }
 }
 
-project(":game") {
-    apply plugin: "java-library"
-
-
-    dependencies {
-        api project(":core")
-
-    }
-}
-
 project(":core") {
     apply plugin: "java-library"
 
@@ -107,6 +97,16 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         api "com.google.code.gson:gson:2.8.6"
+
+    }
+}
+
+project(":game") {
+    apply plugin: "java-library"
+
+
+    dependencies {
+        api project(":core")
 
     }
 }

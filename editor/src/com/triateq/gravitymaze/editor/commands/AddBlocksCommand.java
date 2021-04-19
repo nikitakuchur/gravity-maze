@@ -3,15 +3,15 @@ package com.triateq.gravitymaze.editor.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.triateq.gravitymaze.game.gameobjects.Maze;
 import com.triateq.gravitymaze.game.cells.CellType;
-import com.triateq.gravitymaze.game.actors.GameMap;
 
 public class AddBlocksCommand implements Command {
 
-    private final GameMap map;
+    private final Maze map;
     private final List<Block> blocks = new ArrayList<>();
 
-    public AddBlocksCommand(GameMap map) {
+    public AddBlocksCommand(Maze map) {
         this.map = map;
     }
 

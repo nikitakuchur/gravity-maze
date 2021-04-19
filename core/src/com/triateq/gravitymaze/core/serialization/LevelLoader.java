@@ -1,12 +1,11 @@
-package com.triateq.gravitymaze.game.level;
+package com.triateq.gravitymaze.core.serialization;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.triateq.gravitymaze.core.serialization.Parameterizable;
-import com.triateq.gravitymaze.core.serialization.Serializer;
+import com.google.gson.*;
+import com.triateq.gravitymaze.core.game.GameObject;
+import com.triateq.gravitymaze.core.game.Level;
 import com.triateq.gravitymaze.core.game.Context;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
+import com.triateq.gravitymaze.core.serialization.annotations.Serializer;
 
 import java.io.IOException;
 
@@ -16,7 +15,8 @@ public class LevelLoader {
 
     public LevelLoader(Context context) {
         gson = new GsonBuilder()
-                .registerTypeHierarchyAdapter(Parameterizable.class, new Serializer(context))
+                .registerTypeHierarchyAdapter(GameObject.class, new Serializer(context))
+                .registerTypeHierarchyAdapter(GameObject[].class, new JsonArraySerializer<GameObject>())
                 .setPrettyPrinting()
                 .create();
     }
@@ -25,7 +25,7 @@ public class LevelLoader {
         try {
             return gson.fromJson(handle.readString(), Level.class);
         } catch (JsonSyntaxException e) {
-            throw new IOException("Cannot load this file.", e);
+            throw new IOException("Cannot load " + handle.path(), e);
         }
     }
 

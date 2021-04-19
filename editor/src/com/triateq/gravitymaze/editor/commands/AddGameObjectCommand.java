@@ -1,29 +1,30 @@
 package com.triateq.gravitymaze.editor.commands;
 
 import com.badlogic.gdx.utils.Disposable;
-import com.triateq.gravitymaze.game.actors.gameobjects.GameObject;
-import com.triateq.gravitymaze.game.actors.gameobjects.GameObjectStore;
+import com.triateq.gravitymaze.core.game.GameObject;
+import com.triateq.gravitymaze.core.game.GameObjectStore;
 
 public class AddGameObjectCommand implements Command {
 
     private final GameObject gameObject;
-    private final GameObjectStore gameObjectStore;
+    private final GameObjectStore store;
     private boolean removed = true;
 
-    public AddGameObjectCommand(GameObject gameObject, GameObjectStore gameObjectStore) {
+    public AddGameObjectCommand(GameObject gameObject, GameObjectStore store) {
         this.gameObject = gameObject;
-        this.gameObjectStore = gameObjectStore;
+        this.store = store;
     }
 
     @Override
     public void execute() {
-        gameObjectStore.add(gameObject);
+        store.add(gameObject);
+        store.initialize();
         removed = false;
     }
 
     @Override
     public void unexecute() {
-        gameObjectStore.remove(gameObject);
+        store.remove(gameObject);
         removed = true;
     }
 

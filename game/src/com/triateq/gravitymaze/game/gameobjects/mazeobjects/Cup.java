@@ -1,20 +1,19 @@
-package com.triateq.gravitymaze.game.actors.gameobjects;
+package com.triateq.gravitymaze.game.gameobjects.mazeobjects;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.triateq.gravitymaze.core.game.GameObjectStore;
+import com.triateq.gravitymaze.core.game.Level;
 import com.triateq.gravitymaze.game.effects.Effect;
-import com.triateq.gravitymaze.game.level.Level;
-import com.triateq.gravitymaze.core.serialization.Parameter;
-import com.triateq.gravitymaze.core.game.Context;
+import com.triateq.gravitymaze.core.serialization.annotations.Parameter;
 import com.triateq.gravitymaze.game.utils.GameActions;
 
-public class Cup extends GameObject {
+public class Cup extends MazeObject {
 
-    private final TextureRegion textureRegion;
+    private TextureRegion textureRegion;
 
     @Parameter(name = "ball")
     private String ballName;
@@ -23,15 +22,14 @@ public class Cup extends GameObject {
 
     private boolean destroy;
 
-    public Cup(Context context) {
-        AssetManager assetManager = context.getAssetManager();
-        textureRegion = new TextureRegion(assetManager.get("textures/cup/cup.png", Texture.class));
+    public Cup() {
         addAction(Actions.forever(Actions.timeScale(0.4f, GameActions.bounceAndRotate())));
     }
 
     @Override
     public void initialize(Level level) {
         super.initialize(level);
+        textureRegion = new TextureRegion(assetManager.get("textures/cup/cup.png", Texture.class));
         effect = new Effect(level)
                 .color(getColor())
                 .position(getPosition())
@@ -64,7 +62,7 @@ public class Cup extends GameObject {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         batch.setColor(getColor());
-        Vector2 position = getActualPosition();
+        Vector2 position = maze.getActualCoords(getX(), getY());
         batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         effect.draw(batch);

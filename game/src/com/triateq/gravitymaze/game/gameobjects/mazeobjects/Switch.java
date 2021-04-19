@@ -1,29 +1,33 @@
-package com.triateq.gravitymaze.game.actors.gameobjects;
+package com.triateq.gravitymaze.game.gameobjects.mazeobjects;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.triateq.gravitymaze.core.game.Context;
-import com.triateq.gravitymaze.core.serialization.Parameter;
+import com.triateq.gravitymaze.core.game.GameObjectStore;
+import com.triateq.gravitymaze.core.game.Level;
+import com.triateq.gravitymaze.core.serialization.annotations.Parameter;
 
-public class Switch extends GameObject {
+public class Switch extends MazeObject {
 
-    private final TextureRegion switchTextureRegion;
-    private final TextureRegion glowTextureRegion;
+    private TextureRegion switchTextureRegion;
+    private TextureRegion glowTextureRegion;
 
     private Ball lastBall;
 
     @Parameter
     private boolean activated;
 
-    public Switch(Context context) {
-        AssetManager assetManager = context.getAssetManager();
+    public Switch() {
+        setColor(Color.WHITE.cpy());
+    }
+
+    @Override
+    public void initialize(Level level) {
+        super.initialize(level);
         switchTextureRegion = new TextureRegion(assetManager.get("textures/switch/switch.png", Texture.class));
         glowTextureRegion = new TextureRegion(assetManager.get("textures/switch/glow.png", Texture.class));
-        setColor(Color.WHITE.cpy());
     }
 
     @Override
@@ -59,7 +63,7 @@ public class Switch extends GameObject {
             switchTextureRegion.setRegion(512, 0, 512, 512);
             glowTextureRegion.setRegion(512, 0, 512, 512);
         }
-        Vector2 position = getActualPosition();
+        Vector2 position = maze.getActualCoords(getX(), getY());
         batch.setColor(getColor());
         batch.draw(switchTextureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());

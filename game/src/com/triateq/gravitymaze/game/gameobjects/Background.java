@@ -1,16 +1,15 @@
-package com.triateq.gravitymaze.game.actors;
+package com.triateq.gravitymaze.game.gameobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Disposable;
-import com.triateq.gravitymaze.core.serialization.Parameter;
-import com.triateq.gravitymaze.core.serialization.Parameterizable;
+import com.triateq.gravitymaze.core.game.GameObject;
+import com.triateq.gravitymaze.core.serialization.annotations.Parameter;
 import com.triateq.gravitymaze.core.serialization.Parameters;
 
-public class Background extends Actor implements Parameterizable, Disposable {
+public class Background extends GameObject implements Disposable {
 
     @Parameter
     private Color firstColor;

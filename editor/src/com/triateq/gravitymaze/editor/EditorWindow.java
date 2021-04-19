@@ -7,9 +7,6 @@ import com.triateq.gravitymaze.editor.commands.CommandHistory;
 import com.triateq.gravitymaze.editor.panels.RightPanel;
 import com.triateq.gravitymaze.editor.panels.TopPanel;
 import com.triateq.gravitymaze.editor.utils.ParametersUtils;
-import com.triateq.gravitymaze.game.actors.Background;
-import com.triateq.gravitymaze.game.actors.GameMap;
-import com.triateq.gravitymaze.game.level.Level;
 
 import javax.swing.*;
 
@@ -73,8 +70,7 @@ public class EditorWindow {
                 int width = ParametersUtils.parseIntOrDefault(widthField.getText(), 8);
                 int height = ParametersUtils.parseIntOrDefault(heightField.getText(), 8);
                 Gdx.app.postRunnable(() -> {
-                    editor.setLevel(new Level(new Background(), new GameMap(width, height)));
-                    app.getFileController().newFile();
+                    app.getFileController().newFile(width, height);
                     CommandHistory.getInstance().clear();
                 });
             }

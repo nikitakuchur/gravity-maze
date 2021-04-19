@@ -1,98 +1,96 @@
+com/triateq/gravitymaze/game/utils/Direction.java
+ com.triateq.gravitymaze.game.utils.Direction
+com/triateq/gravitymaze/game/gameobjects/LevelProperties.java
+ com.triateq.gravitymaze.game.gameobjects.LevelProperties
+com/triateq/gravitymaze/game/ui/utils/MenuUtils.java
+ com.triateq.gravitymaze.game.ui.utils.MenuUtils
+ com.triateq.gravitymaze.game.ui.utils.MenuUtils$1
+com/triateq/gravitymaze/game/GravityMaze.java
+ com.triateq.gravitymaze.game.GravityMaze
+com/triateq/gravitymaze/game/ui/level/LevelResult.java
+ com.triateq.gravitymaze.game.ui.level.LevelResult
+ com.triateq.gravitymaze.game.ui.level.LevelResult$1
+com/triateq/gravitymaze/game/ui/menu/PacksMenu.java
+ com.triateq.gravitymaze.game.ui.menu.PacksMenu
+ com.triateq.gravitymaze.game.ui.menu.PacksMenu$1
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/Switchable.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.Switchable
+com/triateq/gravitymaze/game/utils/GameActions.java
+ com.triateq.gravitymaze.game.utils.GameActions
+com/triateq/gravitymaze/game/ui/menu/MainMenu.java
+ com.triateq.gravitymaze.game.ui.menu.MainMenu
+ com.triateq.gravitymaze.game.ui.menu.MainMenu$1
+com/triateq/gravitymaze/game/cells/CellType.java
+ com.triateq.gravitymaze.game.cells.CellType
+com/triateq/gravitymaze/game/screens/MenuScreen.java
+ com.triateq.gravitymaze.game.screens.MenuScreen
+ com.triateq.gravitymaze.game.screens.MenuScreen$1
+com/triateq/gravitymaze/game/gameobjects/Maze.java
+ com.triateq.gravitymaze.game.gameobjects.Maze
+com/triateq/gravitymaze/game/cells/EmptyCellRenderer.java
+ com.triateq.gravitymaze.game.cells.EmptyCellRenderer
+ com.triateq.gravitymaze.game.cells.EmptyCellRenderer$1
+com/triateq/gravitymaze/game/cells/CellRenderer.java
+ com.triateq.gravitymaze.game.cells.CellRenderer
+ com.triateq.gravitymaze.game.cells.CellRenderer$Corner
+com/triateq/gravitymaze/game/physics/FullCollider.java
+ com.triateq.gravitymaze.game.physics.FullCollider
+com/triateq/gravitymaze/game/cells/FilledCellRenderer.java
+ com.triateq.gravitymaze.game.cells.FilledCellRenderer
+ com.triateq.gravitymaze.game.cells.FilledCellRenderer$1
+com/triateq/gravitymaze/game/physics/EmptyCollider.java
+ com.triateq.gravitymaze.game.physics.EmptyCollider
+com/triateq/gravitymaze/game/physics/PhysicalController.java
+ com.triateq.gravitymaze.game.physics.PhysicalController
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/MazeObject.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.MazeObject
+com/triateq/gravitymaze/game/ui/menu/MenuBackground.java
+ com.triateq.gravitymaze.game.ui.menu.MenuBackground
+ com.triateq.gravitymaze.game.ui.menu.MenuBackground$Figure
+com/triateq/gravitymaze/game/physics/Collider.java
+ com.triateq.gravitymaze.game.physics.Collider
+com/triateq/gravitymaze/game/gameobjects/Background.java
+ com.triateq.gravitymaze.game.gameobjects.Background
 com/triateq/gravitymaze/game/ui/menu/PackMenu.java
  com.triateq.gravitymaze.game.ui.menu.PackMenu
  com.triateq.gravitymaze.game.ui.menu.PackMenu$1
 com/triateq/gravitymaze/game/ui/level/LevelUI.java
  com.triateq.gravitymaze.game.ui.level.LevelUI
  com.triateq.gravitymaze.game.ui.level.LevelUI$1
-com/triateq/gravitymaze/game/ui/menu/PacksMenu.java
- com.triateq.gravitymaze.game.ui.menu.PacksMenu
- com.triateq.gravitymaze.game.ui.menu.PacksMenu$1
-com/triateq/gravitymaze/game/utils/GameActions.java
- com.triateq.gravitymaze.game.utils.GameActions
-com/triateq/gravitymaze/game/actors/gameobjects/Portal.java
- com.triateq.gravitymaze.game.actors.gameobjects.Portal
-com/triateq/gravitymaze/game/level/LevelLoader.java
- com.triateq.gravitymaze.game.level.LevelLoader
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/Box.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.Box
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/Ball.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.Ball
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/Conveyor.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor
 com/triateq/gravitymaze/game/physics/PhysicalObject.java
  com.triateq.gravitymaze.game.physics.PhysicalObject
-com/triateq/gravitymaze/game/actors/gameobjects/Magnet.java
- com.triateq.gravitymaze.game.actors.gameobjects.Magnet
-com/triateq/gravitymaze/game/actors/gameobjects/GameObject.java
- com.triateq.gravitymaze.game.actors.gameobjects.GameObject
-com/triateq/gravitymaze/game/physics/PhysicalController.java
- com.triateq.gravitymaze.game.physics.PhysicalController
-com/triateq/gravitymaze/game/ui/menu/MenuBackground.java
- com.triateq.gravitymaze.game.ui.menu.MenuBackground
- com.triateq.gravitymaze.game.ui.menu.MenuBackground$Figure
-com/triateq/gravitymaze/game/physics/Collider.java
- com.triateq.gravitymaze.game.physics.Collider
-com/triateq/gravitymaze/game/cells/CellRenderer.java
- com.triateq.gravitymaze.game.cells.CellRenderer
- com.triateq.gravitymaze.game.cells.CellRenderer$Corner
-com/triateq/gravitymaze/game/actors/gameobjects/Switch.java
- com.triateq.gravitymaze.game.actors.gameobjects.Switch
-com/triateq/gravitymaze/game/cells/CellType.java
- com.triateq.gravitymaze.game.cells.CellType
-com/triateq/gravitymaze/game/cells/EmptyCellRenderer.java
- com.triateq.gravitymaze.game.cells.EmptyCellRenderer
- com.triateq.gravitymaze.game.cells.EmptyCellRenderer$1
-com/triateq/gravitymaze/game/actors/gameobjects/GameObjectStore.java
- com.triateq.gravitymaze.game.actors.gameobjects.GameObjectStore
-com/triateq/gravitymaze/game/actors/gameobjects/Spike.java
- com.triateq.gravitymaze.game.actors.gameobjects.Spike
-com/triateq/gravitymaze/game/screens/MenuScreen.java
- com.triateq.gravitymaze.game.screens.MenuScreen
- com.triateq.gravitymaze.game.screens.MenuScreen$1
-com/triateq/gravitymaze/game/actors/gameobjects/Conveyor.java
- com.triateq.gravitymaze.game.actors.gameobjects.Conveyor
-com/triateq/gravitymaze/game/actors/gameobjects/Box.java
- com.triateq.gravitymaze.game.actors.gameobjects.Box
-com/triateq/gravitymaze/game/actors/gameobjects/Barrier.java
- com.triateq.gravitymaze.game.actors.gameobjects.Barrier
-com/triateq/gravitymaze/game/physics/FullCollider.java
- com.triateq.gravitymaze.game.physics.FullCollider
-com/triateq/gravitymaze/game/level/Level.java
- com.triateq.gravitymaze.game.level.Level
-com/triateq/gravitymaze/game/ui/utils/MenuUtils.java
- com.triateq.gravitymaze.game.ui.utils.MenuUtils
- com.triateq.gravitymaze.game.ui.utils.MenuUtils$1
-com/triateq/gravitymaze/game/cells/FilledCellRenderer.java
- com.triateq.gravitymaze.game.cells.FilledCellRenderer
- com.triateq.gravitymaze.game.cells.FilledCellRenderer$1
-com/triateq/gravitymaze/game/actors/gameobjects/Switchable.java
- com.triateq.gravitymaze.game.actors.gameobjects.Switchable
-com/triateq/gravitymaze/game/actors/Background.java
- com.triateq.gravitymaze.game.actors.Background
-com/triateq/gravitymaze/game/actors/gameobjects/Ball.java
- com.triateq.gravitymaze.game.actors.gameobjects.Ball
-com/triateq/gravitymaze/game/actors/gameobjects/Cup.java
- com.triateq.gravitymaze.game.actors.gameobjects.Cup
-com/triateq/gravitymaze/game/level/LevelInputHandler.java
- com.triateq.gravitymaze.game.level.LevelInputHandler
- com.triateq.gravitymaze.game.level.LevelInputHandler$1
- com.triateq.gravitymaze.game.level.LevelInputHandler$LevelInputListener
-com/triateq/gravitymaze/game/physics/EmptyCollider.java
- com.triateq.gravitymaze.game.physics.EmptyCollider
-com/triateq/gravitymaze/game/ui/menu/MainMenu.java
- com.triateq.gravitymaze.game.ui.menu.MainMenu
- com.triateq.gravitymaze.game.ui.menu.MainMenu$1
+com/triateq/gravitymaze/game/utils/LevelBuilder.java
+ com.triateq.gravitymaze.game.utils.LevelBuilder
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/Magnet.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.Magnet
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/Cup.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.Cup
+com/triateq/gravitymaze/game/gameobjects/Gravity.java
+ com.triateq.gravitymaze.game.gameobjects.Gravity
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/Portal.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.Portal
 com/triateq/gravitymaze/game/physics/Physics.java
  com.triateq.gravitymaze.game.physics.Physics
 com/triateq/gravitymaze/game/effects/Effect.java
  com.triateq.gravitymaze.game.effects.Effect
  com.triateq.gravitymaze.game.effects.Effect$1
  com.triateq.gravitymaze.game.effects.Effect$Particle
-com/triateq/gravitymaze/game/actors/GameMap.java
- com.triateq.gravitymaze.game.actors.GameMap
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/Spike.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.Spike
 com/triateq/gravitymaze/game/screens/LevelScreen.java
  com.triateq.gravitymaze.game.screens.LevelScreen
  com.triateq.gravitymaze.game.screens.LevelScreen$1
-com/triateq/gravitymaze/game/ui/level/LevelResult.java
- com.triateq.gravitymaze.game.ui.level.LevelResult
- com.triateq.gravitymaze.game.ui.level.LevelResult$1
-com/triateq/gravitymaze/game/GravityMaze.java
- com.triateq.gravitymaze.game.GravityMaze
-com/triateq/gravitymaze/game/level/Layer.java
- com.triateq.gravitymaze.game.level.Layer
-com/triateq/gravitymaze/game/utils/Direction.java
- com.triateq.gravitymaze.game.utils.Direction
+com/triateq/gravitymaze/game/gameobjects/LevelController.java
+ com.triateq.gravitymaze.game.gameobjects.LevelController
+ com.triateq.gravitymaze.game.gameobjects.LevelController$1
+ com.triateq.gravitymaze.game.gameobjects.LevelController$LevelInputListener
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/Barrier.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.Barrier
+com/triateq/gravitymaze/game/gameobjects/mazeobjects/Switch.java
+ com.triateq.gravitymaze.game.gameobjects.mazeobjects.Switch

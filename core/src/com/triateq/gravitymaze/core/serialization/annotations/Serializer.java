@@ -1,20 +1,18 @@
-package com.triateq.gravitymaze.core.serialization;
+package com.triateq.gravitymaze.core.serialization.annotations;
 
 import com.badlogic.gdx.Gdx;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import com.triateq.gravitymaze.core.game.Context;
+import com.triateq.gravitymaze.core.game.GameObject;
+import com.triateq.gravitymaze.core.game.Level;
+import com.triateq.gravitymaze.core.serialization.Parameters;
 
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserializer<Parameterizable> {
+public class Serializer implements JsonSerializer<GameObject>, JsonDeserializer<GameObject> {
 
     private static final String CLASS_FIELD = "class";
     private static final String VALUE_FIELD = "value";
@@ -26,10 +24,10 @@ public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserial
     }
 
     @Override
-    public JsonElement serialize(Parameterizable parameterizable, Type typeOfSrc, JsonSerializationContext context) {
-        Parameters parameters = getParameters(parameterizable);
+    public JsonElement serialize(GameObject gameObject, Type typeOfSrc, JsonSerializationContext context) {
+        Parameters parameters = getParameters(gameObject);
         JsonObject root = new JsonObject();
-        root.addProperty(CLASS_FIELD, parameterizable.getClass().getName());
+        root.addProperty(CLASS_FIELD, gameObject.getClass().getName());
         JsonObject valueObject = new JsonObject();
         parameters.nameSet().forEach(name -> valueObject.add(name, context.serialize(parameters.getValue(name))));
         root.add(VALUE_FIELD, valueObject);
@@ -37,7 +35,7 @@ public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserial
     }
 
     @Override
-    public Parameterizable deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
+    public GameObject deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
         JsonObject jsonObject = json.getAsJsonObject();
         try {
             Class<?> clazz = Class.forName(jsonObject.get(CLASS_FIELD).getAsString());
@@ -52,23 +50,23 @@ public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserial
         return null;
     }
 
-    private Parameterizable deserializeValue(JsonObject valueObject, Class<?> clazz, JsonDeserializationContext context)
+    private GameObject deserializeValue(JsonObject valueObject, Class<?> clazz, JsonDeserializationContext context)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Parameterizable parameterizable = createParameterizable(clazz);
-        Parameters parameters = getParameters(parameterizable);
+        GameObject gameObject = createGameObject(clazz);
+        Parameters parameters = getParameters(gameObject);
         for (String name : parameters.nameSet()) {
             Class<?> type = parameters.getType(name);
             Object obj = context.deserialize(valueObject.get(name), type);
             parameters.put(name, type, obj);
         }
-        setParameters(parameterizable, parameters);
-        return parameterizable;
+        setParameters(gameObject, parameters);
+        return gameObject;
     }
 
-    public static Parameters getParameters(Parameterizable parameterizable) {
-        Parameters parameters = getAnnotatedFieldParameters(parameterizable);
-        parameters.putAll(getAnnotatedMethodParameters(parameterizable));
-        parameters.putAll(parameterizable.getParameters());
+    public static Parameters getParameters(GameObject gameObject) {
+        Parameters parameters = getAnnotatedFieldParameters(gameObject);
+        parameters.putAll(getAnnotatedMethodParameters(gameObject));
+        parameters.putAll(gameObject.getParameters());
         return parameters;
     }
 
@@ -108,10 +106,10 @@ public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserial
         return parameters;
     }
 
-    public static void setParameters(Parameterizable parameterizable, Parameters parameters) {
-        setAnnotatedFieldParameters(parameterizable, parameters);
-        setAnnotatedMethodParameters(parameterizable, parameters);
-        parameterizable.setParameters(parameters);
+    public static void setParameters(GameObject gameObject, Parameters parameters) {
+        setAnnotatedFieldParameters(gameObject, parameters);
+        setAnnotatedMethodParameters(gameObject, parameters);
+        gameObject.setParameters(parameters);
     }
 
     private static void setAnnotatedFieldParameters(Object obj, Parameters parameters) {
@@ -183,15 +181,13 @@ public class Serializer implements JsonSerializer<Parameterizable>, JsonDeserial
         return result;
     }
 
-    private Parameterizable createParameterizable(Class<?> clazz) throws NoSuchMethodException, IllegalAccessException,
+    private GameObject createGameObject(Class<?> clazz) throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
         Constructor<?> constructor;
-        try {
-            constructor = clazz.getConstructor(Context.class);
-            return (Parameterizable) constructor.newInstance(context);
-        } catch (NoSuchMethodException ignored) {
-            constructor = clazz.getConstructor();
-            return (Parameterizable) constructor.newInstance();
+        if (clazz == Level.class) {
+            return new Level(context);
         }
+        constructor = clazz.getConstructor();
+        return (GameObject) constructor.newInstance();
     }
 }

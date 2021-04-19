@@ -1,7 +1,7 @@
 package com.triateq.gravitymaze.game.cells;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.triateq.gravitymaze.game.actors.GameMap;
+import com.triateq.gravitymaze.game.gameobjects.Maze;
 
 public abstract class CellRenderer {
 
@@ -13,12 +13,12 @@ public abstract class CellRenderer {
     protected static final float RADIUS_COEFFICIENT = 8;
 
     private final ShapeRenderer shapeRenderer;
-    private final GameMap map;
+    private final Maze map;
 
     private int x;
     private int y;
 
-    protected CellRenderer(ShapeRenderer shapeRenderer, GameMap map) {
+    protected CellRenderer(ShapeRenderer shapeRenderer, Maze map) {
         this.shapeRenderer = shapeRenderer;
         this.map = map;
     }
@@ -33,7 +33,7 @@ public abstract class CellRenderer {
         return shapeRenderer;
     }
 
-    public GameMap getMap() {
+    public Maze getMap() {
         return map;
     }
 

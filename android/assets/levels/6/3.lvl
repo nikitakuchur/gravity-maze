@@ -1,103 +1,108 @@
 {
-  "class": "com.triateq.gravitymaze.game.level.Level",
+  "class": "com.triateq.gravitymaze.core.game.Level",
   "value": {
-    "maxMoves": 15,
-    "background": {
-      "class": "com.triateq.gravitymaze.game.actors.Background",
-      "value": {
-        "firstColor": {
-          "r": 1.0,
-          "g": 1.0,
-          "b": 1.0,
-          "a": 1.0
-        },
-        "secondColor": {
-          "r": 1.0,
-          "g": 1.0,
-          "b": 1.0,
-          "a": 1.0
-        }
-      }
-    },
-    "map": {
-      "class": "com.triateq.gravitymaze.game.actors.GameMap",
-      "value": {
-        "color": {
-          "r": 0.007843138,
-          "g": 0.30980393,
-          "b": 0.44705883,
-          "a": 1.0
-        },
-        "cells": [
-          [
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ],
-          [
-            "EMPTY",
-            "FILLED",
-            "EMPTY",
-            "EMPTY",
-            "EMPTY",
-            "FILLED",
-            "EMPTY"
-          ]
-        ]
-      }
-    },
     "gameObjects": [
+        {
+            "class": "com.triateq.gravitymaze.game.gameobjects.LevelProperties",
+            "value": {
+              "maxMoves": 15
+            }
+        },
+        {
+          "class": "com.triateq.gravitymaze.game.gameobjects.Background",
+          "value": {
+            "firstColor": {
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0,
+              "a": 1.0
+            },
+            "secondColor": {
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0,
+              "a": 1.0
+            }
+          }
+        },
+        {
+          "class": "com.triateq.gravitymaze.game.gameobjects.Maze",
+          "value": {
+            "color": {
+              "r": 0.007843138,
+              "g": 0.30980393,
+              "b": 0.44705883,
+              "a": 1.0
+            },
+            "cells": [
+              [
+                "EMPTY",
+                "FILLED",
+                "EMPTY",
+                "EMPTY",
+                "EMPTY",
+                "FILLED",
+                "EMPTY"
+              ],
+              [
+                "EMPTY",
+                "FILLED",
+                "EMPTY",
+                "EMPTY",
+                "EMPTY",
+                "FILLED",
+                "EMPTY"
+              ],
+              [
+                "EMPTY",
+                "FILLED",
+                "EMPTY",
+                "EMPTY",
+                "EMPTY",
+                "FILLED",
+                "EMPTY"
+              ],
+              [
+                "EMPTY",
+                "EMPTY",
+                "EMPTY",
+                "EMPTY",
+                "EMPTY",
+                "EMPTY",
+                "EMPTY"
+              ],
+              [
+                "EMPTY",
+                "FILLED",
+                "EMPTY",
+                "EMPTY",
+                "EMPTY",
+                "FILLED",
+                "EMPTY"
+              ],
+              [
+                "EMPTY",
+                "FILLED",
+                "EMPTY",
+                "EMPTY",
+                "EMPTY",
+                "FILLED",
+                "EMPTY"
+              ],
+              [
+                "EMPTY",
+                "FILLED",
+                "EMPTY",
+                "EMPTY",
+                "EMPTY",
+                "FILLED",
+                "EMPTY"
+              ]
+            ]
+          }
+        },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Barrier",
         "value": {
           "x": 2,
           "y": 6,
@@ -112,7 +117,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Switch",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Switch",
         "value": {
           "name": "s1",
           "x": 6,
@@ -126,7 +131,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Cup",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Cup",
         "value": {
           "x": 5,
           "y": 0,
@@ -140,7 +145,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Ball",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Ball",
         "value": {
           "name": "b1",
           "x": 1,
@@ -154,7 +159,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Barrier",
         "value": {
           "x": 4,
           "y": 4,
@@ -169,7 +174,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Barrier",
         "value": {
           "x": 3,
           "y": 1,
@@ -184,7 +189,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Switch",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Switch",
         "value": {
           "name": "s3",
           "x": 6,
@@ -198,7 +203,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Switch",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Switch",
         "value": {
           "name": "s4",
           "x": 0,
@@ -212,7 +217,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Switch",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Switch",
         "value": {
           "name": "s2",
           "x": 3,
@@ -226,7 +231,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Barrier",
         "value": {
           "x": 3,
           "y": 0,
@@ -241,7 +246,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.actors.gameobjects.Barrier",
+        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Barrier",
         "value": {
           "x": 4,
           "y": 0,

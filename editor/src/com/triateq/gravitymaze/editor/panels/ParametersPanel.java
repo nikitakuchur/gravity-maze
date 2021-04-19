@@ -3,8 +3,8 @@ package com.triateq.gravitymaze.editor.panels;
 import java.awt.*;
 
 import com.badlogic.gdx.graphics.Color;
+import com.triateq.gravitymaze.core.game.GameObject;
 import com.triateq.gravitymaze.editor.panels.cells.ColorCell;
-import com.triateq.gravitymaze.core.serialization.Parameterizable;
 
 import javax.swing.*;
 
@@ -13,8 +13,8 @@ public class ParametersPanel extends JPanel {
     private final ParametersTableModel tableModel = new ParametersTableModel();
     private final JTable table = new ParametersTable(tableModel);
 
-    public ParametersPanel(Parameterizable parameterizable) {
-        tableModel.setParameterizable(parameterizable);
+    public ParametersPanel(GameObject gameObject) {
+        tableModel.setParameterizable(gameObject);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         table.setRowHeight(28);
@@ -31,9 +31,9 @@ public class ParametersPanel extends JPanel {
         tableModel.clear();
     }
 
-    public void setParameterizable(Parameterizable parameterizable) {
+    public void setParameterizable(GameObject gameObject) {
         table.removeEditor();
-        tableModel.setParameterizable(parameterizable);
+        tableModel.setParameterizable(gameObject);
     }
 
     @Override

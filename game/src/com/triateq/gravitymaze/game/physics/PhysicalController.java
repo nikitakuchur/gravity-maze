@@ -1,14 +1,14 @@
 package com.triateq.gravitymaze.game.physics;
 
 import com.badlogic.gdx.math.Vector2;
-import com.triateq.gravitymaze.game.actors.gameobjects.GameObject;
+import com.triateq.gravitymaze.core.game.GameObject;
 
-public class PhysicalController {
+public class PhysicalController<T extends GameObject & PhysicalObject> {
 
     private static final float ACCELERATION = 2f;
     private Vector2 velocity = Vector2.Zero.cpy();
 
-    private final GameObject gameObject;
+    private final T physicalObject;
 
     private Collider collider = FullCollider.INSTANCE;
 
@@ -17,8 +17,8 @@ public class PhysicalController {
 
     private boolean frozen;
 
-    public PhysicalController(GameObject gameObject) {
-        this.gameObject = gameObject;
+    public PhysicalController(T physicalObject) {
+        this.physicalObject = physicalObject;
         prevPosition = getPosition();
         nextPosition = getPosition();
     }
@@ -48,11 +48,11 @@ public class PhysicalController {
     }
 
     public Vector2 getPosition() {
-        return new Vector2(gameObject.getX(), gameObject.getY());
+        return physicalObject.getPosition();
     }
 
     public void setPosition(Vector2 position) {
-        gameObject.setPosition(position.x, position.y);
+        physicalObject.setPosition(position);
     }
 
     public Vector2 getVelocity() {

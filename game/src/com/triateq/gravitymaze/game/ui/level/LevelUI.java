@@ -10,8 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.triateq.gravitymaze.core.game.Level;
 import com.triateq.gravitymaze.game.GravityMaze;
-import com.triateq.gravitymaze.game.level.Level;
+import com.triateq.gravitymaze.game.gameobjects.LevelProperties;
 import com.triateq.gravitymaze.game.screens.LevelScreen;
 import com.triateq.gravitymaze.core.ui.MenuStack;
 import com.triateq.gravitymaze.core.ui.Menu;
@@ -75,7 +76,10 @@ public class LevelUI extends Menu {
 
         fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
         Level level = ((LevelScreen) getContext().getGameScreen()).getLevel();
-        scoreLabel.setText(level.getMoves());
+
+        LevelProperties properties = level.getGameObjectStore()
+                .getAnyGameObjectOrThrow(LevelProperties.class, () -> new IllegalStateException("Cannot find the properties object"));
+        scoreLabel.setText(properties.getMoves());
     }
 
     @Override

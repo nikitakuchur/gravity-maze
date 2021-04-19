@@ -1,4 +1,4 @@
-package com.triateq.gravitymaze.game.actors.gameobjects;
+package com.triateq.gravitymaze.game.gameobjects.mazeobjects;
 
 public interface Switchable {
     void onSwitch();

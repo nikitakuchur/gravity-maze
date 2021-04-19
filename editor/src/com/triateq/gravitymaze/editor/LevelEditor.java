@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Disposable;
+import com.triateq.gravitymaze.core.game.*;
 import com.triateq.gravitymaze.editor.commands.AddBlocksCommand;
 import com.triateq.gravitymaze.editor.commands.AddGameObjectCommand;
 import com.triateq.gravitymaze.editor.commands.CommandHistory;
@@ -19,12 +20,10 @@ import com.triateq.gravitymaze.editor.commands.RemoveBlocksCommand;
 import com.triateq.gravitymaze.editor.commands.RemoveGameObjectCommand;
 import com.triateq.gravitymaze.editor.utils.GameObjectType;
 import com.triateq.gravitymaze.editor.utils.Option;
-import com.triateq.gravitymaze.game.actors.GameMap;
-import com.triateq.gravitymaze.game.level.Level;
+import com.triateq.gravitymaze.game.gameobjects.Background;
+import com.triateq.gravitymaze.game.gameobjects.Maze;
 import com.triateq.gravitymaze.game.cells.CellType;
-import com.triateq.gravitymaze.game.actors.gameobjects.GameObject;
-import com.triateq.gravitymaze.game.actors.gameobjects.GameObjectStore;
-import com.triateq.gravitymaze.core.game.Context;
+import com.triateq.gravitymaze.game.utils.LevelBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +31,10 @@ import java.util.function.Consumer;
 
 public class LevelEditor extends Group implements Disposable {
 
-    private final Context context;
-
     private Level level;
-    private GameObjectStore gameObjectStore;
+    private GameObjectStore store;
+    private Background background;
+    private Maze maze;
 
     private final List<Consumer<Level>> levelChangeListeners = new ArrayList<>();
     private final List<Consumer<GameObject>> gameObjectSelectListeners = new ArrayList<>();
@@ -49,8 +48,10 @@ public class LevelEditor extends Group implements Disposable {
 
     public LevelEditor(Context context) {
         super();
-        this.context = context;
-        setLevel(new Level());
+        Level level = new LevelBuilder()
+                .context(context)
+                .build();
+        setLevel(level);
     }
 
     public void setLayer(Option option) {
@@ -78,11 +79,23 @@ public class LevelEditor extends Group implements Disposable {
 
     public void setLevel(Level level) {
         this.level = level;
-        gameObjectStore = level.getGameObjectStore();
+        store = level.getGameObjectStore();
+        background = store.getAnyGameObjectOrThrow(Background.class,
+                () -> new IllegalStateException("Cannot find the background object"));
+        maze = store.getAnyGameObjectOrThrow(Maze.class,
+                () -> new IllegalStateException("Cannot find the game map object"));
         clearChildren();
         addActor(level);
         level.setPause(true);
         levelChangeListeners.forEach(listener -> listener.accept(level));
+    }
+
+    public Background getBackground() {
+        return background;
+    }
+
+    public Maze getMaze() {
+        return maze;
     }
 
     private void setSelectedGameObject(GameObject gameObject) {
@@ -96,7 +109,7 @@ public class LevelEditor extends Group implements Disposable {
 
     private boolean hasSelectedObject() {
         if (selectedGameObject == null) return false;
-        if (!gameObjectStore.contains(selectedGameObject)) {
+        if (!store.contains(selectedGameObject)) {
             selectedGameObject = null;
             return false;
         }
@@ -126,8 +139,8 @@ public class LevelEditor extends Group implements Disposable {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
             shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-            shapeRenderer.translate(-level.getWidth() / 2, -level.getHeight() / 2, 0);
-            Color color = level.getBackground().getColor();
+            shapeRenderer.translate(-maze.getWidth() / 2, -maze.getHeight() / 2, 0);
+            Color color = background.getColor();
             shapeRenderer.setColor(new Color(1 - color.r, 1 - color.g, 1 - color.b, 1));
             Gdx.gl20.glLineWidth(2);
             shapeRenderer.rect(selectedGameObject.getX() * selectedGameObject.getWidth(),
@@ -140,7 +153,7 @@ public class LevelEditor extends Group implements Disposable {
     public void play() {
         level.setPause(false);
         clearListeners();
-        gameObjectStore.getGameObjects().forEach(gameObject -> gameObject.initialize(level));
+        level.initialize();
         levelPlayListeners.forEach(Runnable::run);
     }
 
@@ -161,10 +174,9 @@ public class LevelEditor extends Group implements Disposable {
     }
 
     private Vector2 screenToMapCoordinates(float x, float y) {
-        GameMap map = level.getMap();
-        float cellWidth = map.getWidth() / map.getCellsWidth();
-        return new Vector2((int) x / cellWidth + (float) map.getCellsWidth() / 2,
-                y / cellWidth + (float) map.getCellsHeight() / 2);
+        float cellWidth = maze.getWidth() / maze.getCellsWidth();
+        return new Vector2((int) x / cellWidth + (float) maze.getCellsWidth() / 2,
+                y / cellWidth + (float) maze.getCellsHeight() / 2);
     }
 
     private class MapEditorInputListener extends InputListener {
@@ -177,25 +189,23 @@ public class LevelEditor extends Group implements Disposable {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            GameMap map = level.getMap();
-
             Vector2 position = screenToMapCoordinates(x, y);
             int px = (int) position.x;
             int py = (int) position.y;
 
-            if (map.isOutside(px, py)) return false;
+            if (maze.isOutside(px, py)) return false;
 
-            if (map.isEmpty(px, py)) {
-                map.setCellType(px, py, CellType.FILLED);
+            if (maze.isEmpty(px, py)) {
+                maze.setCellType(px, py, CellType.FILLED);
                 if (addCommand == null) {
-                    addCommand = new AddBlocksCommand(map);
+                    addCommand = new AddBlocksCommand(maze);
                 }
                 addCommand.addBlock(px, py);
                 emptyCell = false;
-            } else if (map.isFilled(px, py)) {
-                map.setCellType(px, py, CellType.EMPTY);
+            } else if (maze.isFilled(px, py)) {
+                maze.setCellType(px, py, CellType.EMPTY);
                 if (removeCommand == null) {
-                    removeCommand = new RemoveBlocksCommand(map);
+                    removeCommand = new RemoveBlocksCommand(maze);
                 }
                 removeCommand.addBlock(px, py);
                 emptyCell = true;
@@ -205,19 +215,17 @@ public class LevelEditor extends Group implements Disposable {
 
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
-            GameMap map = level.getMap();
-
             Vector2 position = screenToMapCoordinates(x, y);
             int px = (int) position.x;
             int py = (int) position.y;
 
-            if (map.isOutside(px, py)) return;
+            if (maze.isOutside(px, py)) return;
 
-            if (!emptyCell && map.isEmpty(px, py)) {
-                map.setCellType(px, py, CellType.FILLED);
+            if (!emptyCell && maze.isEmpty(px, py)) {
+                maze.setCellType(px, py, CellType.FILLED);
                 addCommand.addBlock(px, py);
-            } else if (emptyCell && map.isFilled(px, py)) {
-                map.setCellType(px, py, CellType.EMPTY);
+            } else if (emptyCell && maze.isFilled(px, py)) {
+                maze.setCellType(px, py, CellType.EMPTY);
                 removeCommand.addBlock(px, py);
             }
         }
@@ -238,13 +246,11 @@ public class LevelEditor extends Group implements Disposable {
 
         @Override
         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            GameMap map = level.getMap();
-
             Vector2 position = screenToMapCoordinates(x, y);
             int px = (int) position.x;
             int py = (int) position.y;
 
-            GameObject currentGameObject = gameObjectStore.getGameObjects().stream().
+            GameObject currentGameObject = store.getGameObjects().stream().
                     filter(object -> (int) object.getX() == px
                             && (int) object.getY() == py)
                     .findAny()
@@ -260,25 +266,23 @@ public class LevelEditor extends Group implements Disposable {
                 return true;
             }
 
-            if (map.isOutside(px, py)) return false;
+            if (maze.isOutside(px, py)) return false;
 
-            GameObject gameObject = gameObjectType.newInstance(context);
+            GameObject gameObject = gameObjectType.newInstance();
             gameObject.setX(px);
             gameObject.setY(py);
-            commandHistory.addAndExecute(new AddGameObjectCommand(gameObject, gameObjectStore));
+            commandHistory.addAndExecute(new AddGameObjectCommand(gameObject, store));
             setSelectedGameObject(gameObject);
             return true;
         }
 
         @Override
         public void touchDragged(InputEvent event, float x, float y, int pointer) {
-            GameMap map = level.getMap();
-
             Vector2 position = screenToMapCoordinates(x, y);
             int px = (int) position.x;
             int py = (int) position.y;
 
-            if (map.isOutside(px, py)) return;
+            if (maze.isOutside(px, py)) return;
 
             if (selectedGameObject != null) {
                 if (moveCommand == null) {
@@ -302,7 +306,7 @@ public class LevelEditor extends Group implements Disposable {
         @Override
         public boolean keyDown(InputEvent event, int keycode) {
             if (selectedGameObject != null && keycode == Input.Keys.FORWARD_DEL) {
-                commandHistory.addAndExecute(new RemoveGameObjectCommand(selectedGameObject, gameObjectStore));
+                commandHistory.addAndExecute(new RemoveGameObjectCommand(selectedGameObject, store));
                 resetSelection();
             }
             return true;

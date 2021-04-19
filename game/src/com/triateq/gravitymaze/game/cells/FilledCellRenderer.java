@@ -1,18 +1,18 @@
 package com.triateq.gravitymaze.game.cells;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.triateq.gravitymaze.game.actors.GameMap;
+import com.triateq.gravitymaze.game.gameobjects.Maze;
 
 public class FilledCellRenderer extends CellRenderer {
 
-    public FilledCellRenderer(ShapeRenderer shapeRenderer, GameMap map) {
+    public FilledCellRenderer(ShapeRenderer shapeRenderer, Maze map) {
         super(shapeRenderer, map);
     }
 
     @Override
     public void draw() {
-        float x = getX() * getWidth();
-        float y = getY() * getHeight();
+        float x = getX() * getWidth() - getMap().getWidth() / 2;
+        float y = getY() * getHeight() - getMap().getHeight() / 2;
 
         getShapeRenderer().rect(x + getRadius(), y + getRadius(), getWidth() - 2 * getRadius(), getHeight() - 2 * getRadius());
         getShapeRenderer().rect(x, y + getRadius(), getRadius(), getHeight() - 2 * getRadius());

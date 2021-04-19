@@ -1,10 +1,9 @@
-package com.triateq.gravitymaze.game.actors.gameobjects;
+package com.triateq.gravitymaze.core.game;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
-
-import com.triateq.gravitymaze.game.level.Level;
 
 /**
  * This is a game object store class. It stores all game objects contained in the level.
@@ -28,6 +27,13 @@ public class GameObjectStore {
     }
 
     /**
+     * Initializes game object store. This method initializes every game object.
+     */
+    public void initialize() {
+        getGameObjects().forEach(gameObject -> gameObject.initialize(level));
+    }
+
+    /**
      * Adds the given game object to the store.
      *
      * @param gameObject the game object
@@ -35,7 +41,6 @@ public class GameObjectStore {
     public void add(GameObject gameObject) {
         Set<Class<?>> classes = getAllClasses(gameObject.getClass());
         classes.forEach(clazz -> gameObjects.computeIfAbsent(clazz.getName(), c -> new ArrayList<>()).add(gameObject));
-        gameObject.initialize(level);
         gameObjectAddListeners.forEach(listener -> listener.accept(gameObject));
     }
 
@@ -118,6 +123,29 @@ public class GameObjectStore {
                 .collect(Collectors.toList());
     }
 
+    public <T> T getAnyGameObjectOrThrow(Class<T> clazz, Supplier<RuntimeException> exception) {
+        T gameObject = getAnyGameObject(clazz);
+        if (gameObject == null) {
+            throw exception.get();
+        }
+        return gameObject;
+    }
+
+    /**
+     * Returns any game object of the given type.
+     *
+     * @param clazz the class
+     * @return the found game object or null
+     */
+    public <T> T getAnyGameObject(Class<T> clazz) {
+        List<GameObject> list = gameObjects.get(clazz.getName());
+        if (list == null) return null;
+        return list.stream()
+                .map(clazz::cast)
+                .findAny()
+                .orElse(null);
+    }
+
     private Set<Class<?>> getAllClasses(Class<?> clazz) {
         Set<Class<?>> classes = new HashSet<>();
         getAllClasses(clazz, classes);
@@ -140,6 +168,7 @@ public class GameObjectStore {
      * Clears the store.
      */
     public void clear() {
+        getGameObjects().forEach(gameObject -> gameObjectRemoveListeners.forEach(listener -> listener.accept(gameObject)));
         gameObjects.clear();
     }
 

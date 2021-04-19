@@ -1,16 +1,15 @@
 package com.triateq.gravitymaze.editor.utils;
 
-import com.triateq.gravitymaze.game.actors.gameobjects.Ball;
-import com.triateq.gravitymaze.game.actors.gameobjects.Box;
-import com.triateq.gravitymaze.game.actors.gameobjects.Barrier;
-import com.triateq.gravitymaze.game.actors.gameobjects.GameObject;
-import com.triateq.gravitymaze.game.actors.gameobjects.Cup;
-import com.triateq.gravitymaze.game.actors.gameobjects.Conveyor;
-import com.triateq.gravitymaze.game.actors.gameobjects.Switch;
-import com.triateq.gravitymaze.game.actors.gameobjects.Portal;
-import com.triateq.gravitymaze.game.actors.gameobjects.Spike;
-import com.triateq.gravitymaze.game.actors.gameobjects.Magnet;
-import com.triateq.gravitymaze.core.game.Context;
+import com.triateq.gravitymaze.core.game.GameObject;
+import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Ball;
+import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Box;
+import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Barrier;
+import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Cup;
+import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor;
+import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Switch;
+import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Portal;
+import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Spike;
+import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Magnet;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -32,23 +31,17 @@ public enum GameObjectType {
         this.clazz = clazz;
     }
 
-    public GameObject newInstance(Context context) {
+    public GameObject newInstance() {
         try {
-            return createGameObject(clazz, context);
+            return createGameObject(clazz);
         } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
-            throw new IllegalStateException("Can't create a new game object.");
+            throw new IllegalStateException("Can't create a new game object");
         }
     }
 
-    private GameObject createGameObject(Class<?> clazz, Context context) throws NoSuchMethodException,
+    private GameObject createGameObject(Class<?> clazz) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException, InstantiationException {
-        Constructor<?> constructor;
-        try {
-            constructor = clazz.getConstructor(Context.class);
-            return (GameObject) constructor.newInstance(context);
-        } catch (NoSuchMethodException ignored) {
-            constructor = clazz.getConstructor();
-            return (GameObject) constructor.newInstance();
-        }
+        Constructor<?> constructor = clazz.getConstructor();
+        return (GameObject) constructor.newInstance();
     }
 }

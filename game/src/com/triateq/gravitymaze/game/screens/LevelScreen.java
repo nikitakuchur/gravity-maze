@@ -9,13 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.triateq.gravitymaze.game.level.Level;
-import com.triateq.gravitymaze.game.level.LevelLoader;
+import com.triateq.gravitymaze.core.game.Level;
+import com.triateq.gravitymaze.core.serialization.LevelLoader;
 import com.triateq.gravitymaze.core.ui.MenuStack;
+import com.triateq.gravitymaze.game.gameobjects.LevelController;
 import com.triateq.gravitymaze.game.ui.level.LevelResult;
 import com.triateq.gravitymaze.game.ui.level.LevelUI;
 import com.triateq.gravitymaze.core.game.Context;
 import com.triateq.gravitymaze.core.game.GameScreen;
+import com.triateq.gravitymaze.game.utils.LevelBuilder;
 
 import java.io.IOException;
 
@@ -41,8 +43,7 @@ public class LevelScreen extends GameScreen {
         stage.getCamera().position.set(Vector3.Zero);
 
         try {
-            level = levelLoader.load(levelFile);
-            level.addGameEndListener(this::showResultMenu);
+            level = loadLevel();
             stage.addActor(level);
         } catch (IOException e) {
             Gdx.app.error(getClass().getName(), e.getMessage(), e);
@@ -75,14 +76,21 @@ public class LevelScreen extends GameScreen {
     public void resetLevel() {
         try {
             int index = stage.getActors().indexOf(level, true);
-            Level loadedLevel = levelLoader.load(levelFile);
-            loadedLevel.addGameEndListener(this::showResultMenu);
+            Level loadedLevel = loadLevel();
             stage.getActors().set(index, loadedLevel);
             level.dispose();
             level = loadedLevel;
         } catch (IOException e) {
             Gdx.app.error(getClass().getName(), e.getMessage(), e);
         }
+    }
+
+    private Level loadLevel() throws IOException {
+        Level level = LevelBuilder.from(levelLoader.load(levelFile)).build();
+        LevelController controller = level.getGameObjectStore().getAnyGameObjectOrThrow(LevelController.class,
+                () -> new IllegalStateException("Cannot find the level controller"));
+        controller.addGameEndListener(this::showResultMenu);
+        return level;
     }
 
     public void showResultMenu(int stars) {

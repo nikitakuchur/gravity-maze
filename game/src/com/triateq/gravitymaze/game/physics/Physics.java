@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.triateq.gravitymaze.core.game.GameObjectStore;
+import com.triateq.gravitymaze.core.game.Level;
+import com.triateq.gravitymaze.game.gameobjects.Maze;
+import com.triateq.gravitymaze.game.gameobjects.Gravity;
 import com.triateq.gravitymaze.game.cells.CellType;
-import com.triateq.gravitymaze.game.level.Level;
-import com.triateq.gravitymaze.game.actors.gameobjects.GameObjectStore;
 import com.triateq.gravitymaze.game.utils.Direction;
 
-public class Physics {
+public class Physics extends Actor {
 
     private final Level level;
 
@@ -17,9 +20,10 @@ public class Physics {
         this.level = level;
     }
 
-    public void update(float delta) {
+    @Override
+    public void act(float delta) {
         GameObjectStore store = level.getGameObjectStore();
-        List<PhysicalController> controllers = store.getGameObjects(PhysicalObject.class).stream()
+        List<PhysicalController<?>> controllers = store.getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
                 .filter(physicalController -> !physicalController.isFrozen())
                 .collect(Collectors.toList());
@@ -27,11 +31,14 @@ public class Physics {
         controllers.forEach(controller -> controller.update(delta));
     }
 
-    private void doGravity(PhysicalController controller) {
-        Vector2 gravityDirection = level.getGravityDirection().getDirection();
+    private void doGravity(PhysicalController<?> controller) {
+        Gravity gravity = level.getGameObjectStore()
+                .getAnyGameObjectOrThrow(Gravity.class, () -> new IllegalStateException("Cannot find the gravity object"));
+
+        Vector2 gravityDirection = gravity.getGravityDirection().getDirection();
         Vector2 nextPosition = controller.getPrevPosition().add(gravityDirection);
         nextPosition = new Vector2((int) nextPosition.x, (int) nextPosition.y);
-        if (detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, level.getGravityDirection())) {
+        if (detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, gravity.getGravityDirection())) {
             nextPosition = controller.getPrevPosition();
         }
         controller.setNextPosition(nextPosition);
@@ -40,8 +47,11 @@ public class Physics {
     public static boolean detectCollision(Level level, int x, int y, Direction direction) {
         Vector2 nextPosition = new Vector2(x, y);
 
+        Maze maze = level.getGameObjectStore()
+                .getAnyGameObjectOrThrow(Maze.class, () -> new IllegalStateException("Cannot find the game map object"));
+
         while (!detectFrozenObject(level, (int) nextPosition.x, (int) nextPosition.y, direction)
-                && level.getMap().getCellType((int) nextPosition.x, (int) nextPosition.y) != CellType.FILLED) {
+                && maze.getCellType((int) nextPosition.x, (int) nextPosition.y) != CellType.FILLED) {
             if (!detectPhysicalObject(level, (int) nextPosition.x, (int) nextPosition.y, direction)) {
                 return false;
             }

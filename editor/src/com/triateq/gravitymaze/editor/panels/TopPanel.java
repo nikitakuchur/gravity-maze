@@ -1,15 +1,16 @@
 package com.triateq.gravitymaze.editor.panels;
 
 import com.badlogic.gdx.Gdx;
+import com.triateq.gravitymaze.core.game.Level;
 import com.triateq.gravitymaze.editor.EditorApplication;
-import com.triateq.gravitymaze.game.level.Level;
-import com.triateq.gravitymaze.game.level.LevelLoader;
+import com.triateq.gravitymaze.core.serialization.LevelLoader;
+import com.triateq.gravitymaze.game.utils.LevelBuilder;
 
 import javax.swing.*;
 
 public class TopPanel extends JPanel {
 
-    private LevelLoader levelLoader;
+    private final LevelLoader levelLoader;
     private transient Level level;
 
     public TopPanel(EditorApplication app) {
@@ -20,7 +21,7 @@ public class TopPanel extends JPanel {
 
         playButton.addActionListener(e -> Gdx.app.postRunnable(() -> {
             level = app.getLevelEditor().getLevel();
-            Level copy = copyLevel(level);
+            Level copy = LevelBuilder.from(level).build();
             app.getLevelEditor().setLevel(copy);
             app.getLevelEditor().play();
             playButton.setEnabled(false);
