@@ -6,13 +6,16 @@ import java.util.function.IntConsumer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.triateq.gravitymaze.core.game.GameObject;
 import com.triateq.gravitymaze.core.game.GameObjectStore;
 import com.triateq.gravitymaze.core.game.Level;
 import com.triateq.gravitymaze.core.serialization.annotations.Transient;
 import com.triateq.gravitymaze.game.gameobjects.mazeobjects.Ball;
+import com.triateq.gravitymaze.game.physics.Physics;
 import com.triateq.gravitymaze.game.utils.Direction;
 import com.triateq.gravitymaze.game.physics.PhysicalObject;
 
@@ -48,10 +51,17 @@ public class LevelController extends GameObject {
         store = level.getGameObjectStore();
         gravity = store.getAnyGameObjectOrThrow(Gravity.class, () -> new IllegalStateException("Cannot find the gravity object"));
         properties = store.getAnyGameObjectOrThrow(LevelProperties.class, () -> new IllegalStateException("Cannot find the properties object"));
+
+        Physics physics = store.getAnyGameObjectOrThrow(Physics.class, () -> new IllegalStateException("Cannot find the physics object"));
+        float indent = (level.getWidth() + level.getHeight()) / 120.f;
+        physics.addPhysicsListener(controller -> {
+            level.addAction(Actions.moveTo(0, -indent * controller.getVelocity().len(), 0.05f));
+        });
     }
 
     @Override
     public void act(float delta) {
+        super.act(delta);
         // Zoom out
         if (zoom && t < 1) {
             t += 4 * delta;
@@ -70,6 +80,14 @@ public class LevelController extends GameObject {
 
         if (!zoom) {
             rotateToClosestEdge(delta);
+        }
+
+        // Back to the center
+        if (level.getY() < 0) {
+            float speed = (level.getWidth() + level.getHeight()) / 15.f;
+            level.setPosition(0, level.getY() + speed * delta);
+        } else {
+            level.setY(0);
         }
 
         if (!gameEnded && !failed && store.getGameObjects(Ball.class).isEmpty()) {
@@ -118,7 +136,6 @@ public class LevelController extends GameObject {
     }
 
     public void endGame(boolean failed) {
-        //clearListeners();
         this.failed = failed;
         int stars = 1;
         if (failed) {

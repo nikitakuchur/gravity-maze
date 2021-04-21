@@ -1,20 +1,25 @@
 package com.triateq.gravitymaze.game.physics;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.triateq.gravitymaze.core.game.GameObject;
 import com.triateq.gravitymaze.core.game.GameObjectStore;
 import com.triateq.gravitymaze.core.game.Level;
+import com.triateq.gravitymaze.core.serialization.annotations.Transient;
 import com.triateq.gravitymaze.game.gameobjects.Maze;
 import com.triateq.gravitymaze.game.gameobjects.Gravity;
 import com.triateq.gravitymaze.game.cells.CellType;
 import com.triateq.gravitymaze.game.utils.Direction;
 
-public class Physics extends Actor {
+@Transient
+public class Physics extends GameObject {
 
     private final Level level;
+
+    private final List<PhysicsListener> listeners = new ArrayList<>();
 
     public Physics(Level level) {
         this.level = level;
@@ -40,6 +45,9 @@ public class Physics extends Actor {
         nextPosition = new Vector2((int) nextPosition.x, (int) nextPosition.y);
         if (detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, gravity.getGravityDirection())) {
             nextPosition = controller.getPrevPosition();
+            if (controller.isMoving()) {
+                listeners.forEach(listener -> listener.onCollisionDetected(controller));
+            }
         }
         controller.setNextPosition(nextPosition);
     }
@@ -71,5 +79,9 @@ public class Physics extends Actor {
         return level.getGameObjectStore().getGameObjects(PhysicalObject.class).stream()
                 .map(PhysicalObject::getPhysicalController)
                 .anyMatch(controller -> controller.getCollider().checkCollision(controller, x, y, direction));
+    }
+
+    public void addPhysicsListener(PhysicsListener listener) {
+        listeners.add(listener);
     }
 }

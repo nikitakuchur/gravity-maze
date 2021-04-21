@@ -80,7 +80,7 @@ public class LevelBuilder {
         newLevel.getGameObjectStore().add(new Gravity());
         newLevel.getGameObjectStore().add(new LevelProperties());
         newLevel.getGameObjectStore().add(new LevelController());
-        newLevel.addActor(new Physics(newLevel));
+        newLevel.getGameObjectStore().add(new Physics(newLevel));
         newLevel.initialize();
         return newLevel;
     }
