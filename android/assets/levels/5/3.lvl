@@ -1,15 +1,15 @@
 {
-  "class": "com.triateq.gravitymaze.core.game.Level",
+  "class": "com.majakkagames.gravitymaze.core.game.Level",
   "value": {
     "gameObjects": [
         {
-            "class": "com.triateq.gravitymaze.game.gameobjects.LevelProperties",
+            "class": "com.majakkagames.gravitymaze.game.gameobjects.LevelProperties",
             "value": {
               "maxMoves": 12
             }
         },
         {
-          "class": "com.triateq.gravitymaze.game.gameobjects.Background",
+          "class": "com.majakkagames.gravitymaze.game.gameobjects.Background",
           "value": {
             "firstColor": {
               "r": 1.0,
@@ -26,7 +26,7 @@
           }
         },
         {
-          "class": "com.triateq.gravitymaze.game.gameobjects.Maze",
+          "class": "com.majakkagames.gravitymaze.game.gameobjects.Maze",
           "value": {
             "color": {
               "r": 0.007843138,
@@ -138,7 +138,7 @@
           }
         },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 4,
           "y": 0,
@@ -152,7 +152,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 5,
           "y": 0,
@@ -166,7 +166,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 6,
           "y": 0,
@@ -180,7 +180,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 8,
           "y": 0,
@@ -194,7 +194,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 8,
           "y": 1,
@@ -208,7 +208,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 8,
           "y": 3,
@@ -222,7 +222,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 8,
           "y": 2,
@@ -236,7 +236,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 8,
           "y": 4,
@@ -250,7 +250,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 4,
           "y": 8,
@@ -264,7 +264,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 3,
           "y": 8,
@@ -278,7 +278,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 2,
           "y": 8,
@@ -292,7 +292,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 1,
           "y": 8,
@@ -306,7 +306,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 0,
           "y": 8,
@@ -320,7 +320,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 0,
           "y": 7,
@@ -334,7 +334,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 0,
           "y": 6,
@@ -348,7 +348,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 0,
           "y": 5,
@@ -362,7 +362,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Conveyor",
         "value": {
           "x": 0,
           "y": 4,
@@ -376,7 +376,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Ball",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Ball",
         "value": {
           "name": "b1",
           "x": 3,
@@ -390,7 +390,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Spike",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Spike",
         "value": {
           "x": 8,
           "y": 8,
@@ -403,7 +403,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Spike",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Spike",
         "value": {
           "x": 5,
           "y": 7,
@@ -416,7 +416,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Portal",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Portal",
         "value": {
           "name": "p21",
           "x": 6,
@@ -431,7 +431,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Portal",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Portal",
         "value": {
           "name": "p12",
           "x": 2,
@@ -446,7 +446,7 @@
         }
       },
       {
-        "class": "com.triateq.gravitymaze.game.gameobjects.mazeobjects.Cup",
+        "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Cup",
         "value": {
           "x": 3,
           "y": 7,
