@@ -10,7 +10,7 @@ public class EmptyCollider implements Collider {
     }
 
     @Override
-    public boolean checkCollision(PhysicalController physicalController, int x, int y, Direction gravityDirection) {
+    public boolean checkCollision(PhysicalController<?> physicalController, int x, int y, Direction gravityDirection) {
         return false;
     }
 }
