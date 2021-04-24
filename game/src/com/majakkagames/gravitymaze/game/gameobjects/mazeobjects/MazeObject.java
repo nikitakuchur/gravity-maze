@@ -15,8 +15,7 @@ public abstract class MazeObject extends GameObject {
     public void initialize(Level level) {
         super.initialize(level);
         assetManager = level.getContext().getAssetManager();
-        maze = level.getGameObjectStore().getAnyGameObjectOrThrow(Maze.class,
-                () -> new IllegalStateException("Cannot find the maze object"));
+        maze = level.getGameObjectStore().getAnyGameObject(Maze.class);
     }
 
     @Override

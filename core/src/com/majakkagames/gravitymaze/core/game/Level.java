@@ -36,9 +36,9 @@ public final class Level extends GameObject implements Disposable {
         store.addEventHandler(e -> {
             GameObject gameObject = e.getGameObject();
             int layer = gameObject.getLayer();
-            if (e.getType() == Type.ADD) {
+            if (e.getType() == Type.ADDED) {
                 groups.get(layer).addActor(gameObject);
-            } else if (e.getType() == Type.REMOVE) {
+            } else if (e.getType() == Type.REMOVED) {
                 groups.get(layer).removeActor(gameObject);
             }
         });

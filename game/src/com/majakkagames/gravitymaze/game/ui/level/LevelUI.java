@@ -77,8 +77,7 @@ public class LevelUI extends Menu {
         fpsLabel.setText("FPS: " + Gdx.graphics.getFramesPerSecond());
         Level level = ((LevelScreen) getContext().getGameScreen()).getLevel();
 
-        LevelProperties properties = level.getGameObjectStore()
-                .getAnyGameObjectOrThrow(LevelProperties.class, () -> new IllegalStateException("Cannot find the properties object"));
+        LevelProperties properties = level.getGameObjectStore().getAnyGameObject(LevelProperties.class);
         scoreLabel.setText(properties.getMoves());
     }
 

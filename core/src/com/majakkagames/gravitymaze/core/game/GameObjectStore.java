@@ -4,7 +4,6 @@ import com.majakkagames.gravitymaze.core.events.Event;
 import com.majakkagames.gravitymaze.core.events.EventHandler;
 
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -42,12 +41,12 @@ public class GameObjectStore {
     public void add(GameObject gameObject) {
         Set<Class<?>> classes = getAllClasses(gameObject.getClass());
         classes.forEach(clazz -> gameObjects.computeIfAbsent(clazz.getName(), c -> new ArrayList<>()).add(gameObject));
-        GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.ADD, gameObject);
+        GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.ADDED, gameObject);
         eventHandlers.forEach(listener -> listener.handle(event));
     }
 
     /**
-     * Remove the given game object from the store.
+     * Removes the given game object from the store.
      *
      * @param gameObject the game object
      */
@@ -62,7 +61,7 @@ public class GameObjectStore {
                 }
             }
         });
-        GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.REMOVE, gameObject);
+        GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.REMOVED, gameObject);
         eventHandlers.forEach(listener -> listener.handle(event));
     }
 
@@ -76,6 +75,44 @@ public class GameObjectStore {
         if (gameObject == null) return false;
         return getGameObjects(gameObject.getClass()).stream()
                 .anyMatch(object -> object == gameObject);
+    }
+
+    /**
+     * Checks if the store has any game object with the given name or not.
+     *
+     * @param name the name
+     * @return true if any game object is contained in the store and false otherwise
+     */
+    public boolean contains(String name) {
+        Objects.requireNonNull(name);
+        return getGameObjects().stream()
+                .anyMatch(gameObject -> name.equals(gameObject.getName()));
+    }
+
+    /**
+     * Checks if the store has any game object with the given type.
+     *
+     * @param clazz the type
+     * @return true if any game object is contained in the store and false otherwise
+     */
+    public boolean contains(Class<?> clazz) {
+        Objects.requireNonNull(clazz);
+        return gameObjects.containsKey(clazz.getName());
+    }
+
+    /**
+     * Checks if the store has any game object with the given type and name.
+     *
+     * @param clazz the type
+     * @param name  the name
+     * @return true if any game object is contained in the store and false otherwise
+     */
+    public boolean contains(Class<?> clazz, String name) {
+        Objects.requireNonNull(clazz, name);
+        return Optional.ofNullable(gameObjects.get(clazz.getName()))
+                .map(list -> list.stream()
+                        .anyMatch(gameObject -> name.equals(gameObject.getName())))
+                .orElse(false);
     }
 
     /**
@@ -95,12 +132,12 @@ public class GameObjectStore {
      * @param name  the name
      * @return the founded game object or null
      */
-    public <T> T find(Class<T> clazz, String name) {
-        if (name == null) return null;
+    public <T extends GameObject> T find(Class<T> clazz, String name) {
+        Objects.requireNonNull(clazz, name);
         return getGameObjects(clazz).stream()
-                .filter(gameObject -> name.equals(((GameObject) gameObject).getName()))
+                .filter(gameObject -> name.equals(gameObject.getName()))
                 .findAny()
-                .orElse(null);
+                .orElseThrow(() -> new IllegalStateException("Cannot find game object"));
     }
 
     /**
@@ -120,18 +157,10 @@ public class GameObjectStore {
      */
     public <T> List<T> getGameObjects(Class<T> clazz) {
         List<GameObject> list = gameObjects.get(clazz.getName());
-        if (list == null) return new ArrayList<>();
+        if (list == null) return Collections.emptyList();
         return list.stream()
                 .map(clazz::cast)
                 .collect(Collectors.toList());
-    }
-
-    public <T> T getAnyGameObjectOrThrow(Class<T> clazz, Supplier<RuntimeException> exception) {
-        T gameObject = getAnyGameObject(clazz);
-        if (gameObject == null) {
-            throw exception.get();
-        }
-        return gameObject;
     }
 
     /**
@@ -141,12 +170,12 @@ public class GameObjectStore {
      * @return the found game object or null
      */
     public <T> T getAnyGameObject(Class<T> clazz) {
-        List<GameObject> list = gameObjects.get(clazz.getName());
-        if (list == null) return null;
-        return list.stream()
-                .map(clazz::cast)
-                .findAny()
-                .orElse(null);
+        List<GameObject> result = gameObjects.get(clazz.getName());
+        return Optional.ofNullable(result)
+                .flatMap(list -> list.stream()
+                        .map(clazz::cast)
+                        .findAny())
+                .orElseThrow(() -> new IllegalStateException("Cannot find " + clazz.getName()));
     }
 
     private Set<Class<?>> getAllClasses(Class<?> clazz) {
@@ -172,12 +201,17 @@ public class GameObjectStore {
      */
     public void clear() {
         getGameObjects().forEach(gameObject -> {
-            GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.ADD, gameObject);
+            GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.ADDED, gameObject);
             eventHandlers.forEach(handler -> handler.handle(event));
         });
         gameObjects.clear();
     }
 
+    /**
+     * Adds the given event handler.
+     *
+     * @param handler the event handler
+     */
     public void addEventHandler(EventHandler<GameObjectEvent> handler) {
         eventHandlers.add(handler);
     }
@@ -185,7 +219,7 @@ public class GameObjectStore {
     public static class GameObjectEvent implements Event {
 
         public enum Type {
-            ADD, REMOVE
+            ADDED, REMOVED
         }
 
         private final Type type;

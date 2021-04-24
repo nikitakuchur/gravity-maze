@@ -43,14 +43,16 @@ public class Cup extends MazeObject {
 
         GameObjectStore store = level.getGameObjectStore();
 
-        Ball ball = store.find(Ball.class, ballName);
-        if (ball != null && getPosition().equals(ball.getPosition())) {
-            store.remove(ball);
-            ballName = null;
-            destroy = true;
-            clearActions();
-            addAction(GameActions.shrink());
-            effect.start();
+        if (store.contains(Ball.class, ballName)) {
+            Ball ball = store.find(Ball.class, ballName);
+            if (ball != null && getPosition().equals(ball.getPosition())) {
+                store.remove(ball);
+                ballName = null;
+                destroy = true;
+                clearActions();
+                addAction(GameActions.shrink());
+                effect.start();
+            }
         }
         effect.update(delta);
         if (destroy && !effect.isPlaying()) {

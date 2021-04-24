@@ -39,8 +39,7 @@ public class Physics extends GameObject {
     }
 
     private void doGravity(PhysicalController<?> controller) {
-        Gravity gravity = level.getGameObjectStore()
-                .getAnyGameObjectOrThrow(Gravity.class, () -> new IllegalStateException("Cannot find the gravity object"));
+        Gravity gravity = level.getGameObjectStore().getAnyGameObject(Gravity.class);
 
         Vector2 gravityDirection = gravity.getGravityDirection().getDirection();
         Vector2 nextPosition = controller.getPrevPosition().add(gravityDirection);
@@ -58,8 +57,7 @@ public class Physics extends GameObject {
     public static boolean detectCollision(Level level, int x, int y, Direction direction) {
         Vector2 nextPosition = new Vector2(x, y);
 
-        Maze maze = level.getGameObjectStore()
-                .getAnyGameObjectOrThrow(Maze.class, () -> new IllegalStateException("Cannot find the game map object"));
+        Maze maze = level.getGameObjectStore().getAnyGameObject(Maze.class);
 
         while (!detectFrozenObject(level, (int) nextPosition.x, (int) nextPosition.y, direction)
                 && maze.getCellType((int) nextPosition.x, (int) nextPosition.y) != CellType.FILLED) {

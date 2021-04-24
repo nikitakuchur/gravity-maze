@@ -42,8 +42,8 @@ public class Effect {
 
     public Effect(Level level) {
         GameObjectStore store = level.getGameObjectStore();
-        maze = store.getAnyGameObjectOrThrow(Maze.class, () -> new IllegalStateException("Cannot find the maze object"));
-        gravity = store.getAnyGameObjectOrThrow(Gravity.class, () -> new IllegalStateException("Cannot find the gravity object"));
+        maze = store.getAnyGameObject(Maze.class);
+        gravity = store.getAnyGameObject(Gravity.class);
     }
 
     public void start() {

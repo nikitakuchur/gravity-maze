@@ -41,10 +41,10 @@ public class LevelController extends GameObject {
         level.addListener(new LevelInputListener(this));
 
         store = level.getGameObjectStore();
-        gravity = store.getAnyGameObjectOrThrow(Gravity.class, () -> new IllegalStateException("Cannot find the gravity object"));
-        properties = store.getAnyGameObjectOrThrow(LevelProperties.class, () -> new IllegalStateException("Cannot find the properties object"));
+        gravity = store.getAnyGameObject(Gravity.class);
+        properties = store.getAnyGameObject(LevelProperties.class);
 
-        Physics physics = store.getAnyGameObjectOrThrow(Physics.class, () -> new IllegalStateException("Cannot find the physics object"));
+        Physics physics = store.getAnyGameObject(Physics.class);
         float indent = (level.getWidth() + level.getHeight()) / 120.f;
         physics.addEventHandler(event -> {
             if (event.getType() == Type.COLLISION_DETECTED) {

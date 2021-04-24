@@ -87,8 +87,7 @@ public class LevelScreen extends GameScreen {
 
     private Level loadLevel() throws IOException {
         Level level = LevelBuilder.from(levelLoader.load(levelFile)).build();
-        LevelController controller = level.getGameObjectStore().getAnyGameObjectOrThrow(LevelController.class,
-                () -> new IllegalStateException("Cannot find the level controller"));
+        LevelController controller = level.getGameObjectStore().getAnyGameObject(LevelController.class);
         controller.addEventHandler(new LevelEndHandler(getContext(), menuStack));
         return level;
     }

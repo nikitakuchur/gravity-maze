@@ -28,8 +28,7 @@ public class Spike extends MazeObject {
         super.initialize(level);
         spikeTextureRegion = new TextureRegion(assetManager.get("textures/spike/spike.png", Texture.class));
         centerTextureRegion = new TextureRegion(assetManager.get("textures/spike/center.png", Texture.class));
-        levelController = level.getGameObjectStore().getAnyGameObjectOrThrow(LevelController.class,
-                () -> new IllegalStateException("Cannot find the level controller object"));
+        levelController = level.getGameObjectStore().getAnyGameObject(LevelController.class);
         effect = new Effect(level)
                 .position(getPosition())
                 .count(64)
