@@ -1,6 +1,6 @@
 package com.majakkagames.gravitymaze.core.game;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.IntMap;
@@ -60,8 +60,11 @@ public final class Level extends GameObject implements Disposable {
     }
 
     @Override
-    public Actor hit(float x, float y, boolean touchable) {
-        return this;
+    public void draw(Batch batch, float parentAlpha) {
+        if (!initialized) {
+            throw new IllegalStateException("Level object must be initialized!");
+        }
+        super.draw(batch, parentAlpha);
     }
 
     public Context getContext() {
