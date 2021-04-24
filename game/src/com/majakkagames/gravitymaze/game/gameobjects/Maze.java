@@ -52,27 +52,29 @@ public class Maze extends GameMap<CellType> implements Disposable {
     }
 
     @Override
-    public void initialize(Level level) {
-        super.initialize(level);
-        setWidth(level.getWidth());
-        setHeight(getCellSize() * getCellsHeight());
-        setX(-getWidth() / 2);
-        setY(-getHeight() / 2);
-    }
-
-    @Override
     public void draw(Batch batch, float parentAlpha) {
+        updateSize();
         batch.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-        //shapeRenderer.translate(-getWidth() / 2, -getHeight() / 2, 0);
         shapeRenderer.setColor(getColor());
         drawBorders();
         drawCells();
         shapeRenderer.identity();
         shapeRenderer.end();
         batch.begin();
+    }
+
+    private void updateSize() {
+        float w = level.getWidth();
+        if (w > level.getHeight()) {
+            w = level.getHeight();
+        }
+        setWidth(w);
+        setHeight(w / getCellsWidth() * getCellsHeight());
+        setX(-getWidth() / 2);
+        setY(-getHeight() / 2);
     }
 
     private void drawBorders() {

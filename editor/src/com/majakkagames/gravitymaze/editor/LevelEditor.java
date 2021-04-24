@@ -134,6 +134,7 @@ public class LevelEditor extends Group implements Disposable {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        updateSize();
         super.draw(batch, parentAlpha);
         if (level.onPause() && hasSelectedObject()) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -148,6 +149,11 @@ public class LevelEditor extends Group implements Disposable {
                                   selectedGameObject.getWidth(), selectedGameObject.getHeight());
             shapeRenderer.end();
         }
+    }
+
+    private void updateSize() {
+        level.setWidth(Gdx.graphics.getWidth());
+        level.setHeight(Gdx.graphics.getHeight());
     }
 
     public void play() {
