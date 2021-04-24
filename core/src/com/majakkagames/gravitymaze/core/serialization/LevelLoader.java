@@ -5,7 +5,6 @@ import com.google.gson.*;
 import com.majakkagames.gravitymaze.core.game.GameObject;
 import com.majakkagames.gravitymaze.core.game.Level;
 import com.majakkagames.gravitymaze.core.game.Context;
-import com.majakkagames.gravitymaze.core.serialization.annotations.Serializer;
 
 import java.io.IOException;
 

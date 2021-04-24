@@ -1,11 +1,11 @@
-package com.majakkagames.gravitymaze.core.serialization.annotations;
+package com.majakkagames.gravitymaze.core.serialization;
 
 import com.badlogic.gdx.Gdx;
 import com.google.gson.*;
 import com.majakkagames.gravitymaze.core.game.Context;
 import com.majakkagames.gravitymaze.core.game.GameObject;
 import com.majakkagames.gravitymaze.core.game.Level;
-import com.majakkagames.gravitymaze.core.serialization.Parameters;
+import com.majakkagames.gravitymaze.core.serialization.annotations.Parameter;
 
 import java.lang.reflect.*;
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class Serializer implements JsonSerializer<GameObject>, JsonDeserializer<
     private static Parameters getAnnotatedFieldParameters(Object obj) {
         Parameters parameters = new Parameters();
         for (Field field : getAllFields(obj.getClass())) {
-            Parameter parameter = field.getAnnotation(Parameter.class);
+            com.majakkagames.gravitymaze.core.serialization.annotations.Parameter parameter = field.getAnnotation(com.majakkagames.gravitymaze.core.serialization.annotations.Parameter.class);
             if (parameter == null) continue;
             try {
                 field.setAccessible(true);
@@ -91,7 +91,7 @@ public class Serializer implements JsonSerializer<GameObject>, JsonDeserializer<
     private static Parameters getAnnotatedMethodParameters(Object obj) {
         Parameters parameters = new Parameters();
         for (Method method : getAllMethods(obj.getClass())) {
-            Parameter parameter = method.getAnnotation(Parameter.class);
+            com.majakkagames.gravitymaze.core.serialization.annotations.Parameter parameter = method.getAnnotation(com.majakkagames.gravitymaze.core.serialization.annotations.Parameter.class);
             if (parameter == null || !isGetter(method)) continue;
             try {
                 method.setAccessible(true);
@@ -114,7 +114,7 @@ public class Serializer implements JsonSerializer<GameObject>, JsonDeserializer<
 
     private static void setAnnotatedFieldParameters(Object obj, Parameters parameters) {
         for (Field field : getAllFields(obj.getClass())) {
-            Parameter parameter = field.getAnnotation(Parameter.class);
+            com.majakkagames.gravitymaze.core.serialization.annotations.Parameter parameter = field.getAnnotation(com.majakkagames.gravitymaze.core.serialization.annotations.Parameter.class);
             if (parameter == null) continue;
             try {
                 field.setAccessible(true);
@@ -131,7 +131,7 @@ public class Serializer implements JsonSerializer<GameObject>, JsonDeserializer<
 
     private static void setAnnotatedMethodParameters(Object obj, Parameters parameters) {
         for (Method method : getAllMethods(obj.getClass())) {
-            Parameter parameter = method.getAnnotation(Parameter.class);
+            com.majakkagames.gravitymaze.core.serialization.annotations.Parameter parameter = method.getAnnotation(Parameter.class);
             if (parameter == null || !isSetter(method)) continue;
             try {
                 method.setAccessible(true);

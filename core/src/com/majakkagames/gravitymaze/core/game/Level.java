@@ -9,6 +9,8 @@ import com.majakkagames.gravitymaze.core.serialization.Parameters;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static com.majakkagames.gravitymaze.core.game.GameObjectStore.GameObjectEvent.*;
+
 public final class Level extends GameObject implements Disposable {
 
     private static final int DEFAULT_LAYERS_NUMBER = 10;
@@ -31,14 +33,14 @@ public final class Level extends GameObject implements Disposable {
             addActor(group);
         });
 
-        store.addGameObjectAddListener(gameObject -> {
+        store.addEventHandler(e -> {
+            GameObject gameObject = e.getGameObject();
             int layer = gameObject.getLayer();
-            groups.get(layer).addActor(gameObject);
-        });
-
-        store.addGameObjectRemoveListener(gameObject -> {
-            int layer = gameObject.getLayer();
-            groups.get(layer).removeActor(gameObject);
+            if (e.getType() == Type.ADD) {
+                groups.get(layer).addActor(gameObject);
+            } else if (e.getType() == Type.REMOVE) {
+                groups.get(layer).removeActor(gameObject);
+            }
         });
 
         groups.values().forEach(this::addActor);

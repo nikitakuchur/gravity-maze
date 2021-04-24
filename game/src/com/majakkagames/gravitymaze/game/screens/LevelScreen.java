@@ -13,7 +13,6 @@ import com.majakkagames.gravitymaze.core.game.Level;
 import com.majakkagames.gravitymaze.core.serialization.LevelLoader;
 import com.majakkagames.gravitymaze.core.ui.MenuStack;
 import com.majakkagames.gravitymaze.game.gameobjects.LevelController;
-import com.majakkagames.gravitymaze.game.ui.level.LevelResult;
 import com.majakkagames.gravitymaze.game.ui.level.LevelUI;
 import com.majakkagames.gravitymaze.core.game.Context;
 import com.majakkagames.gravitymaze.core.game.GameScreen;
@@ -42,6 +41,8 @@ public class LevelScreen extends GameScreen {
 
         stage.getCamera().position.set(Vector3.Zero);
 
+        menuStack = new MenuStack();
+
         try {
             level = loadLevel();
             stage.addActor(level);
@@ -49,7 +50,6 @@ public class LevelScreen extends GameScreen {
             Gdx.app.error(getClass().getName(), e.getMessage(), e);
         }
 
-        menuStack = new MenuStack();
         menuStack.push(new LevelUI(getContext(), menuStack));
         stage.addActor(menuStack);
         stage.addListener(new InputListener() {
@@ -89,13 +89,8 @@ public class LevelScreen extends GameScreen {
         Level level = LevelBuilder.from(levelLoader.load(levelFile)).build();
         LevelController controller = level.getGameObjectStore().getAnyGameObjectOrThrow(LevelController.class,
                 () -> new IllegalStateException("Cannot find the level controller"));
-        controller.addGameEndListener(this::showResultMenu);
+        controller.addEventHandler(new LevelEndHandler(getContext(), menuStack));
         return level;
-    }
-
-    public void showResultMenu(int stars) {
-        LevelResult resultMenu = new LevelResult(getContext(), menuStack, stars);
-        menuStack.push(resultMenu);
     }
 
     @Override

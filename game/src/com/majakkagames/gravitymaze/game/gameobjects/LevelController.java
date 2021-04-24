@@ -2,22 +2,19 @@ package com.majakkagames.gravitymaze.game.gameobjects;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.IntConsumer;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.majakkagames.gravitymaze.core.events.Event;
+import com.majakkagames.gravitymaze.core.events.EventHandler;
 import com.majakkagames.gravitymaze.core.game.GameObject;
 import com.majakkagames.gravitymaze.core.game.GameObjectStore;
 import com.majakkagames.gravitymaze.core.game.Level;
 import com.majakkagames.gravitymaze.core.serialization.annotations.Transient;
 import com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Ball;
+import com.majakkagames.gravitymaze.game.physics.PhysicalController;
 import com.majakkagames.gravitymaze.game.physics.Physics;
+import com.majakkagames.gravitymaze.game.physics.Physics.PhysicsEvent.Type;
 import com.majakkagames.gravitymaze.game.utils.Direction;
-import com.majakkagames.gravitymaze.game.physics.PhysicalObject;
 
 @Transient
 public class LevelController extends GameObject {
@@ -30,23 +27,18 @@ public class LevelController extends GameObject {
 
     private Direction lastGravityDirection = Direction.BOTTOM;
 
-    private float lastAngle;
-    private final Vector2 lastTouchPosition = new Vector2();
-
-    private boolean zoom;
-    private boolean lockRotation;
+    private boolean zoomOut;
 
     private float t;
 
     private boolean gameEnded;
-    private boolean failed;
 
-    private final ArrayList<IntConsumer> gameEndListeners = new ArrayList<>();
+    private final List<EventHandler<LevelEvent>> eventHandlers = new ArrayList<>();
 
     @Override
     public void initialize(Level level) {
         this.level = level;
-        level.addListener(new LevelInputListener());
+        level.addListener(new LevelInputListener(this));
 
         store = level.getGameObjectStore();
         gravity = store.getAnyGameObjectOrThrow(Gravity.class, () -> new IllegalStateException("Cannot find the gravity object"));
@@ -54,8 +46,11 @@ public class LevelController extends GameObject {
 
         Physics physics = store.getAnyGameObjectOrThrow(Physics.class, () -> new IllegalStateException("Cannot find the physics object"));
         float indent = (level.getWidth() + level.getHeight()) / 120.f;
-        physics.addPhysicsListener(controller -> {
-            level.addAction(Actions.moveTo(0, -indent * controller.getVelocity().len(), 0.05f));
+        physics.addEventHandler(event -> {
+            if (event.getType() == Type.COLLISION_DETECTED) {
+                PhysicalController<?> controller = event.getPhysicalController();
+                level.addAction(Actions.moveTo(0, -indent * controller.getVelocity().len(), 0.05f));
+            }
         });
     }
 
@@ -63,22 +58,22 @@ public class LevelController extends GameObject {
     public void act(float delta) {
         super.act(delta);
         // Zoom out
-        if (zoom && t < 1) {
+        if (zoomOut && t < 1) {
             t += 4 * delta;
             level.setScale(scaleAnimation(t));
-        } else if (zoom) {
+        } else if (zoomOut) {
             level.setScale(scaleAnimation(1));
         }
 
         // Zoom in
-        if (!zoom && t > 0) {
+        if (!zoomOut && t > 0) {
             t -= 4 * delta;
             level.setScale(scaleAnimation(t));
-        } else if (!zoom) {
+        } else if (!zoomOut) {
             level.setScale(scaleAnimation(0));
         }
 
-        if (!zoom) {
+        if (!zoomOut) {
             rotateToClosestEdge(delta);
         }
 
@@ -90,10 +85,17 @@ public class LevelController extends GameObject {
             level.setY(0);
         }
 
-        if (!gameEnded && !failed && store.getGameObjects(Ball.class).isEmpty()) {
+        if (!gameEnded && store.getGameObjects(Ball.class).isEmpty()) {
             endGame(false);
-            gameEnded = true;
         }
+    }
+
+    public void zoomOut() {
+        zoomOut = true;
+    }
+
+    public void zoomIn() {
+        zoomOut = false;
     }
 
     private void rotateToClosestEdge(float delta) {
@@ -104,20 +106,20 @@ public class LevelController extends GameObject {
         if (Math.abs(Math.cos(angleRad)) >= Math.abs(Math.sin(angleRad))) {
             if (Math.cos(angleRad) < 0) {
                 level.setRotation(angle + (float) Math.sin(angleRad) * speed * delta);
-                changeGravityDirection(Direction.TOP);
+                gravity.setGravityDirection(Direction.TOP);
             } else {
                 level.setRotation(angle - (float) Math.sin(angleRad) * speed * delta);
-                changeGravityDirection(Direction.BOTTOM);
+                gravity.setGravityDirection(Direction.BOTTOM);
             }
         }
 
         if (Math.abs(Math.sin(angleRad)) >= Math.abs(Math.cos(angleRad))) {
             if (Math.sin(angleRad) > 0) {
                 level.setRotation(angle + (float) Math.cos(angleRad) * speed * delta);
-                changeGravityDirection(Direction.LEFT);
+                gravity.setGravityDirection(Direction.LEFT);
             } else {
                 level.setRotation(angle - (float) Math.cos(angleRad) * speed * delta);
-                changeGravityDirection(Direction.RIGHT);
+                gravity.setGravityDirection(Direction.RIGHT);
             }
         }
 
@@ -125,94 +127,46 @@ public class LevelController extends GameObject {
             lastGravityDirection = gravity.getGravityDirection();
             properties.setMoves(properties.getMoves() + 1);
         }
-
-        lastAngle = level.getRotation();
-    }
-
-    private void changeGravityDirection(Direction gravityDirection) {
-        if (gravity.getGravityDirection() != gravityDirection) {
-            gravity.setGravityDirection(gravityDirection);
-        }
     }
 
     public void endGame(boolean failed) {
-        this.failed = failed;
-        int stars = 1;
-        if (failed) {
-            stars = 0;
-        } else if (properties.getMaxMoves() >= properties.getMoves()) {
-            stars = 3;
-        } else if (properties.getMaxMoves() * 1.3f >= properties.getMoves()) {
-            stars = 2;
-        }
-        int finalStars = stars;
-        gameEndListeners.forEach(c -> c.accept(finalStars));
+        gameEnded = true;
+        LevelEvent event = new LevelEvent(failed ? LevelEvent.Type.FAILED : LevelEvent.Type.PASSED, level);
+        eventHandlers.forEach(handler -> handler.handle(event));
+    }
+
+    public Level getLevel() {
+        return level;
     }
 
     private float scaleAnimation(float t) {
         return 0.294f * ((float) Math.cos((float) Math.PI * t) - 1) / 2 + 1;
     }
 
-    public void addGameEndListener(IntConsumer listener) {
-        gameEndListeners.add(listener);
+    public void addEventHandler(EventHandler<LevelEvent> handler) {
+        eventHandlers.add(handler);
     }
 
-    private class LevelInputListener extends InputListener {
+    public static class LevelEvent implements Event {
 
-        @Override
-        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            if (!areObjectsGrounded() || level.onPause()) {
-                lockRotation = true;
-                return false;
-            }
-
-            lockRotation = false;
-            zoom = true;
-            lastTouchPosition.set(Gdx.input.getX(), Gdx.input.getY());
-            return true;
+        public enum Type {
+            PASSED, FAILED
         }
 
-        private boolean areObjectsGrounded() {
-            List<PhysicalObject> physicalObjects = level.getGameObjectStore().getGameObjects(PhysicalObject.class);
-            if (physicalObjects.isEmpty()) return false;
-            for (PhysicalObject physicalObject : physicalObjects) {
-                if (physicalObject.getPhysicalController().isMoving()) {
-                    return false;
-                }
-            }
-            return true;
+        private final LevelEvent.Type type;
+        private final Level level;
+
+        public LevelEvent(LevelEvent.Type type, Level level) {
+            this.type = type;
+            this.level = level;
         }
 
-        @Override
-        public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-            lockRotation = false;
-            zoom = false;
+        public LevelEvent.Type getType() {
+            return type;
         }
 
-        @Override
-        public void touchDragged(InputEvent event, float x, float y, int pointer) {
-            if (lockRotation) return;
-            Vector2 center = new Vector2((float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
-            Vector2 touchPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-
-            float angle = lastAngle - touchPosition.sub(center).angleDeg(lastTouchPosition.cpy().sub(center));
-
-            float max = 600 * Gdx.graphics.getDeltaTime();
-            float delta = angleDifference(level.getRotation(), angle);
-
-            if (Math.abs(delta) > max) {
-                level.setRotation(level.getRotation() + Math.signum(delta) * max);
-                lastAngle = level.getRotation();
-                lastTouchPosition.set(Gdx.input.getX(), Gdx.input.getY());
-                return;
-            }
-
-            level.setRotation(angle);
-        }
-
-        private float angleDifference(float alpha, float beta) {
-            float diff = (beta - alpha + 180) % 360 - 180;
-            return diff < -180 ? diff + 360 : diff;
+        public Level getLevel() {
+            return level;
         }
     }
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.badlogic.gdx.math.Vector2;
+import com.majakkagames.gravitymaze.core.events.Event;
+import com.majakkagames.gravitymaze.core.events.EventHandler;
 import com.majakkagames.gravitymaze.core.game.GameObject;
 import com.majakkagames.gravitymaze.core.game.GameObjectStore;
 import com.majakkagames.gravitymaze.core.game.Level;
@@ -19,7 +21,7 @@ public class Physics extends GameObject {
 
     private final Level level;
 
-    private final List<PhysicsListener> listeners = new ArrayList<>();
+    private final List<EventHandler<PhysicsEvent>> eventHandlers = new ArrayList<>();
 
     public Physics(Level level) {
         this.level = level;
@@ -46,7 +48,8 @@ public class Physics extends GameObject {
         if (detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, gravity.getGravityDirection())) {
             nextPosition = controller.getPrevPosition();
             if (controller.isMoving()) {
-                listeners.forEach(listener -> listener.onCollisionDetected(controller));
+                PhysicsEvent event = new PhysicsEvent(PhysicsEvent.Type.COLLISION_DETECTED, controller);
+                eventHandlers.forEach(handler -> handler.handle(event));
             }
         }
         controller.setNextPosition(nextPosition);
@@ -81,7 +84,30 @@ public class Physics extends GameObject {
                 .anyMatch(controller -> controller.getCollider().checkCollision(controller, x, y, direction));
     }
 
-    public void addPhysicsListener(PhysicsListener listener) {
-        listeners.add(listener);
+    public void addEventHandler(EventHandler<PhysicsEvent> handler) {
+        eventHandlers.add(handler);
+    }
+
+    public static class PhysicsEvent implements Event {
+
+        public enum Type {
+            COLLISION_DETECTED
+        }
+
+        private final Type type;
+        private final PhysicalController<?> physicalController;
+
+        public PhysicsEvent(Type type, PhysicalController<?> controller) {
+            this.type = type;
+            this.physicalController = controller;
+        }
+
+        public Type getType() {
+            return type;
+        }
+
+        public PhysicalController<?> getPhysicalController() {
+            return physicalController;
+        }
     }
 }

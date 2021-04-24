@@ -2,7 +2,7 @@ package com.majakkagames.gravitymaze.editor.commands;
 
 import com.majakkagames.gravitymaze.core.game.GameObject;
 import com.majakkagames.gravitymaze.core.serialization.Parameters;
-import com.majakkagames.gravitymaze.core.serialization.annotations.Serializer;
+import com.majakkagames.gravitymaze.core.serialization.Serializer;
 
 public class ChangeParameterCommand<T> implements Command {
 

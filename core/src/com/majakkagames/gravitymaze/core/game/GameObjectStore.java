@@ -1,7 +1,9 @@
 package com.majakkagames.gravitymaze.core.game;
 
+import com.majakkagames.gravitymaze.core.events.Event;
+import com.majakkagames.gravitymaze.core.events.EventHandler;
+
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -12,10 +14,9 @@ public class GameObjectStore {
 
     private final Level level;
 
-    private final HashMap<String, List<GameObject>> gameObjects = new HashMap<>();
+    private final Map<String, List<GameObject>> gameObjects = new HashMap<>();
 
-    private final List<Consumer<GameObject>> gameObjectAddListeners = new ArrayList<>();
-    private final List<Consumer<GameObject>> gameObjectRemoveListeners = new ArrayList<>();
+    private final List<EventHandler<GameObjectEvent>> eventHandlers = new ArrayList<>();
 
     /**
      * Creates a new game object store.
@@ -41,7 +42,8 @@ public class GameObjectStore {
     public void add(GameObject gameObject) {
         Set<Class<?>> classes = getAllClasses(gameObject.getClass());
         classes.forEach(clazz -> gameObjects.computeIfAbsent(clazz.getName(), c -> new ArrayList<>()).add(gameObject));
-        gameObjectAddListeners.forEach(listener -> listener.accept(gameObject));
+        GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.ADD, gameObject);
+        eventHandlers.forEach(listener -> listener.handle(event));
     }
 
     /**
@@ -60,7 +62,8 @@ public class GameObjectStore {
                 }
             }
         });
-        gameObjectRemoveListeners.forEach(listener -> listener.accept(gameObject));
+        GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.REMOVE, gameObject);
+        eventHandlers.forEach(listener -> listener.handle(event));
     }
 
     /**
@@ -168,25 +171,37 @@ public class GameObjectStore {
      * Clears the store.
      */
     public void clear() {
-        getGameObjects().forEach(gameObject -> gameObjectRemoveListeners.forEach(listener -> listener.accept(gameObject)));
+        getGameObjects().forEach(gameObject -> {
+            GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.ADD, gameObject);
+            eventHandlers.forEach(handler -> handler.handle(event));
+        });
         gameObjects.clear();
     }
 
-    /**
-     * Adds the listener to execute when a new game object is added to the store.
-     *
-     * @param consumer the listener
-     */
-    public void addGameObjectAddListener(Consumer<GameObject> consumer) {
-        gameObjectAddListeners.add(consumer);
+    public void addEventHandler(EventHandler<GameObjectEvent> handler) {
+        eventHandlers.add(handler);
     }
 
-    /**
-     * Adds the listener to execute when a game object is removed from the store.
-     *
-     * @param consumer the listener
-     */
-    public void addGameObjectRemoveListener(Consumer<GameObject> consumer) {
-        gameObjectRemoveListeners.add(consumer);
+    public static class GameObjectEvent implements Event {
+
+        public enum Type {
+            ADD, REMOVE
+        }
+
+        private final Type type;
+        private final GameObject gameObject;
+
+        public GameObjectEvent(Type type, GameObject gameObject) {
+            this.type = type;
+            this.gameObject = gameObject;
+        }
+
+        public Type getType() {
+            return type;
+        }
+
+        public GameObject getGameObject() {
+            return gameObject;
+        }
     }
 }
