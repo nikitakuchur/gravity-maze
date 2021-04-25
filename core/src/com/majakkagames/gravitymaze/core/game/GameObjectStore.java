@@ -109,7 +109,8 @@ public class GameObjectStore {
      * @return true if any game object is contained in the store and false otherwise
      */
     public boolean contains(Class<?> clazz, String name) {
-        Objects.requireNonNull(clazz, name);
+        Objects.requireNonNull(clazz);
+        if (name == null) return false;
         return Optional.ofNullable(gameObjects.get(clazz.getName()))
                 .map(list -> list.stream()
                         .anyMatch(gameObject -> name.equals(gameObject.getName())))
@@ -134,7 +135,8 @@ public class GameObjectStore {
      * @return the founded game object or null
      */
     public <T extends GameObject> T find(Class<T> clazz, String name) {
-        Objects.requireNonNull(clazz, name);
+        Objects.requireNonNull(clazz);
+        Objects.requireNonNull(name);
         return getGameObjects(clazz).stream()
                 .filter(gameObject -> name.equals(gameObject.getName()))
                 .findAny()

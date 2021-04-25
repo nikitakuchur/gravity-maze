@@ -1,7 +1,13 @@
 package com.majakkagames.gravitymaze.editor.panels;
 
+import com.badlogic.gdx.Gdx;
+import com.majakkagames.gravitymaze.core.game.GameObjectStore;
+import com.majakkagames.gravitymaze.editor.CommandHistory;
 import com.majakkagames.gravitymaze.editor.LevelEditor;
+import com.majakkagames.gravitymaze.editor.commands.ChangeParameterCommand;
+import com.majakkagames.gravitymaze.editor.commands.Command;
 import com.majakkagames.gravitymaze.editor.utils.Option;
+import com.majakkagames.gravitymaze.game.gameobjects.LevelProperties;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +22,7 @@ public class RightPanel extends JPanel {
     private final ParametersPanel parametersPanel;
     private final GameObjectsPanel gameObjectsPanel = new GameObjectsPanel();
 
-    //private final JSpinner maxMovesSpinner;
+    private final JSpinner maxMovesSpinner;
 
     public RightPanel(LevelEditor levelEditor) {
         this.levelEditor = levelEditor;
@@ -54,7 +60,7 @@ public class RightPanel extends JPanel {
         parametersPanel = new ParametersPanel(levelEditor.getBackground());
         parametersPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        /*JLabel label = new JLabel("Max moves:");
+        JLabel label = new JLabel("Max moves:");
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(0, 0, 32, 1);
@@ -62,35 +68,43 @@ public class RightPanel extends JPanel {
         maxMovesSpinner.setPreferredSize(new Dimension(60, 30));
         maxMovesSpinner.addChangeListener(event ->
                 Gdx.app.postRunnable(() -> {
-                    int maxMoves = levelEditor.getLevel().getMaxMoves();
+                    LevelProperties properties = getLevelProperties();
+                    int maxMoves = properties.getMaxMoves();
                     int value = (int) maxMovesSpinner.getValue();
                     if (maxMoves != value) {
-                        Command command = new ChangeParameterCommand<>(levelEditor.getLevel(), "maxMoves",
+                        Command command = new ChangeParameterCommand<>(properties, "maxMoves",
                                 Integer.class, maxMovesSpinner.getValue());
                         CommandHistory.getInstance().addAndExecute(command);
                     }
                 }));
         CommandHistory.getInstance().addHistoryChangeListener(() -> {
-            int newValue = levelEditor.getLevel().getMaxMoves();
+            LevelProperties properties = getLevelProperties();
+            int newValue = properties.getMaxMoves();
             spinnerModel.setValue(newValue);
-        });*/
+        });
 
         levelEditor.addLevelChangeListener(lev -> {
             initParameterizable();
-            //maxMovesSpinner.setValue(levelEditor.getLevel().getMaxMoves());
+            LevelProperties properties = getLevelProperties();
+            maxMovesSpinner.setValue(getLevelProperties().getMaxMoves());
         });
         levelEditor.addGameObjectSelectListener(parametersPanel::setParameterizable);
 
         JPanel levelPanel = new JPanel();
         levelPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         levelPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        //levelPanel.add(label);
-        //levelPanel.add(maxMovesSpinner);
+        levelPanel.add(label);
+        levelPanel.add(maxMovesSpinner);
 
         panel.add(comboBox);
         panel.add(gameObjectsPanel);
         panel.add(parametersPanel);
         panel.add(levelPanel);
+    }
+
+    private LevelProperties getLevelProperties() {
+        GameObjectStore store = levelEditor.getLevel().getGameObjectStore();
+        return store.getAnyGameObject(LevelProperties.class);
     }
 
     @Override
