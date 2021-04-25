@@ -1,11 +1,9 @@
 package com.majakkagames.gravitymaze.game.gameobjects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.majakkagames.gravitymaze.core.events.Event;
 import com.majakkagames.gravitymaze.core.events.EventHandler;
+import com.majakkagames.gravitymaze.core.events.EventHandlerManager;
 import com.majakkagames.gravitymaze.core.game.GameObject;
 import com.majakkagames.gravitymaze.core.game.GameObjectStore;
 import com.majakkagames.gravitymaze.core.game.Level;
@@ -13,7 +11,6 @@ import com.majakkagames.gravitymaze.core.serialization.annotations.Transient;
 import com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Ball;
 import com.majakkagames.gravitymaze.game.physics.PhysicalController;
 import com.majakkagames.gravitymaze.game.physics.Physics;
-import com.majakkagames.gravitymaze.game.physics.Physics.PhysicsEvent.Type;
 import com.majakkagames.gravitymaze.game.utils.Direction;
 
 @Transient
@@ -33,7 +30,7 @@ public class LevelController extends GameObject {
 
     private boolean gameEnded;
 
-    private final List<EventHandler<LevelEvent>> eventHandlers = new ArrayList<>();
+    private final EventHandlerManager<EventType, LevelEvent> eventHandlerManager = new EventHandlerManager<>();
 
     @Override
     public void initialize(Level level) {
@@ -46,11 +43,9 @@ public class LevelController extends GameObject {
 
         Physics physics = store.getAnyGameObject(Physics.class);
         float indent = (level.getWidth() + level.getHeight()) / 120.f;
-        physics.addEventHandler(event -> {
-            if (event.getType() == Type.COLLISION_DETECTED) {
-                PhysicalController<?> controller = event.getPhysicalController();
-                level.addAction(Actions.moveTo(0, -indent * controller.getVelocity().len(), 0.05f));
-            }
+        physics.addEventHandler(Physics.EventType.COLLISION_DETECTED, event -> {
+            PhysicalController<?> controller = event.getPhysicalController();
+            level.addAction(Actions.moveTo(0, -indent * controller.getVelocity().len(), 0.05f));
         });
     }
 
@@ -131,8 +126,8 @@ public class LevelController extends GameObject {
 
     public void endGame(boolean failed) {
         gameEnded = true;
-        LevelEvent event = new LevelEvent(failed ? LevelEvent.Type.FAILED : LevelEvent.Type.PASSED, level);
-        eventHandlers.forEach(handler -> handler.handle(event));
+        LevelEvent event = new LevelEvent(level);
+        eventHandlerManager.fire(failed ? EventType.FAILED : EventType.PASSED, event);
     }
 
     public Level getLevel() {
@@ -143,26 +138,21 @@ public class LevelController extends GameObject {
         return 0.294f * ((float) Math.cos((float) Math.PI * t) - 1) / 2 + 1;
     }
 
-    public void addEventHandler(EventHandler<LevelEvent> handler) {
-        eventHandlers.add(handler);
+    public void addEventHandler(EventType type, EventHandler<LevelEvent> handler) {
+        eventHandlerManager.add(type, handler);
+    }
+
+
+    public enum EventType {
+        PASSED, FAILED
     }
 
     public static class LevelEvent implements Event {
 
-        public enum Type {
-            PASSED, FAILED
-        }
-
-        private final LevelEvent.Type type;
         private final Level level;
 
-        public LevelEvent(LevelEvent.Type type, Level level) {
-            this.type = type;
+        public LevelEvent(Level level) {
             this.level = level;
-        }
-
-        public LevelEvent.Type getType() {
-            return type;
         }
 
         public Level getLevel() {

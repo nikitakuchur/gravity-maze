@@ -1,4 +1,6 @@
-package com.majakkagames.gravitymaze.editor.commands;
+package com.majakkagames.gravitymaze.editor;
+
+import com.majakkagames.gravitymaze.editor.commands.Command;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,6 +2,7 @@ package com.majakkagames.gravitymaze.core.game;
 
 import com.majakkagames.gravitymaze.core.events.Event;
 import com.majakkagames.gravitymaze.core.events.EventHandler;
+import com.majakkagames.gravitymaze.core.events.EventHandlerManager;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,7 +16,7 @@ public class GameObjectStore {
 
     private final Map<String, List<GameObject>> gameObjects = new HashMap<>();
 
-    private final List<EventHandler<GameObjectEvent>> eventHandlers = new ArrayList<>();
+    private final EventHandlerManager<EventType, GameObjectEvent> eventHandlerManager = new EventHandlerManager<>();
 
     /**
      * Creates a new game object store.
@@ -41,8 +42,8 @@ public class GameObjectStore {
     public void add(GameObject gameObject) {
         Set<Class<?>> classes = getAllClasses(gameObject.getClass());
         classes.forEach(clazz -> gameObjects.computeIfAbsent(clazz.getName(), c -> new ArrayList<>()).add(gameObject));
-        GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.ADDED, gameObject);
-        eventHandlers.forEach(listener -> listener.handle(event));
+        GameObjectEvent event = new GameObjectEvent(gameObject);
+        eventHandlerManager.fire(EventType.ADDED, event);
     }
 
     /**
@@ -61,8 +62,8 @@ public class GameObjectStore {
                 }
             }
         });
-        GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.REMOVED, gameObject);
-        eventHandlers.forEach(listener -> listener.handle(event));
+        GameObjectEvent event = new GameObjectEvent(gameObject);
+        eventHandlerManager.fire(EventType.REMOVED, event);
     }
 
     /**
@@ -201,8 +202,8 @@ public class GameObjectStore {
      */
     public void clear() {
         getGameObjects().forEach(gameObject -> {
-            GameObjectEvent event = new GameObjectEvent(GameObjectEvent.Type.ADDED, gameObject);
-            eventHandlers.forEach(handler -> handler.handle(event));
+            GameObjectEvent event = new GameObjectEvent(gameObject);
+            eventHandlerManager.fire(EventType.REMOVED, event);
         });
         gameObjects.clear();
     }
@@ -212,26 +213,20 @@ public class GameObjectStore {
      *
      * @param handler the event handler
      */
-    public void addEventHandler(EventHandler<GameObjectEvent> handler) {
-        eventHandlers.add(handler);
+    public void addEventHandler(EventType type, EventHandler<GameObjectEvent> handler) {
+        eventHandlerManager.add(type, handler);
+    }
+
+    public enum EventType {
+        ADDED, REMOVED
     }
 
     public static class GameObjectEvent implements Event {
 
-        public enum Type {
-            ADDED, REMOVED
-        }
-
-        private final Type type;
         private final GameObject gameObject;
 
-        public GameObjectEvent(Type type, GameObject gameObject) {
-            this.type = type;
+        public GameObjectEvent(GameObject gameObject) {
             this.gameObject = gameObject;
-        }
-
-        public Type getType() {
-            return type;
         }
 
         public GameObject getGameObject() {

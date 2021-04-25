@@ -4,12 +4,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.IntMap;
+import com.majakkagames.gravitymaze.core.events.EventHandler;
+import com.majakkagames.gravitymaze.core.game.GameObjectStore.EventType;
 import com.majakkagames.gravitymaze.core.serialization.Parameters;
 
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import static com.majakkagames.gravitymaze.core.game.GameObjectStore.GameObjectEvent.*;
 
 public final class Level extends GameObject implements Disposable {
 
@@ -33,14 +33,13 @@ public final class Level extends GameObject implements Disposable {
             addActor(group);
         });
 
-        store.addEventHandler(e -> {
-            GameObject gameObject = e.getGameObject();
-            int layer = gameObject.getLayer();
-            if (e.getType() == Type.ADDED) {
-                groups.get(layer).addActor(gameObject);
-            } else if (e.getType() == Type.REMOVED) {
-                groups.get(layer).removeActor(gameObject);
-            }
+        store.addEventHandler(EventType.ADDED, e -> {
+            int layer = e.getGameObject().getLayer();
+            groups.get(layer).addActor(e.getGameObject());
+        });
+        store.addEventHandler(EventType.REMOVED, e -> {
+            int layer = e.getGameObject().getLayer();
+            groups.get(layer).removeActor(e.getGameObject());
         });
 
         groups.values().forEach(this::addActor);

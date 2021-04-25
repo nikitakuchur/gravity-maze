@@ -13,6 +13,7 @@ import com.majakkagames.gravitymaze.core.game.Level;
 import com.majakkagames.gravitymaze.core.serialization.LevelLoader;
 import com.majakkagames.gravitymaze.core.ui.MenuStack;
 import com.majakkagames.gravitymaze.game.gameobjects.LevelController;
+import com.majakkagames.gravitymaze.game.gameobjects.LevelController.EventType;
 import com.majakkagames.gravitymaze.game.ui.level.LevelUI;
 import com.majakkagames.gravitymaze.core.game.Context;
 import com.majakkagames.gravitymaze.core.game.GameScreen;
@@ -88,7 +89,8 @@ public class LevelScreen extends GameScreen {
     private Level loadLevel() throws IOException {
         Level level = LevelBuilder.from(levelLoader.load(levelFile)).build();
         LevelController controller = level.getGameObjectStore().getAnyGameObject(LevelController.class);
-        controller.addEventHandler(new LevelEndHandler(getContext(), menuStack));
+        controller.addEventHandler(EventType.PASSED, new LevelPassedHandler(getContext(), menuStack));
+        controller.addEventHandler(EventType.FAILED, new LevelFailedHandler(getContext(), menuStack));
         return level;
     }
 

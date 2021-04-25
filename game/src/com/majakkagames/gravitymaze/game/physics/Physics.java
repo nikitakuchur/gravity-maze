@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.badlogic.gdx.math.Vector2;
 import com.majakkagames.gravitymaze.core.events.Event;
 import com.majakkagames.gravitymaze.core.events.EventHandler;
+import com.majakkagames.gravitymaze.core.events.EventHandlerManager;
 import com.majakkagames.gravitymaze.core.game.GameObject;
 import com.majakkagames.gravitymaze.core.game.GameObjectStore;
 import com.majakkagames.gravitymaze.core.game.Level;
@@ -21,7 +22,7 @@ public class Physics extends GameObject {
 
     private final Level level;
 
-    private final List<EventHandler<PhysicsEvent>> eventHandlers = new ArrayList<>();
+    private final EventHandlerManager<EventType, PhysicsEvent> eventHandlerManager = new EventHandlerManager<>();
 
     public Physics(Level level) {
         this.level = level;
@@ -47,8 +48,8 @@ public class Physics extends GameObject {
         if (detectCollision(level, (int) nextPosition.x, (int) nextPosition.y, gravity.getGravityDirection())) {
             nextPosition = controller.getPrevPosition();
             if (controller.isMoving()) {
-                PhysicsEvent event = new PhysicsEvent(PhysicsEvent.Type.COLLISION_DETECTED, controller);
-                eventHandlers.forEach(handler -> handler.handle(event));
+                PhysicsEvent event = new PhysicsEvent(controller);
+                eventHandlerManager.fire(EventType.COLLISION_DETECTED, event);
             }
         }
         controller.setNextPosition(nextPosition);
@@ -82,26 +83,20 @@ public class Physics extends GameObject {
                 .anyMatch(controller -> controller.getCollider().checkCollision(controller, x, y, direction));
     }
 
-    public void addEventHandler(EventHandler<PhysicsEvent> handler) {
-        eventHandlers.add(handler);
+    public void addEventHandler(EventType eventType, EventHandler<PhysicsEvent> handler) {
+        eventHandlerManager.add(eventType, handler);
+    }
+
+    public enum EventType {
+        COLLISION_DETECTED
     }
 
     public static class PhysicsEvent implements Event {
 
-        public enum Type {
-            COLLISION_DETECTED
-        }
-
-        private final Type type;
         private final PhysicalController<?> physicalController;
 
-        public PhysicsEvent(Type type, PhysicalController<?> controller) {
-            this.type = type;
+        public PhysicsEvent(PhysicalController<?> controller) {
             this.physicalController = controller;
-        }
-
-        public Type getType() {
-            return type;
         }
 
         public PhysicalController<?> getPhysicalController() {

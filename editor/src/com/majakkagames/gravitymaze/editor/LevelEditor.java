@@ -16,7 +16,6 @@ import com.majakkagames.gravitymaze.core.game.*;
 import com.majakkagames.gravitymaze.core.game.GameObjectStore;
 import com.majakkagames.gravitymaze.editor.commands.AddBlocksCommand;
 import com.majakkagames.gravitymaze.editor.commands.AddGameObjectCommand;
-import com.majakkagames.gravitymaze.editor.commands.CommandHistory;
 import com.majakkagames.gravitymaze.editor.commands.MoveGameObjectCommand;
 import com.majakkagames.gravitymaze.editor.commands.RemoveBlocksCommand;
 import com.majakkagames.gravitymaze.editor.commands.RemoveGameObjectCommand;
@@ -82,10 +81,8 @@ public class LevelEditor extends Group implements Disposable {
     public void setLevel(Level level) {
         this.level = level;
         store = level.getGameObjectStore();
-        background = store.getAnyGameObjectOrThrow(Background.class,
-                () -> new IllegalStateException("Cannot find the background object"));
-        maze = store.getAnyGameObjectOrThrow(Maze.class,
-                () -> new IllegalStateException("Cannot find the game map object"));
+        background = store.getAnyGameObject(Background.class);
+        maze = store.getAnyGameObject(Maze.class);
         clearChildren();
         addActor(level);
         level.setPause(true);

@@ -3,7 +3,6 @@ package com.majakkagames.gravitymaze.editor;
 import com.alee.laf.WebLookAndFeel;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
-import com.majakkagames.gravitymaze.editor.commands.CommandHistory;
 import com.majakkagames.gravitymaze.editor.panels.RightPanel;
 import com.majakkagames.gravitymaze.editor.panels.TopPanel;
 import com.majakkagames.gravitymaze.editor.utils.ParametersUtils;

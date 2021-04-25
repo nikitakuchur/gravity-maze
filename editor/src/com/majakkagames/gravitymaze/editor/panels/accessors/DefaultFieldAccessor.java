@@ -2,7 +2,7 @@ package com.majakkagames.gravitymaze.editor.panels.accessors;
 
 import com.majakkagames.gravitymaze.core.game.GameObject;
 import com.majakkagames.gravitymaze.editor.commands.ChangeParameterCommand;
-import com.majakkagames.gravitymaze.editor.commands.CommandHistory;
+import com.majakkagames.gravitymaze.editor.CommandHistory;
 import com.majakkagames.gravitymaze.core.serialization.Parameters;
 
 import javax.swing.table.TableCellEditor;
