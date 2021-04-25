@@ -113,7 +113,7 @@ public class RightPanel extends JPanel {
         for (Component component : panel.getComponents()) {
             component.setEnabled(b);
         }
-        //maxMovesSpinner.setEnabled(b);
+        maxMovesSpinner.setEnabled(b);
     }
 
     private void initParameterizable() {
