@@ -130,6 +130,10 @@ public class LevelController extends GameObject {
         eventHandlerManager.fire(failed ? EventType.FAILED : EventType.PASSED, event);
     }
 
+    public boolean isGameEnded() {
+        return gameEnded;
+    }
+
     public Level getLevel() {
         return level;
     }

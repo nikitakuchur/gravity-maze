@@ -25,7 +25,7 @@ public class LevelInputListener extends InputListener {
 
     @Override
     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        if (!areObjectsGrounded() || level.onPause()) {
+        if (!areObjectsGrounded() || level.onPause() || controller.isGameEnded()) {
             lock = true;
             return false;
         }
