@@ -49,35 +49,37 @@ public class Portal extends MazeObject {
     @Override
     public void act(float delta) {
         super.act(delta);
-        Portal secondPortal = store.find(Portal.class, secondPortalName);
-        Vector2 position = getPosition();
 
-        if (secondPortal == null || detectCollision()) return;
+        if (store.contains(Portal.class, secondPortalName)) {
+            Portal secondPortal = store.find(Portal.class, secondPortalName);
+            Vector2 position = getPosition();
 
-        PhysicalObject physicalObject = store.getGameObjects(PhysicalObject.class).stream()
-                .filter(obj -> position.equals(obj.getPhysicalController().getPosition()))
-                .findAny()
-                .orElse(null);
+            if (secondPortal == null || detectCollision()) return;
 
-        if (physicalObject != null && !locked && !secondPortal.locked) {
-            PhysicalController<?> physicalController = physicalObject.getPhysicalController();
-            physicalController.setPosition(secondPortal.getPosition());
-            locked = true;
-            secondPortal.locked = true;
+            PhysicalObject physicalObject = store.getGameObjects(PhysicalObject.class).stream()
+                    .filter(obj -> position.equals(obj.getPhysicalController().getPosition()))
+                    .findAny()
+                    .orElse(null);
 
-            effect.position(position)
-                    .direction(physicalController.getVelocity().rotateDeg(180))
-                    .start();
-            secondPortal.effect.position(secondPortal.getPosition())
-                    .direction(physicalController.getVelocity())
-                    .start();
+            if (physicalObject != null && !locked && !secondPortal.locked) {
+                PhysicalController<?> physicalController = physicalObject.getPhysicalController();
+                physicalController.setPosition(secondPortal.getPosition());
+                locked = true;
+                secondPortal.locked = true;
+
+                effect.position(position)
+                        .direction(physicalController.getVelocity().rotateDeg(180))
+                        .start();
+                secondPortal.effect.position(secondPortal.getPosition())
+                        .direction(physicalController.getVelocity())
+                        .start();
+            }
+
+            if (physicalObject == null && secondPortal.isFree()) {
+                locked = false;
+                secondPortal.locked = false;
+            }
         }
-
-        if (physicalObject == null && secondPortal.isFree()) {
-            locked = false;
-            secondPortal.locked = false;
-        }
-
         effect.update(delta);
     }
 

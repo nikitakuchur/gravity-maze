@@ -146,7 +146,6 @@ public class LevelController extends GameObject {
         eventHandlerManager.add(type, handler);
     }
 
-
     public enum EventType {
         PASSED, FAILED
     }

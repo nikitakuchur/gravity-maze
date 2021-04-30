@@ -92,6 +92,11 @@ public class Background extends GameObject implements Disposable {
     }
 
     @Override
+    public Parameters getParameters() {
+        return new Parameters();
+    }
+
+    @Override
     public void setParameters(Parameters parameters) {
         initAnimation();
     }
