@@ -129,7 +129,7 @@ public class Conveyor extends MazeObject implements PhysicalObject {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        Vector2 position = maze.getActualCoords(getX(), getY());
+        Vector2 position = maze.toScreenCoords(getX(), getY());
         batch.setColor(getColor());
         Vector2 dir = direction.getDirection();
         double degrees = -Math.atan2(dir.x, dir.y) * 180.0 / Math.PI;

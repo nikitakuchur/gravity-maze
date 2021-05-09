@@ -52,20 +52,6 @@ project(":desktop") {
     }
 }
 
-project(":editor") {
-    apply plugin: "java-library"
-
-
-    dependencies {
-        implementation project(":game")
-        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        implementation "com.weblookandfeel:weblaf-ui:1.2.13"
-
-    }
-}
-
 project(":android") {
     apply plugin: "com.android.application"
 
@@ -107,6 +93,31 @@ project(":game") {
 
     dependencies {
         api project(":core")
+
+    }
+}
+
+project(":editor-core") {
+    apply plugin: "java-library"
+
+
+    dependencies {
+        api project(":core")
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+
+    }
+}
+
+project(":editor") {
+    apply plugin: "java-library"
+
+
+    dependencies {
+        implementation project(":editor-core")
+        implementation project(":game")
+        implementation "com.weblookandfeel:weblaf-ui:1.2.13"
 
     }
 }

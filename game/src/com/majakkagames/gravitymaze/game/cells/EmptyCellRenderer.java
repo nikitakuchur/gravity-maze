@@ -11,8 +11,8 @@ public class EmptyCellRenderer extends CellRenderer {
 
     @Override
     public void draw() {
-        float x = getX() * getWidth() - getMap().getWidth() / 2;
-        float y = getY() * getHeight() - getMap().getHeight() / 2;
+        float x = getX() * getWidth() + getMap().getX();
+        float y = getY() * getHeight() + getMap().getY();
 
         if (isCornerRound(Corner.BOTTOM_LEFT)) {
             roundedInsideCorner(x, y, Corner.BOTTOM_LEFT);

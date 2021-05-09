@@ -11,8 +11,8 @@ public class FilledCellRenderer extends CellRenderer {
 
     @Override
     public void draw() {
-        float x = getX() * getWidth() - getMap().getWidth() / 2;
-        float y = getY() * getHeight() - getMap().getHeight() / 2;
+        float x = getX() * getWidth() + getMap().getX();
+        float y = getY() * getHeight() + getMap().getY();
 
         getShapeRenderer().rect(x + getRadius(), y + getRadius(), getWidth() - 2 * getRadius(), getHeight() - 2 * getRadius());
         getShapeRenderer().rect(x, y + getRadius(), getRadius(), getHeight() - 2 * getRadius());

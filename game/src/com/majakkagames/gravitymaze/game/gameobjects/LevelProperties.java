@@ -1,6 +1,7 @@
 package com.majakkagames.gravitymaze.game.gameobjects;
 
 import com.majakkagames.gravitymaze.core.game.GameObject;
+import com.majakkagames.gravitymaze.core.serialization.Parameters;
 import com.majakkagames.gravitymaze.core.serialization.annotations.Parameter;
 
 public class LevelProperties extends GameObject {
@@ -20,5 +21,10 @@ public class LevelProperties extends GameObject {
 
     public int getMaxMoves() {
         return maxMoves;
+    }
+
+    @Override
+    public Parameters getParameters() {
+        return new Parameters();
     }
 }

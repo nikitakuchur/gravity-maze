@@ -61,7 +61,7 @@ public class Barrier extends MazeObject implements Switchable, PhysicalObject {
         super.draw(batch, parentAlpha);
         Color color = opened ? getColor().cpy().mul(1, 1, 1, 0) : getColor().cpy().add(0, 0, 0, 1);
         batch.setColor(color);
-        Vector2 position = maze.getActualCoords(getX(), getY());
+        Vector2 position = maze.toScreenCoords(getX(), getY());
         batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),

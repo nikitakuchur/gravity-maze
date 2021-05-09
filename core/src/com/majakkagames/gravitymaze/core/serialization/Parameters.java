@@ -18,12 +18,13 @@ public class Parameters {
 
     @SuppressWarnings("unchecked")
     public <T> T getValue(String name) {
+        Parameter<?> parameter = propertyMap.get(name);
+        if (parameter == null) return null;
         return (T) propertyMap.get(name).value;
     }
 
-    @SuppressWarnings("unchecked")
     public <T> T getValueOrDefault(String name, T defaultValue) {
-        T value = (T) propertyMap.get(name).value;
+        T value = getValue(name);
         return value != null ? value : defaultValue;
     }
 

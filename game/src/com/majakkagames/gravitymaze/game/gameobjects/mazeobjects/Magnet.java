@@ -101,14 +101,9 @@ public class Magnet extends MazeObject {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         batch.setColor(getColor());
-        Vector2 position = maze.getActualCoords(getX(), getY());
+        Vector2 position = maze.toScreenCoords(getX(), getY());
         textureRegion.setRegion((int) frame * 512, 0, 512, 512);
         batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX() * 1.2f, getScaleY() * 1.2f, getRotation());
-    }
-
-    @Override
-    public int getLayer() {
-        return 1;
     }
 }

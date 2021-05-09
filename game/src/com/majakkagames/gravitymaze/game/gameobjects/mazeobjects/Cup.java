@@ -64,7 +64,7 @@ public class Cup extends MazeObject {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         batch.setColor(getColor());
-        Vector2 position = maze.getActualCoords(getX(), getY());
+        Vector2 position = maze.toScreenCoords(getX(), getY());
         batch.draw(textureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         effect.draw(batch);

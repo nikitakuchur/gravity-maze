@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.majakkagames.gravitymaze.core.game.GameMap;
-import com.majakkagames.gravitymaze.core.game.Level;
 import com.majakkagames.gravitymaze.game.cells.FilledCellRenderer;
 import com.majakkagames.gravitymaze.game.cells.CellRenderer;
 import com.majakkagames.gravitymaze.game.cells.CellType;

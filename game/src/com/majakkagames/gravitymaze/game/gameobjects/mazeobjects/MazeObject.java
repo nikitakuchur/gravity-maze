@@ -25,4 +25,9 @@ public abstract class MazeObject extends GameObject {
         setOrigin(getWidth() / 2, getHeight() / 2);
         super.draw(batch, parentAlpha);
     }
+
+    @Override
+    public int getLayer() {
+        return 2;
+    }
 }

@@ -43,7 +43,7 @@ public abstract class GameObject extends Group {
     }
 
     public void setParameters(Parameters parameters) {
-        setName(parameters.getValue("name"));
+        setName(parameters.getValueOrDefault("name", null));
         setX(parameters.<Integer>getValueOrDefault("x", 0));
         setY(parameters.<Integer>getValueOrDefault("y", 0));
         setColor(parameters.getValueOrDefault("color", Color.WHITE.cpy()));

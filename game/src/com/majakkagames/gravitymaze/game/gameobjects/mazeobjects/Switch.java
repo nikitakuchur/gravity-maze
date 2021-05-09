@@ -63,7 +63,7 @@ public class Switch extends MazeObject {
             switchTextureRegion.setRegion(512, 0, 512, 512);
             glowTextureRegion.setRegion(512, 0, 512, 512);
         }
-        Vector2 position = maze.getActualCoords(getX(), getY());
+        Vector2 position = maze.toScreenCoords(getX(), getY());
         batch.setColor(getColor());
         batch.draw(switchTextureRegion, position.x, position.y, getOriginX(), getOriginY(),
                 getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());

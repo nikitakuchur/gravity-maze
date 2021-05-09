@@ -67,6 +67,7 @@ public class LevelBuilder {
             newLevel = new Level(context);
             newLevel.getGameObjectStore().add(background);
             newLevel.getGameObjectStore().add(maze);
+            newLevel.getGameObjectStore().add(new LevelProperties());
         } else {
             String json = loader.toJson(level);
             newLevel = loader.fromJson(json);
@@ -78,10 +79,8 @@ public class LevelBuilder {
             newLevel.getGameObjectStore().add(mazeObject);
         }
         newLevel.getGameObjectStore().add(new Gravity());
-        newLevel.getGameObjectStore().add(new LevelProperties());
         newLevel.getGameObjectStore().add(new LevelController());
         newLevel.getGameObjectStore().add(new Physics(newLevel));
-        newLevel.initialize();
         return newLevel;
     }
 }

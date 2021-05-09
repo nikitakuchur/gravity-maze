@@ -88,6 +88,7 @@ public class LevelScreen extends GameScreen {
 
     private Level loadLevel() throws IOException {
         Level level = LevelBuilder.from(levelLoader.load(levelFile)).build();
+        level.initialize();
         LevelController controller = level.getGameObjectStore().getAnyGameObject(LevelController.class);
         controller.addEventHandler(EventType.PASSED, new LevelPassedHandler(getContext(), menuStack));
         controller.addEventHandler(EventType.FAILED, new LevelFailedHandler(getContext(), menuStack));

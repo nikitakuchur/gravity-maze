@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.majakkagames.gravitymaze.core.game.GameObject;
-import com.majakkagames.gravitymaze.core.serialization.annotations.Parameter;
 import com.majakkagames.gravitymaze.core.serialization.Parameters;
+import com.majakkagames.gravitymaze.core.serialization.annotations.Parameter;
 
 public class Background extends GameObject implements Disposable {
 

@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.IntMap;
-import com.majakkagames.gravitymaze.core.events.EventHandler;
 import com.majakkagames.gravitymaze.core.game.GameObjectStore.EventType;
 import com.majakkagames.gravitymaze.core.serialization.Parameters;
 

@@ -1,8 +1,8 @@
 package com.majakkagames.gravitymaze.core.game;
 
-import com.majakkagames.gravitymaze.core.events.Event;
 import com.majakkagames.gravitymaze.core.events.EventHandler;
 import com.majakkagames.gravitymaze.core.events.EventHandlerManager;
+import com.majakkagames.gravitymaze.core.events.GameObjectEvent;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -221,18 +221,5 @@ public class GameObjectStore {
 
     public enum EventType {
         ADDED, REMOVED
-    }
-
-    public static class GameObjectEvent implements Event {
-
-        private final GameObject gameObject;
-
-        public GameObjectEvent(GameObject gameObject) {
-            this.gameObject = gameObject;
-        }
-
-        public GameObject getGameObject() {
-            return gameObject;
-        }
     }
 }

@@ -5,15 +5,7 @@
       {
         "class": "com.majakkagames.gravitymaze.game.gameobjects.LevelProperties",
         "value": {
-          "maxMoves": 5,
-          "x": 0,
-          "y": 0,
-          "color": {
-            "r": 1.0,
-            "g": 1.0,
-            "b": 1.0,
-            "a": 1.0
-          }
+          "maxMoves": 5
         }
       },
       {
@@ -29,14 +21,6 @@
             "r": 0.02745098,
             "g": 0.65882355,
             "b": 0.7294118,
-            "a": 1.0
-          },
-          "x": 0,
-          "y": 0,
-          "color": {
-            "r": 0.3019608,
-            "g": 0.82941175,
-            "b": 0.74313724,
             "a": 1.0
           }
         }
@@ -137,7 +121,6 @@
       {
         "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Portal",
         "value": {
-          "to": "portal1",
           "name": "portal2",
           "x": 6,
           "y": 2,
@@ -146,13 +129,13 @@
             "g": 1.0,
             "b": 1.0,
             "a": 1.0
-          }
+          },
+          "to": "portal1"
         }
       },
       {
         "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Portal",
         "value": {
-          "to": "portal2",
           "name": "portal1",
           "x": 3,
           "y": 6,
@@ -161,13 +144,13 @@
             "g": 1.0,
             "b": 1.0,
             "a": 1.0
-          }
+          },
+          "to": "portal2"
         }
       },
       {
         "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Cup",
         "value": {
-          "ball": "blueBall",
           "x": 6,
           "y": 6,
           "color": {
@@ -175,13 +158,13 @@
             "g": 0.40392157,
             "b": 0.8,
             "a": 1.0
-          }
+          },
+          "ball": "blueBall"
         }
       },
       {
         "class": "com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Cup",
         "value": {
-          "ball": "redBall",
           "x": 0,
           "y": 5,
           "color": {
@@ -189,7 +172,8 @@
             "g": 0.23529412,
             "b": 0.20784314,
             "a": 1.0
-          }
+          },
+          "ball": "redBall"
         }
       },
       {
@@ -242,20 +226,6 @@
             "r": 0.7882353,
             "g": 0.23529412,
             "b": 0.20784314,
-            "a": 1.0
-          }
-        }
-      },
-      {
-        "class": "com.majakkagames.gravitymaze.game.gameobjects.LevelProperties",
-        "value": {
-          "maxMoves": 0,
-          "x": 0,
-          "y": 0,
-          "color": {
-            "r": 0.38761675,
-            "g": 0.8861304,
-            "b": 0.7011673,
             "a": 1.0
           }
         }
