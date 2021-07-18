@@ -22,6 +22,7 @@ public class MazeModifier implements Modifier {
         return new MazeEditorPanel(editor);
     }
 
+    @SuppressWarnings("java:S1948")
     public static class MazeEditorPanel extends JPanel {
 
         private final LevelEditor editor;
@@ -45,7 +46,7 @@ public class MazeModifier implements Modifier {
             button.addAncestorListener(new AncestorListener() {
                 @Override
                 public void ancestorAdded(AncestorEvent event) {
-
+                    // Do nothing
                 }
 
                 @Override
@@ -58,7 +59,7 @@ public class MazeModifier implements Modifier {
 
                 @Override
                 public void ancestorMoved(AncestorEvent event) {
-
+                    // Do nothing
                 }
             });
             add(button);

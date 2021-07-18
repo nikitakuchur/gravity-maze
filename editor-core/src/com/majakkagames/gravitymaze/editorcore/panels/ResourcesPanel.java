@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+@SuppressWarnings("java:S1948")
 public class ResourcesPanel extends JPanel {
 
     private final JList<GameObjectCreator> list;
 
-    private final transient List<Consumer<GameObjectCreator>> selectListener = new ArrayList<>();
+    private final List<Consumer<GameObjectCreator>> selectListener = new ArrayList<>();
 
     public ResourcesPanel(Configurator configurator) {
         list = new JList<>(configurator.getGameObjectCreators().toArray(new GameObjectCreator[0]));

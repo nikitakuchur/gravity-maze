@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
+@SuppressWarnings("java:S1948")
 public class LevelPanel extends JPanel {
 
     private LevelManager levelManager;

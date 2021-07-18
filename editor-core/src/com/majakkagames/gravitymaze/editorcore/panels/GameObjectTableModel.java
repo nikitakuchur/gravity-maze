@@ -10,12 +10,13 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("java:S1948")
 public class GameObjectTableModel extends AbstractTableModel {
 
     private final String[] columnsHeader = new String[]{"Name", "Value"};
 
-    private transient GameObject gameObject;
-    private transient Parameters parameters;
+    private GameObject gameObject;
+    private Parameters parameters;
 
     public void setGameObject(GameObject gameObject) {
         this.gameObject = gameObject;
