@@ -1,17 +1,16 @@
 package com.majakkagames.gravitymaze.game.physics;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.badlogic.gdx.math.Vector2;
-import com.majakkagames.gravitymaze.core.events.Event;
-import com.majakkagames.gravitymaze.core.events.EventHandler;
-import com.majakkagames.gravitymaze.core.events.EventHandlerManager;
-import com.majakkagames.gravitymaze.core.game.GameObject;
-import com.majakkagames.gravitymaze.core.game.GameObjectStore;
-import com.majakkagames.gravitymaze.core.game.Level;
-import com.majakkagames.gravitymaze.core.serialization.annotations.Transient;
+import com.majakkagames.mazecore.game.events.Event;
+import com.majakkagames.mazecore.game.events.EventHandler;
+import com.majakkagames.mazecore.game.events.EventHandlerManager;
+import com.majakkagames.mazecore.game.GameObject;
+import com.majakkagames.mazecore.game.GameObjectStore;
+import com.majakkagames.mazecore.game.Level;
+import com.majakkagames.mazecore.game.serialization.annotations.Transient;
 import com.majakkagames.gravitymaze.game.gameobjects.Maze;
 import com.majakkagames.gravitymaze.game.gameobjects.Gravity;
 import com.majakkagames.gravitymaze.game.cells.CellType;

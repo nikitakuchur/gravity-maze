@@ -1,7 +1,7 @@
 package com.majakkagames.gravitymaze.game.gameobjects;
 
-import com.majakkagames.gravitymaze.core.game.GameObject;
-import com.majakkagames.gravitymaze.core.serialization.annotations.Transient;
+import com.majakkagames.mazecore.game.GameObject;
+import com.majakkagames.mazecore.game.serialization.annotations.Transient;
 import com.majakkagames.gravitymaze.game.utils.Direction;
 
 @Transient

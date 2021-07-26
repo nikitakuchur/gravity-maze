@@ -4,9 +4,9 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
+import com.majakkagames.mazecore.game.Context;
+import com.majakkagames.mazecore.game.assets.AssetLoader;
 import com.majakkagames.gravitymaze.game.screens.MenuScreen;
-import com.majakkagames.gravitymaze.core.assets.AssetLoader;
-import com.majakkagames.gravitymaze.core.game.Context;
 
 /**
  * This is the main game class.

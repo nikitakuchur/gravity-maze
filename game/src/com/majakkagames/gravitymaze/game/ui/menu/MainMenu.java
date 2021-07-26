@@ -14,10 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.majakkagames.mazecore.game.Context;
+import com.majakkagames.mazecore.game.ui.Menu;
+import com.majakkagames.mazecore.game.ui.MenuStack;
 import com.majakkagames.gravitymaze.game.gameobjects.Background;
-import com.majakkagames.gravitymaze.core.ui.Menu;
-import com.majakkagames.gravitymaze.core.ui.MenuStack;
-import com.majakkagames.gravitymaze.core.game.Context;
 import com.majakkagames.gravitymaze.game.utils.GameActions;
 
 import java.util.Random;

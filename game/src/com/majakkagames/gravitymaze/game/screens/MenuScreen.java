@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.majakkagames.gravitymaze.core.ui.MenuStack;
+import com.majakkagames.mazecore.game.ui.MenuStack;
+import com.majakkagames.mazecore.game.Context;
+import com.majakkagames.mazecore.game.GameScreen;
 import com.majakkagames.gravitymaze.game.ui.menu.MainMenu;
-import com.majakkagames.gravitymaze.core.game.Context;
-import com.majakkagames.gravitymaze.core.game.GameScreen;
 
 public class MenuScreen extends GameScreen {
 

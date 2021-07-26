@@ -1,7 +1,7 @@
 package com.majakkagames.gravitymaze.game.physics;
 
 import com.badlogic.gdx.math.Vector2;
-import com.majakkagames.gravitymaze.core.game.GameObject;
+import com.majakkagames.mazecore.game.GameObject;
 
 public class PhysicalController<T extends GameObject & PhysicalObject> {
 

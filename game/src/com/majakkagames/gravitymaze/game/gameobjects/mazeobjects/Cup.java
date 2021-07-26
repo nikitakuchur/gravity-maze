@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.majakkagames.gravitymaze.core.game.GameObjectStore;
-import com.majakkagames.gravitymaze.core.game.Level;
+import com.majakkagames.mazecore.game.GameObjectStore;
+import com.majakkagames.mazecore.game.Level;
+import com.majakkagames.mazecore.game.serialization.annotations.Parameter;
 import com.majakkagames.gravitymaze.game.effects.Effect;
-import com.majakkagames.gravitymaze.core.serialization.annotations.Parameter;
 import com.majakkagames.gravitymaze.game.utils.GameActions;
 
 public class Cup extends MazeObject {

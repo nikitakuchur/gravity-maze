@@ -8,11 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.majakkagames.mazecore.game.ui.Menu;
+import com.majakkagames.mazecore.game.ui.MenuStack;
+import com.majakkagames.mazecore.game.Context;
 import com.majakkagames.gravitymaze.game.screens.LevelScreen;
-import com.majakkagames.gravitymaze.core.ui.Menu;
-import com.majakkagames.gravitymaze.core.ui.MenuStack;
 import com.majakkagames.gravitymaze.game.ui.utils.MenuUtils;
-import com.majakkagames.gravitymaze.core.game.Context;
 
 import java.util.ArrayList;
 import java.util.Arrays;

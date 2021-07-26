@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.majakkagames.gravitymaze.core.game.Level;
+import com.majakkagames.mazecore.game.Level;
+import com.majakkagames.mazecore.game.serialization.annotations.Parameter;
 import com.majakkagames.gravitymaze.game.physics.EmptyCollider;
 import com.majakkagames.gravitymaze.game.physics.FullCollider;
 import com.majakkagames.gravitymaze.game.physics.PhysicalController;
 import com.majakkagames.gravitymaze.game.physics.PhysicalObject;
-import com.majakkagames.gravitymaze.core.serialization.annotations.Parameter;
 
 public class Barrier extends MazeObject implements Switchable, PhysicalObject {
 

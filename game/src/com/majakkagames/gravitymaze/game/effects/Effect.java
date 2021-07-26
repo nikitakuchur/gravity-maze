@@ -11,8 +11,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
-import com.majakkagames.gravitymaze.core.game.GameObjectStore;
-import com.majakkagames.gravitymaze.core.game.Level;
+import com.majakkagames.mazecore.game.GameObjectStore;
+import com.majakkagames.mazecore.game.Level;
 import com.majakkagames.gravitymaze.game.gameobjects.Maze;
 import com.majakkagames.gravitymaze.game.gameobjects.Gravity;
 

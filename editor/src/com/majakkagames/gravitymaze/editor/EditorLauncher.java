@@ -2,11 +2,11 @@ package com.majakkagames.gravitymaze.editor;
 
 import com.alee.laf.WebLookAndFeel;
 import com.badlogic.gdx.Gdx;
-import com.majakkagames.gravitymaze.core.game.GameMap;
-import com.majakkagames.gravitymaze.core.game.GameObject;
-import com.majakkagames.gravitymaze.core.game.Level;
-import com.majakkagames.gravitymaze.editorcore.Editor;
-import com.majakkagames.gravitymaze.editorcore.config.Configurator;
+import com.majakkagames.mazecore.game.GameMap;
+import com.majakkagames.mazecore.game.GameObject;
+import com.majakkagames.mazecore.game.Level;
+import com.majakkagames.mazecore.editor.Editor;
+import com.majakkagames.mazecore.editor.config.Configurator;
 import com.majakkagames.gravitymaze.game.gameobjects.*;
 import com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.*;
 import com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Box;

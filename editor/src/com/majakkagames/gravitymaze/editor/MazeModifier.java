@@ -3,10 +3,10 @@ package com.majakkagames.gravitymaze.editor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.majakkagames.gravitymaze.core.game.GameObjectStore;
-import com.majakkagames.gravitymaze.editorcore.LevelEditor;
-import com.majakkagames.gravitymaze.editorcore.LevelManager;
-import com.majakkagames.gravitymaze.editorcore.config.Modifier;
+import com.majakkagames.mazecore.game.GameObjectStore;
+import com.majakkagames.mazecore.editor.LevelEditor;
+import com.majakkagames.mazecore.editor.LevelManager;
+import com.majakkagames.mazecore.editor.config.Modifier;
 import com.majakkagames.gravitymaze.game.cells.CellType;
 import com.majakkagames.gravitymaze.game.gameobjects.Maze;
 

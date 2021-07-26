@@ -10,14 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import com.majakkagames.gravitymaze.core.game.Level;
+import com.majakkagames.mazecore.game.Level;
+import com.majakkagames.mazecore.game.Context;
+import com.majakkagames.mazecore.game.ui.Menu;
+import com.majakkagames.mazecore.game.ui.MenuStack;
 import com.majakkagames.gravitymaze.game.GravityMaze;
 import com.majakkagames.gravitymaze.game.gameobjects.LevelProperties;
 import com.majakkagames.gravitymaze.game.screens.LevelScreen;
-import com.majakkagames.gravitymaze.core.ui.MenuStack;
-import com.majakkagames.gravitymaze.core.ui.Menu;
 import com.majakkagames.gravitymaze.game.ui.utils.MenuUtils;
-import com.majakkagames.gravitymaze.core.game.Context;
 
 public class LevelUI extends Menu {
 

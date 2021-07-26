@@ -1,9 +1,9 @@
 package com.majakkagames.gravitymaze.game.utils;
 
 import com.badlogic.gdx.Gdx;
-import com.majakkagames.gravitymaze.core.game.Context;
-import com.majakkagames.gravitymaze.core.game.Level;
-import com.majakkagames.gravitymaze.core.serialization.LevelLoader;
+import com.majakkagames.mazecore.game.Context;
+import com.majakkagames.mazecore.game.Level;
+import com.majakkagames.mazecore.game.serialization.LevelLoader;
 import com.majakkagames.gravitymaze.game.gameobjects.*;
 import com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.MazeObject;
 import com.majakkagames.gravitymaze.game.physics.Physics;

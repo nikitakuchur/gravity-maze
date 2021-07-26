@@ -1,8 +1,8 @@
 package com.majakkagames.gravitymaze.game.screens;
 
-import com.majakkagames.gravitymaze.core.events.EventHandler;
-import com.majakkagames.gravitymaze.core.game.Context;
-import com.majakkagames.gravitymaze.core.ui.MenuStack;
+import com.majakkagames.mazecore.game.Context;
+import com.majakkagames.mazecore.game.ui.MenuStack;
+import com.majakkagames.mazecore.game.events.EventHandler;
 import com.majakkagames.gravitymaze.game.gameobjects.LevelController;
 import com.majakkagames.gravitymaze.game.ui.level.LevelResult;
 

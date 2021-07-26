@@ -1,5 +1,5 @@
 {
-  "class": "com.majakkagames.gravitymaze.core.game.Level",
+  "class": "com.majakkagames.mazecore.game.Level",
   "value": {
     "gameObjects": [
         {

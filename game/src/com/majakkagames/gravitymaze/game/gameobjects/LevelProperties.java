@@ -1,8 +1,8 @@
 package com.majakkagames.gravitymaze.game.gameobjects;
 
-import com.majakkagames.gravitymaze.core.game.GameObject;
-import com.majakkagames.gravitymaze.core.serialization.Parameters;
-import com.majakkagames.gravitymaze.core.serialization.annotations.Parameter;
+import com.majakkagames.mazecore.game.GameObject;
+import com.majakkagames.mazecore.game.serialization.Parameters;
+import com.majakkagames.mazecore.game.serialization.annotations.Parameter;
 
 public class LevelProperties extends GameObject {
 

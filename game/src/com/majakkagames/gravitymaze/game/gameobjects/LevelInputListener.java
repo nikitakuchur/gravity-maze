@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.majakkagames.gravitymaze.core.game.Level;
+import com.majakkagames.mazecore.game.Level;
 import com.majakkagames.gravitymaze.game.physics.PhysicalObject;
 
 import java.util.List;

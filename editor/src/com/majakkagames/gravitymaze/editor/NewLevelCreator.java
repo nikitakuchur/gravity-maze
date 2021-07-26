@@ -1,10 +1,10 @@
 package com.majakkagames.gravitymaze.editor;
 
 import com.badlogic.gdx.Gdx;
-import com.majakkagames.gravitymaze.core.game.Context;
-import com.majakkagames.gravitymaze.core.game.Level;
-import com.majakkagames.gravitymaze.editorcore.config.LevelCreator;
-import com.majakkagames.gravitymaze.editorcore.utils.ParametersUtils;
+import com.majakkagames.mazecore.game.Context;
+import com.majakkagames.mazecore.game.Level;
+import com.majakkagames.mazecore.editor.config.LevelCreator;
+import com.majakkagames.mazecore.editor.utils.ParametersUtils;
 import com.majakkagames.gravitymaze.game.gameobjects.Maze;
 
 import javax.swing.*;

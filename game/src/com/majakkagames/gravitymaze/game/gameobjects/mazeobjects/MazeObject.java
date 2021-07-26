@@ -2,8 +2,8 @@ package com.majakkagames.gravitymaze.game.gameobjects.mazeobjects;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.majakkagames.gravitymaze.core.game.GameObject;
-import com.majakkagames.gravitymaze.core.game.Level;
+import com.majakkagames.mazecore.game.GameObject;
+import com.majakkagames.mazecore.game.Level;
 import com.majakkagames.gravitymaze.game.gameobjects.Maze;
 
 public abstract class MazeObject extends GameObject {

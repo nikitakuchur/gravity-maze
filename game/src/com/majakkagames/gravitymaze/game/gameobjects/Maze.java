@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
-import com.majakkagames.gravitymaze.core.game.GameMap;
+import com.majakkagames.mazecore.game.GameMap;
+import com.majakkagames.mazecore.game.serialization.Parameters;
 import com.majakkagames.gravitymaze.game.cells.FilledCellRenderer;
 import com.majakkagames.gravitymaze.game.cells.CellRenderer;
 import com.majakkagames.gravitymaze.game.cells.CellType;
 import com.majakkagames.gravitymaze.game.cells.EmptyCellRenderer;
-import com.majakkagames.gravitymaze.core.serialization.Parameters;
 
 import java.util.Arrays;
 

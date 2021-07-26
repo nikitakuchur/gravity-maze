@@ -1,13 +1,13 @@
 package com.majakkagames.gravitymaze.game.gameobjects;
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.majakkagames.gravitymaze.core.events.Event;
-import com.majakkagames.gravitymaze.core.events.EventHandler;
-import com.majakkagames.gravitymaze.core.events.EventHandlerManager;
-import com.majakkagames.gravitymaze.core.game.GameObject;
-import com.majakkagames.gravitymaze.core.game.GameObjectStore;
-import com.majakkagames.gravitymaze.core.game.Level;
-import com.majakkagames.gravitymaze.core.serialization.annotations.Transient;
+import com.majakkagames.mazecore.game.events.Event;
+import com.majakkagames.mazecore.game.events.EventHandler;
+import com.majakkagames.mazecore.game.events.EventHandlerManager;
+import com.majakkagames.mazecore.game.GameObject;
+import com.majakkagames.mazecore.game.GameObjectStore;
+import com.majakkagames.mazecore.game.Level;
+import com.majakkagames.mazecore.game.serialization.annotations.Transient;
 import com.majakkagames.gravitymaze.game.gameobjects.mazeobjects.Ball;
 import com.majakkagames.gravitymaze.game.physics.PhysicalController;
 import com.majakkagames.gravitymaze.game.physics.Physics;

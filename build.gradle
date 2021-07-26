@@ -1,17 +1,16 @@
 buildscript {
-    
+
 
     repositories {
         mavenLocal()
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        jcenter()
         google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.3'
-        
+
 
     }
 }
@@ -23,19 +22,16 @@ allprojects {
     ext {
         appName = "Gravity Maze"
         gdxVersion = '1.9.13'
-        roboVMVersion = '2.3.12'
-        box2DLightsVersion = '1.5'
-        ashleyVersion = '1.7.3'
-        aiVersion = '1.8.2'
     }
 
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
-        google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url = uri("https://maven.pkg.github.com/majakka/maze-core") }
+        google()
+
     }
 }
 
@@ -48,7 +44,7 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        
+
     }
 }
 
@@ -71,18 +67,6 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
-        
-    }
-}
-
-project(":core") {
-    apply plugin: "java-library"
-
-
-    dependencies {
-        api "com.badlogicgames.gdx:gdx:$gdxVersion"
-        api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-        api "com.google.code.gson:gson:2.8.6"
 
     }
 }
@@ -92,20 +76,7 @@ project(":game") {
 
 
     dependencies {
-        api project(":core")
-
-    }
-}
-
-project(":editor-core") {
-    apply plugin: "java-library"
-
-
-    dependencies {
-        api project(":core")
-        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+        implementation "com.majakkagames.mazecore:game-core:0.1"
 
     }
 }
@@ -115,7 +86,7 @@ project(":editor") {
 
 
     dependencies {
-        implementation project(":editor-core")
+        implementation "com.majakkagames.mazecore:editor-core:0.1"
         implementation project(":game")
         implementation "com.weblookandfeel:weblaf-ui:1.2.13"
 
